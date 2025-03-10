@@ -1,23 +1,40 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
+  --background: var(--color-green-vehka);
   --foreground: #171717;
 }
 
 @theme inline {
+  --color-green-vehka: #a9e4a4;
+  --color-green-light: #e6f5f0;
+  --color-green-dark: #078571;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
+@layer base {
+  h2 {
+    @apply text-2xl;
+  }
+
+  h3 {
+    /* @apply text-xl; */
+  }
+}
+
+.btn-primary {
+  @apply w-fit rounded text-white bg-green-dark px-5 py-2 font-black disabled:bg-green-light;
+}
+
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-}
+} */
 
 body {
   background: var(--background);
