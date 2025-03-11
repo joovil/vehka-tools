@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -10,6 +11,28 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const circular = localFont({
+  src: [
+    {
+      path: "../fonts/CircularStd-Black.woff",
+      style: "black",
+    },
+    {
+      path: "../fonts/CircularStd-Bold.woff",
+      style: "bold",
+    },
+    {
+      path: "../fonts/CircularStd-Medium.woff",
+      style: "medium",
+    },
+    {
+      path: "../fonts/CircularStd-Book.woff",
+      style: "normal",
+    },
+  ],
+  variable: "--font-circular",
 });
 
 export const metadata: Metadata = {
@@ -25,7 +48,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${circular.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <div className="page-container">
           <div className="page-content">{children}</div>
