@@ -27,28 +27,26 @@
   }
 }
 
-.btn-primary {
-  @apply w-fit rounded text-white bg-green-dark px-5 py-2 font-black disabled:bg-green-light;
+@utility btn-primary {
+  @apply w-fit rounded text-white bg-green-dark px-4 py-1 font-black disabled:bg-green-light;
 }
 
-/* @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+.home-page {
+  @apply flex flex-col gap-4;
+
+  > div {
+    @apply flex flex-col gap-2;
   }
-} */
+
+  /* a {
+    @apply btn-primary;
+  } */
+}
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-circular), Arial, Helvetica, sans-serif;
-}
-
-.home-page {
-  @apply flex flex-col gap-4;
-  div {
-    @apply border-2 rounded-md border-gray-400;
-  }
 }
 
 .page-container {
