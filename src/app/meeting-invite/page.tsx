@@ -3,22 +3,27 @@
 import { useRef, useState } from "react";
 import MeetingForm from "./MeetingForm";
 
-const MeetingInvite = () => {
-  const [agendaFin, setAgendaFin] = useState<string[]>([
-    "Hei maailma",
-    "Viu Vau",
-    "Pum pam",
-    "Vamos vamos",
-  ]);
-  const [agendaEng, setAgendaEng] = useState<string[]>([
-    "Hello world",
-    "Foo Bar",
-    "Bada Bing",
-    "Zoom zoom",
-  ]);
+export interface AgendaItem {
+  fin: string;
+  eng: string;
+}
 
-  const [agendaItemFin, setAgendaItemFin] = useState<string>("");
-  const [agendaItemEng, setAgendaItemEng] = useState<string>("");
+const MeetingInvite = () => {
+  const [agenda, setAgenda] = useState<AgendaItem[]>([
+    { fin: "Uusi asia", eng: "New item" },
+  ]);
+  const [newItem, setNewItem] = useState<AgendaItem>({ fin: "", eng: "" });
+
+  const handleAddItem = () => {
+    setAgenda([...agenda, newItem]);
+    setNewItem({ fin: "", eng: "" });
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.name);
+    const { name, value } = e.target;
+    setNewItem({ ...newItem, [name]: value });
+  };
 
   const ref = useRef(null);
 
@@ -27,69 +32,42 @@ const MeetingInvite = () => {
     if (!elem) return;
   };
 
-  const addAgendaItem = () => {
-    console.log(agendaItemEng, agendaItemFin);
-    if (!agendaItemFin || !agendaItemEng) return;
-
-    if (agendaFin.includes(agendaItemFin) || agendaEng.includes(agendaItemEng))
-      return;
-
-    setAgendaFin((a) => [...a, agendaItemFin]);
-    setAgendaEng((a) => [...a, agendaItemEng]);
-
-    setAgendaItemFin("");
-    setAgendaItemEng("");
-  };
-
   return (
     <main>
-      <h1>Kokouskutsu</h1>
-      <form>
-        {/* <label className="block">Aika</label>
-        <input
-          name="time"
-          type="datetime-local"
-          className="pb-2"
-        /> */}
-
-        {/* <div className="flex flex-col">
-          <label>Esityslista</label>
+      <h1 className="mb-2">Kokouskutsu</h1>
+      <form className="flex flex-col gap-sm">
+        <h2>Käsiteltävät asiat</h2>
+        <div className="grid grid-cols-2 gap-md">
           <input
-            onChange={(e) => setAgendaItem(e.currentTarget.value)}
-            value={agendaItem}
             type="text"
-            className="bg-amber-200"
-          />
-          <button onClick={addAgendaItem}>Lisää</button>
-        </div> */}
-
-        <button
-          onClick={addAgendaItem}
-          type="button"
-        >
-          Add item
-        </button>
-        <div
-          ref={ref}
-          className="grid grid-cols-2 gap-md"
-        >
-          {/* Fin */}
-          <MeetingForm
-            agenda={agendaFin}
-            setAgenda={setAgendaFin}
-            agendaItem={agendaItemFin}
-            setAgendaItem={setAgendaItemFin}
+            name="fin"
+            value={newItem.fin}
+            onChange={handleInputChange}
+            className="bg-green-light"
           />
 
-          {/* Eng */}
-          <MeetingForm
-            agenda={agendaEng}
-            setAgenda={setAgendaEng}
-            agendaItem={agendaItemEng}
-            setAgendaItem={setAgendaItemEng}
+          <input
+            type="text"
+            name="eng"
+            value={newItem.eng}
+            onChange={handleInputChange}
+            className="bg-green-light"
           />
         </div>
-        <button className="btn-primary mt-2">Finish</button>
+        <button
+          type="button"
+          onClick={handleAddItem}
+          className="btn-primary"
+        >
+          Lisää käsiteltävä asia
+        </button>
+
+        <MeetingForm
+          agenda={agenda}
+          setAgenda={setAgenda}
+        />
+
+        <button className="btn-primary">Luo kutsu</button>
       </form>
 
       {/* Previev */}
