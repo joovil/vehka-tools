@@ -18,8 +18,12 @@
 }
 
 @layer base {
+  h1 {
+    @apply text-3xl;
+  }
+
   h2 {
-    @apply text-3xl font-semibold;
+    @apply text-2xl;
   }
 
   h3 {
@@ -62,11 +66,11 @@ body {
 }
 
 .page-container {
-  @apply bg-white w-4/6 mx-auto min-h-screen pt-10;
+  @apply bg-white w-4/6 mx-auto h-screen pt-10;
 }
 
 .page-content {
-  @apply w-9/10 mx-auto;
+  @apply w-9/10 mx-auto h-full;
 }
 
 @utility meeting-form-input {
@@ -86,4 +90,45 @@ body {
   input {
     @apply meeting-form-input;
   }
+}
+
+/* D&D list */
+
+.list {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  text-align: center;
+
+  border: 1px black solid;
+
+  width: min-content;
+  margin: auto;
+}
+
+.list-item {
+  padding: 0.3rem;
+  white-space: nowrap;
+  cursor: pointer;
+  height: 1.5rem;
+  background-color: white;
+}
+
+.floating {
+  position: absolute;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+.list-item.drop-zone {
+  background-color: #ccc;
+  transition-property: height padding;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  overflow: hidden;
+}
+
+.list-item.drop-zone.hidden {
+  height: 0px;
+  padding: 0px;
 }
