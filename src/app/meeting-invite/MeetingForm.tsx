@@ -1,36 +1,46 @@
+"use client";
+
+import { Reorder } from "motion/react";
+
 const MeetingForm = ({
-  lang,
-  place,
   agenda,
-  info,
+  agendaItem,
+  setAgenda,
+  setAgendaItem,
 }: {
-  lang: string;
-  place: string;
-  agenda: string;
-  info: string;
+  agenda: string[];
+  agendaItem: string;
+  setAgenda: React.Dispatch<React.SetStateAction<string[]>>;
+  setAgendaItem: React.Dispatch<React.SetStateAction<string>>;
 }) => {
+  const deleteItem = (item: string) => {
+    setAgenda((agenda) => agenda.filter((i) => i !== item));
+  };
+
   return (
-    <div className="meeting-form-wrapper bg-red-300">
-      <div>
-        <label>{place}</label>
-        <input
-          name={"place" + lang}
-          type="text"
-        />
-      </div>
-
-      <div>
-        <label>{agenda}</label>
-        <input
-          name={"agenda" + lang}
-          type="text"
-        />
-      </div>
-
-      <div>
-        <label>{info}</label>
-        <textarea name={"info" + lang} />
-      </div>
+    <div className="flex flex-col">
+      <input
+        type="text"
+        className="bg-green-light"
+        value={agendaItem}
+        onChange={(e) => setAgendaItem(e.currentTarget.value)}
+      />
+      <Reorder.Group
+        values={agenda}
+        onReorder={setAgenda}
+      >
+        {agenda.map((item) => (
+          <Reorder.Item
+            key={item}
+            value={item}
+          >
+            <div className="flex gap-4">
+              <button onClick={() => deleteItem(item)}>X</button>
+              <span>{item}</span>
+            </div>
+          </Reorder.Item>
+        ))}
+      </Reorder.Group>
     </div>
   );
 };
