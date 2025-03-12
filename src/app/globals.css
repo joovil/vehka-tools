@@ -7,9 +7,9 @@
 }
 
 @theme inline {
-  --color-green-vehka: #a9e4a4;
-  --color-green-light: #e6f5f0;
-  --color-green-dark: #078571;
+  --color-green-vehka: rgba(169, 228, 164);
+  --color-green-light: rgba(230, 245, 240);
+  --color-green-dark: rgba(7, 133, 113);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-circular: var(--font-circular);
@@ -25,6 +25,18 @@
   h3 {
     /* @apply text-xl; */
   }
+}
+
+@utility gap-sm {
+  @apply gap-2;
+}
+
+@utility gap-md {
+  @apply gap-4;
+}
+
+@utility gap-lg {
+  @apply gap-6;
 }
 
 @utility btn-primary {
@@ -55,4 +67,23 @@ body {
 
 .page-content {
   @apply w-9/10 mx-auto;
+}
+
+@utility meeting-form-input {
+  @apply border-b-1 bg-green-light;
+}
+
+.meeting-form-wrapper {
+  @apply gap-sm;
+  > div {
+    @apply flex flex-col;
+  }
+
+  label {
+    @apply font-bold;
+  }
+
+  input {
+    @apply meeting-form-input;
+  }
 }
