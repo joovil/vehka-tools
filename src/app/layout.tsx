@@ -18,18 +18,22 @@ const circular = localFont({
     {
       path: "../fonts/CircularStd-Black.woff",
       style: "black",
+      weight: "900",
     },
     {
       path: "../fonts/CircularStd-Bold.woff",
       style: "bold",
+      weight: "700",
     },
     {
       path: "../fonts/CircularStd-Medium.woff",
       style: "medium",
+      weight: "500",
     },
     {
       path: "../fonts/CircularStd-Book.woff",
       style: "normal",
+      weight: "400",
     },
   ],
   variable: "--font-circular",

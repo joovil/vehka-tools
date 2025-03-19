@@ -1,6 +1,7 @@
 "use client";
 
-import { RefObject, useRef } from "react";
+import Image from "next/image";
+import { RefObject } from "react";
 import { AgendaItem } from "./page";
 
 const Invite = ({
@@ -10,8 +11,6 @@ const Invite = ({
   ref?: RefObject<null>;
   agenda: AgendaItem[];
 }) => {
-  const indexRef = useRef<number>(0);
-
   const endItems: AgendaItem[] = [
     { fin: "Seuraavan kokouksen ajankohta", eng: "The next meeting" },
     { fin: "Kokouksen päättäminen", eng: "Closing the meeting" },
@@ -20,66 +19,109 @@ const Invite = ({
   return (
     <div
       ref={ref}
-      className="pb-2 text-center mx-5"
+      className=" bg-white relative "
     >
-      <h1> Asukastoimikunnan kokous</h1>
-      <h1>Tenant committee meeting</h1>
-
-      <div>
-        <h2>Aika / Time: 10:00</h2>
-        <h2>Paikka / Place: Kerhohuone</h2>
+      <div className="relative w-full h-[580px] bg-[red]">
+        <Image
+          alt="Image with the word kutsu"
+          src="/kutsu.png"
+          className="absolute bottom-[-90px] left-[100px]"
+          width={440}
+          height={182}
+        />
       </div>
 
-      <div className="ml-auto text-xl">
-        {agenda.map((item, index) => {
-          indexRef.current = index;
-          return (
-            <ListItem
-              key={index}
-              index={index}
-              fin={item.fin}
-              eng={item.eng}
-            />
-          );
-        })}
-        {endItems.map((item, index) => (
-          <ListItem
-            key={item.eng}
-            index={indexRef.current + index + 1}
-            fin={item.fin}
-            eng={item.eng}
-          />
-        ))}
-      </div>
+      <div className="bg-[lightgreen] w-full h-[150px]" />
+      <div className="bg-[lightblue]  px-[20px]">
+        <div className="text-center font-black">
+          {/* Asukastoimikunnan kokous / Committee meeting */}
+          <div className="text-4xl flex flex-col mb-10">
+            <span>Asukastoimikunnan kokous</span>
+            <span>Tenant committee meeting</span>
+          </div>
 
-      <div className="grid grid-cols-2">
-        <h2>Lisätietoja</h2>
-        <h2>Further information</h2>
+          {/* Aika / Time | Paikka / Place */}
+          <div className="flex flex-col text-3xl font-bold mb-10">
+            <div>
+              <span>Aika / Time: </span>
+              <span>{"10:00"}</span>
+            </div>
+            <div>
+              <span>Paikka / Place: </span>
+              <span>{"Kerhohuone"}</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-5">
+          {/* Esityslista / Agenda */}
+          <div>
+            <div className="invite-cols text-3xl font-bold">
+              <span>Esityslista</span>
+              <span>Agenda</span>
+            </div>
+            <div>
+              <ItemList items={agenda} />
+              <ItemList
+                items={endItems}
+                indexAddition={agenda.length}
+              />
+            </div>
+          </div>
+
+          {/* Lisätietoja / Further information */}
+          <div className="invite-info">
+            <div>
+              <span>Lisätietoja</span>
+              <span>Kokouksen lisätiedot</span>
+            </div>
+            <div>
+              <span>Further information</span>
+              <span>More information about the meeting</span>
+            </div>
+          </div>
+
+          {/* Tervetuloa / Welcome */}
+          <div className="invite-greetings">
+            <div>
+              <span>Tervetuloa</span>
+              <span>- Asukastoimikuntasi</span>
+            </div>
+            <div>
+              <span>Welcome</span>
+              <span>- Your tenant committee</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
 };
 
-const ListItem = ({
-  index,
-  fin,
-  eng,
+const ItemList = ({
+  items,
+  indexAddition,
 }: {
-  index: number;
-  fin: string;
-  eng: string;
+  items: AgendaItem[];
+  indexAddition?: number;
 }) => {
   return (
-    <div
-      key={index}
-      className="flex text-left"
-    >
-      <span className="w-fit mx-2">{index + 1}</span>
-      <div className="grid grid-cols-2 w-full">
-        <span>{fin}</span>
-        <span>{eng}</span>
-      </div>
-    </div>
+    <>
+      {items.map((item, i) => {
+        return (
+          <div
+            key={i}
+            className="flex text-2xl"
+          >
+            <div className="w-fit mx-2">{i + 1 + (indexAddition || 0)}.</div>
+            <div className="grid grid-cols-2 w-full">
+              <span>{item.fin}</span>
+              <span>{item.eng}</span>
+            </div>
+          </div>
+        );
+      })}
+    </>
   );
 };
 

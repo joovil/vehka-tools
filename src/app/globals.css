@@ -132,3 +132,34 @@ body {
   height: 0px;
   padding: 0px;
 }
+
+/* Invite style */
+@utility invite-cols {
+  @apply grid grid-cols-2;
+}
+
+.invite-info {
+  @apply invite-cols;
+  div {
+    @apply flex flex-col;
+  }
+  span:first-child {
+    @apply text-3xl font-bold;
+  }
+  span {
+    @apply text-2xl;
+  }
+}
+
+.invite-greetings {
+  @apply invite-cols;
+  div {
+    @apply flex flex-col;
+  }
+  span:first-child {
+    @apply text-3xl font-bold;
+  }
+  span {
+    @apply text-2xl;
+  }
+}

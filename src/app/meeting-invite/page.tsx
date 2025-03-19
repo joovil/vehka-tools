@@ -67,7 +67,7 @@ const MeetingInvite = () => {
 
   return (
     <main className="overflow-x-hidden">
-      <h1 className="mb-2 ">Kokouskutsu</h1>
+      <h1>Kokouskutsu</h1>
       <form className="flex flex-col gap-sm">
         <h2>Käsiteltävät asiat</h2>
         <div className="grid grid-cols-2 gap-md">
