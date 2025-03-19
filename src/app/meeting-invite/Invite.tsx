@@ -19,7 +19,7 @@ const Invite = ({
   return (
     <div
       ref={ref}
-      className=" bg-white relative "
+      className=" bg-white relative"
     >
       <div className="relative w-full h-[580px] bg-[red]">
         <Image
@@ -32,7 +32,7 @@ const Invite = ({
       </div>
 
       <div className="bg-[lightgreen] w-full h-[150px]" />
-      <div className="bg-[lightblue]  px-[20px]">
+      <div className="bg-[lightblue] px-[70px]">
         <div className="text-center font-black">
           {/* Asukastoimikunnan kokous / Committee meeting */}
           <div className="text-4xl flex flex-col mb-10">
@@ -60,7 +60,7 @@ const Invite = ({
               <span>Esityslista</span>
               <span>Agenda</span>
             </div>
-            <div>
+            <div className="mt-2">
               <ItemList items={agenda} />
               <ItemList
                 items={endItems}
@@ -82,7 +82,7 @@ const Invite = ({
           </div>
 
           {/* Tervetuloa / Welcome */}
-          <div className="invite-greetings">
+          <div className="invite-greetings mb-5">
             <div>
               <span>Tervetuloa</span>
               <span>- Asukastoimikuntasi</span>
@@ -111,10 +111,12 @@ const ItemList = ({
         return (
           <div
             key={i}
-            className="flex text-2xl"
+            className="flex text-2xl relative"
           >
-            <div className="w-fit mx-2">{i + 1 + (indexAddition || 0)}.</div>
-            <div className="grid grid-cols-2 w-full">
+            <div className="absolute w-fit -left-6">
+              {i + 1 + (indexAddition || 0)}.
+            </div>
+            <div className="grid grid-cols-2 w-full mb-2">
               <span>{item.fin}</span>
               <span>{item.eng}</span>
             </div>

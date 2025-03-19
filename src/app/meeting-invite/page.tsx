@@ -48,7 +48,7 @@ const MeetingInvite = () => {
     if (!elem) return;
 
     const canvas = await html2canvas(elem);
-    const data = canvas.toDataURL();
+    const data = canvas.toDataURL("image/jpeg", 0.7);
 
     const pdf = new jsPDF({
       orientation: "portrait",
