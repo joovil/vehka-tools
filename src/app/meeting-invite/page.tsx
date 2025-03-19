@@ -1,6 +1,10 @@
 "use client";
 
 import { useRef, useState } from "react";
+
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
+import Invite from "./Invite";
 import MeetingForm from "./MeetingForm";
 
 export interface AgendaItem {
@@ -10,8 +14,20 @@ export interface AgendaItem {
 
 const MeetingInvite = () => {
   const [agenda, setAgenda] = useState<AgendaItem[]>([
-    { fin: "Uusi asia", eng: "New item" },
+    {
+      fin: "Kokouksen avaus, laillisuus ja päätösvaltaisuus",
+      eng: "Opening the meeting and declaring the meeting quorate",
+    },
+    {
+      fin: "Kahden pöytäkirjantarkastajan valinta",
+      eng: "Electing two examiners of the minutes",
+    },
+    {
+      fin: "Esityslistan hyväksyminen",
+      eng: "Adopting the agenda",
+    },
   ]);
+
   const [newItem, setNewItem] = useState<AgendaItem>({ fin: "", eng: "" });
 
   const handleAddItem = () => {
@@ -30,11 +46,28 @@ const MeetingInvite = () => {
   const handleDownloadImage = async () => {
     const elem = ref.current;
     if (!elem) return;
+
+    const canvas = await html2canvas(elem);
+    const data = canvas.toDataURL();
+
+    const pdf = new jsPDF({
+      orientation: "portrait",
+      unit: "px",
+      format: "a4",
+    });
+
+    const imgProperties = pdf.getImageProperties(data);
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+
+    const pdfHeight = (imgProperties.height * pdfWidth) / imgProperties.width;
+
+    pdf.addImage(data, "png", 0, 0, pdfWidth, pdfHeight);
+    pdf.save();
   };
 
   return (
-    <main>
-      <h1 className="mb-2">Kokouskutsu</h1>
+    <main className="overflow-x-hidden">
+      <h1 className="mb-2 ">Kokouskutsu</h1>
       <form className="flex flex-col gap-sm">
         <h2>Käsiteltävät asiat</h2>
         <div className="grid grid-cols-2 gap-md">
@@ -74,11 +107,17 @@ const MeetingInvite = () => {
       <h2>Esikatselu</h2>
       <button onClick={handleDownloadImage}>Test pdf</button>
 
+      {/* Preview */}
+      <Invite agenda={agenda} />
       {/* PDF */}
-      {/* <Invite
+      <div
         ref={ref}
-        formData={formData}
-      /> */}
+        className="w-[1240px] h-[1754px] relative transform translate-x-[100vw] "
+      >
+        <Invite agenda={agenda} />
+      </div>
+
+      {/* <Document file={doc} /> */}
     </main>
   );
 };
