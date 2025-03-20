@@ -2,8 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-import dynamic from "next/dynamic"; // Import dynamic for client-side rendering
-// import { PDFViewer } from "@react-pdf/renderer";
+import dynamic from "next/dynamic";
 import InvitePdf from "./InvitePdf";
 import MeetingForm from "./MeetingForm";
 
@@ -13,10 +12,16 @@ export interface AgendaItem {
 }
 const PDFViewer = dynamic(
   () => import("@react-pdf/renderer").then((mod) => mod.PDFViewer),
-  { ssr: false }
+  {
+    ssr: false,
+    loading: () => <p>Loading...</p>,
+  }
 );
-
 const MeetingInvite = () => {
+  const mainRef = useRef<HTMLElement | null>(null);
+
+  const [newItem, setNewItem] = useState<AgendaItem>({ fin: "", eng: "" });
+  const [mainWidth, setMainWidth] = useState<number>(0);
   const [agenda, setAgenda] = useState<AgendaItem[]>([
     {
       fin: "Kokouksen avaus, laillisuus ja päätösvaltaisuus",
@@ -32,8 +37,6 @@ const MeetingInvite = () => {
     },
   ]);
 
-  const [newItem, setNewItem] = useState<AgendaItem>({ fin: "", eng: "" });
-
   const handleAddItem = () => {
     setAgenda([...agenda, newItem]);
     setNewItem({ fin: "", eng: "" });
@@ -43,9 +46,6 @@ const MeetingInvite = () => {
     const { name, value } = e.target;
     setNewItem({ ...newItem, [name]: value });
   };
-
-  const mainRef = useRef<HTMLElement | null>(null);
-  const [mainWidth, setMainWidth] = useState<number>(0);
 
   useEffect(() => {
     if (mainRef.current) {
@@ -61,6 +61,15 @@ const MeetingInvite = () => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  const PDFViewerComponent = () => (
+    <PDFViewer
+      className="absolute top-0 left-0 h-full w-full"
+      style={{ width: mainWidth }}
+    >
+      <InvitePdf agenda={agenda} />
+    </PDFViewer>
+  );
 
   return (
     <main
@@ -105,14 +114,8 @@ const MeetingInvite = () => {
 
       {/* Preview */}
       <h2>Esikatselu</h2>
-
       <div className="relative pt-[160%] lg:pt-[150%] 2xl:pt-[1200px]">
-        <PDFViewer
-          className="absolute top-0 left-0 h-full w-full"
-          style={{ width: mainWidth }}
-        >
-          <InvitePdf agenda={agenda} />
-        </PDFViewer>
+        <PDFViewerComponent />
       </div>
     </main>
   );

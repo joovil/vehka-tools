@@ -12,7 +12,6 @@ import {
   Text,
   View,
 } from "@react-pdf/renderer";
-import { useEffect, useState } from "react";
 import { AgendaItem } from "./page";
 
 const styles = StyleSheet.create({
@@ -55,16 +54,9 @@ Font.register({
 });
 
 const InvitePdf = ({ agenda }: { agenda: AgendaItem[] }) => {
-  // Set agenda to items to prevent rendering failure
-  const [items, setItems] = useState(agenda);
-  useEffect(() => {
-    setItems(agenda);
-  }, [agenda]);
-
   return (
     <Document>
       <Page style={styles.page}>
-        {/* <Image src="/banner.png" /> */}
         <Svg style={{ position: "absolute" }}>
           <Rect
             y="-6"
@@ -119,14 +111,18 @@ const InvitePdf = ({ agenda }: { agenda: AgendaItem[] }) => {
           </View>
           {/* Esityslista / Agenda */}
           <View style={styles.wrapper}>
-            <AgendaColumn
-              items={items}
-              lang="fin"
-            />
-            <AgendaColumn
-              items={items}
-              lang="eng"
-            />
+            {agenda && (
+              <>
+                <AgendaColumn
+                  items={agenda}
+                  lang="fin"
+                />
+                <AgendaColumn
+                  items={agenda}
+                  lang="eng"
+                />
+              </>
+            )}
           </View>
           {/* Lisätietoja / Further information */}
           <View style={styles.wrapper}>
@@ -172,10 +168,16 @@ const AgendaColumn = ({
     <View style={styles.column}>
       <Text style={styles.header}>Esityslista</Text>
       {items.map((item, i) => (
-        <Text key={item[lang]}>{`${i + 1}. ${item[lang]}`}</Text>
+        <Text
+          key={item[lang]}
+          style={{ marginBottom: 3 }}
+        >{`${i + 1}. ${item[lang]}`}</Text>
       ))}
       {endItems.map((item, i) => (
-        <Text key={item[lang]}>{`${i + items.length + 1}. ${item[lang]}`}</Text>
+        <Text
+          key={item[lang]}
+          style={{ marginBottom: 3 }}
+        >{`${i + items.length + 1}. ${item[lang]}`}</Text>
       ))}
     </View>
   );
