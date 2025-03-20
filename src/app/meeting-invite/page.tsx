@@ -10,13 +10,8 @@ export interface AgendaItem {
   fin: string;
   eng: string;
 }
-const PDFViewer = dynamic(
-  () => import("@react-pdf/renderer").then((mod) => mod.PDFViewer),
-  {
-    ssr: false,
-    loading: () => <p>Loading...</p>,
-  }
-);
+const PDFViewer = dynamic(() => import("./PDFViewer"), { ssr: false });
+
 const MeetingInvite = () => {
   const mainRef = useRef<HTMLElement | null>(null);
 

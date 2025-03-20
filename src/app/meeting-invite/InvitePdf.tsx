@@ -36,6 +36,11 @@ const styles = StyleSheet.create({
   header: {
     fontWeight: "bold",
     fontSize: 16,
+    marginBottom: 4,
+  },
+  midHeader: {
+    fontWeight: "bold",
+    fontSize: 16,
   },
   info: {
     display: "flex",
@@ -44,6 +49,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   infoText: {
+    marginBottom: 2,
     fontSize: 12,
   },
 });
@@ -100,9 +106,9 @@ const InvitePdf = ({ agenda }: { agenda: AgendaItem[] }) => {
         <View style={{ top: 270 }}>
           <View style={styles.info}>
             <View style={{ textAlign: "left" }}>
-              <View style={{ marginBottom: 10 }}>
-                <Text style={styles.header}>Asukastoimikunnan kokous</Text>
-                <Text style={styles.header}>Tenant committee meeting</Text>
+              <View style={{ marginBottom: 4 }}>
+                <Text style={styles.midHeader}>Asukastoimikunnan kokous</Text>
+                <Text style={styles.midHeader}>Tenant committee meeting</Text>
               </View>
 
               <Text style={styles.infoText}>Aika / Time: 10:00</Text>
@@ -195,7 +201,7 @@ const InfoColumn = ({ header, text }: { header: string; text: string }) => {
 const WelcomeColumn = ({ header, text }: { header: string; text: string }) => {
   return (
     <View style={styles.column}>
-      <Text style={styles.header}>{header}!</Text>
+      <Text style={{ ...styles.header, color: "#E83C6A" }}>{header}!</Text>
       <Text>{text}</Text>
     </View>
   );
