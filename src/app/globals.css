@@ -27,7 +27,7 @@
   }
 
   h3 {
-    /* @apply text-xl; */
+    @apply text-xl;
   }
 }
 
@@ -53,10 +53,6 @@
   > div {
     @apply flex flex-col gap-2;
   }
-
-  /* a {
-    @apply btn-primary;
-  } */
 }
 
 body {
@@ -66,11 +62,11 @@ body {
 }
 
 .page-container {
-  @apply bg-white w-4/6 mx-auto min-h-screen pt-10;
+  @apply bg-white w-4/6 mx-auto min-h-screen pt-10 max-w-[1270px];
 }
 
 .page-content {
-  @apply w-9/10 mx-auto;
+  @apply w-4/5 mx-auto;
 }
 
 @utility meeting-form-input {
@@ -90,47 +86,6 @@ body {
   input {
     @apply meeting-form-input;
   }
-}
-
-/* D&D list */
-
-.list {
-  display: flex;
-  flex-direction: column;
-
-  justify-content: center;
-  text-align: center;
-
-  border: 1px black solid;
-
-  width: min-content;
-  margin: auto;
-}
-
-.list-item {
-  padding: 0.3rem;
-  white-space: nowrap;
-  cursor: pointer;
-  height: 1.5rem;
-  background-color: white;
-}
-
-.floating {
-  position: absolute;
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
-}
-
-.list-item.drop-zone {
-  background-color: #ccc;
-  transition-property: height padding;
-  transition-duration: 250ms;
-  transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
-  overflow: hidden;
-}
-
-.list-item.drop-zone.hidden {
-  height: 0px;
-  padding: 0px;
 }
 
 /* Invite style */

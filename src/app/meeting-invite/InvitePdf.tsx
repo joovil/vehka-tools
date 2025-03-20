@@ -59,9 +59,15 @@ Font.register({
   fonts: [{ src: "../../fonts/CircularStd-Medium.woff" }],
 });
 
-const InvitePdf = ({ agenda }: { agenda: AgendaItem[] }) => {
+const InvitePdf = ({
+  agenda,
+  endItems,
+}: {
+  agenda: AgendaItem[];
+  endItems: AgendaItem[];
+}) => {
   return (
-    <Document>
+    <Document title="Kokouskutsu">
       <Page style={styles.page}>
         <Svg style={{ position: "absolute" }}>
           <Rect
@@ -121,10 +127,12 @@ const InvitePdf = ({ agenda }: { agenda: AgendaItem[] }) => {
               <>
                 <AgendaColumn
                   items={agenda}
+                  endItems={endItems}
                   lang="fin"
                 />
                 <AgendaColumn
                   items={agenda}
+                  endItems={endItems}
                   lang="eng"
                 />
               </>
@@ -160,19 +168,18 @@ const InvitePdf = ({ agenda }: { agenda: AgendaItem[] }) => {
 
 const AgendaColumn = ({
   items,
+  endItems,
   lang,
 }: {
   items: AgendaItem[];
+  endItems: AgendaItem[];
   lang: "fin" | "eng";
 }) => {
-  const endItems: AgendaItem[] = [
-    { fin: "Seuraavan kokouksen ajankohta", eng: "The next meeting" },
-    { fin: "Kokouksen päättäminen", eng: "Closing the meeting" },
-  ];
-
   return (
     <View style={styles.column}>
-      <Text style={styles.header}>Esityslista</Text>
+      <Text style={styles.header}>
+        {lang === "fin" ? "Esityslista" : "Agenda"}
+      </Text>
       {items.map((item, i) => (
         <Text
           key={item[lang]}
@@ -201,7 +208,7 @@ const InfoColumn = ({ header, text }: { header: string; text: string }) => {
 const WelcomeColumn = ({ header, text }: { header: string; text: string }) => {
   return (
     <View style={styles.column}>
-      <Text style={{ ...styles.header, color: "#E83C6A" }}>{header}!</Text>
+      <Text style={{ ...styles.header, color: "#E83C6A" }}>{header}</Text>
       <Text>{text}</Text>
     </View>
   );
