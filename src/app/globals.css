@@ -66,11 +66,11 @@ body {
 }
 
 .page-container {
-  @apply bg-white w-4/6 mx-auto h-screen pt-10;
+  @apply bg-white w-4/6 mx-auto min-h-screen pt-10;
 }
 
 .page-content {
-  @apply w-9/10 mx-auto h-full;
+  @apply w-9/10 mx-auto;
 }
 
 @utility meeting-form-input {

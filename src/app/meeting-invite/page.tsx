@@ -1,16 +1,20 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
-import Invite from "./Invite";
+import dynamic from "next/dynamic"; // Import dynamic for client-side rendering
+// import { PDFViewer } from "@react-pdf/renderer";
+import InvitePdf from "./InvitePdf";
 import MeetingForm from "./MeetingForm";
 
 export interface AgendaItem {
   fin: string;
   eng: string;
 }
+const PDFViewer = dynamic(
+  () => import("@react-pdf/renderer").then((mod) => mod.PDFViewer),
+  { ssr: false }
+);
 
 const MeetingInvite = () => {
   const [agenda, setAgenda] = useState<AgendaItem[]>([
@@ -36,39 +40,35 @@ const MeetingInvite = () => {
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.name);
     const { name, value } = e.target;
     setNewItem({ ...newItem, [name]: value });
   };
 
-  const ref = useRef(null);
+  const mainRef = useRef<HTMLElement | null>(null);
+  const [mainWidth, setMainWidth] = useState<number>(0);
 
-  const handleDownloadImage = async () => {
-    const elem = ref.current;
-    if (!elem) return;
+  useEffect(() => {
+    if (mainRef.current) {
+      setMainWidth(mainRef.current.offsetWidth);
+    }
 
-    const canvas = await html2canvas(elem);
-    const data = canvas.toDataURL("image/jpeg", 0.7);
+    const handleResize = () => {
+      if (mainRef.current) {
+        setMainWidth(mainRef.current.offsetWidth);
+      }
+    };
 
-    const pdf = new jsPDF({
-      orientation: "portrait",
-      unit: "px",
-      format: "a4",
-    });
-
-    const imgProperties = pdf.getImageProperties(data);
-    const pdfWidth = pdf.internal.pageSize.getWidth();
-
-    const pdfHeight = (imgProperties.height * pdfWidth) / imgProperties.width;
-
-    pdf.addImage(data, "png", 0, 0, pdfWidth, pdfHeight);
-    pdf.save();
-  };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
-    <main className="overflow-x-hidden">
+    <main
+      className="pb-10"
+      ref={mainRef}
+    >
       <h1>Kokouskutsu</h1>
-      <form className="flex flex-col gap-sm">
+      <form className="flex flex-col gap-sm pb-10">
         <h2>Käsiteltävät asiat</h2>
         <div className="grid grid-cols-2 gap-md">
           <input
@@ -103,22 +103,19 @@ const MeetingInvite = () => {
         <button className="btn-primary">Luo kutsu</button>
       </form>
 
-      {/* Previev */}
-      <h2>Esikatselu</h2>
-      <button onClick={handleDownloadImage}>Test pdf</button>
-
       {/* Preview */}
-      <Invite agenda={agenda} />
-      {/* PDF */}
-      <div
-        ref={ref}
-        className="w-[1240px] h-[1754px] relative transform translate-x-[100vw] "
-      >
-        <Invite agenda={agenda} />
-      </div>
+      <h2>Esikatselu</h2>
 
-      {/* <Document file={doc} /> */}
+      <div className="relative pt-[160%] lg:pt-[150%] 2xl:pt-[1200px]">
+        <PDFViewer
+          className="absolute top-0 left-0 h-full"
+          style={{ width: mainWidth }}
+        >
+          <InvitePdf />
+        </PDFViewer>
+      </div>
     </main>
   );
 };
+
 export default MeetingInvite;
