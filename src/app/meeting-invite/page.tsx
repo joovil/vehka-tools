@@ -106,13 +106,6 @@ const MeetingInvite = () => {
       {/* Preview */}
       <h2>Esikatselu</h2>
 
-      <div>
-        <div className="flex">
-          <div className="flex-1">asd</div>
-          <div className="flex-1">asd</div>
-        </div>
-      </div>
-
       <div className="relative pt-[160%] lg:pt-[150%] 2xl:pt-[1200px]">
         <PDFViewer
           className="absolute top-0 left-0 h-full w-full"
