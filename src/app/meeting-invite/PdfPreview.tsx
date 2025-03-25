@@ -1,20 +1,32 @@
 "use client";
 
-import { AgendaItem, DateTime, Place } from "./page";
+import Image from "next/image";
+import { AgendaItem, DateTime, MoreInfo, Place } from "./page";
 
 const PdfPreview = ({
   dateTime,
   location,
   agenda,
+  moreInfo,
   endItems,
 }: {
   dateTime: DateTime;
   location: Place;
   agenda: AgendaItem[];
+  moreInfo: MoreInfo;
   endItems: AgendaItem[];
 }) => {
   return (
-    <div>
+    <div className="pb-10">
+      <Image
+        src="/banner.svg"
+        width={0}
+        height={0}
+        className="w-full h-full"
+        sizes="100vw"
+        alt="Banner"
+      />
+
       <div className="mx-auto w-fit">
         <div className="flex flex-col w-fit">
           <div className="font-bold text-lg leading-5 mb-1">
@@ -59,11 +71,11 @@ const PdfPreview = ({
         <div className="grid grid-cols-2 text-sm ">
           <MoreInformation
             header="Lisätietoja"
-            body="Lisätietoja Lorem"
+            body={moreInfo.tietoja}
           />
           <MoreInformation
             header="Further information"
-            body="More Ipsum"
+            body={moreInfo.info}
           />
         </div>
 

@@ -62,11 +62,11 @@ body {
 }
 
 .page-container {
-  @apply bg-white w-4/6 mx-auto min-h-screen pt-10 max-w-[1270px];
+  @apply bg-white w-4/6 mx-auto min-h-screen py-10 max-w-[1270px];
 }
 
 .page-content {
-  @apply w-4/5 mx-auto;
+  @apply w-4/5 mx-auto 2xl:w-3/5;
 }
 
 @utility meeting-form-input {

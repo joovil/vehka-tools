@@ -5,7 +5,6 @@ import { useRef, useState } from "react";
 import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { renderTimeViewClock } from "@mui/x-date-pickers/timeViewRenderers";
-import Image from "next/image";
 import MeetingForm from "./MeetingForm";
 import PdfPreview from "./PdfPreview";
 
@@ -24,12 +23,18 @@ export interface Place {
   place: string;
 }
 
+export interface MoreInfo {
+  tietoja: string;
+  info: string;
+}
+
 const MeetingInvite = () => {
   const mainRef = useRef<HTMLElement | null>(null);
 
   const [newItem, setNewItem] = useState<AgendaItem>({ fin: "", eng: "" });
   const [dateTime, setDateTime] = useState<DateTime>({ date: "", time: "" });
   const [location, setLocation] = useState<Place>({ paikka: "", place: "" });
+  const [moreInfo, setMoreInfo] = useState<MoreInfo>({ tietoja: "", info: "" });
   const [agenda, setAgenda] = useState<AgendaItem[]>([
     {
       fin: "Kokouksen avaus, laillisuus ja päätösvaltaisuus",
@@ -62,7 +67,7 @@ const MeetingInvite = () => {
 
   return (
     <main
-      className="pb-10 flex flex-col gap-md"
+      className="flex flex-col gap-md"
       ref={mainRef}
     >
       <h1>Kokouskutsu</h1>
@@ -116,10 +121,9 @@ const MeetingInvite = () => {
           </div>
         </div>
 
-        <h2>Käsiteltävät asiat</h2>
         <div className="grid grid-cols-2 gap-md">
           <div>
-            <h3>Suomeksi</h3>
+            <h2>Esityslista</h2>
             <input
               type="text"
               name="fin"
@@ -130,7 +134,7 @@ const MeetingInvite = () => {
           </div>
 
           <div>
-            <h3>English</h3>
+            <h2>Agenda</h2>
             <input
               type="text"
               name="eng"
@@ -140,6 +144,33 @@ const MeetingInvite = () => {
             />
           </div>
         </div>
+
+        <div className="grid grid-cols-2 gap-md">
+          <div>
+            <h2>Lisätietoja</h2>
+            <textarea
+              name="tietoja"
+              value={moreInfo.tietoja}
+              onChange={(e) =>
+                setMoreInfo({ ...moreInfo, tietoja: e.currentTarget.value })
+              }
+              className="bg-green-light w-full"
+            />
+          </div>
+
+          <div>
+            <h2>Further information</h2>
+            <textarea
+              name="info"
+              value={moreInfo.info}
+              onChange={(e) =>
+                setMoreInfo({ ...moreInfo, info: e.currentTarget.value })
+              }
+              className="bg-green-light w-full"
+            />
+          </div>
+        </div>
+
         <button
           type="button"
           onClick={handleAddItem}
@@ -158,22 +189,13 @@ const MeetingInvite = () => {
       <div className="flex flex-col gap-sm">
         <h2>Esikatselu</h2>
 
-        <div>
-          <Image
-            src="/banner.svg"
-            width={0}
-            height={0}
-            className="w-full h-full"
-            sizes="100vw"
-            alt="Banner"
-          />
-          <PdfPreview
-            dateTime={dateTime}
-            location={location}
-            agenda={agenda}
-            endItems={endItems}
-          />
-        </div>
+        <PdfPreview
+          dateTime={dateTime}
+          location={location}
+          agenda={agenda}
+          moreInfo={moreInfo}
+          endItems={endItems}
+        />
       </div>
     </main>
   );
