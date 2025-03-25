@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { AgendaItem, DateTime, MoreInfo, Place } from "./page";
+import { AgendaItem, DateTime, MoreInfo, Place } from "../page";
 
 const PdfPreview = ({
   dateTime,
@@ -34,33 +34,22 @@ const PdfPreview = ({
             <div>Tenant committee meeting</div>
           </div>
 
-          <div className="text-sm flex gap-sm">
-            <div className="flex flex-col">
-              <span>Aika / Time:</span>
-              <span>Paikka / Place:</span>
-            </div>
-
-            <div className="flex flex-col">
-              <span>
-                {dateTime.date}&nbsp;&nbsp;{dateTime.time}
-              </span>
-              <span>
-                {location.paikka} | {location.place}
-              </span>
-            </div>
-          </div>
+          <TimePlace
+            dateTime={dateTime}
+            location={location}
+          />
         </div>
       </div>
 
       <div className="flex flex-col gap-2.5">
         <div className="grid grid-cols-2 text-sm ">
-          <Agenda
+          <AgendaColumn
             header="Esityslista"
             agenda={agenda}
             endItems={endItems}
             lang="fin"
           />
-          <Agenda
+          <AgendaColumn
             header="Agenda"
             agenda={agenda}
             endItems={endItems}
@@ -69,22 +58,22 @@ const PdfPreview = ({
         </div>
 
         <div className="grid grid-cols-2 text-sm ">
-          <MoreInformation
+          <InfoColumn
             header="Lisätietoja"
             body={moreInfo.tietoja}
           />
-          <MoreInformation
+          <InfoColumn
             header="Further information"
             body={moreInfo.info}
           />
         </div>
 
         <div className="grid grid-cols-2 text-sm">
-          <Welcome
+          <WelcomeColumn
             header="Tervetuloa!"
             body="-Asukastoimikuntasi"
           />
-          <Welcome
+          <WelcomeColumn
             header="Welcome!"
             body="-Your tenant committee"
           />
@@ -94,7 +83,33 @@ const PdfPreview = ({
   );
 };
 
-const Agenda = ({
+const TimePlace = ({
+  dateTime,
+  location,
+}: {
+  dateTime: DateTime;
+  location: Place;
+}) => {
+  return (
+    <div className="text-sm flex gap-sm">
+      <div className="flex flex-col">
+        <span>Aika / Time:</span>
+        <span>Paikka / Place:</span>
+      </div>
+
+      <div className="flex flex-col">
+        <span>
+          {dateTime.date}&nbsp;&nbsp;{dateTime.time}
+        </span>
+        <span>
+          {location.paikka} | {location.place}
+        </span>
+      </div>
+    </div>
+  );
+};
+
+const AgendaColumn = ({
   header,
   agenda,
   endItems,
@@ -130,13 +145,7 @@ const Agenda = ({
   );
 };
 
-const MoreInformation = ({
-  header,
-  body,
-}: {
-  header: string;
-  body: string;
-}) => {
+const InfoColumn = ({ header, body }: { header: string; body: string }) => {
   return (
     <div>
       <div className="font-bold text-lg">{header}</div>
@@ -145,7 +154,7 @@ const MoreInformation = ({
   );
 };
 
-const Welcome = ({ header, body }: { header: string; body: string }) => {
+const WelcomeColumn = ({ header, body }: { header: string; body: string }) => {
   return (
     <div>
       <div className="font-bold text-lg text-[#E83C6A]">{header}</div>

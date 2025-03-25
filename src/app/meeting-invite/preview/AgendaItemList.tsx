@@ -1,7 +1,7 @@
 "use client";
 
 import { Reorder } from "motion/react";
-import { AgendaItem } from "./page";
+import { AgendaItem } from "../page";
 
 const AgendaItemList = ({
   agenda,

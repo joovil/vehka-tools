@@ -5,13 +5,10 @@ import { useRef, useState } from "react";
 import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { renderTimeViewClock } from "@mui/x-date-pickers/timeViewRenderers";
-import dynamic from "next/dynamic";
-import AgendaItemList from "./AgendaItemList";
-import PdfPreview from "./InviteFormPreview";
-import InvitePdf from "./InvitePdf";
-// import PDFViewer from "./PDFViewer";
-
-const PDFiewer = dynamic(() => import("./PDFViewer"), { ssr: false });
+import { pdf } from "@react-pdf/renderer";
+import InvitePdf from "./pdf/InvitePdf";
+import AgendaItemList from "./preview/AgendaItemList";
+import PdfPreview from "./preview/InviteFormPreview";
 
 export interface AgendaItem {
   fin: string;
@@ -70,9 +67,34 @@ const MeetingInvite = () => {
     setLocation({ ...location, [name]: value });
   };
 
+  const downloadPDF = async () => {
+    const blob = await pdf(
+      <InvitePdf
+        dateTime={dateTime}
+        location={location}
+        agenda={agenda}
+        moreInfo={moreInfo}
+        endItems={endItems}
+      />
+    ).toBlob();
+
+    const url = URL.createObjectURL(blob);
+
+    // Create temporary <a/> element to download the pdf
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "MeetingInvite.pdf";
+    document.body.appendChild(a);
+
+    a.click();
+
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <main
-      className="flex flex-col gap-md"
+      className="flex flex-col"
       ref={mainRef}
     >
       <h1>Kokouskutsu</h1>
@@ -179,20 +201,27 @@ const MeetingInvite = () => {
         <button
           type="button"
           onClick={handleAddItem}
-          className="btn-primary mb-2"
+          className="btn-primary"
         >
           Lisää
         </button>
+      </form>
 
+      <div className="mt-2 mb-4">
         <AgendaItemList
           agenda={agenda}
           setAgenda={setAgenda}
         />
-      </form>
+      </div>
 
       {/* Preview */}
       <div className="flex flex-col gap-sm">
-        <h2>Esikatselu</h2>
+        <button
+          onClick={downloadPDF}
+          className="btn-primary"
+        >
+          Lataa kokouskutsu
+        </button>
 
         <PdfPreview
           dateTime={dateTime}
@@ -201,15 +230,6 @@ const MeetingInvite = () => {
           moreInfo={moreInfo}
           endItems={endItems}
         />
-        <PDFiewer className="w-full h-[1000px]">
-          <InvitePdf
-            dateTime={dateTime}
-            location={location}
-            agenda={agenda}
-            moreInfo={moreInfo}
-            endItems={endItems}
-          />
-        </PDFiewer>
       </div>
     </main>
   );
