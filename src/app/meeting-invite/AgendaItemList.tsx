@@ -3,7 +3,7 @@
 import { Reorder } from "motion/react";
 import { AgendaItem } from "./page";
 
-const MeetingForm = ({
+const AgendaItemList = ({
   agenda,
   setAgenda,
 }: {
@@ -39,4 +39,4 @@ const MeetingForm = ({
   );
 };
 
-export default MeetingForm;
+export default AgendaItemList;

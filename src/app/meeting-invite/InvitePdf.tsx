@@ -12,7 +12,7 @@ import {
   Text,
   View,
 } from "@react-pdf/renderer";
-import { AgendaItem } from "./page";
+import { AgendaItem, DateTime, MoreInfo, Place } from "./page";
 
 const styles = StyleSheet.create({
   page: {
@@ -60,10 +60,16 @@ Font.register({
 });
 
 const InvitePdf = ({
+  dateTime,
+  location,
   agenda,
+  moreInfo,
   endItems,
 }: {
+  dateTime: DateTime;
+  location: Place;
   agenda: AgendaItem[];
+  moreInfo: MoreInfo;
   endItems: AgendaItem[];
 }) => {
   return (
@@ -117,8 +123,13 @@ const InvitePdf = ({
                 <Text style={styles.midHeader}>Tenant committee meeting</Text>
               </View>
 
-              <Text style={styles.infoText}>Aika / Time: 10:00</Text>
-              <Text style={styles.infoText}>Paikka / Place: Kerhohuone</Text>
+              <Text style={styles.infoText}>
+                Aika / Time: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                {dateTime.date} {dateTime.time}
+              </Text>
+              <Text style={styles.infoText}>
+                Paikka / Place: &nbsp;{location.paikka} | {location.place}
+              </Text>
             </View>
           </View>
           {/* Esityslista / Agenda */}
@@ -142,11 +153,11 @@ const InvitePdf = ({
           <View style={styles.wrapper}>
             <InfoColumn
               header="Lisätietoja"
-              text="Lisätietoja kokouksesta"
+              text={moreInfo.tietoja || "Lisätietoja kokouksesta"}
             />
             <InfoColumn
               header="Further information"
-              text="More information about the meeting"
+              text={moreInfo.info || "More information about the meeting"}
             />
           </View>
           {/* Tervetuloa / Welcome */}

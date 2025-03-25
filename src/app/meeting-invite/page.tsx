@@ -5,8 +5,13 @@ import { useRef, useState } from "react";
 import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { renderTimeViewClock } from "@mui/x-date-pickers/timeViewRenderers";
-import MeetingForm from "./MeetingForm";
-import PdfPreview from "./PdfPreview";
+import dynamic from "next/dynamic";
+import AgendaItemList from "./AgendaItemList";
+import PdfPreview from "./InviteFormPreview";
+import InvitePdf from "./InvitePdf";
+// import PDFViewer from "./PDFViewer";
+
+const PDFiewer = dynamic(() => import("./PDFViewer"), { ssr: false });
 
 export interface AgendaItem {
   fin: string;
@@ -123,30 +128,6 @@ const MeetingInvite = () => {
 
         <div className="grid grid-cols-2 gap-md">
           <div>
-            <h2>Esityslista</h2>
-            <input
-              type="text"
-              name="fin"
-              value={newItem.fin}
-              onChange={handleInputChange}
-              className="bg-green-light w-full"
-            />
-          </div>
-
-          <div>
-            <h2>Agenda</h2>
-            <input
-              type="text"
-              name="eng"
-              value={newItem.eng}
-              onChange={handleInputChange}
-              className="bg-green-light w-full"
-            />
-          </div>
-        </div>
-
-        <div className="grid grid-cols-2 gap-md">
-          <div>
             <h2>Lisätietoja</h2>
             <textarea
               name="tietoja"
@@ -171,15 +152,39 @@ const MeetingInvite = () => {
           </div>
         </div>
 
+        <div className="grid grid-cols-2 gap-md">
+          <div>
+            <h2>Esityslista</h2>
+            <input
+              type="text"
+              name="fin"
+              value={newItem.fin}
+              onChange={handleInputChange}
+              className="bg-green-light w-full"
+            />
+          </div>
+
+          <div>
+            <h2>Agenda</h2>
+            <input
+              type="text"
+              name="eng"
+              value={newItem.eng}
+              onChange={handleInputChange}
+              className="bg-green-light w-full"
+            />
+          </div>
+        </div>
+
         <button
           type="button"
           onClick={handleAddItem}
-          className="btn-primary"
+          className="btn-primary mb-2"
         >
           Lisää
         </button>
 
-        <MeetingForm
+        <AgendaItemList
           agenda={agenda}
           setAgenda={setAgenda}
         />
@@ -196,6 +201,15 @@ const MeetingInvite = () => {
           moreInfo={moreInfo}
           endItems={endItems}
         />
+        <PDFiewer className="w-full h-[1000px]">
+          <InvitePdf
+            dateTime={dateTime}
+            location={location}
+            agenda={agenda}
+            moreInfo={moreInfo}
+            endItems={endItems}
+          />
+        </PDFiewer>
       </div>
     </main>
   );
