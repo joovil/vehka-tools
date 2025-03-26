@@ -62,7 +62,7 @@ body {
 }
 
 .page-container {
-  @apply bg-white w-4/6 mx-auto min-h-screen py-10 max-w-[1270px];
+  @apply bg-white w-full 2xl:w-4/6 mx-auto min-h-screen py-10 max-w-[1270px];
 }
 
 .page-content {
@@ -91,6 +91,10 @@ body {
 /* Invite style */
 @utility invite-cols {
   @apply grid grid-cols-2;
+}
+
+.meeting-invite-cols {
+  @apply sm:grid sm:grid-cols-2 gap-md;
 }
 
 .invite-info {

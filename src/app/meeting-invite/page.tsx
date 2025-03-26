@@ -99,7 +99,7 @@ const MeetingInvite = () => {
     >
       <h1>Kokouskutsu</h1>
       <form className="flex flex-col gap-sm">
-        <div className="grid grid-cols-2 gap-md">
+        <div className="meeting-invite-cols">
           <div>
             <h2>Aika</h2>
             <LocalizationProvider
@@ -126,7 +126,7 @@ const MeetingInvite = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-md">
+        <div className="meeting-invite-cols">
           <div>
             <h2>Paikka</h2>
             <input
@@ -148,7 +148,7 @@ const MeetingInvite = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-md">
+        <div className="meeting-invite-cols">
           <div>
             <h2>Lisätietoja</h2>
             <textarea
@@ -174,7 +174,7 @@ const MeetingInvite = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-md">
+        <div className="meeting-invite-cols">
           <div>
             <h2>Esityslista</h2>
             <input

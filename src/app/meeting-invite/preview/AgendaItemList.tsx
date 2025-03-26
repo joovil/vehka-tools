@@ -25,11 +25,11 @@ const AgendaItemList = ({
             key={item.eng}
             value={item}
           >
-            <div className="flex gap-md">
+            <div className="md:flex gap-md pb-2">
               <button onClick={() => deleteItem(item)}>X</button>
-              <div className="grid grid-cols-2 w-full [&>span]:underline">
-                <span>{item.fin}</span>
-                <span>{item.eng}</span>
+              <div className="sm:grid sm:grid-cols-2 flex flex-col gap-sm w-full [&>span]:underline">
+                <div>{item.fin}</div>
+                <div>{item.eng}</div>
               </div>
             </div>
           </Reorder.Item>

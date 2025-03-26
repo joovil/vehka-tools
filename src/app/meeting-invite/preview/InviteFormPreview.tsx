@@ -17,7 +17,7 @@ const PdfPreview = ({
   endItems: AgendaItem[];
 }) => {
   return (
-    <div className="pb-10">
+    <div className="pb-10 hidden sm:block">
       <Image
         src="/banner.svg"
         width={0}
@@ -42,7 +42,7 @@ const PdfPreview = ({
       </div>
 
       <div className="flex flex-col gap-2.5">
-        <div className="grid grid-cols-2 text-sm ">
+        <div className="grid grid-cols-2 text-sm">
           <AgendaColumn
             header="Esityslista"
             agenda={agenda}
@@ -57,7 +57,7 @@ const PdfPreview = ({
           />
         </div>
 
-        <div className="grid grid-cols-2 text-sm ">
+        <div className="grid grid-cols-2 text-sm">
           <InfoColumn
             header="Lisätietoja"
             body={moreInfo.tietoja}
@@ -126,7 +126,7 @@ const AgendaColumn = ({
       <div className="flex flex-col gap-0.5">
         {agenda.map((item, i) => (
           <div
-            className="text-sm"
+            className="text-sm overflow-ellipsis"
             key={item[lang]}
           >
             {i + 1}. {item[lang]}
