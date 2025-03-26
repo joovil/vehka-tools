@@ -1,9 +1,43 @@
 "use client";
 
-import PdfPreview from "../components/PdfPreview";
-import MinutePdf from "./MinutePdf";
+import { useRef, useState } from "react";
 
-const minutes = () => {
+const Minutes = () => {
+  const focusRef = useRef<HTMLInputElement>(null);
+  const [attendants, setAttendants] = useState<string[]>([]);
+  const [newAttendant, setNewAttendant] = useState<string>("");
+
+  const handleAttendantEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    console.log(e.key);
+    if (e.key === "Enter") {
+      setAttendants((prev) => [...prev, newAttendant]);
+      setNewAttendant("");
+    }
+  };
+
+  const updateAttendant = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    i: number
+  ) => {
+    const value = e.currentTarget.value;
+    const updated = [...attendants];
+
+    if (value.trim() === "") {
+      updated.splice(i, 1);
+    } else {
+      updated[i] = value;
+    }
+
+    setAttendants(updated);
+    focusRef.current?.focus();
+  };
+
+  const addAttendant = () => {
+    setAttendants((prev) => [...prev, newAttendant]);
+    setNewAttendant("");
+    focusRef.current?.focus();
+  };
+
   return (
     <div className="minute-form">
       <h1>Kokouspöytäkirja</h1>
@@ -14,7 +48,21 @@ const minutes = () => {
 
       <div>
         <label>Läsnäolijat</label>
-        <input type="text" />
+        {attendants.map((attendant, i) => (
+          <input
+            key={i}
+            value={attendants[i]}
+            onChange={(e) => updateAttendant(e, i)}
+          />
+        ))}
+        <input
+          ref={focusRef}
+          value={newAttendant}
+          onChange={(e) => setNewAttendant(e.currentTarget.value)}
+          onKeyDown={handleAttendantEnter}
+          placeholder="Lisää uusi läsnäolija"
+        />
+        <button onClick={addAttendant}>Lisää läsnäolija</button>
       </div>
 
       <div>
@@ -71,11 +119,11 @@ const minutes = () => {
         <input type="text" />
       </div>
 
-      <PdfPreview>
+      {/* <PdfPreview>
         <MinutePdf />
-      </PdfPreview>
+      </PdfPreview> */}
     </div>
   );
 };
 
-export default minutes;
+export default Minutes;
