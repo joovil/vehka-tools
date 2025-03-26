@@ -1,0 +1,5 @@
+.minute-form {
+  > div {
+    @apply flex flex-col;
+  }
+}
