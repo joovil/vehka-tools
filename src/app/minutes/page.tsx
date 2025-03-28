@@ -1,21 +1,45 @@
 "use client";
 
 import { useState } from "react";
+import { DateTime } from "../meeting-invite/page";
 import DynamicInputList from "./components/DynamicInputList";
+import MeetingExaminers from "./components/MeetingExaminers";
+import MeetingSignatures from "./components/MeetingSignatures";
+import NextMeetingDate from "./components/NextMeetingDate";
+
+export interface Examiners {
+  examiner1: string;
+  examiner2: string;
+}
+
+export interface Signatures extends Examiners {
+  chairman: string;
+  secretary: string;
+}
 
 const Minutes = () => {
   const [attendants, setAttendants] = useState<string[]>([]);
   const [items, setItems] = useState<string[]>([]);
   const [other, setOther] = useState<string[]>([]);
-  const [startTime, setStartTime] = useState<{ date: string; time: string }>({
+  const [startTime, setStartTime] = useState<DateTime>({
     date: "",
     time: "",
   });
-  const [examiners, setExaminers] = useState<{
-    examiner1: string;
-    examiner2: string;
-  }>({ examiner1: "", examiner2: "" });
+  const [examiners, setExaminers] = useState<Examiners>({
+    examiner1: "",
+    examiner2: "",
+  });
   const [newMembers, setNewMembers] = useState<string[]>([]);
+  const [nextMeeting, setNextMeeting] = useState<DateTime>({
+    date: "",
+    time: "",
+  });
+  const [signatures, setSignatures] = useState<Signatures>({
+    chairman: "",
+    secretary: "",
+    examiner1: "",
+    examiner2: "",
+  });
 
   const handleDate = () => {
     const date = new Date();
@@ -34,9 +58,18 @@ const Minutes = () => {
   return (
     <section className="minute-form">
       <h1>Kokouspöytäkirja</h1>
-      <div>
-        <label>Kokouksen kiinteistön osoite ja tarkka sijainti</label>
-        <input type="text" />
+      <div className="minute-part border-2">
+        <h2>Kokouksen sijainti</h2>
+
+        <div className="flex flex-col gap-sm">
+          <label>Kiinteistön osoite</label>
+          <input type="text" />
+        </div>
+
+        <div className="flex flex-col gap-sm">
+          <label>Tarkka sijainti</label>
+          <input type="text" />
+        </div>
       </div>
 
       <div className="border-2">
@@ -54,6 +87,7 @@ const Minutes = () => {
         <button
           onClick={handleDate}
           disabled={!!startTime.date}
+          className="mt-1"
         >
           Avaa kokous
         </button>
@@ -68,29 +102,10 @@ const Minutes = () => {
 
       <div className="minute-part border-2">
         <h2>Pöytäkirjan tarkastajat</h2>
-        <div className="flex flex-col gap-sm">
-          <div className="flex flex-col">
-            <label>Tarkastaja 1</label>
-            <input
-              type="text"
-              onChange={(e) =>
-                setExaminers({ ...examiners, examiner1: e.currentTarget.value })
-              }
-              value={examiners.examiner1}
-            />
-          </div>
-
-          <div className="flex flex-col">
-            <label>Tarkastaja 2</label>
-            <input
-              type="text"
-              onChange={(e) =>
-                setExaminers({ ...examiners, examiner2: e.currentTarget.value })
-              }
-              value={examiners.examiner2}
-            />
-          </div>
-        </div>
+        <MeetingExaminers
+          examiners={examiners}
+          setExaminers={setExaminers}
+        />
       </div>
 
       <div className="minute-part border-2">
@@ -125,7 +140,7 @@ const Minutes = () => {
 
       <div className="minute-part  border-2">
         <label>Seuraavan kokouksen ajankohta</label>
-        <input type="datetime-local" />
+        <NextMeetingDate setNextMeeting={setNextMeeting} />
       </div>
 
       <div className="minute-part  border-2">
@@ -133,18 +148,12 @@ const Minutes = () => {
         <button onClick={() => console.log("end meeting")}>Päätä kokous</button>
       </div>
 
-      <div className="minute-part  border-2">
-        <label>Puheenjohtajan allekirjoitus</label>
-        <input type="text" />
-
-        <label>Sihteerin allekirjoitus</label>
-        <input type="text" />
-
-        <label>Pöytäkirjantarkastajan allerkijoitus</label>
-        <input type="text" />
-
-        <label>Pöytäkirjantarkastajan allerkijoitus</label>
-        <input type="text" />
+      <div className="minute-part [&>div]:flex [&>div]:flex-col [&>div]:gap-sm border-2">
+        <h2>Allekirjoitukset</h2>
+        <MeetingSignatures
+          signatures={signatures}
+          setSignatures={setSignatures}
+        />
       </div>
 
       {/* <PdfPreview>

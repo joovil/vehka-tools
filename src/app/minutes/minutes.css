@@ -1,7 +1,10 @@
 .minute-form {
   @apply flex flex-col gap-md;
+  label {
+    @apply text-lg;
+  }
 }
 
 .minute-part {
-  @apply flex flex-col gap-md;
+  @apply flex flex-col;
 }

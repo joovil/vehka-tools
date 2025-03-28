@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Alex_Brush, Geist, Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 
@@ -10,6 +10,12 @@ const geistSans = Geist({
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+const alexBrush = Alex_Brush({
+  weight: "400",
+  variable: "--font-alex-brush",
   subsets: ["latin"],
 });
 
@@ -52,7 +58,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${circular.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${circular.variable} ${geistSans.variable} ${geistMono.variable} ${alexBrush.variable} antialiased`}
       >
         <div className="page-container">
           <div className="page-content">{children}</div>

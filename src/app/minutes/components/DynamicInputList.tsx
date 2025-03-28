@@ -42,7 +42,7 @@ const DynamicInputList = ({
   };
 
   return (
-    <div className="flex flex-col gap-sm">
+    <div className="flex flex-col">
       <label>{label}</label>
       {items.map((item, i) => (
         <input
@@ -61,6 +61,7 @@ const DynamicInputList = ({
       <button
         onClick={addItem}
         disabled={!newItem}
+        className="mt-2"
       >
         {buttonLabel}
       </button>
