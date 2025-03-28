@@ -42,7 +42,7 @@ const DynamicInputList = ({
   };
 
   return (
-    <>
+    <div className="flex flex-col gap-sm">
       <label>{label}</label>
       {items.map((item, i) => (
         <input
@@ -58,8 +58,13 @@ const DynamicInputList = ({
         onKeyDown={handleEnter}
         placeholder="Lisää uusi läsnäolija"
       />
-      <button onClick={addItem}>{buttonLabel}</button>
-    </>
+      <button
+        onClick={addItem}
+        disabled={!newItem}
+      >
+        {buttonLabel}
+      </button>
+    </div>
   );
 };
 

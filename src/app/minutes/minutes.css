@@ -1,5 +1,7 @@
 .minute-form {
-  > div {
-    @apply flex flex-col;
-  }
+  @apply flex flex-col gap-md;
+}
+
+.minute-part {
+  @apply flex flex-col gap-md;
 }
