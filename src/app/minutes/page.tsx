@@ -1,11 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import PdfPreview from "../components/PdfPreview";
 import { DateTime } from "../meeting-invite/page";
 import DynamicInputList from "./components/DynamicInputList";
 import MeetingExaminers from "./components/MeetingExaminers";
 import MeetingSignatures from "./components/MeetingSignatures";
 import NextMeetingDate from "./components/NextMeetingDate";
+import MinutePdf from "./MinutePdf";
+import Preview from "./Preview";
 
 export interface Examiners {
   examiner1: string;
@@ -17,10 +20,19 @@ export interface Signatures extends Examiners {
   secretary: string;
 }
 
+export interface Location {
+  address: string;
+  precise: string;
+}
+
 const Minutes = () => {
   const [attendants, setAttendants] = useState<string[]>([]);
   const [items, setItems] = useState<string[]>([]);
   const [other, setOther] = useState<string[]>([]);
+  const [location, setLocation] = useState<Location>({
+    address: "",
+    precise: "",
+  });
   const [startTime, setStartTime] = useState<DateTime>({
     date: "",
     time: "",
@@ -63,12 +75,24 @@ const Minutes = () => {
 
         <div className="flex flex-col gap-sm">
           <label>Kiinteistön osoite</label>
-          <input type="text" />
+          <input
+            type="text"
+            onChange={(e) =>
+              setLocation({ ...location, address: e.currentTarget.value })
+            }
+            value={location.address}
+          />
         </div>
 
         <div className="flex flex-col gap-sm">
           <label>Tarkka sijainti</label>
-          <input type="text" />
+          <input
+            type="text"
+            onChange={(e) =>
+              setLocation({ ...location, precise: e.currentTarget.value })
+            }
+            value={location.precise}
+          />
         </div>
       </div>
 
@@ -81,7 +105,6 @@ const Minutes = () => {
           setItems={setAttendants}
         />
       </div>
-
       <div className="flex flex-col border-2">
         <h2>Kokouksen avaus</h2>
         <button
@@ -99,7 +122,6 @@ const Minutes = () => {
           </>
         )}
       </div>
-
       <div className="minute-part border-2">
         <h2>Pöytäkirjan tarkastajat</h2>
         <MeetingExaminers
@@ -107,7 +129,6 @@ const Minutes = () => {
           setExaminers={setExaminers}
         />
       </div>
-
       <div className="minute-part border-2">
         <h2>Hankinnat</h2>
         <DynamicInputList
@@ -117,7 +138,6 @@ const Minutes = () => {
           setItems={setItems}
         />
       </div>
-
       <div className="minute-part border-2">
         <h2>Muut asiat</h2>
         <DynamicInputList
@@ -127,7 +147,6 @@ const Minutes = () => {
           setItems={setOther}
         />
       </div>
-
       <div className="minute-part  border-2">
         <h2>Uudet jäsenet</h2>
         <DynamicInputList
@@ -137,17 +156,14 @@ const Minutes = () => {
           setItems={setNewMembers}
         />
       </div>
-
       <div className="minute-part  border-2">
         <label>Seuraavan kokouksen ajankohta</label>
         <NextMeetingDate setNextMeeting={setNextMeeting} />
       </div>
-
       <div className="minute-part  border-2">
         <label>Kokouksen päättäminen</label>
         <button onClick={() => console.log("end meeting")}>Päätä kokous</button>
       </div>
-
       <div className="minute-part [&>div]:flex [&>div]:flex-col [&>div]:gap-sm border-2">
         <h2>Allekirjoitukset</h2>
         <MeetingSignatures
@@ -155,10 +171,21 @@ const Minutes = () => {
           setSignatures={setSignatures}
         />
       </div>
+      <Preview
+        location={location}
+        attendants={attendants}
+        items={items}
+        other={other}
+        startTime={startTime}
+        examiners={examiners}
+        newMembers={newMembers}
+        nextMeeting={nextMeeting}
+        signatures={signatures}
+      />
 
-      {/* <PdfPreview>
+      <PdfPreview>
         <MinutePdf />
-      </PdfPreview> */}
+      </PdfPreview>
     </section>
   );
 };
