@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Attendants from "./components/Attendants";
+import MinuteItems from "./components/MinuteItems";
 
 const Minutes = () => {
   const [attendants, setAttendants] = useState<string[]>([]);
@@ -63,12 +64,7 @@ const Minutes = () => {
         />
       </div>
 
-      <div>
-        <label>hankinnat / talkoot / muita päätettäviä asioita</label>
-        <ul>
-          <li>hankinta 1</li>
-        </ul>
-      </div>
+      <MinuteItems />
 
       <div>
         <label>Muut mahdolliset asiat</label>
