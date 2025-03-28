@@ -6,6 +6,19 @@ import Attendants from "./components/Attendants";
 const Minutes = () => {
   const [attendants, setAttendants] = useState<string[]>([]);
   const [newAttendant, setNewAttendant] = useState<string>("");
+  const [startTime, setStartTime] = useState<string>("");
+  const [examiners, setExaminers] = useState<{
+    examiner1: string;
+    examiner2: string;
+  }>({ examiner1: "", examiner2: "" });
+
+  const handleDate = () => {
+    const date = new Date();
+    const today = `${date.getDate()}.${
+      date.getMonth() + 1
+    }.${date.getFullYear()}`;
+    setStartTime(today);
+  };
 
   return (
     <div className="minute-form">
@@ -24,13 +37,30 @@ const Minutes = () => {
 
       <div>
         <label>Kokouksen avaus</label>
-        <button onClick={() => console.log("avaus")}>Avaus</button>
+        <button
+          onClick={handleDate}
+          disabled={!!startTime}
+        >
+          Avaus
+        </button>
       </div>
 
       <div>
         <label>Pöytäkirjan tarkastajat</label>
-        <input type="text" />
-        <input type="text" />
+        <input
+          type="text"
+          onChange={(e) =>
+            setExaminers({ ...examiners, examiner1: e.currentTarget.value })
+          }
+          value={examiners.examiner1}
+        />
+        <input
+          type="text"
+          onChange={(e) =>
+            setExaminers({ ...examiners, examiner2: e.currentTarget.value })
+          }
+          value={examiners.examiner2}
+        />
       </div>
 
       <div>

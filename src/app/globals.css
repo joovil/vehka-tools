@@ -12,6 +12,7 @@
   --color-green-light: rgba(230, 245, 240);
   --color-green-dark: rgba(7, 122, 104);
   --color-green-darker: rgba(7, 113, 96);
+  --color-green-disabled: rgba(96, 156, 146);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-circular: var(--font-circular);
@@ -36,8 +37,12 @@
     @apply btn-primary transition-all ease-in-out;
   }
 
-  button:hover {
+  button:hover:not(:disabled) {
     @apply bg-green-darker -translate-y-0.5 scale-105;
+  }
+
+  button:disabled {
+    @apply bg-green-disabled;
   }
 
   input,
