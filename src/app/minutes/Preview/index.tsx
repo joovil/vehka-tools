@@ -1,21 +1,26 @@
 "use client";
 
 import { DateTime } from "@/app/meeting-invite/page";
-import { Examiners, Location, Signatures } from "../page";
+import { Examiners, Location, NewMember, Signatures } from "../page";
 
 interface PreviewProps {
+  minuteNumber: number | null;
   location: Location;
   attendants: string[];
   items: string[];
   other: string[];
   startTime: DateTime;
   examiners: Examiners;
-  newMembers: string[];
+  newMembers: NewMember[];
   nextMeeting: DateTime;
+  meetingEnd: string;
+
   signatures: Signatures;
 }
 
 const Preview: React.FC<PreviewProps> = ({
+  minuteNumber,
+  location,
   attendants,
   items,
   other,
@@ -23,38 +28,54 @@ const Preview: React.FC<PreviewProps> = ({
   examiners,
   newMembers,
   nextMeeting,
+  meetingEnd,
   signatures,
 }) => {
   const date = new Date();
 
   return (
-    <div className="flex flex-col gap-5 border-2">
+    <div className="flex flex-col gap-5 border-2 [&_h2]:text-xl">
       <div>
         <div>Helsingin seudun opiskelija-asuntosäätiö</div>
-        <div>Pöytäkirja _/{date.getFullYear()}</div>
+        <div>
+          Pöytäkirja {minuteNumber}/{date.getFullYear()}
+        </div>
       </div>
 
       {/* Asukastoimikunnan kokous */}
       <div>
-        <div>Asukastoimikunnan kokous</div>
+        <h2>Asukastoimikunnan kokous</h2>
         <div>PÄIVÄMÄÄRÄ JA KELLONAIKA:</div>
         <div>
-          {startTime.date} Kello: {startTime.time}
+          {Object.values(startTime).includes(null) ? (
+            "___"
+          ) : (
+            <>
+              <div>{startTime.date}</div>
+              <div>kello: {startTime.time}</div>
+            </>
+          )}{" "}
         </div>
       </div>
 
       <div>
-        <div>PAIKKA (kiinteistön osoite ja kokouspaikan tarkka sijainti):</div>
-        <div>_____________</div>
+        <h2>PAIKKA (kiinteistön osoite ja kokouspaikan tarkka sijainti):</h2>
+        <div>
+          {location ? `${location.address}, ${location.precise}` : "____"}
+        </div>
       </div>
 
       <div>
-        <div>LÄSNÄ (etu- ja sukunimi):</div>
-        <div>{attendants.join(", ") || "______________"}</div>
+        <h2>LÄSNÄ (etu- ja sukunimi):</h2>
+        <ul>
+          {attendants.map((a) => (
+            <li key={a}>{a}</li>
+          ))}
+        </ul>
       </div>
 
       <div>
-        <div>1. KOKOUKSEN AVAUS, KOKOUKSEN LAILLISUUS JA PÄÄTÖSVALTAISUUS</div>
+        <h2>1. KOKOUKSEN AVAUS, KOKOUKSEN LAILLISUUS JA PÄÄTÖSVALTAISUUS</h2>
         <div>
           Puheenjohtaja avasi kokouksen kello{" "}
           {startTime.time || "_________________________"}
@@ -65,60 +86,99 @@ const Preview: React.FC<PreviewProps> = ({
       </div>
 
       <div>
-        <div>2. KAHDEN PÖYTÄKIRJANTARKASTAJAN VALINTA</div>
+        <h2>2. KAHDEN PÖYTÄKIRJANTARKASTAJAN VALINTA</h2>
         <div>
-          Valittiin {examiners.examiner1} ja {examiners.examiner2}
+          Valittiin: {examiners.examiner1} ja {examiners.examiner2}
         </div>
       </div>
 
       <div>
-        <div>3. ESITYSLISTAN HYVÄKSYMINEN</div>
+        <h2>3. ESITYSLISTAN HYVÄKSYMINEN</h2>
         <div>Esityslista hyväksyttiin kokouksen työjärjestykseksi.</div>
       </div>
 
       <div>
-        <div>4. HANKINNAT / TALKOOT / MUITA PÄÄTETTÄVIÄ ASIOITA</div>
-        <div>{items.join(", ") || "_______________"}</div>
+        <h2>4. HANKINNAT / TALKOOT / MUITA PÄÄTETTÄVIÄ ASIOITA</h2>
+        <ul>
+          {items.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
       </div>
 
       <div>
-        <div>5. MUUT MAHDOLLISET ASIAT</div>
-        <div>{other.join(", ") || "_________"}</div>
+        <h2>5. MUUT MAHDOLLISET ASIAT</h2>
+        <ul>
+          {other.map((o) => (
+            <li key={o}>{o}</li>
+          ))}
+        </ul>
       </div>
 
       <div>
-        <div>
+        <h2>
           UUDET JÄSENET (etu- ja sukunimi sekä mahdollinen rooli toimikunnassa):
-        </div>
-        <div>{newMembers.join(", ") || "_______________"}</div>
+        </h2>
+        <ul>
+          {newMembers.map((mem) => (
+            <li key={mem.name}>
+              {mem.name} {mem.role}
+            </li>
+          ))}
+        </ul>
       </div>
 
       <div>
-        <div>6. SEURAAVAN KOKOUKSEN AJANKOHTA</div>
+        <h2>6. SEURAAVAN KOKOUKSEN AJANKOHTA</h2>
         <div>
-          Seuraava kokous pidetään {nextMeeting.date} kello{" "}
-          {nextMeeting.time || "______________________________________"}
+          Seuraava kokous pidetään:
+          <div>
+            {Object.values(nextMeeting).includes(null) ? (
+              "___"
+            ) : (
+              <>
+                <div>{nextMeeting.date}</div>
+                <div>kello: {nextMeeting.time}</div>
+              </>
+            )}
+          </div>
         </div>
       </div>
 
       <div>
-        <div>7. KOKOUKSEN PÄÄTTÄMINEN</div>
-        <div>
-          Puheenjohtaja päätti kokouksen kello ______________________________
-        </div>
+        <h2>7. KOKOUKSEN PÄÄTTÄMINEN</h2>
+        <div>Puheenjohtaja päätti kokouksen kello {meetingEnd}</div>
       </div>
 
       <div>
-        <div>VAKUUDEKSI</div>
-        <div>
+        <h2>VAKUUDEKSI</h2>
+        <div className="grid grid-cols-2 gap-y-2">
           <div>
             <div>{signatures.chairman || "________"}</div>
-            <div>puheenjohtajan allekirjoitus</div>
+            <div className="underline font-alex text-2xl">
+              puheenjohtajan allekirjoitus
+            </div>
           </div>
 
           <div>
             <div>{signatures.secretary || "_______"}</div>
-            <div>sihteerin allekirjoitus</div>
+            <div className="underline font-alex text-2xl">
+              sihteerin allekirjoitus
+            </div>
+          </div>
+
+          <div>
+            <div>{signatures.examiner1 || "_______"}</div>
+            <div className="underline font-alex text-2xl">
+              sihteerin allekirjoitus
+            </div>
+          </div>
+
+          <div>
+            <div>{signatures.examiner2 || "_______"}</div>
+            <div className="underline font-alex text-2xl">
+              sihteerin allekirjoitus
+            </div>
           </div>
         </div>
       </div>
