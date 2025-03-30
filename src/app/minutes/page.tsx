@@ -4,10 +4,10 @@ import { useState } from "react";
 import PdfPreview from "../components/PdfPreview";
 import { DateTime } from "../meeting-invite/page";
 import AddNewMember from "./components/AddNewMember";
+import DatePicker from "./components/DatePicker";
 import DynamicInputList from "./components/DynamicInputList";
 import MeetingExaminers from "./components/MeetingExaminers";
 import MeetingSignatures from "./components/MeetingSignatures";
-import NextMeetingDate from "./components/NextMeetingDate";
 import MinutePdf from "./MinutePdf";
 import Preview from "./Preview";
 
@@ -55,7 +55,10 @@ const Minutes = () => {
     date: "",
     time: "",
   });
-  const [meetingEnd, setMeetingEnd] = useState<string>("");
+  const [meetingEnd, setMeetingEnd] = useState<DateTime>({
+    date: "",
+    time: "",
+  });
   const [signatures, setSignatures] = useState<Signatures>({
     chairman: "",
     secretary: "",
@@ -75,21 +78,6 @@ const Minutes = () => {
     }`;
 
     setStartTime({ date: startDate, time: startTime });
-  };
-
-  const handleAddMember = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const name = e.currentTarget.memberName;
-    const role = e.currentTarget.role;
-
-    if (name && role) {
-      const newMember: NewMember = {
-        name,
-        role,
-      };
-
-      setNewMembers((prevMembers) => [...prevMembers, newMember]);
-    }
   };
 
   return (
@@ -199,7 +187,7 @@ const Minutes = () => {
 
       <div className="minute-part  border-2">
         <label>Seuraavan kokouksen ajankohta</label>
-        <NextMeetingDate setNextMeeting={setNextMeeting} />
+        <DatePicker setNextMeeting={setNextMeeting} />
       </div>
 
       <div className="minute-part [&>div]:flex [&>div]:flex-col [&>div]:gap-sm border-2">
@@ -212,6 +200,7 @@ const Minutes = () => {
 
       <div className="minute-part  border-2">
         <label>Kokouksen päättäminen</label>
+        <DatePicker setNextMeeting={setMeetingEnd} />
         <button onClick={() => console.log("end meeting")}>Päätä kokous</button>
       </div>
       <Preview

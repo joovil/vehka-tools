@@ -13,7 +13,7 @@ interface PreviewProps {
   examiners: Examiners;
   newMembers: NewMember[];
   nextMeeting: DateTime;
-  meetingEnd: string;
+  meetingEnd: DateTime;
 
   signatures: Signatures;
 }
@@ -68,8 +68,8 @@ const Preview: React.FC<PreviewProps> = ({
       <div>
         <h2>LÄSNÄ (etu- ja sukunimi):</h2>
         <ul>
-          {attendants.map((a) => (
-            <li key={a}>{a}</li>
+          {attendants.map((a, i) => (
+            <li key={i}>{a}</li>
           ))}
         </ul>
       </div>
@@ -100,8 +100,8 @@ const Preview: React.FC<PreviewProps> = ({
       <div>
         <h2>4. HANKINNAT / TALKOOT / MUITA PÄÄTETTÄVIÄ ASIOITA</h2>
         <ul>
-          {items.map((item) => (
-            <li key={item}>{item}</li>
+          {items.map((item, i) => (
+            <li key={i}>{item}</li>
           ))}
         </ul>
       </div>
@@ -109,8 +109,8 @@ const Preview: React.FC<PreviewProps> = ({
       <div>
         <h2>5. MUUT MAHDOLLISET ASIAT</h2>
         <ul>
-          {other.map((o) => (
-            <li key={o}>{o}</li>
+          {other.map((o, i) => (
+            <li key={i}>{o}</li>
           ))}
         </ul>
       </div>
@@ -120,8 +120,8 @@ const Preview: React.FC<PreviewProps> = ({
           UUDET JÄSENET (etu- ja sukunimi sekä mahdollinen rooli toimikunnassa):
         </h2>
         <ul>
-          {newMembers.map((mem) => (
-            <li key={mem.name}>
+          {newMembers.map((mem, i) => (
+            <li key={i}>
               {mem.name} {mem.role}
             </li>
           ))}
@@ -147,7 +147,19 @@ const Preview: React.FC<PreviewProps> = ({
 
       <div>
         <h2>7. KOKOUKSEN PÄÄTTÄMINEN</h2>
-        <div>Puheenjohtaja päätti kokouksen kello {meetingEnd}</div>
+        <>
+          <div>Puheenjohtaja päätti kokouksen kello</div>
+          <div>
+            {Object.values(meetingEnd).includes(null) ? (
+              "___"
+            ) : (
+              <>
+                <div>{meetingEnd.date}</div>
+                <div>kello: {meetingEnd.time}</div>
+              </>
+            )}
+          </div>
+        </>
       </div>
 
       <div>

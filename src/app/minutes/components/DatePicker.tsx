@@ -8,7 +8,7 @@ import {
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import "dayjs/locale/fi";
 
-const NextMeetingDate = ({
+const DatePicker = ({
   setNextMeeting,
 }: {
   setNextMeeting: React.Dispatch<
@@ -45,4 +45,4 @@ const NextMeetingDate = ({
   );
 };
 
-export default NextMeetingDate;
+export default DatePicker;

@@ -25,15 +25,17 @@ const AddNewMember = ({
   return (
     <div className="flex flex-col">
       <label>{label}</label>
-      {newMembers.map((mem, i) => (
-        <NewMemberItem
-          member={mem}
-          i={i}
-          newMembers={newMembers}
-          setNewMembers={setNewMembers}
-          key={i}
-        />
-      ))}
+      {newMembers.map((mem, i) =>
+        !!mem.name && !!mem.role ? (
+          <NewMemberItem
+            member={mem}
+            i={i}
+            newMembers={newMembers}
+            setNewMembers={setNewMembers}
+            key={i}
+          />
+        ) : null
+      )}
 
       <form
         className="flex flex-col gap-sm"
