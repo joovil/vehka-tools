@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { NewMember } from "../page";
 
 const AddNewMember = ({
@@ -14,7 +14,6 @@ const AddNewMember = ({
   newMembers: NewMember[];
   setNewMembers: React.Dispatch<React.SetStateAction<NewMember[]>>;
 }) => {
-  const focusRef = useRef<HTMLInputElement>(null);
   const [newItem, setNewItem] = useState<NewMember>({ name: "", role: "" });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -26,11 +25,13 @@ const AddNewMember = ({
   return (
     <div className="flex flex-col">
       <label>{label}</label>
-      {newMembers.map((mem) => (
+      {newMembers.map((mem, i) => (
         <NewMemberItem
-          newMember={mem}
-          setNewItem={setNewItem}
-          key={mem.name}
+          member={mem}
+          i={i}
+          newMembers={newMembers}
+          setNewMembers={setNewMembers}
+          key={i}
         />
       ))}
 
@@ -74,36 +75,35 @@ const AddNewMember = ({
 };
 
 const NewMemberItem = ({
-  newMember,
-  setNewItem,
+  i,
+  member,
+  newMembers,
+  setNewMembers,
 }: {
-  newMember: NewMember;
-  setNewItem: React.Dispatch<React.SetStateAction<NewMember>>;
+  i: number;
+  member: NewMember;
+  newMembers: NewMember[];
+  setNewMembers: React.Dispatch<React.SetStateAction<NewMember[]>>;
 }) => {
-  const [edit, setEdit] = useState<boolean>(false);
+  const updateValues = (e: React.ChangeEvent<HTMLInputElement>, i: number) => {
+    const key = e.currentTarget.name as "name" | "role";
+    const update = [...newMembers];
+    update[i][key] = e.currentTarget.value;
+    setNewMembers(update);
+  };
 
   return (
-    <div key={newMember.name}>
-      {!edit ? (
-        <div onClick={() => setEdit((b) => !b)}>
-          {newMember.name} {newMember.role}
-        </div>
-      ) : (
-        <>
-          <input
-            value={newMember.name}
-            onChange={(e) =>
-              setNewItem((prev) => ({ ...prev, name: e.currentTarget.value }))
-            }
-          />
-          <input
-            value={newMember.role}
-            onChange={(e) =>
-              setNewItem((prev) => ({ ...prev, role: e.currentTarget.value }))
-            }
-          />
-        </>
-      )}
+    <div>
+      <input
+        value={member.name}
+        name="name"
+        onChange={(e) => updateValues(e, i)}
+      />
+      <input
+        value={member.role}
+        name="role"
+        onChange={(e) => updateValues(e, i)}
+      />
     </div>
   );
 };
