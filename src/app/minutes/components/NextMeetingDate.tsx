@@ -6,6 +6,7 @@ import {
   renderTimeViewClock,
 } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import "dayjs/locale/fi";
 
 const NextMeetingDate = ({
   setNextMeeting,
@@ -21,7 +22,7 @@ const NextMeetingDate = ({
     <div className="w-1/2">
       <LocalizationProvider
         dateAdapter={AdapterDayjs}
-        adapterLocale="de"
+        adapterLocale="fi"
       >
         <DateTimePicker
           ampm={false}
