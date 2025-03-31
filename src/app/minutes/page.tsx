@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { DownloadPdf } from "../components/DownloadPdf";
 import PdfPreview from "../components/PdfPreview";
 import { DateTime } from "../meeting-invite/page";
 import AddNewMember from "./components/AddNewMember";
@@ -64,7 +65,9 @@ const Minutes = () => {
     examiner2: "",
   });
 
-  const handleDate = () => {
+  const handleDate = (
+    setter: React.Dispatch<React.SetStateAction<DateTime>>
+  ) => {
     const date = new Date();
     const startDate = `${date.getDate()}.${
       date.getMonth() + 1
@@ -75,7 +78,7 @@ const Minutes = () => {
       (minutes < 10 ? "0" : "") + minutes
     }`;
 
-    setStartTime({ date: startDate, time: startTime });
+    setter({ date: startDate, time: startTime });
   };
 
   return (
@@ -120,7 +123,7 @@ const Minutes = () => {
       <div className="flex flex-col border-2">
         <h2>Kokouksen avaus</h2>
         <button
-          onClick={handleDate}
+          onClick={() => handleDate(setStartTime)}
           disabled={!!startTime.date}
           className="mt-1"
         >
@@ -196,9 +199,38 @@ const Minutes = () => {
 
       <div className="minute-part  border-2">
         <label>Kokouksen päättäminen</label>
-        <DatePicker setNextMeeting={setMeetingEnd} />
-        <button onClick={() => console.log("end meeting")}>Päätä kokous</button>
+        {/* <DatePicker setNextMeeting={setMeetingEnd} /> */}
+        <button
+          onClick={() => handleDate(setMeetingEnd)}
+          disabled={!!meetingEnd.date}
+        >
+          Päätä kokous
+        </button>
       </div>
+
+      <button
+        onClick={() =>
+          DownloadPdf(
+            `Kokouspöytäkirja-${startTime.date}`,
+            <MinutePdf
+              minuteNumber={minuteNumber}
+              location={location}
+              attendants={attendants}
+              items={items}
+              other={other}
+              startTime={startTime}
+              examiners={examiners}
+              newMembers={newMembers}
+              meetingEnd={meetingEnd}
+              nextMeeting={nextMeeting}
+              signatures={signatures}
+            />
+          )
+        }
+      >
+        Lataa pöytäkirja
+      </button>
+
       <Preview
         minuteNumber={minuteNumber}
         location={location}

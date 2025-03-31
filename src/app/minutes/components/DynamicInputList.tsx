@@ -57,7 +57,14 @@ const DynamicInputList = ({
         onChange={(e) => setNewItem(e.currentTarget.value)}
         onKeyDown={handleEnter}
         placeholder="Lisää uusi läsnäolija"
+        className="mb-1"
       />
+      <div
+        className="text-red-800"
+        style={{ display: newItem ? "block" : "none" }}
+      >
+        Tallentamaton kohde
+      </div>
       <button
         onClick={addItem}
         disabled={!newItem}

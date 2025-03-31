@@ -1,7 +1,20 @@
 "use client";
 
-import { Document, Page, StyleSheet, Text, View } from "@react-pdf/renderer";
+import {
+  Document,
+  Font,
+  Page,
+  StyleSheet,
+  Text,
+  View,
+} from "@react-pdf/renderer";
 import { PreviewProps } from "../Preview";
+
+Font.register({
+  family: "Alex Brush",
+  src: "https://fonts.gstatic.com/s/alexbrush/v22/SZc83FzrJKuqFbwMKk6EtUL57DtOmCc.ttf",
+  fontWeight: 400,
+});
 
 const styles = StyleSheet.create({
   page: {
@@ -18,6 +31,11 @@ const styles = StyleSheet.create({
     display: "flex",
     gap: 5,
   },
+  signature: {
+    fontFamily: "Alex Brush",
+    fontSize: 20,
+    textDecoration: "underline",
+  },
 });
 
 const MinutePdf = ({
@@ -31,7 +49,12 @@ const MinutePdf = ({
   newMembers,
   nextMeeting,
   meetingEnd,
-  signatures,
+  signatures = {
+    chairman: "chairman",
+    secretary: "secretary",
+    examiner1: "examiner1",
+    examiner2: "examiner2",
+  },
 }: PreviewProps) => {
   const date = new Date();
 
@@ -140,7 +163,10 @@ const MinutePdf = ({
           )}
         </View>
 
-        <View style={styles.section}>
+        <View
+          style={styles.section}
+          break
+        >
           <Text>6. SEURAAVAN KOKOUKSEN AJANKOHTA</Text>
           <Text>Seuraava kokous pidetään</Text>
           {Object.values(nextMeeting).includes("") ? (
@@ -168,27 +194,42 @@ const MinutePdf = ({
 
         <View style={styles.section}>
           <Text>VAKUUDEKSI</Text>
-          <View>
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              gap: 80,
+            }}
+          >
             <View>
-              <Text>________</Text>
-              <Text>puheenjohtajan allekirjoitus</Text>
+              <View>
+                <Text style={styles.signature}>
+                  {signatures.chairman || "________"}
+                </Text>
+                <Text>puheenjohtajan allekirjoitus</Text>
+              </View>
+              <View>
+                <Text style={styles.signature}>
+                  {signatures.examiner1 || "_______"}
+                </Text>
+                <Text>pöytäkirjantarkastajan allekirjoitus</Text>
+              </View>
             </View>
 
             <View>
-              <Text>_______</Text>
-              <Text>sihteerin allekirjoitus</Text>
-            </View>
-          </View>
+              <View>
+                <Text style={styles.signature}>
+                  {signatures.secretary || "_______"}
+                </Text>
+                <Text>sihteerin allekirjoitus</Text>
+              </View>
 
-          <View>
-            <View>
-              <Text>________</Text>
-              <Text>puheenjohtajan allekirjoitus</Text>
-            </View>
-
-            <View>
-              <Text>_______</Text>
-              <Text>sihteerin allekirjoitus</Text>
+              <View>
+                <Text style={styles.signature}>
+                  {signatures.examiner2 || "_______"}
+                </Text>
+                <Text>pöytäkirjantarkastajan allekirjoitus</Text>
+              </View>
             </View>
           </View>
         </View>

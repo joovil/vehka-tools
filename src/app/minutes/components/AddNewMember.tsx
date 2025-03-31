@@ -7,7 +7,6 @@ const AddNewMember = ({
   newMembers,
   setNewMembers,
 }: {
-  label: string;
   newMembers: NewMember[];
   setNewMembers: React.Dispatch<React.SetStateAction<NewMember[]>>;
 }) => {
@@ -59,6 +58,12 @@ const AddNewMember = ({
           }
           onKeyDown={handleEnter}
         />
+        <div
+          className="text-red-800"
+          style={{ display: newItem.name ? "block" : "none" }}
+        >
+          Tallentamaton kohde
+        </div>
       </div>
       <button onClick={addMember}>Lisää jäsen</button>
     </div>

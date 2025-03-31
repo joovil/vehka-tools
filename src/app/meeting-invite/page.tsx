@@ -67,31 +67,6 @@ const MeetingInvite = () => {
     setLocation({ ...location, [name]: value });
   };
 
-  // const downloadPDF = async () => {
-  //   const blob = await pdf(
-  //     <InvitePdf
-  //       dateTime={dateTime}
-  //       location={location}
-  //       agenda={agenda}
-  //       moreInfo={moreInfo}
-  //       endItems={endItems}
-  //     />
-  //   ).toBlob();
-
-  //   const url = URL.createObjectURL(blob);
-
-  //   // Create temporary <a/> element to download the pdf
-  //   const a = document.createElement("a");
-  //   a.href = url;
-  //   a.download = "MeetingInvite.pdf";
-  //   document.body.appendChild(a);
-
-  //   a.click();
-
-  //   document.body.removeChild(a);
-  //   URL.revokeObjectURL(url);
-  // };
-
   return (
     <main
       className="flex flex-col"
