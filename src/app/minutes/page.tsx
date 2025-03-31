@@ -48,9 +48,7 @@ const Minutes = () => {
     examiner1: "",
     examiner2: "",
   });
-  const [newMembers, setNewMembers] = useState<NewMember[]>([
-    { name: "", role: "" },
-  ]);
+  const [newMembers, setNewMembers] = useState<NewMember[]>([]);
   const [nextMeeting, setNextMeeting] = useState<DateTime>({
     date: "",
     time: "",
@@ -178,8 +176,6 @@ const Minutes = () => {
       <div className="minute-part  border-2">
         <h2>Uudet jäsenet</h2>
         <AddNewMember
-          label="Uusi jäsen"
-          buttonLabel="Lisää uusi jäsen"
           setNewMembers={setNewMembers}
           newMembers={newMembers}
         />
@@ -217,9 +213,23 @@ const Minutes = () => {
         signatures={signatures}
       />
 
-      <PdfPreview>
-        <MinutePdf />
-      </PdfPreview>
+      {false && (
+        <PdfPreview>
+          <MinutePdf
+            minuteNumber={minuteNumber}
+            location={location}
+            attendants={attendants}
+            items={items}
+            other={other}
+            startTime={startTime}
+            examiners={examiners}
+            newMembers={newMembers}
+            meetingEnd={meetingEnd}
+            nextMeeting={nextMeeting}
+            signatures={signatures}
+          />
+        </PdfPreview>
+      )}
     </section>
   );
 };

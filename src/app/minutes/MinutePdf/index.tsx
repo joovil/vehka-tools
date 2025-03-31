@@ -1,6 +1,7 @@
 "use client";
 
 import { Document, Page, StyleSheet, Text, View } from "@react-pdf/renderer";
+import { PreviewProps } from "../Preview";
 
 const styles = StyleSheet.create({
   page: {
@@ -19,7 +20,19 @@ const styles = StyleSheet.create({
   },
 });
 
-const MinutePdf = () => {
+const MinutePdf = ({
+  minuteNumber,
+  location,
+  attendants,
+  items,
+  other,
+  startTime,
+  examiners,
+  newMembers,
+  nextMeeting,
+  meetingEnd,
+  signatures,
+}: PreviewProps) => {
   const date = new Date();
 
   return (
@@ -27,28 +40,44 @@ const MinutePdf = () => {
       <Page style={styles.page}>
         <View style={styles.section}>
           <Text>Helsingin seudun opiskelija-asuntosäätiö</Text>
-          <Text>Pöytäkirja _/{date.getFullYear()}</Text>
+          <Text>
+            Pöytäkirja {minuteNumber || "_"}/{date.getFullYear()}
+          </Text>
         </View>
 
         {/* Asukastoimikunnan kokous */}
         <View style={styles.section}>
           <Text>Asukastoimikunnan kokous</Text>
           <Text>PÄIVÄMÄÄRÄ JA KELLONAIKA:</Text>
-          <Text>
-            {date.getDate()}.{date.getMonth() + 1}.{date.getFullYear()}
-          </Text>
+          {Object.values(startTime).includes("") ? (
+            "_______"
+          ) : (
+            <>
+              <Text>{startTime.date}</Text>
+              <Text>kello: {startTime.time}</Text>
+            </>
+          )}{" "}
         </View>
 
         <View style={styles.section}>
           <Text>
             PAIKKA (kiinteistön osoite ja kokouspaikan tarkka sijainti):
           </Text>
-          <Text>_____________</Text>
+          <Text>
+            {" "}
+            {Object.values(location).includes("")
+              ? "_______"
+              : `${location.address}, ${location.precise}`}
+          </Text>
         </View>
 
         <View style={styles.section}>
-          <Text>LÄSNÄ (etu- ja sukunimi):</Text>
-          <Text>______________</Text>
+          <Text>LÄSNÄ (etu- ja sukunimi):</Text>{" "}
+          {attendants.length > 0 ? (
+            attendants.map((a: string, i: number) => <Text key={i}>{a}</Text>)
+          ) : (
+            <Text>_______</Text>
+          )}
         </View>
 
         <View style={styles.section}>
@@ -56,7 +85,8 @@ const MinutePdf = () => {
             1. KOKOUKSEN AVAUS, KOKOUKSEN LAILLISUUS JA PÄÄTÖSVALTAISUUS
           </Text>
           <Text>
-            Puheenjohtaja avasi kokouksen kello _________________________
+            Puheenjohtaja avasi kokouksen kello{" "}
+            {startTime.time || "_________________________"}
           </Text>
           <Text>
             Todettiin kokous laillisesti koolle kutsutuksi ja päätösvaltaiseksi.
@@ -65,7 +95,10 @@ const MinutePdf = () => {
 
         <View style={styles.section}>
           <Text>2. KAHDEN PÖYTÄKIRJANTARKASTAJAN VALINTA</Text>
-          <Text>Valittiin __________________</Text>
+          <Text>
+            Valittiin: {examiners.examiner1 || "_______"} ja{" "}
+            {examiners.examiner2 || "_______"}
+          </Text>
         </View>
 
         <View style={styles.section}>
@@ -75,12 +108,20 @@ const MinutePdf = () => {
 
         <View style={styles.section}>
           <Text>4. HANKINNAT / TALKOOT / MUITA PÄÄTETTÄVIÄ ASIOITA</Text>
-          <Text>_______________</Text>
+          {items.length > 0 ? (
+            items.map((item: string, i: number) => <Text key={i}>{item}</Text>)
+          ) : (
+            <Text>_______</Text>
+          )}
         </View>
 
         <View style={styles.section}>
           <Text>5. MUUT MAHDOLLISET ASIAT</Text>
-          <Text>_________</Text>
+          {other.length > 0 ? (
+            other.map((o: string, i: number) => <Text key={i}>{o}</Text>)
+          ) : (
+            <Text>_______</Text>
+          )}
         </View>
 
         <View style={styles.section}>
@@ -88,21 +129,41 @@ const MinutePdf = () => {
             UUDET JÄSENET (etu- ja sukunimi sekä mahdollinen rooli
             toimikunnassa):
           </Text>
-          <Text>_______________</Text>
+          {newMembers.length > 0 ? (
+            newMembers.map((mem, i) => (
+              <Text key={i}>
+                {mem.name} {mem.role}
+              </Text>
+            ))
+          ) : (
+            <Text>_______</Text>
+          )}
         </View>
 
         <View style={styles.section}>
           <Text>6. SEURAAVAN KOKOUKSEN AJANKOHTA</Text>
-          <Text>
-            Seuraava kokous pidetään ______________________________________
-          </Text>
+          <Text>Seuraava kokous pidetään</Text>
+          {Object.values(nextMeeting).includes("") ? (
+            "_______"
+          ) : (
+            <>
+              <Text>{nextMeeting.date}</Text>
+              <Text>kello: {nextMeeting.time}</Text>
+            </>
+          )}
         </View>
 
         <View style={styles.section}>
           <Text>7. KOKOUKSEN PÄÄTTÄMINEN</Text>
-          <Text>
-            Puheenjohtaja päätti kokouksen kello ______________________________
-          </Text>
+          <Text>Puheenjohtaja päätti kokouksen kello</Text>
+          {Object.values(meetingEnd).includes("") ? (
+            "_______"
+          ) : (
+            <>
+              <Text>{meetingEnd.date}</Text>
+              <Text>kello: {meetingEnd.time}</Text>
+            </>
+          )}
         </View>
 
         <View style={styles.section}>

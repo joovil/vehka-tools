@@ -3,7 +3,7 @@
 import { DateTime } from "@/app/meeting-invite/page";
 import { Examiners, Location, NewMember, Signatures } from "../page";
 
-interface PreviewProps {
+export interface PreviewProps {
   minuteNumber: number | null;
   location: Location;
   attendants: string[];
@@ -77,11 +77,15 @@ const Preview: React.FC<PreviewProps> = ({
 
       <div>
         <h2>LÄSNÄ (etu- ja sukunimi):</h2>
-        <ul>
-          {attendants.map((a, i) => (
-            <li key={i}>{a}</li>
-          ))}
-        </ul>
+        {attendants.length > 0 ? (
+          <ul>
+            {attendants.map((a: string, i: number) => (
+              <li key={i}>{a}</li>
+            ))}
+          </ul>
+        ) : (
+          <div>_______</div>
+        )}
       </div>
 
       <div>
@@ -138,13 +142,17 @@ const Preview: React.FC<PreviewProps> = ({
         <h2>
           UUDET JÄSENET (etu- ja sukunimi sekä mahdollinen rooli toimikunnassa):
         </h2>
-        <ul>
-          {newMembers.map((mem, i) => (
-            <li key={i}>
-              {mem.name} {mem.role}
-            </li>
-          ))}
-        </ul>
+        {newMembers ? (
+          <ul>
+            {newMembers.map((mem, i) => (
+              <li key={i}>
+                {mem.name} {mem.role}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div>_______</div>
+        )}
       </div>
 
       <div>
