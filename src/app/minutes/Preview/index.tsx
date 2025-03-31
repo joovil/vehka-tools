@@ -33,12 +33,20 @@ const Preview: React.FC<PreviewProps> = ({
 }) => {
   const date = new Date();
 
+  const signatureStyle = (b: boolean) => {
+    return {
+      textDecoration: b ? "underline" : "",
+      fontFamily: b ? "var(--font-alex-brush)" : "var(--font-circular)",
+      fontSize: b ? "var(--text-2xl)" : "var(--text-base)",
+    };
+  };
+
   return (
     <div className="flex flex-col gap-5 border-2 [&_h2]:text-xl">
       <div>
         <div>Helsingin seudun opiskelija-asuntosäätiö</div>
         <div>
-          Pöytäkirja {minuteNumber}/{date.getFullYear()}
+          Pöytäkirja {minuteNumber || "_"}/{date.getFullYear()}
         </div>
       </div>
 
@@ -47,8 +55,8 @@ const Preview: React.FC<PreviewProps> = ({
         <h2>Asukastoimikunnan kokous</h2>
         <div>PÄIVÄMÄÄRÄ JA KELLONAIKA:</div>
         <div>
-          {Object.values(startTime).includes(null) ? (
-            "___"
+          {Object.values(startTime).includes("") ? (
+            "_______"
           ) : (
             <>
               <div>{startTime.date}</div>
@@ -61,7 +69,9 @@ const Preview: React.FC<PreviewProps> = ({
       <div>
         <h2>PAIKKA (kiinteistön osoite ja kokouspaikan tarkka sijainti):</h2>
         <div>
-          {location ? `${location.address}, ${location.precise}` : "____"}
+          {Object.values(location).includes("")
+            ? "_______"
+            : `${location.address}, ${location.precise}`}
         </div>
       </div>
 
@@ -88,7 +98,8 @@ const Preview: React.FC<PreviewProps> = ({
       <div>
         <h2>2. KAHDEN PÖYTÄKIRJANTARKASTAJAN VALINTA</h2>
         <div>
-          Valittiin: {examiners.examiner1} ja {examiners.examiner2}
+          Valittiin: {examiners.examiner1 || "_______"} ja{" "}
+          {examiners.examiner2 || "_______"}
         </div>
       </div>
 
@@ -99,20 +110,28 @@ const Preview: React.FC<PreviewProps> = ({
 
       <div>
         <h2>4. HANKINNAT / TALKOOT / MUITA PÄÄTETTÄVIÄ ASIOITA</h2>
-        <ul>
-          {items.map((item, i) => (
-            <li key={i}>{item}</li>
-          ))}
-        </ul>
+        {items.length > 0 ? (
+          <ul>
+            {items.map((item, i) => (
+              <li key={i}>{item}</li>
+            ))}
+          </ul>
+        ) : (
+          <div>_______</div>
+        )}
       </div>
 
       <div>
         <h2>5. MUUT MAHDOLLISET ASIAT</h2>
-        <ul>
-          {other.map((o, i) => (
-            <li key={i}>{o}</li>
-          ))}
-        </ul>
+        {other.length > 0 ? (
+          <ul>
+            {other.map((o, i) => (
+              <li key={i}>{o}</li>
+            ))}
+          </ul>
+        ) : (
+          <div>_______</div>
+        )}
       </div>
 
       <div>
@@ -133,8 +152,8 @@ const Preview: React.FC<PreviewProps> = ({
         <div>
           Seuraava kokous pidetään:
           <div>
-            {Object.values(nextMeeting).includes(null) ? (
-              "___"
+            {Object.values(nextMeeting).includes("") ? (
+              "_______"
             ) : (
               <>
                 <div>{nextMeeting.date}</div>
@@ -150,8 +169,8 @@ const Preview: React.FC<PreviewProps> = ({
         <>
           <div>Puheenjohtaja päätti kokouksen kello</div>
           <div>
-            {Object.values(meetingEnd).includes(null) ? (
-              "___"
+            {Object.values(meetingEnd).includes("") ? (
+              "_______"
             ) : (
               <>
                 <div>{meetingEnd.date}</div>
@@ -166,31 +185,43 @@ const Preview: React.FC<PreviewProps> = ({
         <h2>VAKUUDEKSI</h2>
         <div className="grid grid-cols-2 gap-y-2">
           <div>
-            <div>{signatures.chairman || "________"}</div>
-            <div className="underline font-alex text-2xl">
-              puheenjohtajan allekirjoitus
+            <div
+              className="text-2xl"
+              style={signatureStyle(!!signatures.chairman)}
+            >
+              {signatures.chairman || "________"}
             </div>
+            <div>puheenjohtajan allekirjoitus</div>
           </div>
 
           <div>
-            <div>{signatures.secretary || "_______"}</div>
-            <div className="underline font-alex text-2xl">
-              sihteerin allekirjoitus
+            <div
+              className="text-2xl"
+              style={signatureStyle(!!signatures.secretary)}
+            >
+              {signatures.secretary || "_______"}
             </div>
+            <div>sihteerin allekirjoitus</div>
           </div>
 
           <div>
-            <div>{signatures.examiner1 || "_______"}</div>
-            <div className="underline font-alex text-2xl">
-              sihteerin allekirjoitus
+            <div
+              className="text-2xl"
+              style={signatureStyle(!!signatures.examiner1)}
+            >
+              {signatures.examiner1 || "_______"}
             </div>
+            <div>pöytäkirjantarkastajan allekirjoitus</div>
           </div>
 
           <div>
-            <div>{signatures.examiner2 || "_______"}</div>
-            <div className="underline font-alex text-2xl">
-              sihteerin allekirjoitus
+            <div
+              className="text-2xl"
+              style={signatureStyle(!!signatures.examiner2)}
+            >
+              {signatures.examiner2 || "_______"}
             </div>
+            <div>pöytäkirjantarkastajan allekirjoitus</div>
           </div>
         </div>
       </div>

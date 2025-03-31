@@ -6,9 +6,9 @@ import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { renderTimeViewClock } from "@mui/x-date-pickers/timeViewRenderers";
 import { pdf } from "@react-pdf/renderer";
-import InvitePdf from "./pdf/InvitePdf";
-import AgendaItemList from "./preview/AgendaItemList";
-import PdfPreview from "./preview/InviteFormPreview";
+import PdfPreview from "./inviteFormPreview";
+import AgendaItemList from "./inviteFormPreview/AgendaItemList";
+import InvitePdf from "./invitePdf";
 
 export interface AgendaItem {
   fin: string;
