@@ -84,7 +84,7 @@ const Minutes = () => {
   return (
     <section className="minute-form">
       <h1>Kokouspöytäkirja</h1>
-      <div className="minute-part border-2">
+      <div className="minute-part ">
         <h2>Kokouksen sijainti</h2>
 
         <div className="flex flex-col gap-sm">
@@ -110,7 +110,7 @@ const Minutes = () => {
         </div>
       </div>
 
-      <div className="border-2">
+      <div className="">
         <h2>Läsnäolijat</h2>
         <DynamicInputList
           label="Läsnäolija"
@@ -120,7 +120,7 @@ const Minutes = () => {
         />
       </div>
 
-      <div className="flex flex-col border-2">
+      <div className="flex flex-col ">
         <h2>Kokouksen avaus</h2>
         <button
           onClick={() => handleDate(setStartTime)}
@@ -138,7 +138,7 @@ const Minutes = () => {
         )}
       </div>
 
-      <div className="minute-part border-2">
+      <div className="minute-part ">
         <label>Pöytäkirjan numero</label>
         <input
           type="number"
@@ -148,7 +148,7 @@ const Minutes = () => {
         />
       </div>
 
-      <div className="minute-part border-2">
+      <div className="minute-part ">
         <h2>Pöytäkirjan tarkastajat</h2>
         <MeetingExaminers
           examiners={examiners}
@@ -156,7 +156,7 @@ const Minutes = () => {
         />
       </div>
 
-      <div className="minute-part border-2">
+      <div className="minute-part ">
         <h2>Hankinnat</h2>
         <DynamicInputList
           label="Hankinta"
@@ -166,7 +166,7 @@ const Minutes = () => {
         />
       </div>
 
-      <div className="minute-part border-2">
+      <div className="minute-part ">
         <h2>Muut asiat</h2>
         <DynamicInputList
           label="Muu päätettävä asia"
@@ -176,7 +176,7 @@ const Minutes = () => {
         />
       </div>
 
-      <div className="minute-part  border-2">
+      <div className="minute-part  ">
         <h2>Uudet jäsenet</h2>
         <AddNewMember
           setNewMembers={setNewMembers}
@@ -184,12 +184,12 @@ const Minutes = () => {
         />
       </div>
 
-      <div className="minute-part  border-2">
+      <div className="minute-part  ">
         <label>Seuraavan kokouksen ajankohta</label>
         <DatePicker setNextMeeting={setNextMeeting} />
       </div>
 
-      <div className="minute-part [&>div]:flex [&>div]:flex-col [&>div]:gap-sm border-2">
+      <div className="minute-part [&>div]:flex [&>div]:flex-col [&>div]:gap-sm ">
         <h2>Allekirjoitukset</h2>
         <MeetingSignatures
           signatures={signatures}
@@ -197,7 +197,7 @@ const Minutes = () => {
         />
       </div>
 
-      <div className="minute-part  border-2">
+      <div className="minute-part  ">
         <label>Kokouksen päättäminen</label>
         {/* <DatePicker setNextMeeting={setMeetingEnd} /> */}
         <button
