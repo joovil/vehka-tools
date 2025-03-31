@@ -5,7 +5,7 @@ import { useRef, useState } from "react";
 import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { renderTimeViewClock } from "@mui/x-date-pickers/timeViewRenderers";
-import { pdf } from "@react-pdf/renderer";
+import { DownloadPdf } from "../components/DownloadPdf";
 import PdfPreview from "./inviteFormPreview";
 import AgendaItemList from "./inviteFormPreview/AgendaItemList";
 import InvitePdf from "./invitePdf";
@@ -67,30 +67,30 @@ const MeetingInvite = () => {
     setLocation({ ...location, [name]: value });
   };
 
-  const downloadPDF = async () => {
-    const blob = await pdf(
-      <InvitePdf
-        dateTime={dateTime}
-        location={location}
-        agenda={agenda}
-        moreInfo={moreInfo}
-        endItems={endItems}
-      />
-    ).toBlob();
+  // const downloadPDF = async () => {
+  //   const blob = await pdf(
+  //     <InvitePdf
+  //       dateTime={dateTime}
+  //       location={location}
+  //       agenda={agenda}
+  //       moreInfo={moreInfo}
+  //       endItems={endItems}
+  //     />
+  //   ).toBlob();
 
-    const url = URL.createObjectURL(blob);
+  //   const url = URL.createObjectURL(blob);
 
-    // Create temporary <a/> element to download the pdf
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "MeetingInvite.pdf";
-    document.body.appendChild(a);
+  //   // Create temporary <a/> element to download the pdf
+  //   const a = document.createElement("a");
+  //   a.href = url;
+  //   a.download = "MeetingInvite.pdf";
+  //   document.body.appendChild(a);
 
-    a.click();
+  //   a.click();
 
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  };
+  //   document.body.removeChild(a);
+  //   URL.revokeObjectURL(url);
+  // };
 
   return (
     <main
@@ -217,7 +217,18 @@ const MeetingInvite = () => {
       {/* Preview */}
       <div className="flex flex-col gap-sm">
         <button
-          onClick={downloadPDF}
+          onClick={() =>
+            DownloadPdf(
+              "Kokouskutsu",
+              <InvitePdf
+                dateTime={dateTime}
+                location={location}
+                agenda={agenda}
+                moreInfo={moreInfo}
+                endItems={endItems}
+              />
+            )
+          }
           className="btn-primary"
         >
           Lataa kokouskutsu
