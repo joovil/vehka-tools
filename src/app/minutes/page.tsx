@@ -120,13 +120,13 @@ const Minutes = () => {
           <div className="flex flex-col gap-sm">
             <label>Kiinteistön osoite</label>
             <input
-              required
               placeholder="Kiinteistön osoite"
               type="text"
               onChange={(e) =>
                 setLocation({ ...location, address: e.currentTarget.value })
               }
               value={location.address}
+              required
             />
           </div>
 
@@ -139,11 +139,12 @@ const Minutes = () => {
                 setLocation({ ...location, precise: e.currentTarget.value })
               }
               value={location.precise}
+              required
             />
           </div>
         </div>
 
-        <div className="">
+        <div className="minute-part">
           <h2>Läsnäolijat</h2>
           <DynamicInputList
             label="Läsnäolija"
@@ -154,7 +155,7 @@ const Minutes = () => {
           />
         </div>
 
-        <div className="flex flex-col ">
+        <div className="minute-part">
           <h2>Kokouksen avaus</h2>
           <button
             onClick={() => handleDate(setStartTime)}
@@ -182,6 +183,7 @@ const Minutes = () => {
             onChange={(e) =>
               setMinuteNumber(parseInt(e.currentTarget.value, 10))
             }
+            required
           />
         </div>
 
@@ -223,9 +225,21 @@ const Minutes = () => {
           />
         </div>
 
-        <div className="minute-part  ">
+        <div className="minute-part">
           <label>Seuraavan kokouksen ajankohta</label>
-          <DatePicker setNextMeeting={setNextMeeting} />
+          <div className="relative">
+            <div className="relative">
+              <DatePicker setNextMeeting={setNextMeeting} />
+            </div>
+            <input
+              // Hide empty input field under DatePicker to show required warning
+              className="absolute top-0 left-0 -z-10"
+              value={nextMeeting.date}
+              required
+              tabIndex={-1}
+              onChange={() => ""}
+            />
+          </div>
         </div>
 
         <div className="minute-part [&>div]:flex [&>div]:flex-col [&>div]:gap-sm ">
@@ -238,7 +252,6 @@ const Minutes = () => {
 
         <div className="minute-part  ">
           <label>Kokouksen päättäminen</label>
-          {/* <DatePicker setNextMeeting={setMeetingEnd} /> */}
           <button
             type="submit"
             onClick={() => {
@@ -251,15 +264,17 @@ const Minutes = () => {
         </div>
       </form>
 
-      <button
-        className="mb-2 mt-4"
-        onClick={handlePdfDownload}
-        disabled={!disabled}
-      >
-        Lataa pöytäkirja
-      </button>
+      <div className="flex gap-md items-end mt-4 mb-2">
+        <h2>Esikatselu</h2>
 
-      <h2>Esikatselu</h2>
+        <button
+          onClick={handlePdfDownload}
+          disabled={!disabled}
+        >
+          Lataa pöytäkirja
+        </button>
+      </div>
+
       <Preview
         minuteNumber={minuteNumber}
         location={location}

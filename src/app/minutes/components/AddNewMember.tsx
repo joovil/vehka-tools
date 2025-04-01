@@ -98,6 +98,7 @@ const NewMemberItem = ({
           value={member.name}
           name="name"
           onChange={(e) => updateValues(e)}
+          required
         />
         <input
           value={member.role}

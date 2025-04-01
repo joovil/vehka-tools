@@ -1,5 +1,6 @@
 "use client";
 
+import { DateTime } from "@/app/meeting-invite/page";
 import {
   DateTimePicker,
   LocalizationProvider,
@@ -11,12 +12,7 @@ import "dayjs/locale/fi";
 const DatePicker = ({
   setNextMeeting,
 }: {
-  setNextMeeting: React.Dispatch<
-    React.SetStateAction<{
-      date: string;
-      time: string;
-    }>
-  >;
+  setNextMeeting: React.Dispatch<React.SetStateAction<DateTime>>;
 }) => {
   return (
     <div className="w-1/2">

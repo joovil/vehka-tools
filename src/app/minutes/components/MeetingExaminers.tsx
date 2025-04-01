@@ -20,6 +20,7 @@ const MeetingExaminers = ({
             setExaminers({ ...examiners, examiner1: e.currentTarget.value })
           }
           value={examiners.examiner1}
+          required
         />
       </div>
 
@@ -32,6 +33,7 @@ const MeetingExaminers = ({
             setExaminers({ ...examiners, examiner2: e.currentTarget.value })
           }
           value={examiners.examiner2}
+          required
         />
       </div>
     </div>

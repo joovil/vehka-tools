@@ -26,6 +26,7 @@ const MeetingSignatures = ({
           type="text"
           onChange={(e) => handleChange(e)}
           value={signatures.chairman}
+          required
         />
       </div>
 
@@ -37,6 +38,7 @@ const MeetingSignatures = ({
           type="text"
           onChange={(e) => handleChange(e)}
           value={signatures.secretary}
+          required
         />
       </div>
 
@@ -48,6 +50,7 @@ const MeetingSignatures = ({
           type="text"
           onChange={(e) => handleChange(e)}
           value={signatures.examiner1}
+          required
         />
       </div>
 
@@ -59,6 +62,7 @@ const MeetingSignatures = ({
           type="text"
           onChange={(e) => handleChange(e)}
           value={signatures.examiner2}
+          required
         />
       </div>
     </div>
