@@ -38,7 +38,7 @@ const AddNewMember = ({
           key={i}
         />
       ))}
-      <div>
+      <div className="flex gap-md">
         <input
           ref={focusRef}
           value={newItem.name}

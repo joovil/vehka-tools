@@ -3,11 +3,8 @@
   label {
     @apply text-lg;
   }
-  > div {
-    @apply bg-[#F6F7F7] rounded-md p-4 shadow-md;
-  }
 }
 
 .minute-part {
-  @apply flex flex-col;
+  @apply flex flex-col bg-gravel rounded-md p-4 shadow-md;
 }

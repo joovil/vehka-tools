@@ -42,7 +42,10 @@ const Preview: React.FC<PreviewProps> = ({
   };
 
   return (
-    <div className="flex flex-col gap-5 border-2 [&_h2]:text-xl">
+    <div
+      className="flex flex-col gap-5 p-4 shadow-md bg-gravel rounded-md [&_h2]:text-xl"
+      // className="minute-form"
+    >
       <div>
         <div>Helsingin seudun opiskelija-asuntosäätiö</div>
         <div>

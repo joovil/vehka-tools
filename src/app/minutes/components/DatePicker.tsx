@@ -31,7 +31,7 @@ const DatePicker = ({
             const vals = val.format("DD.MM.YYYY HH:mm").split(" ");
             setNextMeeting({ date: vals[0], time: vals[1] });
           }}
-          className="w-full"
+          className="w-full bg-green-light"
           slotProps={{ textField: { size: "small" } }}
           viewRenderers={{
             hours: renderTimeViewClock,
