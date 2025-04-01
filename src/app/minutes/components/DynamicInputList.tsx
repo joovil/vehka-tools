@@ -3,11 +3,13 @@ import { useRef, useState } from "react";
 const DynamicInputList = ({
   label,
   buttonLabel,
+  placeholder,
   items,
   setItems,
 }: {
   label: string;
   buttonLabel: string;
+  placeholder: string;
   items: string[];
   setItems: React.Dispatch<React.SetStateAction<string[]>>;
 }) => {
@@ -56,7 +58,7 @@ const DynamicInputList = ({
         value={newItem}
         onChange={(e) => setNewItem(e.currentTarget.value)}
         onKeyDown={handleEnter}
-        placeholder="Lisää uusi läsnäolija"
+        placeholder={placeholder}
         className="mb-1"
       />
       <div

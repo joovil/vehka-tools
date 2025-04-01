@@ -90,6 +90,7 @@ const Minutes = () => {
         <div className="flex flex-col gap-sm">
           <label>Kiinteistön osoite</label>
           <input
+            placeholder="Kiinteistön osoite"
             type="text"
             onChange={(e) =>
               setLocation({ ...location, address: e.currentTarget.value })
@@ -101,6 +102,7 @@ const Minutes = () => {
         <div className="flex flex-col gap-sm">
           <label>Tarkka sijainti</label>
           <input
+            placeholder="Tarkka sijainti"
             type="text"
             onChange={(e) =>
               setLocation({ ...location, precise: e.currentTarget.value })
@@ -115,6 +117,7 @@ const Minutes = () => {
         <DynamicInputList
           label="Läsnäolija"
           buttonLabel="Lisää läsnäolija"
+          placeholder="Läsnäolija"
           items={attendants}
           setItems={setAttendants}
         />
@@ -141,6 +144,7 @@ const Minutes = () => {
       <div className="minute-part ">
         <label>Pöytäkirjan numero</label>
         <input
+          placeholder="Pöytäkirjan numero"
           type="number"
           min="0"
           step="1"
@@ -161,6 +165,7 @@ const Minutes = () => {
         <DynamicInputList
           label="Hankinta"
           buttonLabel="Lisää hankinta"
+          placeholder="Hankinta"
           items={items}
           setItems={setItems}
         />
@@ -171,6 +176,7 @@ const Minutes = () => {
         <DynamicInputList
           label="Muu päätettävä asia"
           buttonLabel="Lisää muu asia"
+          placeholder="Muu asia"
           items={other}
           setItems={setOther}
         />

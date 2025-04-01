@@ -87,7 +87,6 @@ const MinutePdf = ({
             PAIKKA (kiinteistön osoite ja kokouspaikan tarkka sijainti):
           </Text>
           <Text>
-            {" "}
             {Object.values(location).includes("")
               ? "_______"
               : `${location.address}, ${location.precise}`}
@@ -194,43 +193,32 @@ const MinutePdf = ({
 
         <View style={styles.section}>
           <Text>VAKUUDEKSI</Text>
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              gap: 80,
-            }}
-          >
-            <View>
-              <View>
-                <Text style={styles.signature}>
-                  {signatures.chairman || "________"}
-                </Text>
-                <Text>puheenjohtajan allekirjoitus</Text>
-              </View>
-              <View>
-                <Text style={styles.signature}>
-                  {signatures.examiner1 || "_______"}
-                </Text>
-                <Text>pöytäkirjantarkastajan allekirjoitus</Text>
-              </View>
-            </View>
+          <View>
+            <Text style={styles.signature}>
+              {signatures.chairman || "________"}
+            </Text>
+            <Text>puheenjohtajan allekirjoitus</Text>
+          </View>
 
-            <View>
-              <View>
-                <Text style={styles.signature}>
-                  {signatures.secretary || "_______"}
-                </Text>
-                <Text>sihteerin allekirjoitus</Text>
-              </View>
+          <View>
+            <Text style={styles.signature}>
+              {signatures.examiner1 || "_______"}
+            </Text>
+            <Text>pöytäkirjantarkastajan allekirjoitus</Text>
+          </View>
 
-              <View>
-                <Text style={styles.signature}>
-                  {signatures.examiner2 || "_______"}
-                </Text>
-                <Text>pöytäkirjantarkastajan allekirjoitus</Text>
-              </View>
-            </View>
+          <View>
+            <Text style={styles.signature}>
+              {signatures.secretary || "_______"}
+            </Text>
+            <Text>sihteerin allekirjoitus</Text>
+          </View>
+
+          <View>
+            <Text style={styles.signature}>
+              {signatures.examiner2 || "_______"}
+            </Text>
+            <Text>pöytäkirjantarkastajan allekirjoitus</Text>
           </View>
         </View>
       </Page>

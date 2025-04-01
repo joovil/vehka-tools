@@ -14,6 +14,7 @@ const MeetingExaminers = ({
       <div className="flex flex-col">
         <label>Tarkastaja 1</label>
         <input
+          placeholder="Tarkastaja 1"
           type="text"
           onChange={(e) =>
             setExaminers({ ...examiners, examiner1: e.currentTarget.value })
@@ -25,6 +26,7 @@ const MeetingExaminers = ({
       <div className="flex flex-col">
         <label>Tarkastaja 2</label>
         <input
+          placeholder="Tarkastaja 2"
           type="text"
           onChange={(e) =>
             setExaminers({ ...examiners, examiner2: e.currentTarget.value })

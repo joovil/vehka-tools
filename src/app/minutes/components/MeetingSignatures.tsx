@@ -21,6 +21,7 @@ const MeetingSignatures = ({
       <div>
         <label>Puheenjohtajan allekirjoitus</label>
         <input
+          placeholder="Puheenjohtajan allekirjoitus"
           name="chairman"
           type="text"
           onChange={(e) => handleChange(e)}
@@ -31,6 +32,7 @@ const MeetingSignatures = ({
       <div>
         <label>Sihteerin allekirjoitus</label>
         <input
+          placeholder="Sihteerin allekirjoitus"
           name="secretary"
           type="text"
           onChange={(e) => handleChange(e)}
@@ -41,6 +43,7 @@ const MeetingSignatures = ({
       <div>
         <label>Pöytäkirjantarkastajan allekirjoitus</label>
         <input
+          placeholder="Pöytäkirjantarkastajan allekirjoitus"
           name="examiner1"
           type="text"
           onChange={(e) => handleChange(e)}
@@ -51,6 +54,7 @@ const MeetingSignatures = ({
       <div>
         <label>Pöytäkirjantarkastajan allekirjoitus</label>
         <input
+          placeholder="Pöytäkirjantarkastajan allekirjoitus"
           name="examiner2"
           type="text"
           onChange={(e) => handleChange(e)}
