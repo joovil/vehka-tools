@@ -1,0 +1,44 @@
+@startuml db_schema
+
+hide circle
+skinparam linetype ortho
+
+!define primary_key(x) <b><&key> x</b>
+!define column(x) <&media-record> x
+
+entity "minutes" as minutes {
+  primary_key( id ): SERIAL
+  --
+  *minutes_file : TEXT
+  *minutes_number : INTEGER
+  *createad_date : DATE
+}
+
+entity "expenses" as expenses {
+  primary_key( id ): SERIAL
+  --
+  *expenses_file : TEXT
+  *amount : NUMERIC(10,2)
+}
+
+entity "minutes_expenses" as minutes_expenses {
+  primary_key( id ): SERIAL
+  --
+  *minutes_id : INTEGER <<FK>>
+  *expenses_id : INTEGER <<FK>>
+}
+
+entity "receipts" as receipts {
+  primary_key( id ): SERIAL
+  --
+  *receipts_file : TEXT
+  *expense_id : INTEGER <<FK>>
+}
+
+minutes -[hidden]> expenses
+expenses ||-o{ receipts
+
+minutes ||--o{ minutes_expenses
+expenses ||--o{ minutes_expenses
+
+@enduml
