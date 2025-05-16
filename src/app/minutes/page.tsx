@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { DownloadPdf } from "../components/DownloadPdf";
-import PdfPreview from "../components/PdfPreview";
+import { DownloadPdf } from "../components/pdf/DownloadPdf";
+import PdfPreview from "../components/pdf/PdfPreview";
 import { DateTime } from "../meeting-invite/page";
 import AddNewMember from "./components/AddNewMember";
 import DatePicker from "./components/DatePicker";

@@ -5,7 +5,7 @@ import { useRef, useState } from "react";
 import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { renderTimeViewClock } from "@mui/x-date-pickers/timeViewRenderers";
-import { DownloadPdf } from "../components/DownloadPdf";
+import { DownloadPdf } from "../components/pdf/DownloadPdf";
 import PdfPreview from "./inviteFormPreview";
 import AgendaItemList from "./inviteFormPreview/AgendaItemList";
 import InvitePdf from "./invitePdf";
