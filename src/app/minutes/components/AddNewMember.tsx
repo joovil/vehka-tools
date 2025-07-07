@@ -27,7 +27,7 @@ const AddNewMember = ({
   };
 
   return (
-    <div className="flex flex-col gap-sm">
+    <div className="gap-sm flex flex-col">
       <label>Uudet jäsenet</label>
       {newMembers.map((mem, i) => (
         <NewMemberItem
@@ -38,7 +38,7 @@ const AddNewMember = ({
           key={i}
         />
       ))}
-      <div className="flex gap-md">
+      <div className="gap-md flex">
         <input
           ref={focusRef}
           value={newItem.name}

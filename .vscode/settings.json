@@ -10,5 +10,6 @@
       "username": "postgres",
       "password": "pass"
     }
-  ]
+  ],
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

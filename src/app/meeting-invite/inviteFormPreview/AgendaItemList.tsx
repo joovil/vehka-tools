@@ -25,9 +25,9 @@ const AgendaItemList = ({
             key={item.eng}
             value={item}
           >
-            <div className="md:flex gap-md pb-2">
+            <div className="gap-md pb-2 md:flex">
               <button onClick={() => deleteItem(item)}>X</button>
-              <div className="sm:grid sm:grid-cols-2 flex flex-col gap-sm w-full [&>span]:underline">
+              <div className="gap-sm flex w-full flex-col sm:grid sm:grid-cols-2 [&>span]:underline">
                 <div>{item.fin}</div>
                 <div>{item.eng}</div>
               </div>

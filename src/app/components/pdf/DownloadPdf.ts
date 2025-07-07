@@ -3,7 +3,7 @@ import { pdf } from "@react-pdf/renderer";
 export const DownloadPdf = async (
   filename: string,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  pdfElement: React.ReactElement<any>
+  pdfElement: React.ReactElement<any>,
 ) => {
   const blob = await pdf(pdfElement).toBlob();
 

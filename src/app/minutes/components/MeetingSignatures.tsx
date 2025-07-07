@@ -17,7 +17,7 @@ const MeetingSignatures = ({
   };
 
   return (
-    <div className="[&>div]:flex [&>div]:flex-col [&_input]:font-alex [&_input]:text-3xl">
+    <div className="[&_input]:font-alex [&_input]:text-3xl [&>div]:flex [&>div]:flex-col">
       <div>
         <label>Puheenjohtajan allekirjoitus</label>
         <input

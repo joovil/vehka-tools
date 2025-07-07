@@ -8,7 +8,7 @@ const PDFViewer = dynamic(() => import("./PDFViewer"), { ssr: false });
 const PdfPreview = ({ children }: { children: JSX.Element }) => {
   return (
     <div className="w-full">
-      <PDFViewer className="w-full h-[1000px]">{children}</PDFViewer>
+      <PDFViewer className="h-[1000px] w-full">{children}</PDFViewer>
     </div>
   );
 };

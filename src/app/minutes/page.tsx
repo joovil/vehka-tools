@@ -67,7 +67,7 @@ const Minutes = () => {
   });
 
   const handleDate = (
-    setter: React.Dispatch<React.SetStateAction<DateTime>>
+    setter: React.Dispatch<React.SetStateAction<DateTime>>,
   ) => {
     const date = new Date();
     const startDate = `${date.getDate()}.${
@@ -97,7 +97,7 @@ const Minutes = () => {
         meetingEnd={meetingEnd}
         nextMeeting={nextMeeting}
         signatures={signatures}
-      />
+      />,
     );
   };
 
@@ -117,7 +117,7 @@ const Minutes = () => {
         <div className="minute-part">
           <h2>Kokouksen sijainti</h2>
 
-          <div className="flex flex-col gap-sm">
+          <div className="gap-sm flex flex-col">
             <label>Kiinteistön osoite</label>
             <input
               placeholder="Kiinteistön osoite"
@@ -130,7 +130,7 @@ const Minutes = () => {
             />
           </div>
 
-          <div className="flex flex-col gap-sm">
+          <div className="gap-sm flex flex-col">
             <label>Tarkka sijainti</label>
             <input
               placeholder="Tarkka sijainti"
@@ -173,7 +173,7 @@ const Minutes = () => {
           )}
         </div>
 
-        <div className="minute-part ">
+        <div className="minute-part">
           <label>Pöytäkirjan numero</label>
           <input
             placeholder="Pöytäkirjan numero"
@@ -187,7 +187,7 @@ const Minutes = () => {
           />
         </div>
 
-        <div className="minute-part ">
+        <div className="minute-part">
           <h2>Pöytäkirjan tarkastajat</h2>
           <MeetingExaminers
             examiners={examiners}
@@ -195,7 +195,7 @@ const Minutes = () => {
           />
         </div>
 
-        <div className="minute-part ">
+        <div className="minute-part">
           <h2>Hankinnat</h2>
           <DynamicInputList
             label="Hankinta"
@@ -206,7 +206,7 @@ const Minutes = () => {
           />
         </div>
 
-        <div className="minute-part ">
+        <div className="minute-part">
           <h2>Muut asiat</h2>
           <DynamicInputList
             label="Muu päätettävä asia"
@@ -217,7 +217,7 @@ const Minutes = () => {
           />
         </div>
 
-        <div className="minute-part  ">
+        <div className="minute-part">
           <h2>Uudet jäsenet</h2>
           <AddNewMember
             setNewMembers={setNewMembers}
@@ -242,7 +242,7 @@ const Minutes = () => {
           </div>
         </div>
 
-        <div className="minute-part [&>div]:flex [&>div]:flex-col [&>div]:gap-sm ">
+        <div className="minute-part [&>div]:gap-sm [&>div]:flex [&>div]:flex-col">
           <h2>Allekirjoitukset</h2>
           <MeetingSignatures
             signatures={signatures}
@@ -250,7 +250,7 @@ const Minutes = () => {
           />
         </div>
 
-        <div className="minute-part  ">
+        <div className="minute-part">
           <label>Kokouksen päättäminen</label>
           <button
             type="submit"
@@ -264,7 +264,7 @@ const Minutes = () => {
         </div>
       </form>
 
-      <div className="flex gap-md items-end mt-4 mb-2">
+      <div className="gap-md mt-4 mb-2 flex items-end">
         <h2>Esikatselu</h2>
 
         <button

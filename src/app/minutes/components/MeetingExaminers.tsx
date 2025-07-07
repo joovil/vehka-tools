@@ -10,7 +10,7 @@ const MeetingExaminers = ({
   setExaminers: React.Dispatch<React.SetStateAction<Examiners>>;
 }) => {
   return (
-    <div className="flex flex-col gap-sm">
+    <div className="gap-sm flex flex-col">
       <div className="flex flex-col">
         <label>Tarkastaja 1</label>
         <input

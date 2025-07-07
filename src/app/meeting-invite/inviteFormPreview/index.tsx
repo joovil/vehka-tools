@@ -17,19 +17,19 @@ const PdfPreview = ({
   endItems: AgendaItem[];
 }) => {
   return (
-    <div className="pb-10 hidden sm:block">
+    <div className="hidden pb-10 sm:block">
       <Image
         src="/banner.svg"
         width={0}
         height={0}
-        className="w-full h-full"
+        className="h-full w-full"
         sizes="100vw"
         alt="Banner"
       />
 
       <div className="mx-auto w-fit">
-        <div className="flex flex-col w-fit">
-          <div className="font-bold text-lg leading-5 mb-1">
+        <div className="flex w-fit flex-col">
+          <div className="mb-1 text-lg leading-5 font-bold">
             <div>Asukastoimikunnan kokous</div>
             <div>Tenant committee meeting</div>
           </div>
@@ -91,7 +91,7 @@ const TimePlace = ({
   location: Place;
 }) => {
   return (
-    <div className="text-sm flex gap-sm">
+    <div className="gap-sm flex text-sm">
       <div className="flex flex-col">
         <span>Aika / Time:</span>
         <span>Paikka / Place:</span>
@@ -122,7 +122,7 @@ const AgendaColumn = ({
 }) => {
   return (
     <div>
-      <div className="font-bold text-lg">{header}</div>
+      <div className="text-lg font-bold">{header}</div>
       <div className="flex flex-col gap-0.5">
         {agenda.map((item, i) => (
           <div
@@ -148,7 +148,7 @@ const AgendaColumn = ({
 const InfoColumn = ({ header, body }: { header: string; body: string }) => {
   return (
     <div>
-      <div className="font-bold text-lg">{header}</div>
+      <div className="text-lg font-bold">{header}</div>
       <div>{body}</div>
     </div>
   );
@@ -157,7 +157,7 @@ const InfoColumn = ({ header, body }: { header: string; body: string }) => {
 const WelcomeColumn = ({ header, body }: { header: string; body: string }) => {
   return (
     <div>
-      <div className="font-bold text-lg text-[#E83C6A]">{header}</div>
+      <div className="text-lg font-bold text-[#E83C6A]">{header}</div>
       <div>{body}</div>
     </div>
   );

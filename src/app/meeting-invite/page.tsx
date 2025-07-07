@@ -73,7 +73,7 @@ const MeetingInvite = () => {
       ref={mainRef}
     >
       <h1>Kokouskutsu</h1>
-      <form className="flex flex-col gap-sm">
+      <form className="gap-sm flex flex-col">
         <div className="meeting-invite-cols">
           <div>
             <h2>Aika</h2>
@@ -190,7 +190,7 @@ const MeetingInvite = () => {
       </div>
 
       {/* Preview */}
-      <div className="flex flex-col gap-sm">
+      <div className="gap-sm flex flex-col">
         <button
           onClick={() =>
             DownloadPdf(
@@ -201,7 +201,7 @@ const MeetingInvite = () => {
                 agenda={agenda}
                 moreInfo={moreInfo}
                 endItems={endItems}
-              />
+              />,
             )
           }
           className="btn-primary"
