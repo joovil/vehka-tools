@@ -2,23 +2,23 @@
 @import "./minutes/minutes.css";
 
 :root {
-  --background: var(--color-green-vehka);
+  --background: var(--color-gravel);
   --foreground: #171717;
-  @apply text-lg font-circular;
+  @apply font-circular text-lg;
 
   h1 {
-    @apply text-3xl;
-  }
-
-  h2 {
-    @apply text-2xl;
-  }
-
-  h3 {
     @apply text-xl;
   }
 
-  button {
+  h2 {
+    @apply text-lg font-bold;
+  }
+
+  h3 {
+    @apply text-lg;
+  }
+
+  /* button {
     @apply btn-primary transition-all ease-in-out;
   }
 
@@ -28,12 +28,12 @@
 
   button:disabled {
     @apply bg-green-disabled;
-  }
+  } */
 
-  input,
+  /* input,
   textarea {
     @apply bg-green-light border-b-1;
-  }
+  } */
 }
 
 @theme inline {
@@ -53,7 +53,7 @@
 }
 
 @utility btn-primary {
-  @apply w-fit rounded text-white bg-green-dark px-4 py-1 font-black disabled:bg-green-light;
+  @apply bg-green-dark disabled:bg-green-light w-fit rounded px-4 py-1 font-black text-white;
 }
 
 @utility gap-sm {
@@ -72,7 +72,7 @@
   @apply flex flex-col gap-4;
 
   > div {
-    @apply flex flex-col gap-2;
+    @apply flex flex-col;
   }
 }
 
@@ -83,15 +83,15 @@ body {
 }
 
 .page-container {
-  @apply bg-white w-full 2xl:w-4/6 mx-auto min-h-screen py-10 max-w-[1270px];
+  @apply mx-auto min-h-screen w-full max-w-[1270px] bg-white py-10 2xl:w-4/6;
 }
 
 .page-content {
-  @apply w-4/5 mx-auto 2xl:w-3/5;
+  @apply mx-auto w-4/5 2xl:w-3/5;
 }
 
 @utility meeting-form-input {
-  @apply border-b-1 bg-green-light;
+  @apply bg-green-light border-b-1;
 }
 
 .meeting-form-wrapper {
@@ -115,7 +115,7 @@ body {
 }
 
 .meeting-invite-cols {
-  @apply sm:grid sm:grid-cols-2 gap-md;
+  @apply gap-md sm:grid sm:grid-cols-2;
 }
 
 .invite-info {
