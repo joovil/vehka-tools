@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { NewMember } from "../page";
+import { NewMember } from "../MainContent/page";
 
 const AddNewMember = ({
   newMembers,

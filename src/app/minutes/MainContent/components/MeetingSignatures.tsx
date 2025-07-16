@@ -1,6 +1,6 @@
 "use client";
 
-import { Signatures } from "../page";
+import { Signatures } from "../MainContent/page";
 
 const MeetingSignatures = ({
   signatures,

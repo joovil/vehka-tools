@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Alex_Brush, Geist, Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
-import MenuItems from "./MenuItems";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -53,32 +52,15 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-  sidebar,
 }: Readonly<{
   children: React.ReactNode;
-  sidebar: React.ReactNode;
 }>) {
-  console.log(sidebar);
-
   return (
     <html lang="en">
       <body
         className={`${circular.variable} ${geistSans.variable} ${geistMono.variable} ${alexBrush.variable} antialiased`}
       >
-        <div className="flex h-screen">
-          <div
-            className="flex-2/5 overflow-y-auto border-1 p-10"
-            style={{ scrollbarGutter: "stable" }}
-          >
-            <MenuItems />
-            {sidebar}
-          </div>
-          <div className="w-96 flex-3/5 overflow-y-scroll p-10">
-            <div className="aspect-[1/1.4] max-w-[1000px] bg-white p-10 shadow-lg">
-              {children}
-            </div>
-          </div>
-        </div>
+        {children}
       </body>
     </html>
   );

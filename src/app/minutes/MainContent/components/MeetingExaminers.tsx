@@ -1,6 +1,6 @@
 "use client";
 
-import { Examiners } from "../page";
+import { Examiners } from "../MainContent/page";
 
 const MeetingExaminers = ({
   examiners,

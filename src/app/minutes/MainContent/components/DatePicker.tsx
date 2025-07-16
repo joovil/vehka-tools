@@ -1,6 +1,6 @@
 "use client";
 
-import { DateTime } from "@/app/meeting-invite/page";
+import { DateTime } from "@/app/meeting-invite/MainContent/MeetingInviteContent";
 import {
   DateTimePicker,
   LocalizationProvider,

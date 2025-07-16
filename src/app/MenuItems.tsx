@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 const MenuItems = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(!false);
 
   return (
     <div>

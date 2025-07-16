@@ -87,9 +87,9 @@ const MinutePdf = ({
             PAIKKA (kiinteistön osoite ja kokouspaikan tarkka sijainti):
           </Text>
           <Text>
-            {Object.values(location).includes("")
+            {/* {Object.values(location).includes("")
               ? "_______"
-              : `${location.address}, ${location.precise}`}
+              : `${location.address}, ${location.precise}`} */}
           </Text>
         </View>
 

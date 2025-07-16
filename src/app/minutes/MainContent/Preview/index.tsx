@@ -1,7 +1,7 @@
 "use client";
 
-import { DateTime } from "@/app/meeting-invite/page";
-import { Examiners, Location, NewMember, Signatures } from "../page";
+import { DateTime } from "@/app/@sidebar/meeting-invite/page";
+import { Examiners, NewMember, Signatures } from "..";
 
 export interface PreviewProps {
   minuteNumber: number | null;
@@ -72,9 +72,9 @@ const Preview: React.FC<PreviewProps> = ({
       <div>
         <h2>PAIKKA (kiinteistön osoite ja kokouspaikan tarkka sijainti):</h2>
         <div>
-          {Object.values(location).includes("")
+          {/* {Object.values(location).includes("")
             ? "_______"
-            : `${location.address}, ${location.precise}`}
+            : `${location.address}, ${location.precise}`} */}
         </div>
       </div>
 

@@ -1,5 +1,6 @@
 "use client";
 
+import { DateTime } from "@/types";
 import {
   DateTimePicker,
   LocalizationProvider,
@@ -8,12 +9,7 @@ import {
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { useState } from "react";
 
-export interface DateTime {
-  date: string;
-  time: string;
-}
-
-const FieldInputs = () => {
+const MeetingInviteSidebar = () => {
   const [dateTime, setDateTime] = useState<DateTime>({ date: "", time: "" });
 
   return (
@@ -62,4 +58,4 @@ const FieldInputs = () => {
   );
 };
 
-export default FieldInputs;
+export default MeetingInviteSidebar;
