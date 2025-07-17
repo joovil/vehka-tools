@@ -1,5 +1,6 @@
 "use client";
 
+import { DateTime, FinEng, Signatures } from "@/types";
 import { SplitPage } from "../SplitView/SplitComponent";
 import MinutesContent from "./MainContent";
 import MinutesSidebar from "./Sidebar";
@@ -10,7 +11,14 @@ export interface MinutesProps {
 }
 
 export interface MinutesData {
-  test?: string;
+  minuteNumber?: number;
+  attendants?: string[];
+  meetingItems?: string[];
+  otherItems?: string[];
+  location?: FinEng;
+  startTime?: DateTime;
+  endTime?: DateTime;
+  signatures?: Signatures;
 }
 
 const MinutesPage = () => {

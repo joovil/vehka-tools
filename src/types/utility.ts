@@ -7,3 +7,10 @@ export interface DateTime {
   date: string;
   time: string;
 }
+
+export interface Signatures {
+  chairman: string;
+  secretary: string;
+  examiner1: string;
+  examiner2: string;
+}

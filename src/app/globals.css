@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import "./minutes/minutes.css";
 
 :root {
   --background: var(--color-gravel);
@@ -30,20 +29,25 @@
     @apply bg-green-disabled;
   } */
 
-  /* input,
+  input,
   textarea {
-    @apply bg-green-light border-b-1;
-  } */
+    @apply scale-100 rounded-sm border-b-1 border-[#142d4c] bg-[#f5f5f5] px-2 py-1 shadow-md transition-transform ease-in-out;
+  }
+
+  input:focus,
+  textarea:focus {
+    @apply scale-105 border-b-2 border-[#385170] outline-none;
+  }
 }
 
-@theme inline {
-  --color-green-vehka: rgba(169, 228, 164);
+@theme {
+  /* --color-green-vehka: rgba(169, 228, 164);
   --color-green-light: rgba(230, 245, 240);
   --color-green-dark: rgba(7, 122, 104);
   --color-green-darker: rgba(7, 113, 96);
-  --color-pink-vehka: rgba(232, 60, 106);
+  --color-pink-vehka: rgba(232, 60, 106); */
   --color-green-disabled: rgba(96, 156, 146);
-  --color-gravel: rgba(246, 247, 247);
+  --color-gravel: #e8e8e8;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-circular: var(--font-circular);
@@ -52,29 +56,17 @@
   --font-alex: var(--font-alex-brush);
 }
 
-@utility btn-primary {
+/* @utility btn-primary {
   @apply bg-green-dark disabled:bg-green-light w-fit rounded px-4 py-1 font-black text-white;
-}
+} */
 
-@utility gap-sm {
-  @apply gap-2;
-}
-
-@utility gap-md {
-  @apply gap-4;
-}
-
-@utility gap-lg {
-  @apply gap-6;
-}
-
-.home-page {
+/* .home-page {
   @apply flex flex-col gap-4;
 
   > div {
     @apply flex flex-col;
   }
-}
+} */
 
 body {
   background: var(--background);
@@ -82,6 +74,23 @@ body {
   font-family: var(--font-circular), Arial, Helvetica, sans-serif;
 }
 
+/* Alternative Firefox-specific styles using @supports */
+@supports (-moz-appearance: none) {
+  /* 1px is 0.8px in firefox so this fixes the layout shift when input is focused */
+  input,
+  textarea {
+    border-bottom-width: 0.8px !important;
+    margin-bottom: 0.8px;
+  }
+
+  input:focus,
+  textarea:focus {
+    border-bottom-width: 1.6px !important;
+    margin-bottom: 0px;
+  }
+}
+
+/* 
 .page-container {
   @apply mx-auto min-h-screen w-full max-w-[1270px] bg-white py-10 2xl:w-4/6;
 }
@@ -107,10 +116,10 @@ body {
   input {
     @apply meeting-form-input;
   }
-}
+} */
 
 /* Invite style */
-@utility invite-cols {
+/* @utility invite-cols {
   @apply grid grid-cols-2;
 }
 
@@ -142,4 +151,4 @@ body {
   span {
     @apply text-2xl;
   }
-}
+} */
