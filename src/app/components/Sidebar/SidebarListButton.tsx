@@ -12,7 +12,7 @@ interface Props<T> {
   children: React.ReactNode;
 }
 
-const SidebarListButton = <T,>({
+const SidebarListInput = <T,>({
   label,
   fieldKey,
   placeholder,
@@ -54,4 +54,4 @@ const SidebarListButton = <T,>({
   );
 };
 
-export default SidebarListButton;
+export default SidebarListInput;

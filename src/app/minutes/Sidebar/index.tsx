@@ -1,7 +1,7 @@
 "use client";
 
 import SidebarButton from "@/app/components/Sidebar/SidebarButton";
-import SidebarListButton from "@/app/components/Sidebar/SidebarListButton";
+import SidebarListInput from "@/app/components/Sidebar/SidebarListButton";
 import { useTranslations as useDictionary } from "@/app/i18n/TranslationsProvider";
 import { useState } from "react";
 import { MinutesProps } from "../page";
@@ -25,7 +25,7 @@ const MinutesSidebar = ({
 
   return (
     <div>
-      <SidebarListButton
+      <SidebarListInput
         label={dict.minutes.labels.attendants}
         placeholder={dict.minutes.placeholders.attendants}
         fieldKey="attendants"
@@ -35,9 +35,9 @@ const MinutesSidebar = ({
         {minutesData.attendants.map((att) => (
           <div key={att}>{att}</div>
         ))}
-      </SidebarListButton>
+      </SidebarListInput>
 
-      <SidebarListButton
+      <SidebarListInput
         label={dict.minutes.labels.items}
         placeholder={dict.minutes.placeholders.items}
         fieldKey="meetingItems"
@@ -47,9 +47,9 @@ const MinutesSidebar = ({
         {minutesData.meetingItems.map((item) => (
           <div key={item}>{item}</div>
         ))}
-      </SidebarListButton>
+      </SidebarListInput>
 
-      <SidebarListButton
+      <SidebarListInput
         label={dict.minutes.labels.otherItems}
         placeholder={dict.minutes.placeholders.otherItems}
         fieldKey="otherItems"
@@ -59,7 +59,7 @@ const MinutesSidebar = ({
         {minutesData.otherItems.map((item) => (
           <div key={item}>{item}</div>
         ))}
-      </SidebarListButton>
+      </SidebarListInput>
 
       <SidebarButton
         label={dict.minutes.labels.location}
