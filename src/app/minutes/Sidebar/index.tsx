@@ -1,7 +1,7 @@
 "use client";
 
-import SidebarButton from "@/app/components/pdf/SidebarButton";
-import SidebarListButton from "@/app/components/SidebarListButton";
+import SidebarButton from "@/app/components/Sidebar/SidebarButton";
+import SidebarListButton from "@/app/components/Sidebar/SidebarListButton";
 import { useTranslations as useDictionary } from "@/app/i18n/TranslationsProvider";
 import { useState } from "react";
 import { MinutesProps } from "../page";
