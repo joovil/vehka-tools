@@ -61,7 +61,7 @@ const MinutesSidebar = ({
       </SidebarListButton>
 
       <SidebarButton
-        label={dict.minutes.placeholders.location}
+        label={dict.minutes.labels.location}
         placeholder={dict.minutes.placeholders.location}
         fieldKey="location"
         data={minutesData}

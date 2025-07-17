@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import SidebarInput from "./SidebarInput";
 
 interface Props<T> {
   label: string;
@@ -34,24 +35,19 @@ const SidebarListButton = <T,>({
 
   return (
     <div>
-      <div className="flex flex-col">
-        <label>{label}</label>
-        <div className="input-wrapper">
-          <input
-            name={String(fieldKey)}
-            type="text"
-            placeholder={placeholder}
-            onChange={(e) => setNewItem(e.currentTarget.value)}
-            value={newItem}
-          />
-          <button
-            className="aspect-square rounded bg-[#9fd3c7]/50"
-            onClick={() => handleListChange(newItem)}
-          >
-            +
-          </button>
-        </div>
-      </div>
+      <SidebarInput
+        label={label}
+        placeholder={placeholder}
+        fieldKey={fieldKey}
+        onChange={(e) => setNewItem(e.currentTarget.value)}
+      >
+        <button
+          className="aspect-square rounded bg-[#9fd3c7]/50"
+          onClick={() => handleListChange(newItem)}
+        >
+          +
+        </button>
+      </SidebarInput>
       {children}
     </div>
   );
