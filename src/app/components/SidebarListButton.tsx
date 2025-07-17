@@ -4,7 +4,7 @@ import React, { useState } from "react";
 
 interface Props<T> {
   label: string;
-  name: string;
+  fieldKey: keyof T;
   placeholder: string;
   data: T;
   setData: React.Dispatch<T>;
@@ -13,7 +13,7 @@ interface Props<T> {
 
 const SidebarListButton = <T,>({
   label,
-  name,
+  fieldKey,
   placeholder,
   data,
   setData,
@@ -22,19 +22,13 @@ const SidebarListButton = <T,>({
   const [newItem, setNewItem] = useState<string>("");
 
   // Adds a new item to the end of the array using the key as the field name
-  const handleListChange = (rawKey: keyof T, item: string) => {
-    const key = String(rawKey);
-    console.log(data);
-
-    // Type assertion to tell TypeScript this is a Record with string array
-    const typedData = data as Record<string, string[]>;
-
-    if (Array.isArray(typedData[name])) {
-      const update = [...typedData[name], item];
-      setData({ ...data, [key]: update } as T);
+  const handleListChange = (item: string) => {
+    if (Array.isArray(data[fieldKey])) {
+      const update = [...data[fieldKey], item];
+      setData({ ...data, [fieldKey]: update } as T);
       console.log(update);
     } else {
-      console.warn(`data[${key}] is not an array.`);
+      console.warn(`data[${String(fieldKey)}] is not an array.`);
     }
   };
 
@@ -44,7 +38,7 @@ const SidebarListButton = <T,>({
         <label>{label}</label>
         <div className="input-wrapper">
           <input
-            name={name}
+            name={String(fieldKey)}
             type="text"
             placeholder={placeholder}
             onChange={(e) => setNewItem(e.currentTarget.value)}
@@ -52,7 +46,7 @@ const SidebarListButton = <T,>({
           />
           <button
             className="aspect-square rounded bg-[#9fd3c7]/50"
-            onClick={() => handleListChange(name as keyof T, newItem)}
+            onClick={() => handleListChange(newItem)}
           >
             +
           </button>

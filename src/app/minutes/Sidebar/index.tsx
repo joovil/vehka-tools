@@ -1,6 +1,5 @@
 "use client";
 
-import SidebarButton from "@/app/components/pdf/SidebarButton";
 import SidebarListButton from "@/app/components/SidebarListButton";
 import { useTranslations as useDictionary } from "@/app/i18n/TranslationsProvider";
 import { useState } from "react";
@@ -35,42 +34,41 @@ const MinutesSidebar = ({
 
   return (
     <div>
-      <SidebarListButton<MinutesData>
+      <SidebarListButton
         label={dict.minutes.labels.attendants}
-        name="attendants"
         placeholder={dict.minutes.placeholders.attendants}
+        fieldKey="attendants"
         data={minutesData}
         setData={setMinutesData}
       >
-        {minutesData.attendants?.map((att) => (
+        {minutesData.attendants.map((att) => (
           <div key={att}>{att}</div>
         ))}
       </SidebarListButton>
 
-      <SidebarButton
+      <SidebarListButton
         label={dict.minutes.labels.items}
-        name="newItem"
         placeholder={dict.minutes.placeholders.items}
-        onChange={(e) => setNewItem(e.currentTarget.value)}
-        value={newItem}
-        onClick={() => handleListChange("meetingItems", newItem)}
+        fieldKey="meetingItems"
+        data={minutesData}
+        setData={setMinutesData}
       >
-        {minutesData.meetingItems?.map((item) => (
+        {minutesData.meetingItems.map((item) => (
           <div key={item}>{item}</div>
         ))}
-      </SidebarButton>
-      {/* 
-      <div className="flex flex-col">
-        <label>{dict.minutes.labels.items}</label>
-        <div className="input-wrapper">
-          <input
-            name="meetingItems"
-            type="text"
-            placeholder={dict.minutes.placeholders.items}
-          />
-          <button className="bg-teal-light/50 aspect-square rounded">+</button>
-        </div>
-      </div> */}
+      </SidebarListButton>
+
+      <SidebarListButton
+        label={dict.minutes.labels.otherItems}
+        placeholder={dict.minutes.placeholders.otherItems}
+        fieldKey="otherItems"
+        data={minutesData}
+        setData={setMinutesData}
+      >
+        {minutesData.otherItems.map((item) => (
+          <div key={item}>{item}</div>
+        ))}
+      </SidebarListButton>
 
       <div className="flex flex-col">
         <label>{dict.minutes.labels.otherItems}</label>
