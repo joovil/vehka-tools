@@ -1,5 +1,6 @@
 "use client";
 
+import SidebarButton from "@/app/components/pdf/SidebarButton";
 import { useTranslations as useDictionary } from "@/app/i18n/TranslationsProvider";
 import { useState } from "react";
 import { MinutesData, MinutesProps } from "../page";
@@ -32,29 +33,18 @@ const MinutesSidebar = ({
 
   return (
     <div>
-      <div>
-        <div className="flex flex-col">
-          <label>{dict.minutes.labels.attendants}</label>
-          <div className="input-wrapper">
-            <input
-              name="newAttendant"
-              type="text"
-              placeholder={dict.minutes.placeholders.attendants}
-              onChange={(e) => setNewAttendant(e.currentTarget.value)}
-              value={newAttendant ?? ""}
-            />
-            <button
-              className="bg-teal-light/50 aspect-square rounded"
-              onClick={() => handleListChange("attendants", newAttendant)}
-            >
-              +
-            </button>
-          </div>
-        </div>
+      <SidebarButton
+        label={dict.minutes.labels.attendants}
+        name="newAttendant"
+        placeholder={dict.minutes.placeholders.attendants}
+        onChange={(e) => setNewAttendant(e.currentTarget.value)}
+        value={newAttendant}
+        onClick={() => handleListChange("attendants", newAttendant)}
+      >
         {minutesData.attendants?.map((att) => (
           <div key={att}>{att}</div>
         ))}
-      </div>
+      </SidebarButton>
 
       <div className="flex flex-col">
         <label>{dict.minutes.labels.items}</label>
