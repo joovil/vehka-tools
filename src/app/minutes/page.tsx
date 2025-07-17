@@ -1,6 +1,6 @@
 "use client";
 
-import { DateTime, FinEng, Signatures } from "@/types";
+import { FinEng, Signatures } from "@/types";
 import { SplitPage } from "../SplitView/SplitComponent";
 import MinutesContent from "./MainContent";
 import MinutesSidebar from "./Sidebar";
@@ -16,8 +16,8 @@ export interface MinutesData {
   meetingItems: string[];
   otherItems: string[];
   location?: FinEng;
-  startTime?: DateTime;
-  endTime?: DateTime;
+  startTime?: Date;
+  endTime?: Date;
   signatures?: Signatures;
 }
 

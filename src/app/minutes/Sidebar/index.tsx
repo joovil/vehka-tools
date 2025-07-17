@@ -5,6 +5,7 @@ import SidebarListButton from "@/app/components/Sidebar/SidebarListButton";
 import { useTranslations as useDictionary } from "@/app/i18n/TranslationsProvider";
 import { useState } from "react";
 import { MinutesProps } from "../page";
+import DatetimeInput from "./DatetimeInput";
 
 const MinutesSidebar = ({
   data: minutesData,
@@ -68,29 +69,21 @@ const MinutesSidebar = ({
         setData={setMinutesData}
       />
 
-      <div className="flex flex-col">
-        <label>{dict.minutes.labels.startTime}</label>
-        <div className="input-wrapper">
-          <input
-            name="startTime"
-            type="text"
-            placeholder={dict.minutes.placeholders.startTime}
-          />
-          <button className="bg-teal-light/50 aspect-square rounded">+</button>
-        </div>
-      </div>
+      <DatetimeInput
+        label={dict.minutes.labels.startTime}
+        buttonLabel={dict.minutes.buttons.startMeeting}
+        minutesData={minutesData}
+        setMinutesData={setMinutesData}
+        fieldKey="startTime"
+      />
 
-      <div className="flex flex-col">
-        <label>{dict.minutes.labels.endTime}</label>
-        <div className="input-wrapper">
-          <input
-            name="endTime"
-            type="text"
-            placeholder={dict.minutes.placeholders.endTime}
-          />
-          <button className="bg-teal-light/50 aspect-square rounded">+</button>
-        </div>
-      </div>
+      <DatetimeInput
+        label={dict.minutes.labels.endTime}
+        buttonLabel={dict.minutes.buttons.endMeeting}
+        minutesData={minutesData}
+        setMinutesData={setMinutesData}
+        fieldKey="endTime"
+      />
 
       <div className="flex flex-col">
         <label>{dict.minutes.labels.signatures}</label>

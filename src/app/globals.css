@@ -76,9 +76,20 @@ body {
 /* @utility {
 } */
 .input-wrapper {
-  @apply border-teal-darker bg-off-white flex scale-100 rounded-sm border-b-1 px-2 py-1 shadow-md transition-transform ease-in-out;
+  @apply border-teal-darker bg-off-white mb-[1px] flex scale-100 rounded-sm border-b-1 px-2 py-1 shadow-md transition-transform ease-in-out;
   &:focus-within {
-    @apply border-teal-dark scale-105 border-b-2 outline-none;
+    @apply border-teal-dark mb-0 scale-105 border-b-2 outline-none;
+  }
+
+  & input {
+    @apply grow outline-none;
+  }
+}
+
+.datepicker-wrapper {
+  @apply border-teal-darker bg-off-white mb-[1px] flex rounded-sm border-b-1 px-2 py-1 shadow-md transition-transform ease-in-out;
+  &:focus-within {
+    @apply border-teal-dark mb-0 border-b-2 outline-none;
   }
 
   & input {
@@ -97,6 +108,17 @@ body {
       margin-bottom: 0px;
     }
   }
+}
+
+@utility datetime-button {
+  @apply bg-teal-light/50 rounded px-2 py-1 shadow-md transition-all;
+  &:hover {
+    @apply bg-teal-light/70 scale-105;
+  }
+}
+
+.react-datepicker-wrapper {
+  @apply w-full;
 }
 
 /* 

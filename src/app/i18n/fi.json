@@ -17,6 +17,9 @@
       "startTime": "",
       "endTime": "",
       "signatures": ""
+    },
+    "buttons": {
+      "startMeeting": "Start meeting"
     }
   }
 }

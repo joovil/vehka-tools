@@ -17,6 +17,10 @@
       "startTime": "When did the meeting start",
       "endTime": "When did the meeting end",
       "signatures": "Who signed the document"
+    },
+    "buttons": {
+      "startMeeting": "Start meeting",
+      "endMeeting": "End meeting"
     }
   }
 }

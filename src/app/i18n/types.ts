@@ -20,5 +20,9 @@ export interface Dictionary {
       endTime: string;
       signatures: string;
     };
+    buttons: {
+      startMeeting: string;
+      endMeeting: string;
+    };
   };
 }

@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { Alex_Brush, Geist, Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
-import "./globals.css";
 import { getDictionary } from "./i18n/getDictionary";
 import { TranslationsProvider } from "./i18n/TranslationsProvider";
+
+import "react-datepicker/dist/react-datepicker.css";
+import "./globals.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

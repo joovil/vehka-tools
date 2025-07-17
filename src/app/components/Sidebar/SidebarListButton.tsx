@@ -42,7 +42,8 @@ const SidebarListButton = <T,>({
         onChange={(e) => setNewItem(e.currentTarget.value)}
       >
         <button
-          className="aspect-square rounded bg-[#9fd3c7]/50"
+          // Chrome and Firefox specific styles
+          className="aspect-square h-7 rounded bg-[#9fd3c7]/50 [@supports(-moz-appearance:none)]:h-auto"
           onClick={() => handleListChange(newItem)}
         >
           +
