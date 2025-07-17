@@ -1,6 +1,7 @@
 "use client";
 
 import SidebarButton from "@/app/components/pdf/SidebarButton";
+import SidebarListButton from "@/app/components/SidebarListButton";
 import { useTranslations as useDictionary } from "@/app/i18n/TranslationsProvider";
 import { useState } from "react";
 import { MinutesData, MinutesProps } from "../page";
@@ -12,6 +13,7 @@ const MinutesSidebar = ({
   const dict = useDictionary();
 
   const [newAttendant, setNewAttendant] = useState<string>("");
+  const [newItem, setNewItem] = useState<string>("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const key = e.currentTarget.name;
@@ -33,19 +35,31 @@ const MinutesSidebar = ({
 
   return (
     <div>
-      <SidebarButton
+      <SidebarListButton<MinutesData>
         label={dict.minutes.labels.attendants}
-        name="newAttendant"
+        name="attendants"
         placeholder={dict.minutes.placeholders.attendants}
-        onChange={(e) => setNewAttendant(e.currentTarget.value)}
-        value={newAttendant}
-        onClick={() => handleListChange("attendants", newAttendant)}
+        data={minutesData}
+        setData={setMinutesData}
       >
         {minutesData.attendants?.map((att) => (
           <div key={att}>{att}</div>
         ))}
-      </SidebarButton>
+      </SidebarListButton>
 
+      <SidebarButton
+        label={dict.minutes.labels.items}
+        name="newItem"
+        placeholder={dict.minutes.placeholders.items}
+        onChange={(e) => setNewItem(e.currentTarget.value)}
+        value={newItem}
+        onClick={() => handleListChange("meetingItems", newItem)}
+      >
+        {minutesData.meetingItems?.map((item) => (
+          <div key={item}>{item}</div>
+        ))}
+      </SidebarButton>
+      {/* 
       <div className="flex flex-col">
         <label>{dict.minutes.labels.items}</label>
         <div className="input-wrapper">
@@ -56,7 +70,7 @@ const MinutesSidebar = ({
           />
           <button className="bg-teal-light/50 aspect-square rounded">+</button>
         </div>
-      </div>
+      </div> */}
 
       <div className="flex flex-col">
         <label>{dict.minutes.labels.otherItems}</label>
