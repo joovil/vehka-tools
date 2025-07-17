@@ -2,46 +2,39 @@
 
 import React from "react";
 
-interface Props {
+interface Props<T> {
   label: string;
-  name: string;
+  fieldKey: string;
   placeholder: string;
-  onChange: (e: any) => void;
-  value: string;
-  onClick: () => void;
-  children: React.ReactNode;
+  data: T;
+  setData: React.Dispatch<T>;
 }
 
-const SidebarButton = ({
+const SidebarButton = <T,>({
   label,
-  name,
+  fieldKey,
   placeholder,
-  onChange,
-  value,
-  onClick,
-  children,
-}: Props) => {
+  data,
+  setData,
+}: Props<T>) => {
+  const handleChange = (item: string) => {
+    const update = { ...data, [fieldKey]: item };
+    setData(update);
+  };
+
   return (
     <div>
       <div className="flex flex-col">
         <label>{label}</label>
         <div className="input-wrapper">
           <input
-            name={name}
+            name={fieldKey}
             type="text"
             placeholder={placeholder}
-            onChange={onChange}
-            value={value}
+            onChange={(e) => handleChange(e.currentTarget.value)}
           />
-          <button
-            className="aspect-square rounded bg-[#9fd3c7]/50"
-            onClick={onClick}
-          >
-            +
-          </button>
         </div>
       </div>
-      {children}
     </div>
   );
 };

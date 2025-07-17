@@ -1,9 +1,10 @@
 "use client";
 
+import SidebarButton from "@/app/components/pdf/SidebarButton";
 import SidebarListButton from "@/app/components/SidebarListButton";
 import { useTranslations as useDictionary } from "@/app/i18n/TranslationsProvider";
 import { useState } from "react";
-import { MinutesData, MinutesProps } from "../page";
+import { MinutesProps } from "../page";
 
 const MinutesSidebar = ({
   data: minutesData,
@@ -19,17 +20,6 @@ const MinutesSidebar = ({
     const value = e.currentTarget.value;
 
     setMinutesData({ ...minutesData, [key]: value });
-  };
-
-  // Adds a new item to the end of the array using the key as the field name
-  const handleListChange = (key: keyof MinutesData, item: string) => {
-    if (Array.isArray(minutesData[key])) {
-      const update = [...minutesData[key], item];
-      setMinutesData({ ...minutesData, [key]: update });
-      console.log(update);
-    } else {
-      console.warn(`minutesData[${key}] is not an array.`);
-    }
   };
 
   return (
@@ -70,29 +60,13 @@ const MinutesSidebar = ({
         ))}
       </SidebarListButton>
 
-      <div className="flex flex-col">
-        <label>{dict.minutes.labels.otherItems}</label>
-        <div className="input-wrapper">
-          <input
-            name="otherItems"
-            type="text"
-            placeholder={dict.minutes.placeholders.otherItems}
-          />
-          <button className="bg-teal-light/50 aspect-square rounded">+</button>
-        </div>
-      </div>
-
-      <div className="flex flex-col">
-        <label>{dict.minutes.labels.location}</label>
-        <div className="input-wrapper">
-          <input
-            name="location"
-            type="text"
-            placeholder={dict.minutes.placeholders.location}
-          />
-          <button className="bg-teal-light/50 aspect-square rounded">+</button>
-        </div>
-      </div>
+      <SidebarButton
+        label={dict.minutes.placeholders.location}
+        placeholder={dict.minutes.placeholders.location}
+        fieldKey="location"
+        data={minutesData}
+        setData={setMinutesData}
+      />
 
       <div className="flex flex-col">
         <label>{dict.minutes.labels.startTime}</label>
