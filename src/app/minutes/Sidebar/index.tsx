@@ -44,7 +44,7 @@ const MinutesSidebar = ({
               value={newAttendant ?? ""}
             />
             <button
-              className="aspect-square rounded bg-[#9fd3c7]/50"
+              className="bg-teal-light/50 aspect-square rounded"
               onClick={() => handleListChange("attendants", newAttendant)}
             >
               +
@@ -64,7 +64,7 @@ const MinutesSidebar = ({
             type="text"
             placeholder={dict.minutes.placeholders.items}
           />
-          <button className="aspect-square rounded bg-[#9fd3c7]/50">+</button>
+          <button className="bg-teal-light/50 aspect-square rounded">+</button>
         </div>
       </div>
 
@@ -76,7 +76,7 @@ const MinutesSidebar = ({
             type="text"
             placeholder={dict.minutes.placeholders.otherItems}
           />
-          <button className="aspect-square rounded bg-[#9fd3c7]/50">+</button>
+          <button className="bg-teal-light/50 aspect-square rounded">+</button>
         </div>
       </div>
 
@@ -88,7 +88,7 @@ const MinutesSidebar = ({
             type="text"
             placeholder={dict.minutes.placeholders.location}
           />
-          <button className="aspect-square rounded bg-[#9fd3c7]/50">+</button>
+          <button className="bg-teal-light/50 aspect-square rounded">+</button>
         </div>
       </div>
 
@@ -100,7 +100,7 @@ const MinutesSidebar = ({
             type="text"
             placeholder={dict.minutes.placeholders.startTime}
           />
-          <button className="aspect-square rounded bg-[#9fd3c7]/50">+</button>
+          <button className="bg-teal-light/50 aspect-square rounded">+</button>
         </div>
       </div>
 
@@ -112,7 +112,7 @@ const MinutesSidebar = ({
             type="text"
             placeholder={dict.minutes.placeholders.endTime}
           />
-          <button className="aspect-square rounded bg-[#9fd3c7]/50">+</button>
+          <button className="bg-teal-light/50 aspect-square rounded">+</button>
         </div>
       </div>
 
@@ -124,7 +124,7 @@ const MinutesSidebar = ({
             type="text"
             placeholder={dict.minutes.placeholders.signatures}
           />
-          <button className="aspect-square rounded bg-[#9fd3c7]/50">+</button>
+          <button className="bg-teal-light/50 aspect-square rounded">+</button>
         </div>
       </div>
     </div>

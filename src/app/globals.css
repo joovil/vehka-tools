@@ -41,11 +41,10 @@
 }
 
 @theme {
-  /* --color-green-vehka: rgba(169, 228, 164);
-  --color-green-light: rgba(230, 245, 240);
-  --color-green-dark: rgba(7, 122, 104);
-  --color-green-darker: rgba(7, 113, 96);
-  --color-pink-vehka: rgba(232, 60, 106); */
+  --color-teal-light: #9fd3c7;
+  --color-teal-dark: #385170;
+  --color-teal-darker: #142d4c;
+  --color-off-white: #f5f5f5;
   --color-green-disabled: rgba(96, 156, 146);
   --color-gravel: #e8e8e8;
   --color-background: var(--background);
@@ -77,9 +76,9 @@ body {
 /* @utility {
 } */
 .input-wrapper {
-  @apply flex scale-100 rounded-sm border-b-1 border-[#142d4c] bg-[#f5f5f5] px-2 py-1 shadow-md transition-transform ease-in-out;
+  @apply border-teal-darker bg-off-white flex scale-100 rounded-sm border-b-1 px-2 py-1 shadow-md transition-transform ease-in-out;
   &:focus-within {
-    @apply scale-105 border-b-2 border-[#385170] outline-none;
+    @apply border-teal-dark scale-105 border-b-2 outline-none;
   }
 
   & input {
