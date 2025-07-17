@@ -1,9 +1,9 @@
 "use client";
 
-import SidebarButton from "@/app/components/Sidebar/SidebarButton";
+import SidebarInput from "@/app/components/Sidebar/SidebarInput";
 import SidebarListInput from "@/app/components/Sidebar/SidebarListButton";
 import { useTranslations as useDictionary } from "@/app/i18n/TranslationsProvider";
-import { useState } from "react";
+import { Signatures } from "@/types";
 import { MinutesProps } from "../page";
 import DatetimeInput from "./DatetimeInput";
 
@@ -12,16 +12,6 @@ const MinutesSidebar = ({
   setData: setMinutesData,
 }: MinutesProps) => {
   const dict = useDictionary();
-
-  const [newAttendant, setNewAttendant] = useState<string>("");
-  const [newItem, setNewItem] = useState<string>("");
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const key = e.currentTarget.name;
-    const value = e.currentTarget.value;
-
-    setMinutesData({ ...minutesData, [key]: value });
-  };
 
   return (
     <div>
@@ -61,7 +51,7 @@ const MinutesSidebar = ({
         ))}
       </SidebarListInput>
 
-      <SidebarButton
+      <SidebarInput
         label={dict.minutes.labels.location}
         placeholder={dict.minutes.placeholders.location}
         fieldKey="location"
@@ -85,17 +75,51 @@ const MinutesSidebar = ({
         fieldKey="endTime"
       />
 
-      <div className="flex flex-col">
-        <label>{dict.minutes.labels.signatures}</label>
+      {Object.keys(minutesData.signatures).map((signature) => (
+        <div key={signature}>
+          <label>
+            {dict.minutes.labels.signatures[signature as keyof Signatures]}
+          </label>
+          <div className="input-wrapper">
+            <input
+              className="font-alex"
+              onChange={(e) =>
+                setMinutesData({
+                  ...minutesData,
+                  signatures: {
+                    ...minutesData.signatures,
+                    [signature]: e.currentTarget.value,
+                  },
+                })
+              }
+            />
+          </div>
+        </div>
+      ))}
+      {/* <div>
+        <label>{dict.minutes.labels.signatures.chairman}</label>
         <div className="input-wrapper">
           <input
-            name="signatures"
-            type="text"
-            placeholder={dict.minutes.placeholders.signatures}
+            className="font-alex"
+            onChange={(e) =>
+              setMinutesData({
+                ...minutesData,
+                signatures: {
+                  ...minutesData.signatures,
+                  chairman: e.currentTarget.value,
+                },
+              })
+            }
           />
-          <button className="bg-teal-light/50 aspect-square rounded">+</button>
         </div>
       </div>
+
+      <div>
+        <label>{dict.minutes.labels.signatures.secretary}</label>
+        <div className="input-wrapper">
+          <input className="font-alex" />
+        </div>
+      </div> */}
     </div>
   );
 };

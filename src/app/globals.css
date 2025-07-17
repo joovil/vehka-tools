@@ -52,7 +52,12 @@
   --font-circular: var(--font-circular);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --font-alex: var(--font-alex-brush);
+  /* --font-alex: var(--font-alex-brush); */
+}
+
+/* Font utility classes */
+.font-alex {
+  font-family: var(--font-alex-brush), cursive;
 }
 
 /* @utility btn-primary {

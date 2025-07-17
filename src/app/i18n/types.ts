@@ -9,7 +9,12 @@ export interface Dictionary {
       location: string;
       startTime: string;
       endTime: string;
-      signatures: string;
+      signatures: {
+        chairman: string;
+        secretary: string;
+        examiner1: string;
+        examiner2: string;
+      };
     };
     placeholders: {
       attendants: string;

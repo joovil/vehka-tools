@@ -1,38 +1,35 @@
 "use client";
 
 import React from "react";
+import SidebarInputComponent from "./SidebarInputComponent";
 
 interface Props<T> {
   label: string;
   fieldKey: keyof T;
   placeholder: string;
-  children?: React.ReactNode;
-  value?: string;
-  onChange?: (p: any) => void;
+  data: T;
+  setData: React.Dispatch<T>;
 }
 
 const SidebarInput = <T,>({
   label,
   fieldKey,
   placeholder,
-  children,
-  value,
-  onChange,
+  data,
+  setData,
 }: Props<T>) => {
+  const handleChange = (item: string) => {
+    const update = { ...data, [fieldKey]: item };
+    setData(update);
+  };
+
   return (
-    <div className="flex flex-col">
-      <label>{label}</label>
-      <div className="input-wrapper">
-        <input
-          name={String(fieldKey)}
-          type="text"
-          placeholder={placeholder}
-          onChange={onChange}
-          value={value}
-        />
-        {children}
-      </div>
-    </div>
+    <SidebarInputComponent
+      label={label}
+      placeholder={placeholder}
+      fieldKey={fieldKey}
+      onChange={(e) => handleChange(e.currentTarget.value)}
+    />
   );
 };
 

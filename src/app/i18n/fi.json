@@ -7,19 +7,25 @@
       "location": "Location",
       "startTime": "Start time",
       "endTime": "End time",
-      "signatures": "Signatures"
+      "signatures": {
+        "chairman": "Chairman",
+        "secretary": "Secretary",
+        "examiner1": "Examiner 1",
+        "examiner2": "Examiner 2"
+      }
     },
     "placeholders": {
       "attendants": "Who was present at the meeting",
       "items": "What was discussed in the meeting",
-      "otherItems": "",
-      "location": "",
-      "startTime": "",
-      "endTime": "",
-      "signatures": ""
+      "otherItems": "Other discussed items",
+      "location": "Where was the meeting held",
+      "startTime": "When did the meeting start",
+      "endTime": "When did the meeting end",
+      "signatures": "Who signed the document"
     },
     "buttons": {
-      "startMeeting": "Start meeting"
+      "startMeeting": "Start meeting",
+      "endMeeting": "End meeting"
     }
   }
 }

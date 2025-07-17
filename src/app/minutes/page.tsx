@@ -18,7 +18,7 @@ export interface MinutesData {
   location?: FinEng;
   startTime?: Date;
   endTime?: Date;
-  signatures?: Signatures;
+  signatures: Signatures;
 }
 
 const MinutesPage = () => {
@@ -30,6 +30,12 @@ const MinutesPage = () => {
         attendants: [],
         meetingItems: [],
         otherItems: [],
+        signatures: {
+          chairman: "",
+          secretary: "",
+          examiner1: "",
+          examiner2: "",
+        },
       }}
     />
   );

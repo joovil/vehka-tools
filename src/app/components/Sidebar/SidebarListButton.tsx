@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import SidebarInput from "./SidebarInput";
+import SidebarInputComponent from "./SidebarInputComponent";
 
 interface Props<T> {
   label: string;
@@ -35,7 +35,7 @@ const SidebarListInput = <T,>({
 
   return (
     <div>
-      <SidebarInput
+      <SidebarInputComponent
         label={label}
         placeholder={placeholder}
         fieldKey={fieldKey}
@@ -48,7 +48,7 @@ const SidebarListInput = <T,>({
         >
           +
         </button>
-      </SidebarInput>
+      </SidebarInputComponent>
       {children}
     </div>
   );
