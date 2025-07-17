@@ -12,9 +12,9 @@ export interface MinutesProps {
 
 export interface MinutesData {
   minuteNumber?: number;
-  attendants?: string[];
-  meetingItems?: string[];
-  otherItems?: string[];
+  attendants: string[];
+  meetingItems: string[];
+  otherItems: string[];
   location?: FinEng;
   startTime?: DateTime;
   endTime?: DateTime;
@@ -26,7 +26,11 @@ const MinutesPage = () => {
     <SplitPage<MinutesData>
       MainContent={MinutesContent}
       Sidebar={MinutesSidebar}
-      initialData={{}}
+      initialData={{
+        attendants: [],
+        meetingItems: [],
+        otherItems: [],
+      }}
     />
   );
 };

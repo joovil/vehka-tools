@@ -1,0 +1,22 @@
+{
+  "minutes": {
+    "labels": {
+      "attendants": "Attendants",
+      "items": "Items",
+      "otherItems": "Other items",
+      "location": "Location",
+      "startTime": "Start time",
+      "endTime": "End time",
+      "signatures": "Signatures"
+    },
+    "placeholders": {
+      "attendants": "Who was present at the meeting",
+      "items": "What was discussed in the meeting",
+      "otherItems": "",
+      "location": "",
+      "startTime": "",
+      "endTime": "",
+      "signatures": ""
+    }
+  }
+}
