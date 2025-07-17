@@ -22,7 +22,7 @@ const MinutesSidebar = ({
   // Adds a new item to the end of the array using the key as the field name
   const handleListChange = (key: keyof MinutesData, item: string) => {
     if (Array.isArray(minutesData[key])) {
-      const update = [...(minutesData[key] as string[]), item];
+      const update = [...minutesData[key], item];
       setMinutesData({ ...minutesData, [key]: update });
       console.log(update);
     } else {
@@ -34,8 +34,8 @@ const MinutesSidebar = ({
     <div>
       <div>
         <div className="flex flex-col">
-          <div>
-            <label>{dict.minutes.labels.attendants}</label>
+          <label>{dict.minutes.labels.attendants}</label>
+          <div className="input-wrapper">
             <input
               name="newAttendant"
               type="text"
@@ -43,10 +43,13 @@ const MinutesSidebar = ({
               onChange={(e) => setNewAttendant(e.currentTarget.value)}
               value={newAttendant ?? ""}
             />
+            <button
+              className="aspect-square rounded bg-[#9fd3c7]/50"
+              onClick={() => handleListChange("attendants", newAttendant)}
+            >
+              +
+            </button>
           </div>
-          <button onClick={() => handleListChange("attendants", newAttendant)}>
-            Add attendant
-          </button>
         </div>
         {minutesData.attendants?.map((att) => (
           <div key={att}>{att}</div>
@@ -55,56 +58,74 @@ const MinutesSidebar = ({
 
       <div className="flex flex-col">
         <label>{dict.minutes.labels.items}</label>
-        <input
-          name="meetingItems"
-          type="text"
-          placeholder={dict.minutes.placeholders.items}
-        />
+        <div className="input-wrapper">
+          <input
+            name="meetingItems"
+            type="text"
+            placeholder={dict.minutes.placeholders.items}
+          />
+          <button className="aspect-square rounded bg-[#9fd3c7]/50">+</button>
+        </div>
       </div>
 
       <div className="flex flex-col">
         <label>{dict.minutes.labels.otherItems}</label>
-        <input
-          name="otherItems"
-          type="text"
-          placeholder={dict.minutes.placeholders.otherItems}
-        />
+        <div className="input-wrapper">
+          <input
+            name="otherItems"
+            type="text"
+            placeholder={dict.minutes.placeholders.otherItems}
+          />
+          <button className="aspect-square rounded bg-[#9fd3c7]/50">+</button>
+        </div>
       </div>
 
       <div className="flex flex-col">
         <label>{dict.minutes.labels.location}</label>
-        <input
-          name="location"
-          type="text"
-          placeholder={dict.minutes.placeholders.location}
-        />
+        <div className="input-wrapper">
+          <input
+            name="location"
+            type="text"
+            placeholder={dict.minutes.placeholders.location}
+          />
+          <button className="aspect-square rounded bg-[#9fd3c7]/50">+</button>
+        </div>
       </div>
 
       <div className="flex flex-col">
         <label>{dict.minutes.labels.startTime}</label>
-        <input
-          name="startTime"
-          type="text"
-          placeholder={dict.minutes.placeholders.startTime}
-        />
+        <div className="input-wrapper">
+          <input
+            name="startTime"
+            type="text"
+            placeholder={dict.minutes.placeholders.startTime}
+          />
+          <button className="aspect-square rounded bg-[#9fd3c7]/50">+</button>
+        </div>
       </div>
 
       <div className="flex flex-col">
         <label>{dict.minutes.labels.endTime}</label>
-        <input
-          name="endTime"
-          type="text"
-          placeholder={dict.minutes.placeholders.endTime}
-        />
+        <div className="input-wrapper">
+          <input
+            name="endTime"
+            type="text"
+            placeholder={dict.minutes.placeholders.endTime}
+          />
+          <button className="aspect-square rounded bg-[#9fd3c7]/50">+</button>
+        </div>
       </div>
 
       <div className="flex flex-col">
         <label>{dict.minutes.labels.signatures}</label>
-        <input
-          name="signatures"
-          type="text"
-          placeholder={dict.minutes.placeholders.signatures}
-        />
+        <div className="input-wrapper">
+          <input
+            name="signatures"
+            type="text"
+            placeholder={dict.minutes.placeholders.signatures}
+          />
+          <button className="aspect-square rounded bg-[#9fd3c7]/50">+</button>
+        </div>
       </div>
     </div>
   );

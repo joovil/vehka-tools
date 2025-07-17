@@ -29,7 +29,7 @@
     @apply bg-green-disabled;
   } */
 
-  input,
+  /* input,
   textarea {
     @apply scale-100 rounded-sm border-b-1 border-[#142d4c] bg-[#f5f5f5] px-2 py-1 shadow-md transition-transform ease-in-out;
   }
@@ -37,7 +37,7 @@
   input:focus,
   textarea:focus {
     @apply scale-105 border-b-2 border-[#385170] outline-none;
-  }
+  } */
 }
 
 @theme {
@@ -74,19 +74,29 @@ body {
   font-family: var(--font-circular), Arial, Helvetica, sans-serif;
 }
 
+/* @utility {
+} */
+.input-wrapper {
+  @apply flex scale-100 rounded-sm border-b-1 border-[#142d4c] bg-[#f5f5f5] px-2 py-1 shadow-md transition-transform ease-in-out;
+  &:focus-within {
+    @apply scale-105 border-b-2 border-[#385170] outline-none;
+  }
+
+  & input {
+    @apply grow outline-none;
+  }
+}
+
 /* Alternative Firefox-specific styles using @supports */
 @supports (-moz-appearance: none) {
   /* 1px is 0.8px in firefox so this fixes the layout shift when input is focused */
-  input,
-  textarea {
+  .input-wrapper {
     border-bottom-width: 0.8px !important;
     margin-bottom: 0.8px;
-  }
-
-  input:focus,
-  textarea:focus {
-    border-bottom-width: 1.6px !important;
-    margin-bottom: 0px;
+    &:focus-within {
+      border-bottom-width: 1.6px !important;
+      margin-bottom: 0px;
+    }
   }
 }
 
