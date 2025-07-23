@@ -1,22 +1,26 @@
 "use client";
 
-import { Signatures } from "@/types";
 import { MinutesProps } from "../page";
 
-const MinutesContent = ({ data, setData }: MinutesProps) => {
+const MinutesContent = ({ data }: MinutesProps) => {
   return (
     <div>
-      {Object.entries(data).map(([key, value]) => (
-        <div key={key}>
-          <strong>{key}:</strong> {String(value)}
-        </div>
-      ))}
-
-      {Object.keys(data.signatures).map((sig) => (
-        <div>
-          {sig} {data.signatures[sig as keyof Signatures]}
-        </div>
-      ))}
+      <div>
+        {data.attendants.map((item) => (
+          <div key={item}>{item}</div>
+        ))}
+      </div>
+      <div></div>
+      <div>
+        {data.meetingItems.map((item) => (
+          <div key={item.fin}>{item.fin}</div>
+        ))}
+      </div>
+      <div>
+        {data.meetingItems.map((item) => (
+          <div key={item.eng}>{item.eng}</div>
+        ))}
+      </div>
     </div>
   );
 };

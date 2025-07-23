@@ -4,8 +4,8 @@ import React from "react";
 
 interface Props<T> {
   label?: string;
-  fieldKey: keyof T;
-  placeholder: string;
+  fieldKey?: keyof T;
+  placeholder?: string;
   children?: React.ReactNode;
   value?: string;
   onChange?: (p: any) => void;

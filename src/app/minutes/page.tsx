@@ -12,8 +12,8 @@ export interface MinutesProps {
 
 export interface MinutesData {
   minuteNumber?: number;
-  attendants?: FinEng[];
-  meetingItems?: FinEng[];
+  attendants: string[];
+  meetingItems: FinEng[];
   otherItems?: FinEng[];
   location?: FinEng;
   startTime?: Date;
@@ -27,6 +27,8 @@ const MinutesPage = () => {
       MainContent={MinutesContent}
       Sidebar={MinutesSidebar}
       initialData={{
+        attendants: [],
+        meetingItems: [],
         signatures: {
           chairman: "",
           secretary: "",

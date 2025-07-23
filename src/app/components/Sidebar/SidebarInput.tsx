@@ -5,7 +5,7 @@ import SidebarInputComponent from "./SidebarInputComponent";
 
 interface Props<T> {
   label?: string;
-  fieldKey: keyof T;
+  fieldKey?: keyof T;
   placeholder: string;
   data: T;
   setData: React.Dispatch<T>;
@@ -18,7 +18,13 @@ const SidebarInput = <T,>({
   setData,
 }: Props<T>) => {
   const handleChange = (item: string) => {
-    const update = { ...data, [fieldKey]: item };
+    if (fieldKey) {
+      const update = { ...data, [fieldKey]: item };
+      setData(update);
+      return;
+    }
+
+    const update = { ...data, item };
     setData(update);
   };
 

@@ -6,10 +6,10 @@ import SidebarInputComponent from "./SidebarInputComponent";
 interface Props<T> {
   label?: string;
   fieldKey: keyof T;
-  placeholder: string;
+  placeholder?: string;
   data: T;
   setData: React.Dispatch<T>;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 const SidebarListInput = <T,>({
@@ -41,13 +41,13 @@ const SidebarListInput = <T,>({
         fieldKey={fieldKey}
         onChange={(e) => setNewItem(e.currentTarget.value)}
       >
-        {/* <button
+        <button
           // Chrome and Firefox specific styles
           className="aspect-square h-7 rounded bg-[#9fd3c7]/50 [@supports(-moz-appearance:none)]:h-auto"
           onClick={() => handleListChange(newItem)}
         >
           +
-        </button> */}
+        </button>
       </SidebarInputComponent>
       {children}
     </div>

@@ -1,12 +1,11 @@
 "use client";
 
-import SidebarInput from "@/app/components/Sidebar/SidebarInput";
-import SidebarListInput from "@/app/components/Sidebar/SidebarListButton";
+import Dropdown from "@/app/components/Dropdown";
+import MultiLanguageInput from "@/app/components/inputs/MultiLanguageInput";
+import SidebarListInput from "@/app/components/Sidebar/SidebarListInput";
 import { useTranslations } from "@/app/i18n/TranslationsProvider";
 import { Signatures } from "@/types";
 import { MinutesProps } from "../page";
-import DatetimeInput from "./DatetimeInput";
-import MultiLanguageInput from "@/app/components/inputs/MultiLanguageInput";
 
 const MinutesSidebar = ({
   data: minutesData,
@@ -16,12 +15,28 @@ const MinutesSidebar = ({
 
   return (
     <div>
-      <MultiLanguageInput
-        placeholder={dict.minutes.placeholders.attendants}
-        fieldKey="attendants"
-        data={minutesData}
-        setData={setMinutesData}
-      />
+      <Dropdown header={dict.minutes.labels.attendants}>
+        <SidebarListInput
+          label={dict.minutes.labels.attendants}
+          fieldKey="attendants"
+          data={minutesData}
+          setData={setMinutesData}
+        />
+      </Dropdown>
+
+      <Dropdown header={dict.minutes.labels.items}>
+        <MultiLanguageInput
+          placeholder={dict.minutes.placeholders.attendants}
+          fieldKey="meetingItems"
+          data={minutesData}
+          setData={setMinutesData}
+        />
+        {minutesData.meetingItems.map((item) => (
+          <div key={item.fin}>
+            {item.fin}, {item.eng}
+          </div>
+        ))}
+      </Dropdown>
       {/* 
       <div>
         <h2>{dict.minutes.labels.attendants}</h2>
