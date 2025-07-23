@@ -1,6 +1,7 @@
 "use client";
 
 import { ReactNode, useState } from "react";
+import { useTranslations } from "../i18n/TranslationsProvider";
 
 interface DropdownProps {
   children: ReactNode;
@@ -8,13 +9,16 @@ interface DropdownProps {
 }
 
 const Dropdown = ({ children, header }: DropdownProps) => {
+  const dict = useTranslations();
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div>
       <div className="flex justify-between">
         <h2>{header}</h2>
-        <button onClick={() => setIsOpen(!isOpen)}>Toggle</button>
+        <button onClick={() => setIsOpen(!isOpen)}>
+          {isOpen ? dict.toggleClose : dict.toggleOpen}
+        </button>
       </div>
 
       <div

@@ -1,7 +1,9 @@
 {
   "finnish": "Finnish",
   "english": "English",
-  "addItem": "Add",
+  "addItem": "Add item",
+  "toggleOpen": "Open",
+  "toggleClose": "Close",
   "minutes": {
     "labels": {
       "attendants": "Attendants",

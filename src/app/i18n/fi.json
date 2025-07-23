@@ -2,6 +2,8 @@
   "finnish": "Suomeksi",
   "english": "Englanniksi",
   "addItem": "Lisää",
+  "toggleOpen": "Avaa",
+  "toggleClose": "Sulje",
   "minutes": {
     "labels": {
       "attendants": "Attendants",

@@ -4,6 +4,8 @@ export interface Dictionary {
   finnish: string;
   english: string;
   addItem: string;
+  toggleOpen: string;
+  toggleClose: string;
   minutes: {
     labels: {
       attendants: string;

@@ -11,7 +11,12 @@ interface Props<T> {
   setData: React.Dispatch<T>;
 }
 
-const MultiLanguageInput = <T,>({ data, setData, fieldKey }: Props<T>) => {
+const MultiLanguageListInput = <T,>({
+  data,
+  setData,
+  fieldKey,
+  placeholder,
+}: Props<T>) => {
   const dict = useTranslations();
 
   const [item, newItem] = useState<FinEng>({} as FinEng);
@@ -26,22 +31,27 @@ const MultiLanguageInput = <T,>({ data, setData, fieldKey }: Props<T>) => {
     <div>
       <h3>{dict.finnish}</h3>
       <SidebarInput
-        placeholder={dict.minutes.placeholders.items}
+        placeholder={placeholder}
         fieldKey={"fin"}
         data={item}
         setData={newItem}
       />
       <h3>{dict.english}</h3>
       <SidebarInput
-        placeholder={dict.minutes.placeholders.items}
+        placeholder={placeholder}
         fieldKey={"eng"}
         data={item}
         setData={newItem}
       />
 
-      <button onClick={handleClick}>{dict.addItem}</button>
+      <button
+        className="mt-2"
+        onClick={handleClick}
+      >
+        {dict.addItem}
+      </button>
     </div>
   );
 };
 
-export default MultiLanguageInput;
+export default MultiLanguageListInput;

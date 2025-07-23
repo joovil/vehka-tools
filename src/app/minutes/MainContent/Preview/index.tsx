@@ -1,36 +1,8 @@
 "use client";
 
-import { DateTime } from "@/app/@sidebar/meeting-invite/page";
-import { Examiners, NewMember, Signatures } from "..";
+import { MinutesData } from "../../page";
 
-export interface PreviewProps {
-  minuteNumber: number | null;
-  location: Location;
-  attendants: string[];
-  items: string[];
-  other: string[];
-  startTime: DateTime;
-  examiners: Examiners;
-  newMembers: NewMember[];
-  nextMeeting: DateTime;
-  meetingEnd: DateTime;
-
-  signatures: Signatures;
-}
-
-const Preview: React.FC<PreviewProps> = ({
-  minuteNumber,
-  location,
-  attendants,
-  items,
-  other,
-  startTime,
-  examiners,
-  newMembers,
-  nextMeeting,
-  meetingEnd,
-  signatures,
-}) => {
+const Preview = ({ data }: { data: MinutesData }) => {
   const date = new Date();
 
   const signatureStyle = (b: boolean) => {
@@ -49,7 +21,7 @@ const Preview: React.FC<PreviewProps> = ({
       <div>
         <div>Helsingin seudun opiskelija-asuntosäätiö</div>
         <div>
-          Pöytäkirja {minuteNumber || "_"}/{date.getFullYear()}
+          Pöytäkirja {data.minuteNumber || "_"}/{date.getFullYear()}
         </div>
       </div>
 
@@ -57,16 +29,7 @@ const Preview: React.FC<PreviewProps> = ({
       <div>
         <h2>Asukastoimikunnan kokous</h2>
         <div>PÄIVÄMÄÄRÄ JA KELLONAIKA:</div>
-        <div>
-          {Object.values(startTime).includes("") ? (
-            "_______"
-          ) : (
-            <>
-              <div>{startTime.date}</div>
-              <div>kello: {startTime.time}</div>
-            </>
-          )}{" "}
-        </div>
+        <div></div>
       </div>
 
       <div>
@@ -80,9 +43,9 @@ const Preview: React.FC<PreviewProps> = ({
 
       <div>
         <h2>LÄSNÄ (etu- ja sukunimi):</h2>
-        {attendants.length > 0 ? (
+        {data.attendants.length > 0 ? (
           <ul>
-            {attendants.map((a: string, i: number) => (
+            {data.attendants.map((a: string, i: number) => (
               <li key={i}>{a}</li>
             ))}
           </ul>
@@ -93,10 +56,7 @@ const Preview: React.FC<PreviewProps> = ({
 
       <div>
         <h2>1. KOKOUKSEN AVAUS, KOKOUKSEN LAILLISUUS JA PÄÄTÖSVALTAISUUS</h2>
-        <div>
-          Puheenjohtaja avasi kokouksen kello{" "}
-          {startTime.time || "_________________________"}
-        </div>
+        <div>Puheenjohtaja avasi kokouksen kello </div>
         <div>
           Todettiin kokous laillisesti koolle kutsutuksi ja päätösvaltaiseksi.
         </div>
@@ -105,8 +65,8 @@ const Preview: React.FC<PreviewProps> = ({
       <div>
         <h2>2. KAHDEN PÖYTÄKIRJANTARKASTAJAN VALINTA</h2>
         <div>
-          Valittiin: {examiners.examiner1 || "_______"} ja{" "}
-          {examiners.examiner2 || "_______"}
+          Valittiin: {data.signatures.examiner1 || "_______"} ja{" "}
+          {data.signatures.examiner2 || "_______"}
         </div>
       </div>
 
@@ -115,33 +75,33 @@ const Preview: React.FC<PreviewProps> = ({
         <div>Esityslista hyväksyttiin kokouksen työjärjestykseksi.</div>
       </div>
 
-      <div>
+      {/* <div>
         <h2>4. HANKINNAT / TALKOOT / MUITA PÄÄTETTÄVIÄ ASIOITA</h2>
-        {items.length > 0 ? (
+        {data.meetingItems.length > 0 ? (
           <ul>
-            {items.map((item, i) => (
+            {data.meetingItems.map((item, i) => (
               <li key={i}>{item}</li>
             ))}
           </ul>
         ) : (
           <div>_______</div>
         )}
-      </div>
+      </div> */}
 
-      <div>
+      {/* <div>
         <h2>5. MUUT MAHDOLLISET ASIAT</h2>
-        {other.length > 0 ? (
+        {data.otherItems.length > 0 ? (
           <ul>
-            {other.map((o, i) => (
+            {data.otherItems.map((o, i) => (
               <li key={i}>{o}</li>
             ))}
           </ul>
         ) : (
           <div>_______</div>
         )}
-      </div>
+      </div> */}
 
-      <div>
+      {/* <div>
         <h2>
           UUDET JÄSENET (etu- ja sukunimi sekä mahdollinen rooli toimikunnassa):
         </h2>
@@ -156,9 +116,9 @@ const Preview: React.FC<PreviewProps> = ({
         ) : (
           <div>_______</div>
         )}
-      </div>
+      </div> */}
 
-      <div>
+      {/* <div>
         <h2>6. SEURAAVAN KOKOUKSEN AJANKOHTA</h2>
         <div>
           Seuraava kokous pidetään:
@@ -173,9 +133,9 @@ const Preview: React.FC<PreviewProps> = ({
             )}
           </div>
         </div>
-      </div>
+      </div> */}
 
-      <div>
+      {/* <div>
         <h2>7. KOKOUKSEN PÄÄTTÄMINEN</h2>
         <>
           <div>Puheenjohtaja päätti kokouksen kello</div>
@@ -190,7 +150,7 @@ const Preview: React.FC<PreviewProps> = ({
             )}
           </div>
         </>
-      </div>
+      </div> */}
 
       <div>
         <h2>VAKUUDEKSI</h2>
@@ -198,9 +158,9 @@ const Preview: React.FC<PreviewProps> = ({
           <div>
             <div
               className="text-2xl"
-              style={signatureStyle(!!signatures.chairman)}
+              style={signatureStyle(!!data.signatures.chairman)}
             >
-              {signatures.chairman || "________"}
+              {data.signatures.chairman || "________"}
             </div>
             <div>puheenjohtajan allekirjoitus</div>
           </div>
@@ -208,9 +168,9 @@ const Preview: React.FC<PreviewProps> = ({
           <div>
             <div
               className="text-2xl"
-              style={signatureStyle(!!signatures.secretary)}
+              // style={data.signatureStyle(!!data.signatures.secretary)}
             >
-              {signatures.secretary || "_______"}
+              {data.signatures.secretary || "_______"}
             </div>
             <div>sihteerin allekirjoitus</div>
           </div>
@@ -218,9 +178,9 @@ const Preview: React.FC<PreviewProps> = ({
           <div>
             <div
               className="text-2xl"
-              style={signatureStyle(!!signatures.examiner1)}
+              // style={data.signatureStyle(!!data.signatures.examiner1)}
             >
-              {signatures.examiner1 || "_______"}
+              {data.signatures.examiner1 || "_______"}
             </div>
             <div>pöytäkirjantarkastajan allekirjoitus</div>
           </div>
@@ -228,9 +188,9 @@ const Preview: React.FC<PreviewProps> = ({
           <div>
             <div
               className="text-2xl"
-              style={signatureStyle(!!signatures.examiner2)}
+              // style={data.signatureStyle(!!data.signatures.examiner2)}
             >
-              {signatures.examiner2 || "_______"}
+              {data.signatures.examiner2 || "_______"}
             </div>
             <div>pöytäkirjantarkastajan allekirjoitus</div>
           </div>

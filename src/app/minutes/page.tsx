@@ -12,10 +12,10 @@ export interface MinutesProps {
 
 export interface MinutesData {
   minuteNumber?: number;
+  location?: FinEng;
   attendants: string[];
   meetingItems: FinEng[];
-  otherItems?: FinEng[];
-  location?: FinEng;
+  otherItems: FinEng[];
   startTime?: Date;
   endTime?: Date;
   signatures: Signatures;
@@ -29,6 +29,7 @@ const MinutesPage = () => {
       initialData={{
         attendants: [],
         meetingItems: [],
+        otherItems: [],
         signatures: {
           chairman: "",
           secretary: "",
