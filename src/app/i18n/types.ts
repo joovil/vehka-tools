@@ -1,6 +1,9 @@
 export type Locale = "en" | "fi";
 
 export interface Dictionary {
+  finnish: string;
+  english: string;
+  addItem: string;
   minutes: {
     labels: {
       attendants: string;

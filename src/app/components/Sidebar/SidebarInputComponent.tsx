@@ -3,7 +3,7 @@
 import React from "react";
 
 interface Props<T> {
-  label: string;
+  label?: string;
   fieldKey: keyof T;
   placeholder: string;
   children?: React.ReactNode;
@@ -21,7 +21,7 @@ const SidebarInputComponent = <T,>({
 }: Props<T>) => {
   return (
     <div className="flex flex-col">
-      <label>{label}</label>
+      {label && <label>{label}</label>}
       <div className="input-wrapper">
         <input
           name={String(fieldKey)}

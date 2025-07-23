@@ -1,4 +1,7 @@
 {
+  "finnish": "Finnish",
+  "english": "English",
+  "addItem": "Add",
   "minutes": {
     "labels": {
       "attendants": "Attendants",

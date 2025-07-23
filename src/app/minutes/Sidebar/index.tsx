@@ -2,31 +2,48 @@
 
 import SidebarInput from "@/app/components/Sidebar/SidebarInput";
 import SidebarListInput from "@/app/components/Sidebar/SidebarListButton";
-import { useTranslations as useDictionary } from "@/app/i18n/TranslationsProvider";
+import { useTranslations } from "@/app/i18n/TranslationsProvider";
 import { Signatures } from "@/types";
 import { MinutesProps } from "../page";
 import DatetimeInput from "./DatetimeInput";
+import MultiLanguageInput from "@/app/components/inputs/MultiLanguageInput";
 
 const MinutesSidebar = ({
   data: minutesData,
   setData: setMinutesData,
 }: MinutesProps) => {
-  const dict = useDictionary();
+  const dict = useTranslations();
 
   return (
     <div>
-      <SidebarListInput
-        label={dict.minutes.labels.attendants}
+      <MultiLanguageInput
         placeholder={dict.minutes.placeholders.attendants}
         fieldKey="attendants"
         data={minutesData}
         setData={setMinutesData}
-      >
-        {minutesData.attendants.map((att) => (
-          <div key={att}>{att}</div>
-        ))}
-      </SidebarListInput>
+      />
+      {/* 
+      <div>
+        <h2>{dict.minutes.labels.attendants}</h2>
 
+        <h3>{dict.finnish}</h3>
+        <SidebarInput
+          placeholder={dict.minutes.placeholders.attendants}
+          fieldKey="attendants"
+          data={minutesData}
+          setData={setMinutesData}
+        />
+        <h3>{dict.english}</h3>
+        <SidebarInput
+          placeholder={dict.minutes.placeholders.attendants}
+          fieldKey="attendants"
+          data={minutesData}
+          setData={setMinutesData}
+        />
+
+        <button>{dict.addItem}</button>
+      </div> */}
+      {/* 
       <SidebarListInput
         label={dict.minutes.labels.items}
         placeholder={dict.minutes.placeholders.items}
@@ -73,7 +90,7 @@ const MinutesSidebar = ({
         minutesData={minutesData}
         setMinutesData={setMinutesData}
         fieldKey="endTime"
-      />
+      /> */}
 
       {Object.keys(minutesData.signatures).map((signature) => (
         <div key={signature}>

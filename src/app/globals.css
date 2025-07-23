@@ -17,27 +17,13 @@
     @apply text-lg;
   }
 
-  /* button {
-    @apply btn-primary transition-all ease-in-out;
+  button {
+    @apply bg-teal-light/50 rounded px-2 py-1 shadow-md transition-all;
+
+    &:hover {
+      @apply bg-teal-light/70 scale-105;
+    }
   }
-
-  button:hover:not(:disabled) {
-    @apply bg-green-darker -translate-y-0.5 scale-105;
-  }
-
-  button:disabled {
-    @apply bg-green-disabled;
-  } */
-
-  /* input,
-  textarea {
-    @apply scale-100 rounded-sm border-b-1 border-[#142d4c] bg-[#f5f5f5] px-2 py-1 shadow-md transition-transform ease-in-out;
-  }
-
-  input:focus,
-  textarea:focus {
-    @apply scale-105 border-b-2 border-[#385170] outline-none;
-  } */
 }
 
 @theme {

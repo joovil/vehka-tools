@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import SidebarInputComponent from "./SidebarInputComponent";
 
 interface Props<T> {
-  label: string;
+  label?: string;
   fieldKey: keyof T;
   placeholder: string;
   data: T;
@@ -41,13 +41,13 @@ const SidebarListInput = <T,>({
         fieldKey={fieldKey}
         onChange={(e) => setNewItem(e.currentTarget.value)}
       >
-        <button
+        {/* <button
           // Chrome and Firefox specific styles
           className="aspect-square h-7 rounded bg-[#9fd3c7]/50 [@supports(-moz-appearance:none)]:h-auto"
           onClick={() => handleListChange(newItem)}
         >
           +
-        </button>
+        </button> */}
       </SidebarInputComponent>
       {children}
     </div>

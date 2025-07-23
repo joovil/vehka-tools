@@ -1,4 +1,7 @@
 {
+  "finnish": "Suomeksi",
+  "english": "Englanniksi",
+  "addItem": "Lisää",
   "minutes": {
     "labels": {
       "attendants": "Attendants",

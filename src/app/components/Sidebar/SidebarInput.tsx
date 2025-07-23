@@ -4,7 +4,7 @@ import React from "react";
 import SidebarInputComponent from "./SidebarInputComponent";
 
 interface Props<T> {
-  label: string;
+  label?: string;
   fieldKey: keyof T;
   placeholder: string;
   data: T;
@@ -12,7 +12,6 @@ interface Props<T> {
 }
 
 const SidebarInput = <T,>({
-  label,
   fieldKey,
   placeholder,
   data,
@@ -25,7 +24,6 @@ const SidebarInput = <T,>({
 
   return (
     <SidebarInputComponent
-      label={label}
       placeholder={placeholder}
       fieldKey={fieldKey}
       onChange={(e) => handleChange(e.currentTarget.value)}
