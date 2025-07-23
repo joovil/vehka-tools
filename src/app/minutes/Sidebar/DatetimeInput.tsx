@@ -26,17 +26,17 @@ const DatetimeInput = ({
       <label>{label}</label>
       <div className="flex gap-2">
         <button
-          className="datetime-button h-9 w-40"
+          className="datetime-button h-9 min-w-40"
           onClick={() =>
             setMinutesData({ ...minutesData, [fieldKey]: new Date() })
           }
         >
           {buttonLabel}
         </button>
-        <div className="datepicker-wrapper w-full">
+        <div className="datepicker-wrapper w-full overflow-hidden">
           <DatePicker
             showTimeSelect
-            dateFormat="dd/MM/yyyy HH:mm"
+            dateFormat="HH:mm"
             timeFormat="HH:mm"
             onChange={(date) => {
               if (date) setMinutesData({ ...minutesData, startTime: date });

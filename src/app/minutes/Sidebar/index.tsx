@@ -96,30 +96,6 @@ const MinutesSidebar = ({
           </div>
         </div>
       ))}
-      {/* <div>
-        <label>{dict.minutes.labels.signatures.chairman}</label>
-        <div className="input-wrapper">
-          <input
-            className="font-alex"
-            onChange={(e) =>
-              setMinutesData({
-                ...minutesData,
-                signatures: {
-                  ...minutesData.signatures,
-                  chairman: e.currentTarget.value,
-                },
-              })
-            }
-          />
-        </div>
-      </div>
-
-      <div>
-        <label>{dict.minutes.labels.signatures.secretary}</label>
-        <div className="input-wrapper">
-          <input className="font-alex" />
-        </div>
-      </div> */}
     </div>
   );
 };
