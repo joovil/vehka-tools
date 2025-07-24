@@ -1,7 +1,8 @@
 "use client";
 
 import Dropdown from "@/app/components/Dropdown";
-import MultiLanguageListInput from "@/app/components/inputs/MultiLanguageInput";
+import MultiLanguageInput from "@/app/components/inputs/MultiLanguageInput";
+import MultiLanguageListInput from "@/app/components/inputs/MultiLanguageListInput";
 import SidebarListInput from "@/app/components/Sidebar/SidebarListInput";
 import { useTranslations } from "@/app/i18n/TranslationsProvider";
 import { Signatures } from "@/types";
@@ -16,10 +17,9 @@ const MinutesSidebar = ({
   return (
     <div className="flex flex-col gap-2">
       <Dropdown header="Location temp">
-        <MultiLanguageListInput
+        <MultiLanguageInput
           placeholder="Location temp"
           fieldKey="location"
-          data={minutesData}
           setData={setMinutesData}
         />
       </Dropdown>
@@ -38,7 +38,7 @@ const MinutesSidebar = ({
         <MultiLanguageListInput
           placeholder={dict.minutes.placeholders.attendants}
           fieldKey="meetingItems"
-          data={minutesData}
+          // data={minutesData}
           setData={setMinutesData}
         />
         {minutesData.meetingItems.map((item) => (
@@ -52,7 +52,7 @@ const MinutesSidebar = ({
         <MultiLanguageListInput
           placeholder={dict.minutes.placeholders.attendants}
           fieldKey="otherItems"
-          data={minutesData}
+          // data={minutesData}
           setData={setMinutesData}
         />
         {minutesData.otherItems.map((item) => (

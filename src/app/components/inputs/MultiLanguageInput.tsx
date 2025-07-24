@@ -3,54 +3,52 @@
 import { useTranslations } from "@/app/i18n/TranslationsProvider";
 import { FinEng } from "@/types";
 import { useState } from "react";
-import SidebarInput from "../Sidebar/SidebarInput";
+import SidebarInputComponent from "../Sidebar/SidebarInputComponent";
+
 interface Props<T> {
-  fieldKey: keyof T;
   placeholder: string;
   setData: React.Dispatch<React.SetStateAction<T>>;
+  fieldKey: keyof T;
 }
 
-const MultiLanguageListInput = <T,>({
+const MultiLanguageInput = <T,>({
   setData,
-  fieldKey,
   placeholder,
+  fieldKey,
 }: Props<T>) => {
   const dict = useTranslations();
 
   const [newItem, setNewItem] = useState<FinEng>({} as FinEng);
 
-  const handleClick = () => {
-    setData((prev: T) => {
-      const update = [...(prev[fieldKey] as []), newItem];
-      return { ...prev, [fieldKey]: update };
-    });
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setNewItem((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+
+    setData((prev: T) => ({
+      ...prev,
+      [fieldKey]: newItem,
+    }));
   };
 
   return (
     <div>
       <h3>{dict.finnish}</h3>
-      <SidebarInput
+      <SidebarInputComponent
         placeholder={placeholder}
         fieldKey={"fin"}
-        // data={newItem}
-        setData={setNewItem}
+        onChange={handleChange}
       />
       <h3>{dict.english}</h3>
-      <SidebarInput
+      <SidebarInputComponent
         placeholder={placeholder}
         fieldKey={"eng"}
-        // data={newItem}
-        setData={setNewItem}
+        onChange={handleChange}
       />
-
-      <button
-        className="mt-2"
-        onClick={handleClick}
-      >
-        {dict.addItem}
-      </button>
     </div>
   );
 };
 
-export default MultiLanguageListInput;
+export default MultiLanguageInput;

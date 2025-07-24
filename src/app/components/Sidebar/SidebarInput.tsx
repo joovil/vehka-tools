@@ -7,25 +7,17 @@ interface Props<T> {
   label?: string;
   fieldKey?: keyof T;
   placeholder: string;
-  data: T;
-  setData: React.Dispatch<T>;
+  setData: React.Dispatch<React.SetStateAction<T>>;
 }
 
-const SidebarInput = <T,>({
-  fieldKey,
-  placeholder,
-  data,
-  setData,
-}: Props<T>) => {
+const SidebarInput = <T,>({ fieldKey, placeholder, setData }: Props<T>) => {
   const handleChange = (item: string) => {
     if (fieldKey) {
-      const update = { ...data, [fieldKey]: item };
-      setData(update);
+      setData((prev: T) => ({ ...prev, [fieldKey]: item }));
       return;
     }
 
-    const update = { ...data, item };
-    setData(update);
+    setData((prev: T) => ({ ...prev, item }));
   };
 
   return (

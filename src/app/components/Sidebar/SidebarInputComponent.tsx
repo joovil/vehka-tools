@@ -8,7 +8,7 @@ interface Props<T> {
   placeholder?: string;
   children?: React.ReactNode;
   value?: string;
-  onChange?: (p: any) => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const SidebarInputComponent = <T,>({

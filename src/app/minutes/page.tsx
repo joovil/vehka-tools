@@ -7,7 +7,7 @@ import MinutesSidebar from "./Sidebar";
 
 export interface MinutesProps {
   data: MinutesData;
-  setData: React.Dispatch<MinutesData>;
+  setData: React.Dispatch<React.SetStateAction<MinutesData>>;
 }
 
 export interface MinutesData {

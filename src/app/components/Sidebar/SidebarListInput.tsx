@@ -7,8 +7,7 @@ interface Props<T> {
   label?: string;
   fieldKey: keyof T;
   placeholder?: string;
-  data: T;
-  setData: React.Dispatch<T>;
+  setData: React.Dispatch<React.SetStateAction<T>>;
   children?: React.ReactNode;
 }
 
@@ -16,7 +15,6 @@ const SidebarListInput = <T,>({
   label,
   fieldKey,
   placeholder,
-  data,
   setData,
   children,
 }: Props<T>) => {
@@ -24,13 +22,13 @@ const SidebarListInput = <T,>({
 
   // Adds a new item to the end of the array using the key as the field name
   const handleListChange = (item: string) => {
-    if (Array.isArray(data[fieldKey])) {
-      const update = [...data[fieldKey], item];
-      setData({ ...data, [fieldKey]: update } as T);
-      console.log(update);
-    } else {
-      console.warn(`data[${String(fieldKey)}] is not an array.`);
-    }
+    setData((prev: T) => ({
+      ...prev,
+      [fieldKey]: [
+        ...(Array.isArray(prev[fieldKey]) ? prev[fieldKey] : []),
+        item,
+      ],
+    }));
   };
 
   return (

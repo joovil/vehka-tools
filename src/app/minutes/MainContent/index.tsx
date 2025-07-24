@@ -1,12 +1,16 @@
 "use client";
 
 import { MinutesProps } from "../page";
-import Preview from "./Preview";
 
 const MinutesContent = ({ data }: MinutesProps) => {
   return (
     <div>
-      <Preview data={data} />
+      <div className="flex flex-col">
+        <div>Location</div>
+        <div>{data.location?.fin}</div>
+        <div>{data.location?.eng}</div>
+      </div>
+      {/* <Preview data={data} /> */}
       {/* <PdfPreview>
         <MinutePdf
           attendants={data.attendants}
