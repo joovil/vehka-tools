@@ -14,12 +14,15 @@ export interface Dictionary {
       location: string;
       startTime: string;
       endTime: string;
-      signatures: {
-        chairman: string;
-        secretary: string;
-        examiner1: string;
-        examiner2: string;
-      };
+      signatures: string;
+      chairman: string;
+      secretary: string;
+      examiners: string;
+      examiner1: string;
+      examiner2: string;
+      newMembers: string;
+      acceptAgenda: string;
+      nextMeeting: string;
     };
     placeholders: {
       attendants: string;
@@ -29,10 +32,15 @@ export interface Dictionary {
       startTime: string;
       endTime: string;
       signatures: string;
+      examiner1: string;
+      examiner2: string;
+      newMembers: string;
+      nextMeeting: string;
     };
     buttons: {
       startMeeting: string;
       endMeeting: string;
+      nextMeeting: string;
     };
   };
 }

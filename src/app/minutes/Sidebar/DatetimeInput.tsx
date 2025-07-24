@@ -8,29 +8,37 @@ interface Props<T extends { startTime?: Date; endTime?: Date }> {
   buttonLabel: string;
   data: T;
   setData: React.Dispatch<React.SetStateAction<T>>;
-  fieldKey: "startTime" | "endTime";
+  fieldKey: "startTime" | "endTime" | "nextMeeting";
   placeholder: string;
+  showButton?: boolean;
 }
 
-const DatetimeInput = <T extends { startTime?: Date; endTime?: Date }>({
+const DatetimeInput = <
+  T extends { startTime?: Date; endTime?: Date; nextMeeting?: Date },
+>({
   label,
   buttonLabel,
   data,
   setData,
   fieldKey,
   placeholder,
+  showButton,
 }: Props<T>) => {
   return (
     <div className="flex flex-col">
       <label>{label}</label>
       <div className="flex gap-2">
-        <button
-          className="datetime-button h-9 w-fit"
-          onClick={() => setData({ ...data, [fieldKey]: new Date() })}
+        {showButton && (
+          <button
+            className="datetime-button h-9 w-fit"
+            onClick={() => setData({ ...data, [fieldKey]: new Date() })}
+          >
+            {buttonLabel}
+          </button>
+        )}
+        <div
+          className={`datepicker-wrapper shrink grow [&*]:min-w-0 ${!showButton ? "datepicker-ml" : ""}`}
         >
-          {buttonLabel}
-        </button>
-        <div className="datepicker-wrapper shrink grow [&*]:min-w-0">
           <DatePicker
             placeholderText={placeholder}
             showTimeSelect

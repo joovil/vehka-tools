@@ -108,9 +108,11 @@ body {
   }
 }
 
-/* .react-datepicker-wrapper {
-  @apply w-full;
-} */
+@utility datepicker-ml {
+  .react-datepicker {
+    @apply ml-20;
+  }
+}
 
 /* 
 .page-container {

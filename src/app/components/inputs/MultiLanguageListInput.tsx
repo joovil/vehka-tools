@@ -17,13 +17,15 @@ const MultiLanguageListInput = <T,>({
 }: Props<T>) => {
   const dict = useTranslations();
 
-  const [newItem, setNewItem] = useState<FinEng>({} as FinEng);
+  const [newItem, setNewItem] = useState<FinEng>({ fin: "", eng: "" });
 
   const handleClick = () => {
     setData((prev: T) => {
       const update = [...(prev[fieldKey] as []), newItem];
       return { ...prev, [fieldKey]: update };
     });
+
+    setNewItem({ fin: "", eng: "" });
   };
 
   return (
@@ -32,14 +34,14 @@ const MultiLanguageListInput = <T,>({
       <SidebarInput
         placeholder={placeholder}
         fieldKey={"fin"}
-        // data={newItem}
+        value={newItem.fin}
         setData={setNewItem}
       />
       <h3>{dict.english}</h3>
       <SidebarInput
         placeholder={placeholder}
         fieldKey={"eng"}
-        // data={newItem}
+        value={newItem.eng}
         setData={setNewItem}
       />
 

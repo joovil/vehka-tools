@@ -30,8 +30,8 @@ const SidebarInputComponent = <T,>({
           onChange={onChange}
           value={value}
         />
-        {children}
       </div>
+      {children}
     </div>
   );
 };

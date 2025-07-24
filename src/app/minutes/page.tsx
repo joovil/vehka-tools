@@ -1,6 +1,6 @@
 "use client";
 
-import { FinEng, Signatures } from "@/types";
+import { Examiners, FinEng, Signatures } from "@/types";
 import { SplitPage } from "../SplitView/SplitComponent";
 import MinutesContent from "./MainContent";
 import MinutesSidebar from "./Sidebar";
@@ -19,6 +19,9 @@ export interface MinutesData {
   startTime?: Date;
   endTime?: Date;
   signatures: Signatures;
+  examiners: Examiners;
+  newMembers?: string[];
+  nextMeeting?: Date;
 }
 
 const MinutesPage = () => {
@@ -33,6 +36,10 @@ const MinutesPage = () => {
         signatures: {
           chairman: "",
           secretary: "",
+          examiner1: "",
+          examiner2: "",
+        },
+        examiners: {
           examiner1: "",
           examiner2: "",
         },

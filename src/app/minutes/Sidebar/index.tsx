@@ -5,7 +5,7 @@ import MultiLanguageInput from "@/app/components/inputs/MultiLanguageInput";
 import MultiLanguageListInput from "@/app/components/inputs/MultiLanguageListInput";
 import SidebarListInput from "@/app/components/Sidebar/SidebarListInput";
 import { useTranslations } from "@/app/i18n/TranslationsProvider";
-import { Signatures } from "@/types";
+import ExaminerInput from "../MainContent/components/ExaminerInput";
 import { MinutesProps } from "../page";
 import DatetimeInput from "./DatetimeInput";
 
@@ -17,21 +17,21 @@ const MinutesSidebar = ({
 
   return (
     <div className="flex flex-col gap-2">
-      <Dropdown header="Location temp">
+      <Dropdown header={dict.minutes.labels.location}>
         <MultiLanguageInput
-          placeholder="Location temp"
+          placeholder={dict.minutes.placeholders.location}
           fieldKey="location"
           setData={setMinutesData}
         />
 
-        <DatetimeInput
+        {/* <DatetimeInput
           label={dict.minutes.labels.startTime}
           buttonLabel={dict.minutes.buttons.startMeeting}
           placeholder={dict.minutes.placeholders.startTime}
           setData={setMinutesData}
           data={minutesData}
           fieldKey="startTime"
-        />
+        /> */}
       </Dropdown>
 
       <Dropdown header={dict.minutes.labels.attendants}>
@@ -43,17 +43,35 @@ const MinutesSidebar = ({
         />
       </Dropdown>
 
+      <Dropdown header={dict.minutes.labels.startTime}>
+        <DatetimeInput
+          label={dict.minutes.labels.startTime}
+          buttonLabel={dict.minutes.buttons.startMeeting}
+          placeholder={dict.minutes.placeholders.startTime}
+          setData={setMinutesData}
+          data={minutesData}
+          fieldKey="startTime"
+          showButton={true}
+        />
+      </Dropdown>
+
+      <Dropdown header={dict.minutes.labels.examiners}>
+        <ExaminerInput setData={setMinutesData} />
+      </Dropdown>
+
+      <Dropdown header={dict.minutes.labels.acceptAgenda}>
+        <div>
+          <label>Esityslistan hyväksyminen</label>
+          <input type="checkbox" />
+        </div>
+      </Dropdown>
+
       <Dropdown header={dict.minutes.labels.items}>
         <MultiLanguageListInput
           placeholder={dict.minutes.placeholders.attendants}
           fieldKey="meetingItems"
           setData={setMinutesData}
         />
-        {minutesData.meetingItems.map((item) => (
-          <div key={item.fin}>
-            {item.fin}, {item.eng}
-          </div>
-        ))}
       </Dropdown>
 
       <Dropdown header={dict.minutes.labels.otherItems}>
@@ -70,97 +88,47 @@ const MinutesSidebar = ({
         ))}
       </Dropdown>
 
-      {/* 
-      <div>
-        <h2>{dict.minutes.labels.attendants}</h2>
-
-        <h3>{dict.finnish}</h3>
-        <SidebarInput
-          placeholder={dict.minutes.placeholders.attendants}
-          fieldKey="attendants"
-          data={minutesData}
+      <Dropdown header={dict.minutes.labels.newMembers}>
+        <SidebarListInput
+          label={dict.minutes.labels.newMembers}
+          placeholder={dict.minutes.placeholders.newMembers}
           setData={setMinutesData}
+          fieldKey={"newMembers"}
         />
-        <h3>{dict.english}</h3>
-        <SidebarInput
-          placeholder={dict.minutes.placeholders.attendants}
-          fieldKey="attendants"
-          data={minutesData}
+      </Dropdown>
+
+      <Dropdown header={dict.minutes.labels.nextMeeting}>
+        <DatetimeInput
+          label={dict.minutes.labels.nextMeeting}
+          buttonLabel={dict.minutes.buttons.nextMeeting}
+          placeholder={dict.minutes.placeholders.nextMeeting}
           setData={setMinutesData}
+          data={minutesData}
+          fieldKey="nextMeeting"
         />
+      </Dropdown>
 
-        <button>{dict.addItem}</button>
-      </div> */}
-      {/* 
-      <SidebarListInput
-        label={dict.minutes.labels.items}
-        placeholder={dict.minutes.placeholders.items}
-        fieldKey="meetingItems"
-        data={minutesData}
-        setData={setMinutesData}
-      >
-        {minutesData.meetingItems.map((item) => (
-          <div key={item}>{item}</div>
-        ))}
-      </SidebarListInput>
-
-      <SidebarListInput
-        label={dict.minutes.labels.otherItems}
-        placeholder={dict.minutes.placeholders.otherItems}
-        fieldKey="otherItems"
-        data={minutesData}
-        setData={setMinutesData}
-      >
-        {minutesData.otherItems.map((item) => (
-          <div key={item}>{item}</div>
-        ))}
-      </SidebarListInput>
-
-      <SidebarInput
-        label={dict.minutes.labels.location}
-        placeholder={dict.minutes.placeholders.location}
-        fieldKey="location"
-        data={minutesData}
-        setData={setMinutesData}
-      />
-
-      <DatetimeInput
-        label={dict.minutes.labels.startTime}
-        buttonLabel={dict.minutes.buttons.startMeeting}
-        minutesData={minutesData}
-        setMinutesData={setMinutesData}
-        fieldKey="startTime"
-      />
-
-      <DatetimeInput
-        label={dict.minutes.labels.endTime}
-        buttonLabel={dict.minutes.buttons.endMeeting}
-        minutesData={minutesData}
-        setMinutesData={setMinutesData}
-        fieldKey="endTime"
-      /> */}
-
-      {Object.keys(minutesData.signatures).map((signature) => (
-        <div key={signature}>
-          <label>
-            {dict.minutes.labels.signatures[signature as keyof Signatures]}
-          </label>
-          <div className="input-wrapper">
-            <input
-              className="font-alex"
-              onChange={(e) =>
-                setMinutesData({
-                  ...minutesData,
-                  signatures: {
-                    ...minutesData.signatures,
-                    [signature]: e.currentTarget.value,
-                  },
-                })
-              }
-            />
+      <Dropdown header={dict.minutes.labels.signatures}>
+        {Object.keys(minutesData.signatures).map((signature) => (
+          <div key={signature}>
+            <label>{dict.minutes.labels.signatures}</label>
+            <div className="input-wrapper">
+              <input
+                className="font-alex"
+                onChange={(e) =>
+                  setMinutesData({
+                    ...minutesData,
+                    signatures: {
+                      ...minutesData.signatures,
+                      [signature]: e.currentTarget.value,
+                    },
+                  })
+                }
+              />
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </Dropdown>
     </div>
   );
 };

@@ -12,12 +12,15 @@
       "location": "Location",
       "startTime": "Start time",
       "endTime": "End time",
-      "signatures": {
-        "chairman": "Chairman",
-        "secretary": "Secretary",
-        "examiner1": "Examiner 1",
-        "examiner2": "Examiner 2"
-      }
+      "signatures": "Signatures",
+      "chairman": "Chairman",
+      "secretary": "Secretary",
+      "examiners": "Examiners",
+      "examiner1": "Examiner 1",
+      "examiner2": "Examiner 2",
+      "newMembers": "New members",
+      "acceptAgenda": "Accept agenda",
+      "nextMeeting": "Next meeting"
     },
     "placeholders": {
       "attendants": "Who was present at the meeting",
@@ -26,11 +29,16 @@
       "location": "Where was the meeting held",
       "startTime": "When did the meeting start",
       "endTime": "When did the meeting end",
-      "signatures": "Who signed the document"
+      "signatures": "Who signed the document",
+      "examiner1": "First examiner",
+      "examiner2": "Second examiner",
+      "newMembers": "Who is the new member",
+      "nextMeeting": "When is the next meeting"
     },
     "buttons": {
       "startMeeting": "Start meeting",
-      "endMeeting": "End meeting"
+      "endMeeting": "End meeting",
+      "nextMeeting": "Next meeting"
     }
   }
 }

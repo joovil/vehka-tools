@@ -14,3 +14,8 @@ export interface Signatures {
   examiner1: string;
   examiner2: string;
 }
+
+export interface Examiners {
+  examiner1: string;
+  examiner2: string;
+}

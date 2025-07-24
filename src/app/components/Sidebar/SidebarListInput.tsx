@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "@/app/i18n/TranslationsProvider";
 import React, { useState } from "react";
 import SidebarInputComponent from "./SidebarInputComponent";
 
@@ -18,6 +19,7 @@ const SidebarListInput = <T,>({
   setData,
   children,
 }: Props<T>) => {
+  const dict = useTranslations();
   const [newItem, setNewItem] = useState<string>("");
 
   // Adds a new item to the end of the array using the key as the field name
@@ -29,6 +31,8 @@ const SidebarListInput = <T,>({
         item,
       ],
     }));
+
+    setNewItem("");
   };
 
   return (
@@ -38,13 +42,13 @@ const SidebarListInput = <T,>({
         placeholder={placeholder}
         fieldKey={fieldKey}
         onChange={(e) => setNewItem(e.currentTarget.value)}
+        value={newItem}
       >
         <button
-          // Chrome and Firefox specific styles
-          className="aspect-square h-7 rounded bg-[#9fd3c7]/50 [@supports(-moz-appearance:none)]:h-auto"
+          className="mt-1 w-fit"
           onClick={() => handleListChange(newItem)}
         >
-          +
+          {dict.addItem}
         </button>
       </SidebarInputComponent>
       {children}
