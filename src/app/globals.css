@@ -21,7 +21,15 @@
     @apply bg-teal-light/50 rounded px-2 py-1 shadow-md transition-all;
 
     &:hover {
-      @apply bg-teal-light/70 scale-105;
+      @apply bg-teal-light/70;
+
+      &:not(:disabled) {
+        @apply scale-105;
+      }
+    }
+
+    &:disabled {
+      @apply bg-[#527d74] text-white;
     }
   }
 }
@@ -103,8 +111,11 @@ body {
 
 @utility datetime-button {
   @apply bg-teal-light/50 rounded px-2 py-1 shadow-md transition-all;
-  &:hover {
+  &:hover:not(:disabled) {
     @apply bg-teal-light/70 scale-105;
+  }
+  &:hover:disabled {
+    @apply bg-teal-light/70;
   }
 }
 

@@ -22,6 +22,7 @@ export interface MinutesData {
   examiners: Examiners;
   newMembers?: string[];
   nextMeeting?: Date;
+  timeOfMeeting?: Date;
 }
 
 const MinutesPage = () => {

@@ -1,19 +1,14 @@
 "use client";
 
 import { useTranslations } from "@/app/i18n/TranslationsProvider";
-import { Signatures } from "@/types";
-import React from "react";
 import { MinutesData } from "../page";
 
-type SignatureInputProps = {
+interface Props {
   minutesData: MinutesData;
   setMinutesData: React.Dispatch<React.SetStateAction<MinutesData>>;
-};
+}
 
-const SignatureInput = ({
-  minutesData,
-  setMinutesData,
-}: SignatureInputProps) => {
+const SignaturesInput = ({ minutesData, setMinutesData }: Props) => {
   const dict = useTranslations();
 
   return (
@@ -23,8 +18,7 @@ const SignatureInput = ({
           <label>{dict.minutes.labels.signatures}</label>
           <div className="input-wrapper">
             <input
-              className="font-alex"
-              value={minutesData.signatures[signature as keyof Signatures]}
+              className="font-alex font-bold"
               onChange={(e) =>
                 setMinutesData({
                   ...minutesData,
@@ -42,4 +36,4 @@ const SignatureInput = ({
   );
 };
 
-export default SignatureInput;
+export default SignaturesInput;

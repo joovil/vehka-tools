@@ -7,7 +7,9 @@ import SidebarListInput from "@/app/components/inputs/SidebarListInput";
 import { useTranslations } from "@/app/i18n/TranslationsProvider";
 import DatetimeInput from "../../components/inputs/DatetimeInput";
 import { MinutesProps } from "../page";
+import EndMeeting from "./EndMeeting";
 import ExaminerInput from "./ExaminerInput";
+import SignaturesInput from "./SignaturesInput";
 
 const MinutesSidebar = ({
   data: minutesData,
@@ -99,8 +101,19 @@ const MinutesSidebar = ({
         />
       </Dropdown>
 
+      <Dropdown header={dict.minutes.labels.endTime}>
+        <EndMeeting
+          data={minutesData}
+          setData={setMinutesData}
+        />
+      </Dropdown>
+
       <Dropdown header={dict.minutes.labels.signatures}>
-        {Object.keys(minutesData.signatures).map((signature) => (
+        <SignaturesInput
+          minutesData={minutesData}
+          setMinutesData={setMinutesData}
+        />
+        {/* {Object.keys(minutesData.signatures).map((signature) => (
           <div key={signature}>
             <label>{dict.minutes.labels.signatures}</label>
             <div className="input-wrapper">
@@ -118,7 +131,7 @@ const MinutesSidebar = ({
               />
             </div>
           </div>
-        ))}
+        ))} */}
       </Dropdown>
     </div>
   );
