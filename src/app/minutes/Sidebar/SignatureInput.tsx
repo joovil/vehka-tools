@@ -3,7 +3,7 @@
 import { useTranslations } from "@/app/i18n/TranslationsProvider";
 import { Signatures } from "@/types";
 import React from "react";
-import { MinutesData } from "../../page";
+import { MinutesData } from "../page";
 
 type SignatureInputProps = {
   minutesData: MinutesData;

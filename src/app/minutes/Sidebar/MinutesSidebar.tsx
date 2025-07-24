@@ -6,8 +6,8 @@ import MultiLanguageListInput from "@/app/components/inputs/MultiLanguageListInp
 import SidebarListInput from "@/app/components/inputs/SidebarListInput";
 import { useTranslations } from "@/app/i18n/TranslationsProvider";
 import DatetimeInput from "../../components/inputs/DatetimeInput";
-import ExaminerInput from "../MainContent/ExaminerInput";
 import { MinutesProps } from "../page";
+import ExaminerInput from "./ExaminerInput";
 
 const MinutesSidebar = ({
   data: minutesData,
