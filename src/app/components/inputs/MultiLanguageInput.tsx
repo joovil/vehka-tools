@@ -25,7 +25,8 @@ const MultiLanguageInput = <T,>({
 
     const update = { ...newItem, [name]: value };
 
-    setNewItem((prev) => ({ ...prev, update }));
+    console.log(update);
+    setNewItem((prev) => ({ ...prev, [name]: value }));
     setData((prev: T) => ({ ...prev, [fieldKey]: update }));
   };
 
