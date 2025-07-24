@@ -1,8 +1,8 @@
 "use client";
 
-import SidebarInputComponent from "@/app/components/Sidebar/SidebarInputComponent";
+import SidebarInputComponent from "@/app/components/inputs/SidebarInputComponent";
 import { useTranslations } from "@/app/i18n/TranslationsProvider";
-import { MinutesData } from "../../page";
+import { MinutesData } from "../page";
 
 interface Props {
   setData: React.Dispatch<React.SetStateAction<MinutesData>>;

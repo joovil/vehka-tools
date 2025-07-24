@@ -3,7 +3,7 @@
 import { useTranslations } from "@/app/i18n/TranslationsProvider";
 import { FinEng } from "@/types";
 import { useState } from "react";
-import SidebarInputComponent from "../Sidebar/SidebarInputComponent";
+import SidebarInputComponent from "./SidebarInputComponent";
 
 interface Props<T> {
   placeholder: string;

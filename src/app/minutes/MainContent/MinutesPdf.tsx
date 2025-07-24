@@ -8,7 +8,7 @@ import {
   Text,
   View,
 } from "@react-pdf/renderer";
-import { MinutesData } from "../../page";
+import { MinutesData } from "../page";
 
 Font.register({
   family: "Alex Brush",

@@ -3,11 +3,11 @@
 import Dropdown from "@/app/components/Dropdown";
 import MultiLanguageInput from "@/app/components/inputs/MultiLanguageInput";
 import MultiLanguageListInput from "@/app/components/inputs/MultiLanguageListInput";
-import SidebarListInput from "@/app/components/Sidebar/SidebarListInput";
+import SidebarListInput from "@/app/components/inputs/SidebarListInput";
 import { useTranslations } from "@/app/i18n/TranslationsProvider";
-import ExaminerInput from "../MainContent/components/ExaminerInput";
+import DatetimeInput from "../../components/inputs/DatetimeInput";
+import ExaminerInput from "../MainContent/ExaminerInput";
 import { MinutesProps } from "../page";
-import DatetimeInput from "./DatetimeInput";
 
 const MinutesSidebar = ({
   data: minutesData,
@@ -23,15 +23,6 @@ const MinutesSidebar = ({
           fieldKey="location"
           setData={setMinutesData}
         />
-
-        {/* <DatetimeInput
-          label={dict.minutes.labels.startTime}
-          buttonLabel={dict.minutes.buttons.startMeeting}
-          placeholder={dict.minutes.placeholders.startTime}
-          setData={setMinutesData}
-          data={minutesData}
-          fieldKey="startTime"
-        /> */}
       </Dropdown>
 
       <Dropdown header={dict.minutes.labels.attendants}>

@@ -2,8 +2,8 @@
 
 import { Examiners, FinEng, Signatures } from "@/types";
 import { SplitPage } from "../SplitView/SplitComponent";
-import MinutesContent from "./MainContent";
-import MinutesSidebar from "./Sidebar";
+import MinutesContent from "./MainContent/MinutesMainContent";
+import MinutesSidebar from "./Sidebar/MinutesSidebar";
 
 export interface MinutesProps {
   data: MinutesData;
