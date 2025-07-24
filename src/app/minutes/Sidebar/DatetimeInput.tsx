@@ -9,6 +9,7 @@ interface Props<T extends { startTime?: Date; endTime?: Date }> {
   data: T;
   setData: React.Dispatch<React.SetStateAction<T>>;
   fieldKey: "startTime" | "endTime";
+  placeholder: string;
 }
 
 const DatetimeInput = <T extends { startTime?: Date; endTime?: Date }>({
@@ -17,6 +18,7 @@ const DatetimeInput = <T extends { startTime?: Date; endTime?: Date }>({
   data,
   setData,
   fieldKey,
+  placeholder,
 }: Props<T>) => {
   return (
     <div className="flex flex-col">
@@ -30,6 +32,7 @@ const DatetimeInput = <T extends { startTime?: Date; endTime?: Date }>({
         </button>
         <div className="datepicker-wrapper shrink grow [&*]:min-w-0">
           <DatePicker
+            placeholderText={placeholder}
             showTimeSelect
             dateFormat="HH:mm"
             timeFormat="HH:mm"
