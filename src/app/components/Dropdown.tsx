@@ -22,7 +22,7 @@ const Dropdown = ({ children, header }: DropdownProps) => {
       </div>
 
       <div
-        className="overflow-hidden transition-all duration-300 ease-in-out"
+        className="overflow-y-clip transition-all duration-300 ease-in-out"
         style={{ maxHeight: isOpen ? "500px" : "0" }}
       >
         {children}
