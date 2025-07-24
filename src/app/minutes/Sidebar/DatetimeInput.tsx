@@ -1,47 +1,42 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import DatePicker from "react-datepicker";
-import { MinutesData } from "../page";
 
-interface Props {
-  label: string;
+interface Props<T extends { startTime?: Date; endTime?: Date }> {
+  label?: string;
   buttonLabel: string;
-  minutesData: MinutesData;
-  setMinutesData: React.Dispatch<MinutesData>;
+  data: T;
+  setData: React.Dispatch<React.SetStateAction<T>>;
   fieldKey: "startTime" | "endTime";
 }
 
-const DatetimeInput = ({
+const DatetimeInput = <T extends { startTime?: Date; endTime?: Date }>({
   label,
   buttonLabel,
-  minutesData,
-  setMinutesData,
+  data,
+  setData,
   fieldKey,
-}: Props) => {
-  const [datetime, setDatetime] = useState<Date>();
-
+}: Props<T>) => {
   return (
     <div className="flex flex-col">
       <label>{label}</label>
       <div className="flex gap-2">
         <button
-          className="datetime-button h-9 min-w-40"
-          onClick={() =>
-            setMinutesData({ ...minutesData, [fieldKey]: new Date() })
-          }
+          className="datetime-button h-9 w-fit"
+          onClick={() => setData({ ...data, [fieldKey]: new Date() })}
         >
           {buttonLabel}
         </button>
-        <div className="datepicker-wrapper w-full overflow-hidden">
+        <div className="datepicker-wrapper shrink grow [&*]:min-w-0">
           <DatePicker
             showTimeSelect
             dateFormat="HH:mm"
             timeFormat="HH:mm"
             onChange={(date) => {
-              if (date) setMinutesData({ ...minutesData, startTime: date });
+              if (date) setData({ ...data, [fieldKey]: date });
             }}
-            selected={minutesData[fieldKey]}
+            selected={data[fieldKey]}
           />
         </div>
       </div>

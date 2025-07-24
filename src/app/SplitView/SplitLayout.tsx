@@ -16,7 +16,7 @@ export default function SplitLayout({
         <MenuItems />
         {sidebar}
       </div>
-      <div className="w-96 flex-3/5 overflow-y-scroll p-10">
+      <div className="flex-4/5 overflow-y-scroll p-10">
         <div className="aspect-[1/1.4] max-w-[1000px] bg-white p-10 shadow-lg">
           {children}
         </div>

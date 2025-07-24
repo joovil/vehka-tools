@@ -22,26 +22,22 @@ const MultiLanguageInput = <T,>({
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setNewItem((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
 
-    setData((prev: T) => ({
-      ...prev,
-      [fieldKey]: newItem,
-    }));
+    const update = { ...newItem, [name]: value };
+
+    setNewItem((prev) => ({ ...prev, update }));
+    setData((prev: T) => ({ ...prev, [fieldKey]: update }));
   };
 
   return (
     <div>
-      <h3>{dict.finnish}</h3>
+      <label>{dict.finnish}</label>
       <SidebarInputComponent
         placeholder={placeholder}
         fieldKey={"fin"}
         onChange={handleChange}
       />
-      <h3>{dict.english}</h3>
+      <label>{dict.english}</label>
       <SidebarInputComponent
         placeholder={placeholder}
         fieldKey={"eng"}
