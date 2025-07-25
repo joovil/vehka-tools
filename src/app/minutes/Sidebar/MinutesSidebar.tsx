@@ -57,13 +57,6 @@ const MinutesSidebar = ({
         <ExaminerInput setData={setMinutesData} />
       </Dropdown>
 
-      <Dropdown header={dict.minutes.labels.acceptAgenda}>
-        <div>
-          <label>{dict.minutes.labels.acceptAgenda}</label>
-          <input type="checkbox" />
-        </div>
-      </Dropdown>
-
       <Dropdown header={dict.minutes.labels.items}>
         <MultiLanguageListInput
           placeholder={dict.minutes.placeholders.attendants}
@@ -76,7 +69,6 @@ const MinutesSidebar = ({
         <MultiLanguageListInput
           placeholder={dict.minutes.placeholders.attendants}
           fieldKey="otherItems"
-          // data={minutesData}
           setData={setMinutesData}
         />
         {minutesData.otherItems.map((item) => (

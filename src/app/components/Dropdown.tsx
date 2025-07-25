@@ -36,8 +36,6 @@ const Dropdown = ({ children, header }: DropdownProps) => {
                 visibility: "hidden",
               }
         }
-        tabIndex={-1}
-        aria-hidden="true"
       >
         {children}
       </div>

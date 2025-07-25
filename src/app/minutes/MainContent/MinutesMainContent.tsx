@@ -1,10 +1,13 @@
 "use client";
 
+import { useTranslations } from "@/app/i18n/TranslationsProvider";
 import { formatDate } from "@/app/utils/formatDate";
-import { Signatures } from "@/types";
-import { MinutesProps } from "../page";
+import { FinEng, Signatures } from "@/types";
+import { MinutesData, MinutesProps } from "../page";
 
-const MinutesContent = ({ data: data }: MinutesProps) => {
+const MinutesContent = ({ data, setData: setMinutesData }: MinutesProps) => {
+  const dict = useTranslations();
+
   const {
     location = { fin: "_", eng: "_" },
     attendants,
@@ -19,6 +22,32 @@ const MinutesContent = ({ data: data }: MinutesProps) => {
     endTime,
     timeOfMeeting,
   } = data;
+
+  const removeItem = (item: FinEng | string, fieldKey: keyof MinutesData) => {
+    const dataField = data[fieldKey];
+
+    if (
+      typeof item === "object" &&
+      Array.isArray(dataField) &&
+      item !== undefined &&
+      "fin" in item &&
+      "eng" in item
+    ) {
+      const update = dataField.filter((it) => it !== item) ?? [];
+      setMinutesData((prev) => ({ ...prev, [fieldKey]: update }));
+      return;
+    }
+
+    if (
+      typeof item === "string" &&
+      Array.isArray(dataField) &&
+      dataField !== undefined
+    ) {
+      const update = dataField.filter((it) => it !== item);
+      setMinutesData((prev) => ({ ...prev, [fieldKey]: update }));
+    }
+  };
+
   return (
     <div className="flex flex-col gap-4">
       <div>
@@ -48,7 +77,18 @@ const MinutesContent = ({ data: data }: MinutesProps) => {
         <h2>Läsnä</h2>
         <div>
           {attendants.map((att) => (
-            <div key={att}>{att}</div>
+            <div
+              className="flex"
+              key={att}
+            >
+              <button
+                className="mr-2 flex h-6 w-6 items-center justify-center p-0"
+                onClick={() => removeItem(att, "attendants")}
+              >
+                X
+              </button>
+              <div>{att}</div>
+            </div>
           ))}
         </div>
       </div>
@@ -63,9 +103,11 @@ const MinutesContent = ({ data: data }: MinutesProps) => {
 
       <div>
         <h2>2.Kahden Pöytäkirjantarkastajan valinta</h2>
-        <div>Valittiin</div>
-        <div>{examiners.examiner1}</div>
-        <div>{examiners.examiner2}</div>
+        <div className="flex gap-2">
+          <div>Valittiin:</div>
+          <div className="underline">{examiners.examiner1}</div>
+          <div className="underline">{examiners.examiner2}</div>
+        </div>
       </div>
 
       <div>
@@ -80,7 +122,15 @@ const MinutesContent = ({ data: data }: MinutesProps) => {
             className="grid grid-cols-2"
             key={item.eng}
           >
-            <div>{item.fin}</div>
+            <div className="flex">
+              <button
+                className="mr-2 flex h-6 w-6 items-center justify-center p-0"
+                onClick={() => removeItem(item, "meetingItems")}
+              >
+                X
+              </button>
+              <div>{item.fin}</div>
+            </div>
             <div>{item.eng}</div>
           </div>
         ))}
@@ -93,7 +143,15 @@ const MinutesContent = ({ data: data }: MinutesProps) => {
             className="grid grid-cols-2"
             key={item.eng}
           >
-            <div>{item.fin}</div>
+            <div className="flex">
+              <button
+                className="mr-2 flex h-6 w-6 items-center justify-center p-0"
+                onClick={() => removeItem(item, "otherItems")}
+              >
+                X
+              </button>
+              <div>{item.fin}</div>
+            </div>
             <div>{item.eng}</div>
           </div>
         ))}
@@ -102,7 +160,17 @@ const MinutesContent = ({ data: data }: MinutesProps) => {
       <div>
         <h2>Uudet jäsenet</h2>
         {newMembers?.map((newMember) => (
-          <div key={newMember}>{newMember}</div>
+          <div key={newMember}>
+            <div className="flex">
+              <button
+                className="mr-2 flex h-6 w-6 items-center justify-center p-0"
+                onClick={() => removeItem(newMember, "newMembers")}
+              >
+                X
+              </button>
+              <div>{newMember}</div>
+            </div>
+          </div>
         ))}
       </div>
 
@@ -124,10 +192,13 @@ const MinutesContent = ({ data: data }: MinutesProps) => {
         <div className="grid grid-cols-2 grid-rows-2">
           {Object.keys(signatures).map((key) => (
             <div key={key}>
-              <div className="font-alex w-9/10 border-b-1 text-xl font-bold">
+              <div className="font-alex h-6 w-9/10 border-b-1 text-xl font-bold">
                 {signatures[key as keyof Signatures]}
               </div>
-              <div>{key} allerkirjoitus</div>
+              <div>
+                {dict.minutes.labels[key as keyof typeof dict.minutes.labels]}{" "}
+                {dict.minutes.labels.signature}
+              </div>
             </div>
           ))}
         </div>

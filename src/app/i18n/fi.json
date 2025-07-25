@@ -12,6 +12,7 @@
       "location": "Location",
       "startTime": "Start time",
       "endTime": "End time",
+      "signature": "signature",
       "signatures": "Signatures",
       "chairman": "Chairman",
       "secretary": "Secretary",
@@ -35,7 +36,10 @@
       "examiner2": "Second examiner",
       "newMembers": "Who is the new member",
       "nextMeeting": "When is the next meeting",
-      "timeOfMeeting": "What time was the meeting planned"
+      "timeOfMeeting": "What time was the meeting planned",
+      "chairmanSignature": "Signature of chairman",
+      "secretarySignature": "Signature of signature",
+      "examinerSignature": "Signature of examiner"
     },
     "buttons": {
       "startTime": "Start meeting",

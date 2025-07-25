@@ -14,6 +14,7 @@ export interface Dictionary {
       location: string;
       startTime: string;
       endTime: string;
+      signature: string;
       signatures: string;
       chairman: string;
       secretary: string;
@@ -38,6 +39,9 @@ export interface Dictionary {
       newMembers: string;
       nextMeeting: string;
       timeOfMeeting: string;
+      chairmanSignature: string;
+      secretarySignature: string;
+      examinerSignature: string;
     };
     buttons: {
       startTime: string;
