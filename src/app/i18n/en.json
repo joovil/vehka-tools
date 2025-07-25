@@ -20,7 +20,8 @@
       "examiner2": "Examiner 2",
       "newMembers": "New members",
       "acceptAgenda": "Accept agenda",
-      "nextMeeting": "Next meeting"
+      "nextMeeting": "Next meeting",
+      "timeOfMeeting": "Time of meeting"
     },
     "placeholders": {
       "attendants": "Who was present at the meeting",
@@ -33,7 +34,8 @@
       "examiner1": "First examiner",
       "examiner2": "Second examiner",
       "newMembers": "Who is the new member",
-      "nextMeeting": "When is the next meeting"
+      "nextMeeting": "When is the next meeting",
+      "timeOfMeeting": "What time was the meeting planned"
     },
     "buttons": {
       "startMeeting": "Start meeting",

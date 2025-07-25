@@ -25,6 +25,15 @@ const MinutesSidebar = ({
           fieldKey="location"
           setData={setMinutesData}
         />
+
+        <DatetimeInput
+          label={dict.minutes.labels.timeOfMeeting}
+          placeholder={dict.minutes.placeholders.timeOfMeeting}
+          data={minutesData}
+          setData={setMinutesData}
+          fieldKey="timeOfMeeting"
+          showButton={false}
+        />
       </Dropdown>
 
       <Dropdown header={dict.minutes.labels.attendants}>

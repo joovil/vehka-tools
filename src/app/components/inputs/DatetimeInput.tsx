@@ -5,16 +5,21 @@ import DatePicker from "react-datepicker";
 
 interface Props<T extends { startTime?: Date; endTime?: Date }> {
   label?: string;
-  buttonLabel: string;
+  buttonLabel?: string;
   data: T;
   setData: React.Dispatch<React.SetStateAction<T>>;
-  fieldKey: "startTime" | "endTime" | "nextMeeting";
+  fieldKey: "startTime" | "endTime" | "nextMeeting" | "timeOfMeeting";
   placeholder: string;
   showButton?: boolean;
 }
 
 const DatetimeInput = <
-  T extends { startTime?: Date; endTime?: Date; nextMeeting?: Date },
+  T extends {
+    startTime?: Date;
+    endTime?: Date;
+    nextMeeting?: Date;
+    timeOfMeeting?: Date;
+  },
 >({
   label,
   buttonLabel,
@@ -37,7 +42,7 @@ const DatetimeInput = <
           </button>
         )}
         <div
-          className={`datepicker-wrapper shrink grow [&*]:min-w-0 ${!showButton ? "datepicker-ml" : ""}`}
+          className={`datepicker-wrapper w-full [&*]:min-w-0 ${!showButton ? "datepicker-ml" : ""}`}
         >
           <DatePicker
             placeholderText={placeholder}

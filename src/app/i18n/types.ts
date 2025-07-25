@@ -23,6 +23,7 @@ export interface Dictionary {
       newMembers: string;
       acceptAgenda: string;
       nextMeeting: string;
+      timeOfMeeting: string;
     };
     placeholders: {
       attendants: string;
@@ -36,6 +37,7 @@ export interface Dictionary {
       examiner2: string;
       newMembers: string;
       nextMeeting: string;
+      timeOfMeeting: string;
     };
     buttons: {
       startMeeting: string;
