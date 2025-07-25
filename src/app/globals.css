@@ -6,7 +6,7 @@
   @apply font-circular text-lg;
 
   h1 {
-    @apply text-xl;
+    @apply text-xl font-bold;
   }
 
   h2 {

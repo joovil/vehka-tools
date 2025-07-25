@@ -7,7 +7,7 @@ import SidebarListInput from "@/app/components/inputs/SidebarListInput";
 import { useTranslations } from "@/app/i18n/TranslationsProvider";
 import DatetimeInput from "../../components/inputs/DatetimeInput";
 import { MinutesProps } from "../page";
-import EndMeeting from "./EndMeeting";
+import DateButton from "./DateButton";
 import ExaminerInput from "./ExaminerInput";
 import SignaturesInput from "./SignaturesInput";
 
@@ -38,7 +38,6 @@ const MinutesSidebar = ({
 
       <Dropdown header={dict.minutes.labels.attendants}>
         <SidebarListInput
-          label={dict.minutes.labels.attendants}
           placeholder={dict.minutes.labels.attendants}
           fieldKey="attendants"
           setData={setMinutesData}
@@ -46,14 +45,11 @@ const MinutesSidebar = ({
       </Dropdown>
 
       <Dropdown header={dict.minutes.labels.startTime}>
-        <DatetimeInput
-          label={dict.minutes.labels.startTime}
-          buttonLabel={dict.minutes.buttons.startMeeting}
-          placeholder={dict.minutes.placeholders.startTime}
-          setData={setMinutesData}
-          data={minutesData}
+        <DateButton
+          buttonLabel={dict.minutes.buttons.startTime}
+          minutesData={minutesData}
+          setMinutesData={setMinutesData}
           fieldKey="startTime"
-          showButton={true}
         />
       </Dropdown>
 
@@ -63,7 +59,7 @@ const MinutesSidebar = ({
 
       <Dropdown header={dict.minutes.labels.acceptAgenda}>
         <div>
-          <label>Esityslistan hyväksyminen</label>
+          <label>{dict.minutes.labels.acceptAgenda}</label>
           <input type="checkbox" />
         </div>
       </Dropdown>
@@ -92,7 +88,6 @@ const MinutesSidebar = ({
 
       <Dropdown header={dict.minutes.labels.newMembers}>
         <SidebarListInput
-          label={dict.minutes.labels.newMembers}
           placeholder={dict.minutes.placeholders.newMembers}
           setData={setMinutesData}
           fieldKey={"newMembers"}
@@ -101,7 +96,6 @@ const MinutesSidebar = ({
 
       <Dropdown header={dict.minutes.labels.nextMeeting}>
         <DatetimeInput
-          label={dict.minutes.labels.nextMeeting}
           buttonLabel={dict.minutes.buttons.nextMeeting}
           placeholder={dict.minutes.placeholders.nextMeeting}
           setData={setMinutesData}
@@ -111,9 +105,11 @@ const MinutesSidebar = ({
       </Dropdown>
 
       <Dropdown header={dict.minutes.labels.endTime}>
-        <EndMeeting
-          data={minutesData}
-          setData={setMinutesData}
+        <DateButton
+          buttonLabel={dict.minutes.buttons.endTime}
+          minutesData={minutesData}
+          setMinutesData={setMinutesData}
+          fieldKey="endTime"
         />
       </Dropdown>
 
@@ -122,25 +118,6 @@ const MinutesSidebar = ({
           minutesData={minutesData}
           setMinutesData={setMinutesData}
         />
-        {/* {Object.keys(minutesData.signatures).map((signature) => (
-          <div key={signature}>
-            <label>{dict.minutes.labels.signatures}</label>
-            <div className="input-wrapper">
-              <input
-                className="font-alex"
-                onChange={(e) =>
-                  setMinutesData({
-                    ...minutesData,
-                    signatures: {
-                      ...minutesData.signatures,
-                      [signature]: e.currentTarget.value,
-                    },
-                  })
-                }
-              />
-            </div>
-          </div>
-        ))} */}
       </Dropdown>
     </div>
   );

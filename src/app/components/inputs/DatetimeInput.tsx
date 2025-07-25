@@ -30,7 +30,7 @@ const DatetimeInput = <
   showButton,
 }: Props<T>) => {
   return (
-    <div className="flex flex-col">
+    <div className={`${!label && "first:mt-2"} flex flex-col`}>
       <label>{label}</label>
       <div className="flex gap-2">
         {showButton && (

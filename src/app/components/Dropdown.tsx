@@ -10,12 +10,12 @@ interface DropdownProps {
 
 const Dropdown = ({ children, header }: DropdownProps) => {
   const dict = useTranslations();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(!false);
 
   return (
     <div>
       <div className="flex justify-between">
-        <h2>{header}</h2>
+        <div className="text-xl font-bold">{header}</div>
         <button onClick={() => setIsOpen(!isOpen)}>
           {isOpen ? dict.toggleClose : dict.toggleOpen}
         </button>
@@ -25,9 +25,19 @@ const Dropdown = ({ children, header }: DropdownProps) => {
         className="overflow-y-clip pb-2 transition-all duration-150 ease-in-out"
         style={
           isOpen
-            ? { maxHeight: "500px", paddingBottom: "8px" }
-            : { maxHeight: "0", paddingBottom: "0" }
+            ? {
+                maxHeight: "500px",
+                paddingBottom: "8px",
+                visibility: "visible",
+              }
+            : {
+                maxHeight: "0",
+                paddingBottom: "0",
+                visibility: "hidden",
+              }
         }
+        tabIndex={-1}
+        aria-hidden="true"
       >
         {children}
       </div>

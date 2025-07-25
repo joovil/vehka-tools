@@ -38,8 +38,8 @@
       "timeOfMeeting": "What time was the meeting planned"
     },
     "buttons": {
-      "startMeeting": "Start meeting",
-      "endMeeting": "End meeting",
+      "startTime": "Start meeting",
+      "endTime": "End meeting",
       "nextMeeting": "Next meeting"
     }
   }

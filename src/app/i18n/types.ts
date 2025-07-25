@@ -40,8 +40,8 @@ export interface Dictionary {
       timeOfMeeting: string;
     };
     buttons: {
-      startMeeting: string;
-      endMeeting: string;
+      startTime: string;
+      endTime: string;
       nextMeeting: string;
     };
   };

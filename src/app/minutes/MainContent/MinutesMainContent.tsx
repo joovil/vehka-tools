@@ -4,7 +4,7 @@ import { formatDate } from "@/app/utils/formatDate";
 import { Signatures } from "@/types";
 import { MinutesProps } from "../page";
 
-const MinutesContent = ({ data }: MinutesProps) => {
+const MinutesContent = ({ data: data }: MinutesProps) => {
   const {
     location = { fin: "_", eng: "_" },
     attendants,
@@ -29,23 +29,23 @@ const MinutesContent = ({ data }: MinutesProps) => {
       </div>
 
       <div>
-        <h2>Asukastoimikunnan kokous</h2>
+        <h1>Asukastoimikunnan kokous</h1>
       </div>
 
       <div>
-        <h3>Päivämäärä ja kellonaika</h3>
+        <h2 className="text-lg">Päivämäärä ja kellonaika</h2>
         <div>{formatDate(timeOfMeeting)}</div>
       </div>
 
       <div>
-        <h3>Paikka</h3>
+        <h2>Paikka</h2>
         <div>
           {location.fin} / {location.eng}
         </div>
       </div>
 
       <div>
-        <h3>Läsnä</h3>
+        <h2>Läsnä</h2>
         <div>
           {attendants.map((att) => (
             <div key={att}>{att}</div>
@@ -54,7 +54,7 @@ const MinutesContent = ({ data }: MinutesProps) => {
       </div>
 
       <div>
-        <h3>1. Kokouksen avaus, laillisuus ja päätösvaltaisuus</h3>
+        <h2>1. Kokouksen avaus, laillisuus ja päätösvaltaisuus</h2>
         <div>Puheenjohtaja avasi kokouksen kello {formatDate(startTime)}</div>
         <div>
           Todettiin kokous laillisesti koolle kutsutuksi ja päätösvaltaiseksi.
@@ -62,19 +62,19 @@ const MinutesContent = ({ data }: MinutesProps) => {
       </div>
 
       <div>
-        <h3>2.Kahden Pöytäkirjantarkastajan valinta</h3>
+        <h2>2.Kahden Pöytäkirjantarkastajan valinta</h2>
         <div>Valittiin</div>
         <div>{examiners.examiner1}</div>
         <div>{examiners.examiner2}</div>
       </div>
 
       <div>
-        <h3>3. Esityslistan hyväksyminen</h3>
+        <h2>3. Esityslistan hyväksyminen</h2>
         <div>Esityslista hyväksyttiin kokouksen työjärjestykseksi.</div>
       </div>
 
       <div>
-        <h3>4. Hankinnat/ talkoot/ muita päätettäviä asioita</h3>
+        <h2>4. Hankinnat/ talkoot/ muita päätettäviä asioita</h2>
         {meetingItems.map((item) => (
           <div
             className="grid grid-cols-2"
@@ -87,7 +87,7 @@ const MinutesContent = ({ data }: MinutesProps) => {
       </div>
 
       <div>
-        <h3>5. Muut mahdolliset asiat</h3>
+        <h2>5. Muut mahdolliset asiat</h2>
         {otherItems.map((item) => (
           <div
             className="grid grid-cols-2"
@@ -100,19 +100,19 @@ const MinutesContent = ({ data }: MinutesProps) => {
       </div>
 
       <div>
-        <h3>Uudet jäsenet</h3>
+        <h2>Uudet jäsenet</h2>
         {newMembers?.map((newMember) => (
           <div key={newMember}>{newMember}</div>
         ))}
       </div>
 
       <div>
-        <h3>6. Seuraavan kokouksen ajankohta</h3>
+        <h2>6. Seuraavan kokouksen ajankohta</h2>
         <div>Seuraava kokous pidetään {formatDate(nextMeeting)}</div>
       </div>
 
       <div>
-        <h3>7. Kokouksen päättäminen</h3>
+        <h2>7. Kokouksen päättäminen</h2>
         <div>
           Puheenjohtaja päätti kokouksen kello{" "}
           {formatDate(endTime).split(" ")[1]}
@@ -120,7 +120,7 @@ const MinutesContent = ({ data }: MinutesProps) => {
       </div>
 
       <div>
-        <h3>Vakuudeksi</h3>
+        <h2>Vakuudeksi</h2>
         <div className="grid grid-cols-2 grid-rows-2">
           {Object.keys(signatures).map((key) => (
             <div key={key}>

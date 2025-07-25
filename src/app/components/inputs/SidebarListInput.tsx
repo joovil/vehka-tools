@@ -36,7 +36,7 @@ const SidebarListInput = <T,>({
   };
 
   return (
-    <div>
+    <div className={`${!label && "first:mt-2"} `}>
       <SidebarInputComponent
         label={label}
         placeholder={placeholder}
