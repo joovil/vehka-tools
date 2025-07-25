@@ -72,27 +72,35 @@ body {
   font-family: var(--font-circular), Arial, Helvetica, sans-serif;
 }
 
-/* @utility {
-} */
 .input-wrapper {
   @apply border-teal-darker bg-off-white mb-[1px] flex scale-100 rounded-sm border-b-1 px-2 py-1 shadow-md transition-transform ease-in-out;
+
   &:focus-within {
     @apply border-teal-dark mb-0 scale-105 border-b-2 outline-none;
   }
 
   & input {
-    @apply grow outline-none;
+    @apply w-full outline-none;
+    @apply overflow-hidden overflow-ellipsis whitespace-nowrap;
   }
 }
 
 .datepicker-wrapper {
-  @apply border-teal-darker bg-off-white mb-[1px] flex rounded-sm border-b-1 px-2 py-1 shadow-md transition-transform ease-in-out;
+  @apply border-teal-darker bg-off-white mb-[1px] flex grow rounded-sm border-b-1 px-2 py-1 shadow-md transition-transform ease-in-out;
+
   &:focus-within {
     @apply border-teal-dark mb-0 border-b-2 outline-none;
   }
 
   & input {
     @apply grow outline-none;
+    @apply overflow-hidden overflow-ellipsis whitespace-nowrap;
+
+    width: 100% !important;
+  }
+
+  & .react-datepicker-wrapper {
+    @apply w-full;
   }
 }
 
