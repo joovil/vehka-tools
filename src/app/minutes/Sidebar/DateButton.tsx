@@ -27,7 +27,9 @@ const DateButton = ({
       >
         {buttonLabel}
       </button>
-      <div className="input-wrapper">{formatDate(minutesData[fieldKey])}</div>
+      <div className="input-wrapper">
+        {formatDate(minutesData[fieldKey]) || "_"}
+      </div>
     </div>
   );
 };

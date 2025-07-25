@@ -1,5 +1,5 @@
 export function formatDate(date: Date | undefined): string {
-  if (date === undefined) return "_";
+  if (date === undefined) return "";
 
   const pad = (n: number) => n.toString().padStart(2, "0");
   const day = pad(date.getDate());

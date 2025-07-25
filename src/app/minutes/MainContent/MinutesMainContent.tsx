@@ -1,8 +1,10 @@
 "use client";
 
+import PdfPreview from "@/app/components/pdf/PdfPreview";
 import { useTranslations } from "@/app/i18n/TranslationsProvider";
 import { formatDate } from "@/app/utils/formatDate";
 import { FinEng, Signatures } from "@/types";
+import MinutePdf from "../MinutesPdf";
 import { MinutesData, MinutesProps } from "../page";
 
 const MinutesContent = ({ data, setData: setMinutesData }: MinutesProps) => {
@@ -64,13 +66,7 @@ const MinutesContent = ({ data, setData: setMinutesData }: MinutesProps) => {
       <div>
         <h2 className="text-lg">Päivämäärä ja kellonaika</h2>
         <div>{formatDate(timeOfMeeting)}</div>
-      </div>
-
-      <div>
-        <h2>Paikka</h2>
-        <div>
-          {location.fin} / {location.eng}
-        </div>
+        {location.fin} / {location.eng}
       </div>
 
       <div>
@@ -95,7 +91,7 @@ const MinutesContent = ({ data, setData: setMinutesData }: MinutesProps) => {
 
       <div>
         <h2>1. Kokouksen avaus, laillisuus ja päätösvaltaisuus</h2>
-        <div>Puheenjohtaja avasi kokouksen kello {formatDate(startTime)}</div>
+        <div>Puheenjohtaja avasi kokouksen kello: {formatDate(startTime)}</div>
         <div>
           Todettiin kokous laillisesti koolle kutsutuksi ja päätösvaltaiseksi.
         </div>
@@ -176,13 +172,13 @@ const MinutesContent = ({ data, setData: setMinutesData }: MinutesProps) => {
 
       <div>
         <h2>6. Seuraavan kokouksen ajankohta</h2>
-        <div>Seuraava kokous pidetään {formatDate(nextMeeting)}</div>
+        <div>Seuraava kokous pidetään: {formatDate(nextMeeting)}</div>
       </div>
 
       <div>
         <h2>7. Kokouksen päättäminen</h2>
         <div>
-          Puheenjohtaja päätti kokouksen kello{" "}
+          Puheenjohtaja päätti kokouksen kello:{" "}
           {formatDate(endTime).split(" ")[1]}
         </div>
       </div>
@@ -203,6 +199,9 @@ const MinutesContent = ({ data, setData: setMinutesData }: MinutesProps) => {
           ))}
         </div>
       </div>
+      <PdfPreview>
+        <MinutePdf data={data} />
+      </PdfPreview>
     </div>
   );
 };
