@@ -4,8 +4,11 @@ import Dropdown from "@/app/components/Dropdown";
 import MultiLanguageInput from "@/app/components/inputs/MultiLanguageInput";
 import MultiLanguageListInput from "@/app/components/inputs/MultiLanguageListInput";
 import SidebarListInput from "@/app/components/inputs/SidebarListInput";
+import { downloadPdf } from "@/app/components/pdf/downloadPdf";
 import { useTranslations } from "@/app/i18n/TranslationsProvider";
+import { formatDate } from "@/app/utils/formatDate";
 import DatetimeInput from "../../components/inputs/DatetimeInput";
+import MinutePdf from "../MinutesPdf";
 import { MinutesProps } from "../page";
 import DateButton from "./DateButton";
 import ExaminerInput from "./ExaminerInput";
@@ -111,6 +114,17 @@ const MinutesSidebar = ({
           setMinutesData={setMinutesData}
         />
       </Dropdown>
+
+      <button
+        onClick={() =>
+          downloadPdf({
+            filename: `Kokouspöytäkirja-${formatDate(minutesData.endTime).split(" ")[0]}`,
+            pdfElement: <MinutePdf data={minutesData} />,
+          })
+        }
+      >
+        Download
+      </button>
     </div>
   );
 };
