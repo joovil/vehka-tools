@@ -9,6 +9,7 @@ interface Props<T> {
   children?: React.ReactNode;
   value?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  required?: boolean;
 }
 
 const SidebarInputComponent = <T,>({
@@ -18,6 +19,7 @@ const SidebarInputComponent = <T,>({
   children,
   value,
   onChange,
+  required,
 }: Props<T>) => {
   return (
     <div className="flex flex-col">
@@ -29,6 +31,7 @@ const SidebarInputComponent = <T,>({
           placeholder={placeholder}
           onChange={onChange}
           value={value}
+          required={required}
         />
       </div>
       {children}

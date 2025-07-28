@@ -9,6 +9,7 @@ interface Props {
   setMinutesData: React.Dispatch<React.SetStateAction<MinutesData>>;
   buttonLabel: string;
   fieldKey: "startTime" | "endTime";
+  ref?: React.RefObject<HTMLDivElement>;
 }
 
 const DateButton = ({
@@ -16,9 +17,13 @@ const DateButton = ({
   setMinutesData,
   buttonLabel,
   fieldKey,
+  ref,
 }: Props) => {
   return (
-    <div className="flex items-center gap-2">
+    <div
+      className="flex items-center gap-2"
+      ref={ref}
+    >
       <button
         onClick={() =>
           setMinutesData({ ...minutesData, [fieldKey]: new Date() })

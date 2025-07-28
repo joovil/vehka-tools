@@ -9,12 +9,16 @@ interface Props<T> {
   placeholder: string;
   setData: React.Dispatch<React.SetStateAction<T>>;
   fieldKey: keyof T;
+  required?: boolean;
+  ref?: React.RefObject<HTMLDivElement>;
 }
 
 const MultiLanguageInput = <T,>({
   setData,
   placeholder,
   fieldKey,
+  required,
+  ref,
 }: Props<T>) => {
   const dict = useTranslations();
 
@@ -31,18 +35,20 @@ const MultiLanguageInput = <T,>({
   };
 
   return (
-    <div>
+    <div ref={ref}>
       <label>{dict.finnish}</label>
       <SidebarInputComponent
         placeholder={placeholder}
         fieldKey={"fin"}
         onChange={handleChange}
+        required={required}
       />
       <label>{dict.english}</label>
       <SidebarInputComponent
         placeholder={placeholder}
         fieldKey={"eng"}
         onChange={handleChange}
+        required={required}
       />
     </div>
   );
