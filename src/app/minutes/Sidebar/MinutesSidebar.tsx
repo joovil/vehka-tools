@@ -29,6 +29,9 @@ const MinutesSidebar = ({
     timeOfMeeting?: string;
     attendants?: string;
     startTime?: string;
+    examiners?: string;
+    nextMeeting?: string;
+    signatures?: string;
   }>({});
 
   const handlePdfDownload = () => {
@@ -41,6 +44,15 @@ const MinutesSidebar = ({
     }
     if (minutesData.attendants.length <= 0) {
       newErrors.attendants = "At least 1 attendant required";
+    }
+    if (!minutesData.examiners.examiner1 || !minutesData.examiners.examiner2) {
+      newErrors.examiners = "Examiner required";
+    }
+    if (!minutesData.nextMeeting) {
+      newErrors.nextMeeting = "Time for next meeting required";
+    }
+    if (!Object.values(minutesData.signatures).some((x) => x !== "")) {
+      newErrors.signatures = "Signature required";
     }
     if (Object.keys(newErrors).length > 0) {
       locationRef.current?.scrollIntoView();
@@ -111,7 +123,11 @@ const MinutesSidebar = ({
         transitionDuration="700"
       >
         <Dropdown header={dict.minutes.labels.examiners}>
-          <ExaminerInput setData={setMinutesData} />
+          <ExaminerInput
+            data={minutesData}
+            setData={setMinutesData}
+            errorMessage={errors["examiners"]}
+          />
         </Dropdown>
 
         <Dropdown header={dict.minutes.labels.items}>
@@ -151,6 +167,7 @@ const MinutesSidebar = ({
             setData={setMinutesData}
             data={minutesData}
             fieldKey="nextMeeting"
+            errorMessage={errors["nextMeeting"]}
           />
         </Dropdown>
 
@@ -161,7 +178,6 @@ const MinutesSidebar = ({
             minutesData={minutesData}
             setMinutesData={setMinutesData}
             fieldKey="endTime"
-            // ref={endTimeRef as React.RefObject<HTMLDivElement>}
           />
         </Dropdown>
 
@@ -169,6 +185,7 @@ const MinutesSidebar = ({
           <SignaturesInput
             minutesData={minutesData}
             setMinutesData={setMinutesData}
+            errorMessage={errors["signatures"]}
           />
         </Dropdown>
       </Dropdown>

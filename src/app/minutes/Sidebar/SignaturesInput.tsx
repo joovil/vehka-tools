@@ -1,5 +1,6 @@
 "use client";
 
+import ErrorModal from "@/app/components/inputs/ErrorModal";
 import { useTranslations } from "@/app/i18n/TranslationsProvider";
 import { Signatures } from "@/types";
 import { MinutesData } from "../page";
@@ -7,9 +8,14 @@ import { MinutesData } from "../page";
 interface Props {
   minutesData: MinutesData;
   setMinutesData: React.Dispatch<React.SetStateAction<MinutesData>>;
+  errorMessage?: string;
 }
 
-const SignaturesInput = ({ minutesData, setMinutesData }: Props) => {
+const SignaturesInput = ({
+  minutesData,
+  setMinutesData,
+  errorMessage,
+}: Props) => {
   const dict = useTranslations();
 
   const handleChange =
@@ -31,24 +37,36 @@ const SignaturesInput = ({ minutesData, setMinutesData }: Props) => {
         placeholder={dict.minutes.placeholders.chairmanSignature}
         onChange={handleChange("chairman")}
         isStyled={!!minutesData.signatures.chairman}
+        errorMessage={
+          !minutesData.signatures.chairman ? errorMessage : undefined
+        }
       />
       <SignatureInput
         label={dict.minutes.labels.secretary}
         placeholder={dict.minutes.placeholders.secretarySignature}
         onChange={handleChange("secretary")}
         isStyled={!!minutesData.signatures.secretary}
+        errorMessage={
+          !minutesData.signatures.secretary ? errorMessage : undefined
+        }
       />
       <SignatureInput
         label={dict.minutes.labels.examiner1}
         placeholder={dict.minutes.placeholders.examinerSignature}
         onChange={handleChange("examiner1")}
         isStyled={!!minutesData.signatures.examiner1}
+        errorMessage={
+          !minutesData.signatures.examiner1 ? errorMessage : undefined
+        }
       />
       <SignatureInput
         label={dict.minutes.labels.examiner2}
         placeholder={dict.minutes.placeholders.examinerSignature}
         onChange={handleChange("examiner2")}
         isStyled={!!minutesData.signatures.examiner2}
+        errorMessage={
+          !minutesData.signatures.examiner2 ? errorMessage : undefined
+        }
       />
     </div>
   );
@@ -59,15 +77,18 @@ const SignatureInput = ({
   placeholder,
   isStyled,
   onChange,
+  errorMessage,
 }: {
   label: string;
   placeholder: string;
   isStyled: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  errorMessage?: string;
 }) => {
   return (
     <div>
       <label>{label}</label>
+      <ErrorModal message={errorMessage} />
       <div className="input-wrapper">
         <input
           style={
