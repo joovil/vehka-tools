@@ -46,6 +46,7 @@ const SidebarListInput = <T,>({
         onChange={(e) => setNewItem(e.currentTarget.value)}
         value={newItem}
         errorMessage={errorMessage}
+        hasError={!newItem && !!errorMessage}
       >
         <button
           className="mt-1 w-fit"

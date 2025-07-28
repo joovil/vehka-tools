@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import ErrorModal from "./ErrorModal";
 
@@ -13,6 +13,7 @@ interface Props<T extends { startTime?: Date; endTime?: Date }> {
   placeholder: string;
   showButton?: boolean;
   errorMessage?: string;
+  hasError?: boolean;
 }
 
 const DatetimeInput = <
@@ -31,11 +32,15 @@ const DatetimeInput = <
   placeholder,
   showButton,
   errorMessage,
+  hasError,
 }: Props<T>) => {
+  console.log(errorMessage);
+  const [isHovered, setIsHovered] = useState<boolean>(false); // hover state
+
   return (
     <div className={`${!label && "first:mt-2"} flex flex-col`}>
       <label>{label}</label>
-      {!data[fieldKey] && <ErrorModal message={errorMessage} />}
+      <ErrorModal message={isHovered ? errorMessage : ""} />
       <div className="flex gap-2">
         {showButton && (
           <button
@@ -46,7 +51,9 @@ const DatetimeInput = <
           </button>
         )}
         <div
-          className={`datepicker-wrapper w-full [&*]:min-w-0 ${!showButton ? "datepicker-ml" : ""}`}
+          className={`datepicker-wrapper ${hasError ? "has-error" : ""} w-full [&*]:min-w-0 ${!showButton ? "datepicker-ml" : ""}`}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
         >
           <DatePicker
             placeholderText={placeholder}

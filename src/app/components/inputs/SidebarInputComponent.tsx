@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import ErrorModal from "./ErrorModal";
 
 interface Props<T> {
@@ -12,6 +12,7 @@ interface Props<T> {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   required?: boolean;
   errorMessage?: string;
+  hasError?: boolean;
 }
 
 const SidebarInputComponent = <T,>({
@@ -23,12 +24,15 @@ const SidebarInputComponent = <T,>({
   onChange,
   required,
   errorMessage,
+  hasError,
 }: Props<T>) => {
+  const [isHovered, setIsHovered] = useState<boolean>(false); // hover state
+
   return (
     <div className="flex flex-col">
       {label && <label>{label}</label>}
-      <ErrorModal message={errorMessage} />
-      <div className="input-wrapper">
+      <ErrorModal message={isHovered ? errorMessage : ""} />
+      <div className={`input-wrapper ${hasError ? "has-error" : ""}`}>
         <input
           name={String(fieldKey)}
           type="text"
@@ -36,6 +40,8 @@ const SidebarInputComponent = <T,>({
           onChange={onChange}
           value={value}
           required={required}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
         />
       </div>
       {children}
