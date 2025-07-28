@@ -2,6 +2,7 @@
 
 import React from "react";
 import DatePicker from "react-datepicker";
+import ErrorModal from "./ErrorModal";
 
 interface Props<T extends { startTime?: Date; endTime?: Date }> {
   label?: string;
@@ -11,6 +12,7 @@ interface Props<T extends { startTime?: Date; endTime?: Date }> {
   fieldKey: "startTime" | "endTime" | "nextMeeting" | "timeOfMeeting";
   placeholder: string;
   showButton?: boolean;
+  errorMessage?: string;
 }
 
 const DatetimeInput = <
@@ -28,10 +30,12 @@ const DatetimeInput = <
   fieldKey,
   placeholder,
   showButton,
+  errorMessage,
 }: Props<T>) => {
   return (
     <div className={`${!label && "first:mt-2"} flex flex-col`}>
       <label>{label}</label>
+      {!data[fieldKey] && <ErrorModal message={errorMessage} />}
       <div className="flex gap-2">
         {showButton && (
           <button
@@ -47,7 +51,7 @@ const DatetimeInput = <
           <DatePicker
             placeholderText={placeholder}
             showTimeSelect
-            dateFormat="HH:mm"
+            dateFormat="dd/MM/yyyy HH:mm"
             timeFormat="HH:mm"
             onChange={(date) => {
               if (date) setData({ ...data, [fieldKey]: date });

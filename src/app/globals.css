@@ -72,6 +72,9 @@ body {
   font-family: var(--font-circular), Arial, Helvetica, sans-serif;
 }
 
+.has-error {
+  @apply !border-red-600 !bg-red-200;
+}
 .input-wrapper {
   @apply border-teal-darker bg-off-white mb-[1px] flex scale-100 rounded-sm border-b-1 px-2 py-1 shadow-md transition-transform ease-in-out;
 

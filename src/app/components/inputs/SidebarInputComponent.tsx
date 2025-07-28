@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import ErrorModal from "./ErrorModal";
 
 interface Props<T> {
   label?: string;
@@ -10,6 +11,7 @@ interface Props<T> {
   value?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   required?: boolean;
+  errorMessage?: string;
 }
 
 const SidebarInputComponent = <T,>({
@@ -20,10 +22,12 @@ const SidebarInputComponent = <T,>({
   value,
   onChange,
   required,
+  errorMessage,
 }: Props<T>) => {
   return (
     <div className="flex flex-col">
       {label && <label>{label}</label>}
+      <ErrorModal message={errorMessage} />
       <div className="input-wrapper">
         <input
           name={String(fieldKey)}

@@ -38,7 +38,7 @@ const Dropdown = ({
       </div>
 
       <div
-        className={`overflow-y-clip pb-2 transition-all ease-in-out`}
+        className={`pb-2 transition-all ease-in-out`}
         style={{
           transitionDuration: transitionDuration,
           ...((isOpen && !handledExternally) || open
@@ -46,11 +46,13 @@ const Dropdown = ({
                 maxHeight: maxHeight || "500px",
                 paddingBottom: "8px",
                 visibility: "visible",
+                overflowY: "visible",
               }
             : {
                 maxHeight: "0",
                 paddingBottom: "0",
                 visibility: "hidden",
+                overflowY: "clip",
               }),
         }}
       >

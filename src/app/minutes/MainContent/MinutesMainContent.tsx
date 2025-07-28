@@ -1,10 +1,8 @@
 "use client";
 
-import PdfPreview from "@/app/components/pdf/PdfPreview";
 import { useTranslations } from "@/app/i18n/TranslationsProvider";
 import { formatDate } from "@/app/utils/formatDate";
 import { FinEng, Signatures } from "@/types";
-import MinutePdf from "../MinutesPdf";
 import { MinutesData, MinutesProps } from "../page";
 
 const MinutesContent = ({ data, setData: setMinutesData }: MinutesProps) => {
@@ -199,9 +197,9 @@ const MinutesContent = ({ data, setData: setMinutesData }: MinutesProps) => {
           ))}
         </div>
       </div>
-      <PdfPreview>
+      {/* <PdfPreview>
         <MinutePdf data={data} />
-      </PdfPreview>
+      </PdfPreview> */}
     </div>
   );
 };

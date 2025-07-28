@@ -3,22 +3,23 @@
 import { useTranslations } from "@/app/i18n/TranslationsProvider";
 import { FinEng } from "@/types";
 import { useState } from "react";
+import ErrorModal from "./ErrorModal";
 import SidebarInputComponent from "./SidebarInputComponent";
 
 interface Props<T> {
   placeholder: string;
   setData: React.Dispatch<React.SetStateAction<T>>;
   fieldKey: keyof T;
-  required?: boolean;
   ref?: React.RefObject<HTMLDivElement>;
+  errorMessage?: string;
 }
 
 const MultiLanguageInput = <T,>({
   setData,
   placeholder,
   fieldKey,
-  required,
   ref,
+  errorMessage,
 }: Props<T>) => {
   const dict = useTranslations();
 
@@ -37,18 +38,18 @@ const MultiLanguageInput = <T,>({
   return (
     <div ref={ref}>
       <label>{dict.finnish}</label>
+      {!newItem.fin && <ErrorModal message={errorMessage} />}
       <SidebarInputComponent
         placeholder={placeholder}
         fieldKey={"fin"}
         onChange={handleChange}
-        required={required}
       />
       <label>{dict.english}</label>
+      {!newItem.eng && <ErrorModal message={errorMessage} />}
       <SidebarInputComponent
         placeholder={placeholder}
         fieldKey={"eng"}
         onChange={handleChange}
-        required={required}
       />
     </div>
   );

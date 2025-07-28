@@ -20,6 +20,11 @@ const MultiLanguageListInput = <T,>({
   const [newItem, setNewItem] = useState<FinEng>({ fin: "", eng: "" });
 
   const handleClick = () => {
+    if (!newItem.eng || !newItem.fin) {
+      console.log("Values required");
+      return;
+    }
+
     setData((prev: T) => {
       const update = [...(prev[fieldKey] as []), newItem];
       return { ...prev, [fieldKey]: update };
@@ -29,7 +34,7 @@ const MultiLanguageListInput = <T,>({
   };
 
   return (
-    <div>
+    <div className="relative">
       <h3>{dict.finnish}</h3>
       <SidebarInput
         placeholder={placeholder}

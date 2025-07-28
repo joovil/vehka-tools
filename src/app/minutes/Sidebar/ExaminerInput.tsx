@@ -11,12 +11,9 @@ interface Props {
 const ExaminerInput = ({ setData }: Props) => {
   const dict = useTranslations();
 
-  // const [newItem, setNewItem] = useState<FinEng>({} as FinEng);
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    // setNewItem((prev) => ({ ...prev, [name]: value }));
     setData((prev) => ({
       ...prev,
       examiners: {

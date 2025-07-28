@@ -10,6 +10,7 @@ interface Props {
   buttonLabel: string;
   fieldKey: "startTime" | "endTime";
   ref?: React.RefObject<HTMLDivElement>;
+  className?: string;
 }
 
 const DateButton = ({
@@ -18,10 +19,11 @@ const DateButton = ({
   buttonLabel,
   fieldKey,
   ref,
+  className,
 }: Props) => {
   return (
     <div
-      className="flex items-center gap-2"
+      className={`flex items-center gap-2 ${className}`}
       ref={ref}
     >
       <button
