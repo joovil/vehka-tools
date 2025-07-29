@@ -5,6 +5,16 @@
   "toggleOpen": "Open",
   "toggleClose": "Close",
   "minutes": {
+    "errors": {
+      "chairman": "Chairman signature is required",
+      "secretary": "Secretary signature is required",
+      "examiner1": "First examiner signature is required",
+      "examiner2": "Second examiner signature is required",
+      "location": "Location is required",
+      "timeOfMeeting": "Time of meeting is required",
+      "attendants": "Attendants are required",
+      "examiners": "Examiners are required"
+    },
     "labels": {
       "attendants": "Attendants",
       "items": "Items",

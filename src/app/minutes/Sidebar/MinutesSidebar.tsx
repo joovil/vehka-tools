@@ -31,7 +31,6 @@ const MinutesSidebar = ({
     setCheckErrors(true);
     scrollToError();
 
-    return;
     downloadPdf({
       filename: `Kokouspöytäkirja-${formatDate(minutesData.endTime).split(" ")[0]}`,
       pdfElement: <MinutePdf data={minutesData} />,
@@ -82,7 +81,7 @@ const MinutesSidebar = ({
           placeholder={dict.minutes.placeholders.location}
           fieldKey="location"
           setData={setMinutesData}
-          errorMessage={"Location required"}
+          errorMessage={dict.minutes.errors.location}
           checkErrors={checkPreMeetingErrors}
         />
 
@@ -93,7 +92,7 @@ const MinutesSidebar = ({
           setData={setMinutesData}
           fieldKey="timeOfMeeting"
           showButton={false}
-          errorMessage={"Time of meeting required"}
+          errorMessage={dict.minutes.errors.timeOfMeeting}
           hasError={!minutesData.timeOfMeeting && checkPreMeetingErrors}
         />
       </Dropdown>
@@ -104,7 +103,7 @@ const MinutesSidebar = ({
           placeholder={dict.minutes.labels.attendants}
           fieldKey="attendants"
           setData={setMinutesData}
-          errorMessage={"Attendants required"}
+          errorMessage={dict.minutes.errors.attendants}
           hasError={minutesData.attendants.length <= 0 && checkPreMeetingErrors}
         />
       </Dropdown>
@@ -139,7 +138,7 @@ const MinutesSidebar = ({
           <ExaminerInput
             data={minutesData}
             setData={setMinutesData}
-            errorMessage={checkErrors ? "examiners" : ""}
+            errorMessage={checkErrors ? dict.minutes.errors.examiners : ""}
           />
         </Dropdown>
 

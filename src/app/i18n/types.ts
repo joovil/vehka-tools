@@ -7,6 +7,16 @@ export interface Dictionary {
   toggleOpen: string;
   toggleClose: string;
   minutes: {
+    errors: {
+      chairman: string;
+      secretary: string;
+      examiner1: string;
+      examiner2: string;
+      location: string;
+      timeOfMeeting: string;
+      attendants: string;
+      examiners: string;
+    };
     labels: {
       attendants: string;
       items: string;

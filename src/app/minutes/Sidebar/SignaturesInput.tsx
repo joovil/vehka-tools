@@ -38,7 +38,7 @@ const SignaturesInput = ({
         placeholder={dict.minutes.placeholders.chairmanSignature}
         onChange={handleChange("chairman")}
         isStyled={!!minutesData.signatures.chairman}
-        errorMessage={"minutesData.signatures.chairman"}
+        errorMessage={dict.minutes.errors.chairman}
         hasError={!minutesData.signatures.chairman && checkErrors}
       />
       <SignatureInput
@@ -46,7 +46,7 @@ const SignaturesInput = ({
         placeholder={dict.minutes.placeholders.secretarySignature}
         onChange={handleChange("secretary")}
         isStyled={!!minutesData.signatures.secretary}
-        errorMessage={"minutesData.signatures.secretary"}
+        errorMessage={dict.minutes.errors.secretary}
         hasError={!minutesData.signatures.secretary && checkErrors}
       />
       <SignatureInput
@@ -54,7 +54,7 @@ const SignaturesInput = ({
         placeholder={dict.minutes.placeholders.examinerSignature}
         onChange={handleChange("examiner1")}
         isStyled={!!minutesData.signatures.examiner1}
-        errorMessage={"minutesData.signatures.examiner1"}
+        errorMessage={dict.minutes.errors.examiner1}
         hasError={!minutesData.signatures.examiner1 && checkErrors}
       />
       <SignatureInput
@@ -62,7 +62,7 @@ const SignaturesInput = ({
         placeholder={dict.minutes.placeholders.examinerSignature}
         onChange={handleChange("examiner2")}
         isStyled={!!minutesData.signatures.examiner2}
-        errorMessage={"minutesData.signatures.examiner2"}
+        errorMessage={dict.minutes.errors.examiner2}
         hasError={!minutesData.signatures.examiner2 && checkErrors}
       />
     </div>
