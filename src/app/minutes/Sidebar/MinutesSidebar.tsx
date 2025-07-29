@@ -11,7 +11,7 @@ import { formatDate } from "@/app/utils/formatDate";
 import { scrollToElement } from "@/app/utils/scrollToElement";
 import { useState } from "react";
 import DatetimeInput from "../../components/inputs/DatetimeInput";
-import MinutePdf from "../MinutesPdf";
+import MinutesPdf from "../MinutesPdf";
 import { MinutesProps } from "../page";
 import DateButton from "./DateButton";
 import ExaminerInput from "./ExaminerInput";
@@ -33,7 +33,7 @@ const MinutesSidebar = ({
 
     downloadPdf({
       filename: `Kokouspöytäkirja-${formatDate(minutesData.endTime).split(" ")[0]}`,
-      pdfElement: <MinutePdf data={minutesData} />,
+      pdfElement: <MinutesPdf data={minutesData} />,
     });
   };
 

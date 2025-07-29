@@ -1,6 +1,6 @@
 "use client";
 
-import { Document, Page, Text, View } from "@react-pdf/renderer";
+import { Document, Font, Page, Text, View } from "@react-pdf/renderer";
 import { formatDate } from "../utils/formatDate";
 import { MinutesData } from "./page";
 
@@ -8,7 +8,13 @@ type MinutesPdfProps = {
   data: MinutesData;
 };
 
-const MinutePdf = ({ data }: MinutesPdfProps) => {
+Font.register({
+  family: "Alex Brush",
+  src: "https://fonts.gstatic.com/s/alexbrush/v22/SZc83FzrJKuqFbwMKk6EtUL57DtOmCc.ttf",
+  fontWeight: 400,
+});
+
+const MinutesPdf = ({ data }: MinutesPdfProps) => {
   const {
     location = { fin: "_", eng: "_" },
     attendants,
@@ -79,7 +85,14 @@ const MinutePdf = ({ data }: MinutesPdfProps) => {
               2. Kahden Pöytäkirjantarkastajan valinta
             </Text>
             <Text>
-              Valittiin: {examiners.examiner1} {examiners.examiner2}
+              Valittiin:{" "}
+              <Text style={{ textDecoration: "underline" }}>
+                {examiners.examiner1}
+              </Text>
+              {" / "}
+              <Text style={{ textDecoration: "underline" }}>
+                {examiners.examiner2}
+              </Text>
             </Text>
           </View>
 
@@ -94,30 +107,36 @@ const MinutePdf = ({ data }: MinutesPdfProps) => {
             <Text style={{ fontSize: 14, fontWeight: "bold" }}>
               4. Hankinnat/ talkoot/ muita päätettäviä asioita
             </Text>
-            {meetingItems.map((item, index) => (
-              <View
-                key={index}
-                style={{ flexDirection: "row", gap: 20 }}
-              >
-                <Text>{item.fin}</Text>
-                <Text>{item.eng}</Text>
+            <View style={{ flexDirection: "row", gap: 20, marginTop: 8 }}>
+              <View style={{ flex: 1 }}>
+                {meetingItems.map((item, index) => (
+                  <Text key={`fin-${index}`}>{item.fin}</Text>
+                ))}
               </View>
-            ))}
+              <View style={{ flex: 1 }}>
+                {meetingItems.map((item, index) => (
+                  <Text key={`eng-${index}`}>{item.eng}</Text>
+                ))}
+              </View>
+            </View>
           </View>
 
           <View>
             <Text style={{ fontSize: 14, fontWeight: "bold" }}>
               5. Muut mahdolliset asiat
             </Text>
-            {otherItems.map((item, index) => (
-              <View
-                key={index}
-                style={{ flexDirection: "row", gap: 20 }}
-              >
-                <Text>{item.fin}</Text>
-                <Text>{item.eng}</Text>
+            <View style={{ flexDirection: "row", gap: 20, marginTop: 8 }}>
+              <View style={{ flex: 1 }}>
+                {otherItems.map((item, index) => (
+                  <Text key={`fin-${index}`}>{item.fin}</Text>
+                ))}
               </View>
-            ))}
+              <View style={{ flex: 1 }}>
+                {otherItems.map((item, index) => (
+                  <Text key={`eng-${index}`}>{item.eng}</Text>
+                ))}
+              </View>
+            </View>
           </View>
 
           <View>
@@ -161,7 +180,15 @@ const MinutePdf = ({ data }: MinutesPdfProps) => {
                   key={index}
                   style={{ width: "45%" }}
                 >
-                  <Text style={{ borderBottom: 1 }}>{value}</Text>
+                  <Text
+                    style={{
+                      borderBottom: 1,
+                      fontFamily: "Alex Brush",
+                      fontSize: 20,
+                    }}
+                  >
+                    {value}
+                  </Text>
                   <Text>{key} allekirjoitus</Text>
                 </View>
               ))}
@@ -173,4 +200,4 @@ const MinutePdf = ({ data }: MinutesPdfProps) => {
   );
 };
 
-export default MinutePdf;
+export default MinutesPdf;
