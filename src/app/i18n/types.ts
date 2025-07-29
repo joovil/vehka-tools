@@ -6,6 +6,8 @@ export interface Dictionary {
   addItem: string;
   toggleOpen: string;
   toggleClose: string;
+  openMenu: string;
+  closeMenu: string;
   minutes: {
     errors: {
       chairman: string;
@@ -18,6 +20,7 @@ export interface Dictionary {
       examiners: string;
     };
     labels: {
+      minutesNumber: string;
       attendants: string;
       items: string;
       otherItems: string;
@@ -37,6 +40,7 @@ export interface Dictionary {
       timeOfMeeting: string;
     };
     placeholders: {
+      minutesNumber: string;
       attendants: string;
       items: string;
       otherItems: string;

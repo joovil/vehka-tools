@@ -2,13 +2,18 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { useTranslations } from "./i18n/TranslationsProvider";
 
 const MenuItems = () => {
+  const dict = useTranslations();
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
     <div>
-      <div onClick={() => setIsOpen((b) => !b)}>Avaa/sulje</div>
+      <div onClick={() => setIsOpen((b) => !b)}>
+        {isOpen ? dict.closeMenu : dict.openMenu}
+      </div>
 
       <main
         className="flex flex-col gap-4 overflow-hidden transition-all duration-300 ease-in-out *:flex *:flex-col"

@@ -24,7 +24,7 @@ const MinutesPdf = ({ data }: MinutesPdfProps) => {
     examiners,
     newMembers,
     nextMeeting,
-    minuteNumber = "_",
+    minutesNumber = "_",
     startTime,
     endTime,
     timeOfMeeting,
@@ -40,7 +40,7 @@ const MinutesPdf = ({ data }: MinutesPdfProps) => {
           <View>
             <Text>Helsingin seudeun opiskelija-asuntosäätiö</Text>
             <Text>
-              Pöytäkirja {minuteNumber}/{new Date().getFullYear()}
+              Pöytäkirja {minutesNumber}/{new Date().getFullYear()}
             </Text>
           </View>
 

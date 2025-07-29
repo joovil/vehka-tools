@@ -4,6 +4,8 @@
   "addItem": "Add item",
   "toggleOpen": "Open",
   "toggleClose": "Close",
+  "openMenu": "Open menu",
+  "closeMenu": "Close menu",
   "minutes": {
     "errors": {
       "chairman": "Chairman signature is required",
@@ -16,6 +18,7 @@
       "examiners": "Examiners are required"
     },
     "labels": {
+      "minutesNumber": "Minutes",
       "attendants": "Attendants",
       "items": "Items",
       "otherItems": "Other items",
@@ -35,6 +38,7 @@
       "timeOfMeeting": "Time of meeting"
     },
     "placeholders": {
+      "minutesNumber": "Number of these minutes",
       "attendants": "Who was present at the meeting",
       "items": "What was discussed in the meeting",
       "otherItems": "Other discussed items",

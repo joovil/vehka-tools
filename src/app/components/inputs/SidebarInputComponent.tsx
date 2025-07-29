@@ -13,6 +13,7 @@ interface Props<T> {
   required?: boolean;
   errorMessage?: string;
   hasError?: boolean;
+  type?: "text" | "number";
 }
 
 const SidebarInputComponent = <T,>({
@@ -25,6 +26,7 @@ const SidebarInputComponent = <T,>({
   required,
   errorMessage,
   hasError,
+  type = "text",
 }: Props<T>) => {
   const [isHovered, setIsHovered] = useState<boolean>(false);
 
@@ -35,7 +37,7 @@ const SidebarInputComponent = <T,>({
       <div className={`input-wrapper ${hasError ? "has-error" : ""}`}>
         <input
           name={String(fieldKey)}
-          type="text"
+          type={type}
           placeholder={placeholder}
           onChange={onChange}
           value={value}

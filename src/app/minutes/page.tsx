@@ -11,7 +11,7 @@ export interface MinutesProps {
 }
 
 export interface MinutesData {
-  minuteNumber?: number;
+  minutesNumber?: number;
   location?: FinEng;
   attendants: string[];
   meetingItems: FinEng[];

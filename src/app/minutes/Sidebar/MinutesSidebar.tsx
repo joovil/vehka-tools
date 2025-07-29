@@ -3,6 +3,7 @@
 import Dropdown from "@/app/components/Dropdown";
 import MultiLanguageInput from "@/app/components/inputs/MultiLanguageInput";
 import MultiLanguageListInput from "@/app/components/inputs/MultiLanguageListInput";
+import SidebarInput from "@/app/components/inputs/SidebarInput";
 import SidebarListInput from "@/app/components/inputs/SidebarListInput";
 import { downloadPdf } from "@/app/components/pdf/downloadPdf";
 import ScrollAnchor from "@/app/components/ScrollAnchor";
@@ -77,6 +78,14 @@ const MinutesSidebar = ({
       {/* ###################### Pre-meeting ###################### */}
       <ScrollAnchor id={"location-anchor"} />
       <Dropdown header={dict.minutes.labels.location}>
+        <SidebarInput
+          fieldKey="minutesNumber"
+          setData={setMinutesData}
+          label={dict.minutes.labels.minutesNumber}
+          placeholder={dict.minutes.placeholders.minutesNumber}
+          type="number"
+        />
+
         <MultiLanguageInput
           placeholder={dict.minutes.placeholders.location}
           fieldKey="location"
