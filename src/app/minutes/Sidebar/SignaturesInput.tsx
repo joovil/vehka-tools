@@ -85,7 +85,6 @@ const SignatureInput = ({
   hasError: boolean;
 }) => {
   const [isHovered, setIsHovered] = useState<boolean>(false);
-  console.log(errorMessage);
 
   return (
     <div>

@@ -34,7 +34,6 @@ const DatetimeInput = <
   errorMessage,
   hasError,
 }: Props<T>) => {
-  console.log(errorMessage);
   const [isHovered, setIsHovered] = useState<boolean>(false); // hover state
 
   return (
@@ -67,6 +66,12 @@ const DatetimeInput = <
           />
         </div>
       </div>
+      <button
+        className="mt-1 w-fit"
+        onClick={() => setData({ ...data, [fieldKey]: undefined })}
+      >
+        Clear
+      </button>
     </div>
   );
 };
