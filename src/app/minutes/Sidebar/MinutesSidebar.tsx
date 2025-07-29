@@ -5,9 +5,10 @@ import MultiLanguageInput from "@/app/components/inputs/MultiLanguageInput";
 import MultiLanguageListInput from "@/app/components/inputs/MultiLanguageListInput";
 import SidebarListInput from "@/app/components/inputs/SidebarListInput";
 import { downloadPdf } from "@/app/components/pdf/downloadPdf";
+import ScrollAnchor from "@/app/components/ScrollAnchor";
 import { useTranslations } from "@/app/i18n/TranslationsProvider";
 import { formatDate } from "@/app/utils/formatDate";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import DatetimeInput from "../../components/inputs/DatetimeInput";
 import MinutePdf from "../MinutesPdf";
 import { MinutesProps } from "../page";
@@ -21,18 +22,11 @@ const MinutesSidebar = ({
 }: MinutesProps) => {
   const dict = useTranslations();
 
-  const endTimeRef = useRef<HTMLDivElement>(null);
-  const locationRef = useRef<HTMLDivElement>(null);
-  const timeOfMeetingRef = useRef<HTMLDivElement>(null);
-  const attendantsRef = useRef<HTMLDivElement>(null);
-  const examinersRef = useRef<HTMLDivElement>(null);
-  const nextMeetingRef = useRef<HTMLDivElement>(null);
-  const signaturesRef = useRef<HTMLDivElement>(null);
-
   const [checkErrors, setCheckErrors] = useState<boolean>(false);
 
   const handlePdfDownload = () => {
     setCheckErrors(true);
+    scrollToError();
 
     return;
     downloadPdf({
@@ -41,48 +35,69 @@ const MinutesSidebar = ({
     });
   };
 
+  const scrollToError = () => {
+    const scrollToElement = (id: string) => {
+      const el = document.getElementById(id);
+      el?.scrollIntoView();
+      return el;
+    };
+
+    if (
+      !minutesData.location?.fin ||
+      !minutesData.location?.eng ||
+      !minutesData.timeOfMeeting
+    ) {
+      scrollToElement("location-anchor");
+      return;
+    }
+
+    if (minutesData.attendants.length <= 0) {
+      scrollToElement("attendants-anchor");
+      return;
+    }
+
+    if (!minutesData.examiners.examiner1 || !minutesData.examiners.examiner2) {
+      scrollToElement("examiners-anchor");
+      return;
+    }
+  };
+
   return (
     <div className="flex flex-col gap-2">
+      <ScrollAnchor id={"location-anchor"} />
       <Dropdown header={dict.minutes.labels.location}>
-        {/* ##################### Required ##################### */}
-        <div ref={locationRef}>
-          <MultiLanguageInput
-            placeholder={dict.minutes.placeholders.location}
-            fieldKey="location"
-            setData={setMinutesData}
-            errorMessage={"Location required"}
-            checkErrors={checkErrors}
-          />
-        </div>
+        <MultiLanguageInput
+          placeholder={dict.minutes.placeholders.location}
+          fieldKey="location"
+          setData={setMinutesData}
+          errorMessage={"Location required"}
+          checkErrors={checkErrors}
+        />
 
-        <div ref={timeOfMeetingRef}>
-          <DatetimeInput
-            label={dict.minutes.labels.timeOfMeeting}
-            placeholder={dict.minutes.placeholders.timeOfMeeting}
-            data={minutesData}
-            setData={setMinutesData}
-            fieldKey="timeOfMeeting"
-            showButton={false}
-            errorMessage={"Time of meeting required"}
-            hasError={!minutesData.timeOfMeeting && checkErrors}
-          />
-        </div>
+        <DatetimeInput
+          label={dict.minutes.labels.timeOfMeeting}
+          placeholder={dict.minutes.placeholders.timeOfMeeting}
+          data={minutesData}
+          setData={setMinutesData}
+          fieldKey="timeOfMeeting"
+          showButton={false}
+          errorMessage={"Time of meeting required"}
+          hasError={!minutesData.timeOfMeeting && checkErrors}
+        />
       </Dropdown>
 
+      <ScrollAnchor id={"attendants-anchor"} />
       <Dropdown header={dict.minutes.labels.attendants}>
-        <div ref={attendantsRef}>
-          <SidebarListInput
-            placeholder={dict.minutes.labels.attendants}
-            fieldKey="attendants"
-            setData={setMinutesData}
-            errorMessage={"Attendants required"}
-            hasError={minutesData.attendants.length <= 0 && checkErrors}
-          />
-        </div>
+        <SidebarListInput
+          placeholder={dict.minutes.labels.attendants}
+          fieldKey="attendants"
+          setData={setMinutesData}
+          errorMessage={"Attendants required"}
+          hasError={minutesData.attendants.length <= 0 && checkErrors}
+        />
       </Dropdown>
 
       <Dropdown header={dict.minutes.labels.startTime}>
-        {/* ##################### Required ##################### */}
         <DateButton
           className="mt-2"
           buttonLabel={dict.minutes.buttons.startTime}
@@ -92,6 +107,7 @@ const MinutesSidebar = ({
         />
       </Dropdown>
 
+      <ScrollAnchor id={"examiners-anchor"} />
       <Dropdown
         handledExternally={true}
         open={minutesData.startTime !== undefined}
@@ -99,13 +115,11 @@ const MinutesSidebar = ({
         transitionDuration="700"
       >
         <Dropdown header={dict.minutes.labels.examiners}>
-          <div ref={examinersRef}>
-            <ExaminerInput
-              data={minutesData}
-              setData={setMinutesData}
-              errorMessage={checkErrors ? "examiners" : ""}
-            />
-          </div>
+          <ExaminerInput
+            data={minutesData}
+            setData={setMinutesData}
+            errorMessage={checkErrors ? "examiners" : ""}
+          />
         </Dropdown>
 
         <Dropdown header={dict.minutes.labels.items}>
@@ -138,22 +152,18 @@ const MinutesSidebar = ({
         </Dropdown>
 
         <Dropdown header={dict.minutes.labels.nextMeeting}>
-          {/* ##################### Required ##################### */}
-          <div ref={nextMeetingRef}>
-            <DatetimeInput
-              buttonLabel={dict.minutes.buttons.nextMeeting}
-              placeholder={dict.minutes.placeholders.nextMeeting}
-              setData={setMinutesData}
-              data={minutesData}
-              fieldKey="nextMeeting"
-              errorMessage={checkErrors ? "Time for next meeting required" : ""}
-              hasError={!minutesData.nextMeeting && checkErrors}
-            />
-          </div>
+          <DatetimeInput
+            buttonLabel={dict.minutes.buttons.nextMeeting}
+            placeholder={dict.minutes.placeholders.nextMeeting}
+            setData={setMinutesData}
+            data={minutesData}
+            fieldKey="nextMeeting"
+            errorMessage={checkErrors ? "Time for next meeting required" : ""}
+            hasError={!minutesData.nextMeeting && checkErrors}
+          />
         </Dropdown>
 
         <Dropdown header={dict.minutes.labels.endTime}>
-          {/* ##################### Required ##################### */}
           <DateButton
             buttonLabel={dict.minutes.buttons.endTime}
             minutesData={minutesData}
@@ -163,13 +173,11 @@ const MinutesSidebar = ({
         </Dropdown>
 
         <Dropdown header={dict.minutes.labels.signatures}>
-          <div ref={signaturesRef}>
-            <SignaturesInput
-              minutesData={minutesData}
-              setMinutesData={setMinutesData}
-              checkErrors={checkErrors}
-            />
-          </div>
+          <SignaturesInput
+            minutesData={minutesData}
+            setMinutesData={setMinutesData}
+            checkErrors={checkErrors}
+          />
         </Dropdown>
       </Dropdown>
 
