@@ -11,6 +11,7 @@ interface Props<T> {
   setData: React.Dispatch<React.SetStateAction<T>>;
   children?: React.ReactNode;
   errorMessage?: string;
+  hasError?: boolean;
 }
 
 const SidebarListInput = <T,>({
@@ -20,6 +21,7 @@ const SidebarListInput = <T,>({
   setData,
   children,
   errorMessage,
+  hasError,
 }: Props<T>) => {
   const dict = useTranslations();
   const [newItem, setNewItem] = useState<string>("");
@@ -46,7 +48,7 @@ const SidebarListInput = <T,>({
         onChange={(e) => setNewItem(e.currentTarget.value)}
         value={newItem}
         errorMessage={errorMessage}
-        hasError={!newItem && !!errorMessage}
+        hasError={!newItem && hasError}
       >
         <button
           className="mt-1 w-fit"

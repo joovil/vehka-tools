@@ -40,7 +40,7 @@ const DatetimeInput = <
   return (
     <div className={`${!label && "first:mt-2"} flex flex-col`}>
       <label>{label}</label>
-      <ErrorModal message={isHovered ? errorMessage : ""} />
+      <ErrorModal message={isHovered && hasError ? errorMessage : ""} />
       <div className="flex gap-2">
         {showButton && (
           <button

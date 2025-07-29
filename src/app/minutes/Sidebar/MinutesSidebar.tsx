@@ -50,7 +50,8 @@ const MinutesSidebar = ({
             placeholder={dict.minutes.placeholders.location}
             fieldKey="location"
             setData={setMinutesData}
-            errorMessage={checkErrors ? "Location required" : ""}
+            errorMessage={"Location required"}
+            checkErrors={checkErrors}
           />
         </div>
 
@@ -62,7 +63,7 @@ const MinutesSidebar = ({
             setData={setMinutesData}
             fieldKey="timeOfMeeting"
             showButton={false}
-            errorMessage={checkErrors ? "Time of meeting required" : ""}
+            errorMessage={"Time of meeting required"}
             hasError={!minutesData.timeOfMeeting && checkErrors}
           />
         </div>
@@ -74,11 +75,8 @@ const MinutesSidebar = ({
             placeholder={dict.minutes.labels.attendants}
             fieldKey="attendants"
             setData={setMinutesData}
-            errorMessage={
-              minutesData.attendants.length <= 0 && checkErrors
-                ? "Attendants required"
-                : ""
-            }
+            errorMessage={"Attendants required"}
+            hasError={minutesData.attendants.length <= 0 && checkErrors}
           />
         </div>
       </Dropdown>
@@ -105,7 +103,7 @@ const MinutesSidebar = ({
             <ExaminerInput
               data={minutesData}
               setData={setMinutesData}
-              errorMessage={"examiners"}
+              errorMessage={checkErrors ? "examiners" : ""}
             />
           </div>
         </Dropdown>
@@ -148,7 +146,8 @@ const MinutesSidebar = ({
               setData={setMinutesData}
               data={minutesData}
               fieldKey="nextMeeting"
-              hasError={"nextMeeting"}
+              errorMessage={checkErrors ? "Time for next meeting required" : ""}
+              hasError={!minutesData.nextMeeting && checkErrors}
             />
           </div>
         </Dropdown>
@@ -168,7 +167,7 @@ const MinutesSidebar = ({
             <SignaturesInput
               minutesData={minutesData}
               setMinutesData={setMinutesData}
-              errorMessage={"signatures"}
+              checkErrors={checkErrors}
             />
           </div>
         </Dropdown>

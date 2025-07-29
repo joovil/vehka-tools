@@ -26,12 +26,12 @@ const SidebarInputComponent = <T,>({
   errorMessage,
   hasError,
 }: Props<T>) => {
-  const [isHovered, setIsHovered] = useState<boolean>(false); // hover state
+  const [isHovered, setIsHovered] = useState<boolean>(false);
 
   return (
     <div className="flex flex-col">
       {label && <label>{label}</label>}
-      <ErrorModal message={isHovered ? errorMessage : ""} />
+      <ErrorModal message={isHovered && hasError ? errorMessage : ""} />
       <div className={`input-wrapper ${hasError ? "has-error" : ""}`}>
         <input
           name={String(fieldKey)}

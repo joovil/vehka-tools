@@ -10,6 +10,7 @@ interface Props<T> {
   setData: React.Dispatch<React.SetStateAction<T>>;
   fieldKey: keyof T;
   errorMessage?: string;
+  checkErrors?: boolean;
 }
 
 const MultiLanguageInput = <T,>({
@@ -17,6 +18,7 @@ const MultiLanguageInput = <T,>({
   placeholder,
   fieldKey,
   errorMessage,
+  checkErrors,
 }: Props<T>) => {
   const dict = useTranslations();
 
@@ -39,7 +41,7 @@ const MultiLanguageInput = <T,>({
         placeholder={placeholder}
         fieldKey={"fin"}
         onChange={handleChange}
-        hasError={!newItem.fin && !!errorMessage}
+        hasError={checkErrors && !newItem["fin"]}
         errorMessage={errorMessage}
       />
       <label>{dict.english}</label>
@@ -47,7 +49,7 @@ const MultiLanguageInput = <T,>({
         placeholder={placeholder}
         fieldKey={"eng"}
         onChange={handleChange}
-        hasError={!newItem.eng && !!errorMessage}
+        hasError={checkErrors && !newItem["eng"]}
         errorMessage={errorMessage}
       />
     </div>
