@@ -11,6 +11,7 @@ interface Props {
   fieldKey: "startTime" | "endTime";
   ref?: React.RefObject<HTMLDivElement>;
   className?: string;
+  onClick?: (setDate: () => void) => void;
 }
 
 const DateButton = ({
@@ -20,16 +21,25 @@ const DateButton = ({
   fieldKey,
   ref,
   className,
+  onClick,
 }: Props) => {
+  const setDate = () => {
+    setMinutesData({ ...minutesData, [fieldKey]: new Date() });
+  };
+
   return (
     <div
       className={`flex items-center gap-2 ${className}`}
       ref={ref}
     >
       <button
-        onClick={() =>
-          setMinutesData({ ...minutesData, [fieldKey]: new Date() })
-        }
+        onClick={() => {
+          if (onClick) {
+            onClick(setDate);
+          } else {
+            setDate();
+          }
+        }}
         disabled={!!minutesData[fieldKey]}
       >
         {buttonLabel}

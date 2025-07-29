@@ -8,6 +8,7 @@ import { downloadPdf } from "@/app/components/pdf/downloadPdf";
 import ScrollAnchor from "@/app/components/ScrollAnchor";
 import { useTranslations } from "@/app/i18n/TranslationsProvider";
 import { formatDate } from "@/app/utils/formatDate";
+import { scrollToElement } from "@/app/utils/scrollToElement";
 import { useState } from "react";
 import DatetimeInput from "../../components/inputs/DatetimeInput";
 import MinutePdf from "../MinutesPdf";
@@ -22,6 +23,8 @@ const MinutesSidebar = ({
 }: MinutesProps) => {
   const dict = useTranslations();
 
+  const [checkPreMeetingErrors, setCheckPreMeetingErrors] =
+    useState<boolean>(false);
   const [checkErrors, setCheckErrors] = useState<boolean>(false);
 
   const handlePdfDownload = () => {
@@ -36,34 +39,43 @@ const MinutesSidebar = ({
   };
 
   const scrollToError = () => {
-    const scrollToElement = (id: string) => {
-      const el = document.getElementById(id);
-      el?.scrollIntoView();
-      return el;
-    };
+    preMeetingItemsFilled();
 
+    if (!minutesData.examiners.examiner1 || !minutesData.examiners.examiner2) {
+      scrollToElement("examiners-anchor");
+      return;
+    }
+
+    if (
+      !minutesData.signatures.chairman ||
+      !minutesData.signatures.secretary ||
+      !minutesData.signatures.examiner1 ||
+      !minutesData.signatures.examiner2
+    ) {
+      return;
+    }
+  };
+
+  const preMeetingItemsFilled = (): boolean => {
     if (
       !minutesData.location?.fin ||
       !minutesData.location?.eng ||
       !minutesData.timeOfMeeting
     ) {
       scrollToElement("location-anchor");
-      return;
+      return false;
     }
 
     if (minutesData.attendants.length <= 0) {
       scrollToElement("attendants-anchor");
-      return;
+      return false;
     }
-
-    if (!minutesData.examiners.examiner1 || !minutesData.examiners.examiner2) {
-      scrollToElement("examiners-anchor");
-      return;
-    }
+    return true;
   };
 
   return (
     <div className="flex flex-col gap-2">
+      {/* ###################### Pre-meeting ###################### */}
       <ScrollAnchor id={"location-anchor"} />
       <Dropdown header={dict.minutes.labels.location}>
         <MultiLanguageInput
@@ -71,7 +83,7 @@ const MinutesSidebar = ({
           fieldKey="location"
           setData={setMinutesData}
           errorMessage={"Location required"}
-          checkErrors={checkErrors}
+          checkErrors={checkPreMeetingErrors}
         />
 
         <DatetimeInput
@@ -82,7 +94,7 @@ const MinutesSidebar = ({
           fieldKey="timeOfMeeting"
           showButton={false}
           errorMessage={"Time of meeting required"}
-          hasError={!minutesData.timeOfMeeting && checkErrors}
+          hasError={!minutesData.timeOfMeeting && checkPreMeetingErrors}
         />
       </Dropdown>
 
@@ -93,12 +105,21 @@ const MinutesSidebar = ({
           fieldKey="attendants"
           setData={setMinutesData}
           errorMessage={"Attendants required"}
-          hasError={minutesData.attendants.length <= 0 && checkErrors}
+          hasError={minutesData.attendants.length <= 0 && checkPreMeetingErrors}
         />
       </Dropdown>
+      {/* ###################### Pre-meeting ###################### */}
 
       <Dropdown header={dict.minutes.labels.startTime}>
         <DateButton
+          onClick={(setDate) => {
+            const ready = preMeetingItemsFilled();
+            if (!ready) {
+              setCheckPreMeetingErrors(true);
+              return;
+            }
+            setDate();
+          }}
           className="mt-2"
           buttonLabel={dict.minutes.buttons.startTime}
           minutesData={minutesData}
@@ -136,11 +157,6 @@ const MinutesSidebar = ({
             fieldKey="otherItems"
             setData={setMinutesData}
           />
-          {minutesData.otherItems.map((item) => (
-            <div key={item.fin}>
-              {item.fin}, {item.eng}
-            </div>
-          ))}
         </Dropdown>
 
         <Dropdown header={dict.minutes.labels.newMembers}>
@@ -158,13 +174,12 @@ const MinutesSidebar = ({
             setData={setMinutesData}
             data={minutesData}
             fieldKey="nextMeeting"
-            errorMessage={checkErrors ? "Time for next meeting required" : ""}
-            hasError={!minutesData.nextMeeting && checkErrors}
           />
         </Dropdown>
 
         <Dropdown header={dict.minutes.labels.endTime}>
           <DateButton
+            className="mt-2"
             buttonLabel={dict.minutes.buttons.endTime}
             minutesData={minutesData}
             setMinutesData={setMinutesData}
@@ -181,7 +196,12 @@ const MinutesSidebar = ({
         </Dropdown>
       </Dropdown>
 
-      <button onClick={handlePdfDownload}>Download</button>
+      <button
+        className="mt-2"
+        onClick={handlePdfDownload}
+      >
+        Download
+      </button>
     </div>
   );
 };
