@@ -37,10 +37,10 @@ const MinutesContent = ({
     removeItem(item, fieldKey, minutesData, setMinutesData);
   };
 
-  const ListDisplay = MultiLanguageListDisplayBuilder(
-    minutesData,
-    setMinutesData,
-  );
+  const ListDisplay = MultiLanguageListDisplayBuilder({
+    data: minutesData,
+    setData: setMinutesData,
+  });
 
   return (
     <div className="flex flex-col gap-4 p-10">

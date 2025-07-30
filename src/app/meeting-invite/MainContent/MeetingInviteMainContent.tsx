@@ -1,6 +1,7 @@
 "use client";
 
 import { MultiLanguageListDisplayBuilder } from "@/app/components/MultiLanguageListDisplay";
+import { useTranslations } from "@/app/i18n/TranslationsProvider";
 import { formatDate } from "@/app/utils/formatDate";
 import Image from "next/image";
 import { MeetingInviteProps } from "../page";
@@ -11,40 +12,49 @@ const MeetingInviteContent = ({
 }: MeetingInviteProps) => {
   const { date, location } = inviteData;
 
-  const ListDisplay = MultiLanguageListDisplayBuilder(
-    inviteData,
-    setInviteData,
-  );
+  const dict = useTranslations();
+
+  const ListDisplay = MultiLanguageListDisplayBuilder({
+    data: inviteData,
+    setData: setInviteData,
+  });
 
   return (
     <div>
-      <div className="flex justify-center">
+      <div>
         <Image
           src="/banner.svg"
           alt="Meeting invite banner"
-          width={595}
-          height={281}
+          width={0}
+          height={0}
           priority
-          className="m-[-1px] p-0"
+          className="w-full object-cover"
         />
       </div>
 
       <div className="px-10">
-        <div>
-          <h2>Aika</h2>
-          <div>{formatDate(date)}</div>
-        </div>
+        <div className="mx-auto w-fit">
+          <div className="flex items-baseline">
+            <h2>Aika:</h2>
+            <div className="ml-2">{formatDate(date)}</div>
+          </div>
 
-        <div>
-          <h2>Paikka</h2>
-          <div>
-            {location?.fin} / {location?.eng}
+          <div className="flex items-baseline">
+            <h2>Paikka:</h2>
+            <div className="ml-2">
+              {location?.fin} / {location?.eng}
+            </div>
           </div>
         </div>
 
         <div>
           <h2>Esityslista</h2>
-          <div>{ListDisplay("agendaItems")}</div>
+          <div>
+            {ListDisplay("agendaItems", {
+              finHeader: dict.meetingInvite.agendaFin,
+              engHeader: dict.meetingInvite.agendaEng,
+            })}
+          </div>
         </div>
 
         <div>

@@ -62,6 +62,8 @@
     }
   },
   "meetingInvite": {
+    "agendaFin": "Esityslista",
+    "agendaEng": "Agenda",
     "headers": {
       "date": "Date",
       "location": "Location"

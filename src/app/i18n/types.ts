@@ -64,6 +64,8 @@ export interface Dictionary {
     };
   };
   meetingInvite: {
+    agendaFin: string;
+    agendaEng: string;
     headers: {
       date: string;
       location: string;

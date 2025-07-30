@@ -60,5 +60,27 @@
       "endTime": "End meeting",
       "nextMeeting": "Next meeting"
     }
+  },
+  "meetingInvite": {
+    "agendaFin": "Esityslista",
+    "agendaEng": "Agenda",
+    "headers": {
+      "date": "Date",
+      "location": "Location"
+    },
+    "labels": {
+      "date": "Time",
+      "location": "Location",
+      "agenda": "Agenda",
+      "furtherInformation": "Further information",
+      "welcome": "Welcome",
+      "yourCommittee": "Your tenant committee"
+    },
+    "placeholders": {
+      "date": "When will the meeting be held",
+      "location": "Where will the meeting be held",
+      "agenda": "What will be in the meeting agenda",
+      "furtherInformation": "Further information"
+    }
   }
 }
