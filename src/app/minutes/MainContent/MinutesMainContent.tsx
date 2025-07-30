@@ -1,6 +1,6 @@
 "use client";
 
-import MultiLanguageListDisplay from "@/app/components/MultiLanguageListDisplay";
+import { useMultiLanguageDisplay } from "@/app/components/MultiLanguageListDisplay";
 import PdfPreview from "@/app/components/pdf/PdfPreview";
 import { useTranslations } from "@/app/i18n/TranslationsProvider";
 import { formatDate } from "@/app/utils/formatDate";
@@ -18,8 +18,8 @@ const MinutesContent = ({
   const {
     location = { fin: "_", eng: "_" },
     attendants,
-    meetingItems,
-    otherItems,
+    // meetingItems,
+    // otherItems,
     signatures,
     examiners,
     newMembers,
@@ -37,15 +37,7 @@ const MinutesContent = ({
     removeItem(item, fieldKey, minutesData, setMinutesData);
   };
 
-  const ListDisplay = <T extends keyof MinutesData>(fieldKey: T) => {
-    return (
-      <MultiLanguageListDisplay
-        data={minutesData}
-        setData={setMinutesData}
-        fieldKey={fieldKey}
-      />
-    );
-  };
+  const ListDisplay = useMultiLanguageDisplay(minutesData, setMinutesData);
 
   return (
     <div className="flex flex-col gap-4">
