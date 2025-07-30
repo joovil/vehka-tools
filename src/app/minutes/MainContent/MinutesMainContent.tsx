@@ -1,5 +1,6 @@
 "use client";
 
+import MultiLanguageListDisplay from "@/app/components/MultiLanguageListDisplay";
 import PdfPreview from "@/app/components/pdf/PdfPreview";
 import { useTranslations } from "@/app/i18n/TranslationsProvider";
 import { formatDate } from "@/app/utils/formatDate";
@@ -34,6 +35,16 @@ const MinutesContent = ({
     fieldKey: keyof MinutesData,
   ) => {
     removeItem(item, fieldKey, minutesData, setMinutesData);
+  };
+
+  const ListDisplay = <T extends keyof MinutesData>(fieldKey: T) => {
+    return (
+      <MultiLanguageListDisplay
+        data={minutesData}
+        setData={setMinutesData}
+        fieldKey={fieldKey}
+      />
+    );
   };
 
   return (
@@ -99,44 +110,12 @@ const MinutesContent = ({
 
       <div>
         <h2>4. Hankinnat/ talkoot/ muita päätettäviä asioita</h2>
-        {meetingItems.map((item) => (
-          <div
-            className="grid grid-cols-2"
-            key={item.eng}
-          >
-            <div className="flex">
-              <button
-                className="mr-2 flex h-6 w-6 items-center justify-center p-0"
-                onClick={() => handleRemoveItem(item, "meetingItems")}
-              >
-                X
-              </button>
-              <div>{item.fin}</div>
-            </div>
-            <div>{item.eng}</div>
-          </div>
-        ))}
+        {ListDisplay("meetingItems")}
       </div>
 
       <div>
         <h2>5. Muut mahdolliset asiat</h2>
-        {otherItems.map((item) => (
-          <div
-            className="grid grid-cols-2"
-            key={item.eng}
-          >
-            <div className="flex">
-              <button
-                className="mr-2 flex h-6 w-6 items-center justify-center p-0"
-                onClick={() => handleRemoveItem(item, "otherItems")}
-              >
-                X
-              </button>
-              <div>{item.fin}</div>
-            </div>
-            <div>{item.eng}</div>
-          </div>
-        ))}
+        {ListDisplay("otherItems")}
       </div>
 
       <div>
