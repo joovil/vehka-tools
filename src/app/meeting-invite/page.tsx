@@ -1,16 +1,20 @@
 "use client";
 
-import { DateTime, FinEng } from "@/types";
+import { FinEng } from "@/types";
 import { SplitPage } from "../SplitView/SplitComponent";
 import MeetingInviteContent from "./MainContent/MeetingInviteContent";
 import MeetingInviteSidebar from "./Sidebar/MeetingInviteSidebar";
 
-interface MeetingInviteData {
-  date?: DateTime;
+export interface MeetingInviteProps {
+  data: MeetingInviteData;
+  setData: React.Dispatch<React.SetStateAction<MeetingInviteData>>;
+}
+
+export interface MeetingInviteData {
+  date?: Date;
   location?: FinEng;
   agendaItems?: FinEng[];
   moreInfo?: FinEng;
-  attendees?: string[];
 }
 
 const MeetingInvitePage = () => {

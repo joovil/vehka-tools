@@ -1,59 +1,46 @@
 "use client";
 
-import { DateTime } from "@/types";
-import {
-  DateTimePicker,
-  LocalizationProvider,
-  renderTimeViewClock,
-} from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { useState } from "react";
+import MultiLanguageInput from "@/app/components/inputs/MultiLanguageInput";
+import MultiLanguageListInput from "@/app/components/inputs/MultiLanguageListInput";
+import SidebarInput from "@/app/components/inputs/SidebarInput";
+import { useTranslations } from "@/app/i18n/TranslationsProvider";
+import { MeetingInviteProps } from "../page";
 
-const MeetingInviteSidebar = () => {
-  const [dateTime, setDateTime] = useState<DateTime>({ date: "", time: "" });
+const MeetingInviteSidebar = ({
+  data: inviteData,
+  setData: setInviteData,
+}: MeetingInviteProps) => {
+  const dict = useTranslations();
 
   return (
     <div>
-      <form>
-        <label>Aika</label>
-        {/* <input type="datetime-local" /> */}
-        <LocalizationProvider
-          dateAdapter={AdapterDayjs}
-          adapterLocale="de"
-        >
-          <DateTimePicker
-            ampm={false}
-            onChange={(val) => {
-              if (!val) return;
-              const vals = val.format("DD.MM.YYYY HH:mm").split(" ");
-              setDateTime({ date: vals[0], time: vals[1] });
-            }}
-            className="w-full"
-            slotProps={{ textField: { size: "small" } }}
-            viewRenderers={{
-              hours: renderTimeViewClock,
-              minutes: renderTimeViewClock,
-              seconds: renderTimeViewClock,
-            }}
-            format="DD.MM.YYYY HH:mm"
-          />
-        </LocalizationProvider>
+      <SidebarInput
+        header={dict.meetingInvite.headers.date}
+        setData={setInviteData}
+        fieldKey="date"
+        placeholder={dict.meetingInvite.placeholders.date}
+      />
 
-        <div className="flex flex-col">
-          <label>Paikka</label>
-          <input className="rounded-md border-1 border-gray-300" />
-        </div>
+      <SidebarInput
+        header={dict.meetingInvite.headers.location}
+        setData={setInviteData}
+        fieldKey="location"
+        placeholder={dict.meetingInvite.placeholders.location}
+      />
 
-        <div className="flex flex-col">
-          <label>Lisätietoja</label>
-          <input className="rounded-md border-1 border-gray-300" />
-        </div>
+      <MultiLanguageListInput
+        header={dict.meetingInvite.labels.agenda}
+        placeholder={dict.meetingInvite.placeholders.agenda}
+        fieldKey="agendaItems"
+        setData={setInviteData}
+      />
 
-        <div className="flex flex-col">
-          <label>Esityslista</label>
-          <input className="rounded-md border-1 border-gray-300" />
-        </div>
-      </form>
+      <MultiLanguageInput
+        header={dict.meetingInvite.labels.furtherInformation}
+        placeholder={dict.meetingInvite.placeholders.furtherInformation}
+        fieldKey="moreInfo"
+        setData={setInviteData}
+      />
     </div>
   );
 };

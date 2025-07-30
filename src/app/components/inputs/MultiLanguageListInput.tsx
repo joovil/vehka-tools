@@ -8,12 +8,14 @@ interface Props<T> {
   fieldKey: keyof T;
   placeholder: string;
   setData: React.Dispatch<React.SetStateAction<T>>;
+  header?: string;
 }
 
 const MultiLanguageListInput = <T,>({
   setData,
   fieldKey,
   placeholder,
+  header,
 }: Props<T>) => {
   const dict = useTranslations();
 
@@ -35,6 +37,8 @@ const MultiLanguageListInput = <T,>({
 
   return (
     <div className="relative">
+      {header && <div className="text-xl font-bold">{header}</div>}
+
       <h3>{dict.finnish}</h3>
       <SidebarInput
         placeholder={placeholder}

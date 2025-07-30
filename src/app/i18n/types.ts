@@ -63,4 +63,24 @@ export interface Dictionary {
       nextMeeting: string;
     };
   };
+  meetingInvite: {
+    headers: {
+      date: string;
+      location: string;
+    };
+    labels: {
+      date: string;
+      location: string;
+      agenda: string;
+      furtherInformation: string;
+      welcome: string;
+      yourCommittee: string;
+    };
+    placeholders: {
+      date: string;
+      location: string;
+      agenda: string;
+      furtherInformation: string;
+    };
+  };
 }

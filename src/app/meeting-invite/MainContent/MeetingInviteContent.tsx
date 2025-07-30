@@ -1,15 +1,14 @@
 "use client";
 
-import { Document, Page, PDFViewer } from "@react-pdf/renderer";
-
 const MeetingInviteContent = () => {
   return (
     <div>
-      <PDFViewer>
+      hello
+      {/* <PDFViewer>
         <Document>
           <Page></Page>
         </Document>
-      </PDFViewer>
+      </PDFViewer> */}
     </div>
   );
 };

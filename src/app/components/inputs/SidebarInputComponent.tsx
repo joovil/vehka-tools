@@ -14,6 +14,7 @@ interface Props<T> {
   errorMessage?: string;
   hasError?: boolean;
   type?: "text" | "number";
+  header?: string;
 }
 
 const SidebarInputComponent = <T,>({
@@ -27,11 +28,13 @@ const SidebarInputComponent = <T,>({
   errorMessage,
   hasError,
   type = "text",
+  header,
 }: Props<T>) => {
   const [isHovered, setIsHovered] = useState<boolean>(false);
 
   return (
     <div className="flex flex-col">
+      {header && <div className="text-xl font-bold">{header}</div>}
       {label && <label>{label}</label>}
       <ErrorModal message={isHovered && hasError ? errorMessage : ""} />
       <div className={`input-wrapper ${hasError ? "has-error" : ""}`}>

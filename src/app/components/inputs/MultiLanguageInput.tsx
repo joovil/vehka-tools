@@ -11,6 +11,7 @@ interface Props<T> {
   fieldKey: keyof T;
   errorMessage?: string;
   checkErrors?: boolean;
+  header?: string;
 }
 
 const MultiLanguageInput = <T,>({
@@ -19,6 +20,7 @@ const MultiLanguageInput = <T,>({
   fieldKey,
   errorMessage,
   checkErrors,
+  header,
 }: Props<T>) => {
   const dict = useTranslations();
 
@@ -36,6 +38,8 @@ const MultiLanguageInput = <T,>({
 
   return (
     <div>
+      {header && <div className="text-xl font-bold">{header}</div>}
+
       <label>{dict.finnish}</label>
       <SidebarInputComponent
         placeholder={placeholder}
