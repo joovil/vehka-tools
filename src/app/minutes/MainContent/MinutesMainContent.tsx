@@ -19,7 +19,7 @@ const MinutesContent = ({ data, setData: setMinutesData }: MinutesProps) => {
     examiners,
     newMembers,
     nextMeeting,
-    minuteNumber = "_",
+    minutesNumber,
     startTime,
     endTime,
     timeOfMeeting,
@@ -55,7 +55,7 @@ const MinutesContent = ({ data, setData: setMinutesData }: MinutesProps) => {
       <div>
         <div>Helsingin seudeun opiskelija-asuntosäätiö</div>
         <div>
-          Pöytäkirja {minuteNumber}/{new Date().getFullYear()}
+          Pöytäkirja {minutesNumber}/{new Date().getFullYear()}
         </div>
       </div>
 
