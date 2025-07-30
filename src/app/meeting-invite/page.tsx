@@ -13,7 +13,7 @@ export interface MeetingInviteProps {
 export interface MeetingInviteData {
   date?: Date;
   location?: FinEng;
-  agendaItems?: FinEng[];
+  agendaItems: FinEng[];
   moreInfo?: FinEng;
 }
 
@@ -22,7 +22,9 @@ const MeetingInvitePage = () => {
     <SplitPage<MeetingInviteData>
       MainContent={MeetingInviteContent}
       Sidebar={MeetingInviteSidebar}
-      initialData={{}}
+      initialData={{
+        agendaItems: [],
+      }}
     />
   );
 };

@@ -1,8 +1,8 @@
 "use client";
 
+import DatetimeInput from "@/app/components/inputs/DatetimeInput";
 import MultiLanguageInput from "@/app/components/inputs/MultiLanguageInput";
 import MultiLanguageListInput from "@/app/components/inputs/MultiLanguageListInput";
-import SidebarInput from "@/app/components/inputs/SidebarInput";
 import { useTranslations } from "@/app/i18n/TranslationsProvider";
 import { MeetingInviteProps } from "../page";
 
@@ -14,14 +14,15 @@ const MeetingInviteSidebar = ({
 
   return (
     <div>
-      <SidebarInput
+      <DatetimeInput
         header={dict.meetingInvite.headers.date}
         setData={setInviteData}
+        data={inviteData}
         fieldKey="date"
         placeholder={dict.meetingInvite.placeholders.date}
       />
 
-      <SidebarInput
+      <MultiLanguageInput
         header={dict.meetingInvite.headers.location}
         setData={setInviteData}
         fieldKey="location"

@@ -1,22 +1,33 @@
 "use client";
 
+import MultiLanguageListDisplay from "@/app/components/MultiLanguageListDisplay";
 import { formatDate } from "@/app/utils/formatDate";
-import { removeItem } from "@/app/utils/removeItem";
-import { FinEng } from "@/types";
+import { Dispatch, SetStateAction } from "react";
 import { MeetingInviteData, MeetingInviteProps } from "../page";
+
+const createListDisplay = (
+  inviteData: MeetingInviteData,
+  setInviteData: Dispatch<SetStateAction<MeetingInviteData>>,
+) => {
+  const ListDisplayComponent = <T extends keyof MeetingInviteData>(
+    fieldKey: T,
+  ) => (
+    <MultiLanguageListDisplay
+      data={inviteData}
+      setData={setInviteData}
+      fieldKey={fieldKey}
+    />
+  );
+  ListDisplayComponent.displayName = "ListDisplayComponent";
+  return ListDisplayComponent;
+};
 
 const MeetingInviteContent = ({
   data: inviteData,
   setData: setInviteData,
 }: MeetingInviteProps) => {
-  const { date, location, agendaItems } = inviteData;
-
-  const handleRemoveItem = (
-    item: string | FinEng,
-    fieldKey: keyof MeetingInviteData,
-  ) => {
-    removeItem(item, fieldKey, inviteData, setInviteData);
-  };
+  const { date, location } = inviteData;
+  const ListDisplay = createListDisplay(inviteData, setInviteData);
 
   return (
     <div>
@@ -34,24 +45,25 @@ const MeetingInviteContent = ({
 
       <div>
         <h2>Esityslista</h2>
+        <div>{ListDisplay("agendaItems")}</div>
+      </div>
+
+      <div>
+        <h2>Lisätietoa</h2>
+        <div className="grid grid-cols-2">
+          <div>{inviteData.moreInfo?.fin}</div>
+          <div>{inviteData.moreInfo?.eng}</div>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2">
         <div>
-          {agendaItems.map((item) => (
-            <div
-              className="grid grid-cols-2"
-              key={item.eng}
-            >
-              <div className="flex">
-                <button
-                  className="mr-2 flex h-6 w-6 items-center justify-center p-0"
-                  onClick={() => handleRemoveItem(item, "agendaItems")}
-                >
-                  X
-                </button>
-                <div>{item.fin}</div>
-              </div>
-              <div>{item.eng}</div>
-            </div>
-          ))}
+          <h2>Tervetuloa</h2>
+          <div>-Asukastoimikuntasi</div>
+        </div>
+        <div>
+          <h2>Welcome</h2>
+          <div>-Your tenant committee</div>
         </div>
       </div>
     </div>
