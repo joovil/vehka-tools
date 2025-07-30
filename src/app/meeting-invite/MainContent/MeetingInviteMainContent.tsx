@@ -1,6 +1,6 @@
 "use client";
 
-import { useMultiLanguageDisplay } from "@/app/components/MultiLanguageListDisplay";
+import { MultiLanguageListDisplayBuilder } from "@/app/components/MultiLanguageListDisplay";
 import { formatDate } from "@/app/utils/formatDate";
 import { MeetingInviteProps } from "../page";
 
@@ -10,7 +10,10 @@ const MeetingInviteContent = ({
 }: MeetingInviteProps) => {
   const { date, location } = inviteData;
 
-  const ListDisplay = useMultiLanguageDisplay(inviteData, setInviteData);
+  const ListDisplay = MultiLanguageListDisplayBuilder(
+    inviteData,
+    setInviteData,
+  );
 
   return (
     <div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMultiLanguageDisplay } from "@/app/components/MultiLanguageListDisplay";
+import { MultiLanguageListDisplayBuilder } from "@/app/components/MultiLanguageListDisplay";
 import PdfPreview from "@/app/components/pdf/PdfPreview";
 import { useTranslations } from "@/app/i18n/TranslationsProvider";
 import { formatDate } from "@/app/utils/formatDate";
@@ -37,7 +37,10 @@ const MinutesContent = ({
     removeItem(item, fieldKey, minutesData, setMinutesData);
   };
 
-  const ListDisplay = useMultiLanguageDisplay(minutesData, setMinutesData);
+  const ListDisplay = MultiLanguageListDisplayBuilder(
+    minutesData,
+    setMinutesData,
+  );
 
   return (
     <div className="flex flex-col gap-4">
