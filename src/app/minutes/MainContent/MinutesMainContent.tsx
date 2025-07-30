@@ -3,11 +3,15 @@
 import PdfPreview from "@/app/components/pdf/PdfPreview";
 import { useTranslations } from "@/app/i18n/TranslationsProvider";
 import { formatDate } from "@/app/utils/formatDate";
+import { removeItem } from "@/app/utils/removeItem";
 import { FinEng, Signatures } from "@/types";
 import MinutesPdf from "../MinutesPdf";
 import { MinutesData, MinutesProps } from "../page";
 
-const MinutesContent = ({ data, setData: setMinutesData }: MinutesProps) => {
+const MinutesContent = ({
+  data: minutesData,
+  setData: setMinutesData,
+}: MinutesProps) => {
   const dict = useTranslations();
 
   const {
@@ -23,31 +27,13 @@ const MinutesContent = ({ data, setData: setMinutesData }: MinutesProps) => {
     startTime,
     endTime,
     timeOfMeeting,
-  } = data;
+  } = minutesData;
 
-  const removeItem = (item: FinEng | string, fieldKey: keyof MinutesData) => {
-    const dataField = data[fieldKey];
-
-    if (
-      typeof item === "object" &&
-      Array.isArray(dataField) &&
-      item !== undefined &&
-      "fin" in item &&
-      "eng" in item
-    ) {
-      const update = dataField.filter((it) => it !== item) ?? [];
-      setMinutesData((prev) => ({ ...prev, [fieldKey]: update }));
-      return;
-    }
-
-    if (
-      typeof item === "string" &&
-      Array.isArray(dataField) &&
-      dataField !== undefined
-    ) {
-      const update = dataField.filter((it) => it !== item);
-      setMinutesData((prev) => ({ ...prev, [fieldKey]: update }));
-    }
+  const handleRemoveItem = (
+    item: string | FinEng,
+    fieldKey: keyof MinutesData,
+  ) => {
+    removeItem(item, fieldKey, minutesData, setMinutesData);
   };
 
   return (
@@ -79,7 +65,7 @@ const MinutesContent = ({ data, setData: setMinutesData }: MinutesProps) => {
             >
               <button
                 className="mr-2 flex h-6 w-6 items-center justify-center p-0"
-                onClick={() => removeItem(att, "attendants")}
+                onClick={() => handleRemoveItem(att, "attendants")}
               >
                 X
               </button>
@@ -121,7 +107,7 @@ const MinutesContent = ({ data, setData: setMinutesData }: MinutesProps) => {
             <div className="flex">
               <button
                 className="mr-2 flex h-6 w-6 items-center justify-center p-0"
-                onClick={() => removeItem(item, "meetingItems")}
+                onClick={() => handleRemoveItem(item, "meetingItems")}
               >
                 X
               </button>
@@ -142,7 +128,7 @@ const MinutesContent = ({ data, setData: setMinutesData }: MinutesProps) => {
             <div className="flex">
               <button
                 className="mr-2 flex h-6 w-6 items-center justify-center p-0"
-                onClick={() => removeItem(item, "otherItems")}
+                onClick={() => handleRemoveItem(item, "otherItems")}
               >
                 X
               </button>
@@ -160,7 +146,7 @@ const MinutesContent = ({ data, setData: setMinutesData }: MinutesProps) => {
             <div className="flex">
               <button
                 className="mr-2 flex h-6 w-6 items-center justify-center p-0"
-                onClick={() => removeItem(newMember, "newMembers")}
+                onClick={() => handleRemoveItem(newMember, "newMembers")}
               >
                 X
               </button>
@@ -200,7 +186,7 @@ const MinutesContent = ({ data, setData: setMinutesData }: MinutesProps) => {
         </div>
       </div>
       <PdfPreview>
-        <MinutesPdf data={data} />
+        <MinutesPdf data={minutesData} />
       </PdfPreview>
     </div>
   );
