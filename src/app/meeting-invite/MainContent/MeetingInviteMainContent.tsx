@@ -1,33 +1,16 @@
 "use client";
 
-import MultiLanguageListDisplay from "@/app/components/MultiLanguageListDisplay";
+import { useMultiLanguageDisplay } from "@/app/components/MultiLanguageListDisplay";
 import { formatDate } from "@/app/utils/formatDate";
-import { Dispatch, SetStateAction } from "react";
-import { MeetingInviteData, MeetingInviteProps } from "../page";
-
-const createListDisplay = (
-  inviteData: MeetingInviteData,
-  setInviteData: Dispatch<SetStateAction<MeetingInviteData>>,
-) => {
-  const ListDisplayComponent = <T extends keyof MeetingInviteData>(
-    fieldKey: T,
-  ) => (
-    <MultiLanguageListDisplay
-      data={inviteData}
-      setData={setInviteData}
-      fieldKey={fieldKey}
-    />
-  );
-  ListDisplayComponent.displayName = "ListDisplayComponent";
-  return ListDisplayComponent;
-};
+import { MeetingInviteProps } from "../page";
 
 const MeetingInviteContent = ({
   data: inviteData,
   setData: setInviteData,
 }: MeetingInviteProps) => {
   const { date, location } = inviteData;
-  const ListDisplay = createListDisplay(inviteData, setInviteData);
+
+  const ListDisplay = useMultiLanguageDisplay(inviteData, setInviteData);
 
   return (
     <div>

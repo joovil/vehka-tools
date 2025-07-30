@@ -1,7 +1,7 @@
 "use client";
 
 import { FinEng } from "@/types";
-import React from "react";
+import React, { useMemo } from "react";
 import { removeItem } from "../utils/removeItem";
 
 interface Props<T> {
@@ -18,8 +18,6 @@ const MultiLanguageListDisplay = <T,>({
   const handleRemoveItem = (item: FinEng, fieldKey: keyof T) => {
     removeItem(item, fieldKey, data, setData);
   };
-
-  console.log("render", fieldKey);
 
   return (
     <>
@@ -44,18 +42,53 @@ const MultiLanguageListDisplay = <T,>({
   );
 };
 
-export const ListDisplayBuilder = <T extends keyof T>(
-  fieldKey: T,
+export const multiLanguageListDisplayBuilder = <T,>(
   data: T,
   setData: React.Dispatch<React.SetStateAction<T>>,
 ) => {
-  return (
+  // Return a function that creates the component
+  const DisplayComponent = (fieldKey: keyof T) => (
     <MultiLanguageListDisplay
       data={data}
       setData={setData}
       fieldKey={fieldKey}
     />
   );
+  DisplayComponent.displayName = "DisplayComponent";
+
+  return DisplayComponent;
 };
 
 export default MultiLanguageListDisplay;
+
+// Wrapper component that handles memoization
+const MemoizedDisplayBuilder = <T,>({
+  data,
+  setData,
+}: {
+  data: T;
+  setData: React.Dispatch<React.SetStateAction<T>>;
+}) => {
+  const Component = useMemo(() => {
+    const DisplayComponent = (fieldKey: keyof T) => (
+      <MultiLanguageListDisplay
+        data={data}
+        setData={setData}
+        fieldKey={fieldKey}
+      />
+    );
+    DisplayComponent.displayName = "MemoizedMultiLanguageListDisplay";
+    return DisplayComponent;
+  }, [data, setData]);
+  return Component;
+};
+
+// Custom hook to create memoized display component
+export const useMultiLanguageDisplay = <T,>(
+  data: T,
+  setData: React.Dispatch<React.SetStateAction<T>>,
+) => {
+  const DisplayComponent = MemoizedDisplayBuilder({ data, setData });
+  DisplayComponent.displayName = "MultiLanguageListDisplayMemoized";
+  return DisplayComponent;
+};
