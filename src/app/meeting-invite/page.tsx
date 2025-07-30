@@ -2,7 +2,7 @@
 
 import { FinEng } from "@/types";
 import { SplitPage } from "../SplitView/SplitComponent";
-import MeetingInviteContent from "./MainContent/MeetingInviteContent";
+import MeetingInviteContent from "./MainContent/MeetingInviteMainContent";
 import MeetingInviteSidebar from "./Sidebar/MeetingInviteSidebar";
 
 export interface MeetingInviteProps {

@@ -1,7 +1,7 @@
 "use client";
 
 import { Reorder } from "motion/react";
-import { AgendaItem } from "../MeetingInviteContent";
+import { AgendaItem } from "../MeetingInviteMainContent";
 
 const AgendaItemList = ({
   agenda,

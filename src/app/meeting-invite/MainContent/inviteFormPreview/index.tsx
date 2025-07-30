@@ -1,7 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { AgendaItem, DateTime, MoreInfo, Place } from "../MeetingInviteContent";
+import {
+  AgendaItem,
+  DateTime,
+  MoreInfo,
+  Place,
+} from "../MeetingInviteMainContent";
 
 const PdfPreview = ({
   dateTime,
