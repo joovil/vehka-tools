@@ -1,5 +1,6 @@
 "use client";
 
+import { formatDate } from "@/app/utils/formatDate";
 import {
   Document,
   Font,
@@ -9,7 +10,6 @@ import {
   View,
 } from "@react-pdf/renderer";
 import { MeetingInviteProps } from "../../page";
-import { formatDate } from "@/app/utils/formatDate";
 
 const styles = StyleSheet.create({
   page: {
@@ -82,13 +82,15 @@ const styles = StyleSheet.create({
 Font.register({
   family: "Circular",
   fonts: [
-    { src: "../../../../fonts/CircularStd-Book.woff" },
-    { src: "../../../../fonts/CircularStd-Medium.woff", fontWeight: 500 },
-    { src: "../../../../fonts/CircularStd-Bold.woff", fontWeight: "bold" },
+    { src: "./fonts/CircularStd-Book.woff" },
+    { src: "./fonts/CircularStd-Medium.woff", fontWeight: 500 },
+    { src: "./fonts/CircularStd-Bold.woff", fontWeight: "bold" },
   ],
 });
 
-const MeetingInvitePdf = ({ data: inviteData }: MeetingInviteProps) => {
+const MeetingInvitePdf = ({
+  data: inviteData,
+}: Omit<MeetingInviteProps, "setData">) => {
   const { date, location, agendaItems, moreInfo } = inviteData;
 
   return (

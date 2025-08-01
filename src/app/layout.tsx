@@ -26,22 +26,22 @@ const alexBrush = Alex_Brush({
 const circular = localFont({
   src: [
     {
-      path: "../fonts/CircularStd-Black.woff",
+      path: "../../public/fonts/CircularStd-Black.woff",
       style: "black",
       weight: "900",
     },
     {
-      path: "../fonts/CircularStd-Bold.woff",
+      path: "../../public/fonts/CircularStd-Bold.woff",
       style: "bold",
       weight: "700",
     },
     {
-      path: "../fonts/CircularStd-Medium.woff",
+      path: "../../public/fonts/CircularStd-Medium.woff",
       style: "medium",
       weight: "500",
     },
     {
-      path: "../fonts/CircularStd-Book.woff",
+      path: "../../public/fonts/CircularStd-Book.woff",
       style: "normal",
       weight: "400",
     },

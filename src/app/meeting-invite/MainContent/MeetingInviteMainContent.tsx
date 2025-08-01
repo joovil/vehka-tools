@@ -1,10 +1,12 @@
 "use client";
 
 import { MultiLanguageListDisplayBuilder } from "@/app/components/MultiLanguageListDisplay";
+import PdfPreview from "@/app/components/pdf/PdfPreview";
 import { useTranslations } from "@/app/i18n/TranslationsProvider";
 import { formatDate } from "@/app/utils/formatDate";
 import Image from "next/image";
 import { MeetingInviteProps } from "../page";
+import MeetingInvitePdf from "./invitePdf/MeetingInvitePdf";
 
 const MeetingInviteContent = ({
   data: inviteData,
@@ -21,6 +23,11 @@ const MeetingInviteContent = ({
 
   return (
     <div>
+      <div>
+        <PdfPreview>
+          <MeetingInvitePdf data={inviteData} />
+        </PdfPreview>
+      </div>
       <div>
         <Image
           src="/banner.svg"
