@@ -10,15 +10,19 @@ import {
   View,
 } from "@react-pdf/renderer";
 import { MeetingInviteProps } from "../../page";
+import HeaderSvg from "./HeaderSvg";
 
 const styles = StyleSheet.create({
   page: {
     backgroundColor: "white",
-    padding: 20,
   },
   banner: {
     width: "100%",
     marginBottom: 20,
+  },
+  contentContainer: {
+    top: 270,
+    padding: "0 40px 40px 40px",
   },
   infoContainer: {
     display: "flex",
@@ -44,7 +48,7 @@ const styles = StyleSheet.create({
   agendaSection: {
     marginVertical: 20,
   },
-  agendaHeader: {
+  header: {
     fontFamily: "Circular",
     fontSize: 16,
     fontWeight: "bold",
@@ -55,19 +59,13 @@ const styles = StyleSheet.create({
     fontSize: 12,
     marginBottom: 5,
   },
-  moreInfoSection: {
+  columnSection: {
     flexDirection: "row",
     marginVertical: 20,
   },
   column: {
     flex: 1,
     paddingHorizontal: 10,
-  },
-  columnHeader: {
-    fontFamily: "Circular",
-    fontSize: 14,
-    fontWeight: "bold",
-    marginBottom: 8,
   },
   columnText: {
     fontFamily: "Circular",
@@ -99,55 +97,65 @@ const MeetingInvitePdf = ({
         size="A4"
         style={styles.page}
       >
-        {/* TODO: Add banner image once SVG support is configured */}
+        <HeaderSvg />
 
-        <View style={styles.infoContainer}>
-          <View style={styles.infoRow}>
-            <Text style={styles.label}>Aika:</Text>
-            <Text style={styles.value}>{date ? formatDate(date) : ""}</Text>
-          </View>
+        <View style={styles.contentContainer}>
+          <View style={styles.infoContainer}>
+            <View style={styles.infoRow}>
+              <Text style={styles.label}>Aika:</Text>
+              <Text style={styles.value}>{date ? formatDate(date) : ""}</Text>
+            </View>
 
-          <View style={styles.infoRow}>
-            <Text style={styles.label}>Paikka:</Text>
-            <Text style={styles.value}>
-              {location ? `${location.fin} / ${location.eng}` : ""}
-            </Text>
-          </View>
-        </View>
-
-        <View style={styles.agendaSection}>
-          <Text style={styles.agendaHeader}>Esityslista / Agenda</Text>
-          {agendaItems.map((item, index) => (
-            <View key={index}>
-              <Text style={styles.agendaItem}>{item.fin}</Text>
-              <Text style={[styles.agendaItem, { marginBottom: 15 }]}>
-                {item.eng}
+            <View style={styles.infoRow}>
+              <Text style={styles.label}>Paikka:</Text>
+              <Text style={styles.value}>
+                {location ? `${location.fin} / ${location.eng}` : ""}
               </Text>
             </View>
-          ))}
-        </View>
+          </View>
 
-        {moreInfo && (
-          <View style={styles.moreInfoSection}>
+          <View style={styles.columnSection}>
             <View style={styles.column}>
-              <Text style={styles.columnHeader}>Lisätietoa</Text>
-              <Text style={styles.columnText}>{moreInfo.fin}</Text>
+              <Text style={styles.header}>Esityslista</Text>
+              {agendaItems.map((item) => (
+                <View key={item.fin}>
+                  <Text style={styles.agendaItem}>{item.fin}</Text>
+                </View>
+              ))}
             </View>
+
             <View style={styles.column}>
-              <Text style={styles.columnHeader}>More info</Text>
-              <Text style={styles.columnText}>{moreInfo.eng}</Text>
+              <Text style={styles.header}>Agenda</Text>
+              {agendaItems.map((item) => (
+                <View key={item.eng}>
+                  <Text style={styles.agendaItem}>{item.eng}</Text>
+                </View>
+              ))}
             </View>
           </View>
-        )}
 
-        <View style={styles.footer}>
-          <View style={styles.column}>
-            <Text style={styles.columnHeader}>Tervetuloa</Text>
-            <Text style={styles.columnText}>-Asukastoimikuntasi</Text>
-          </View>
-          <View style={styles.column}>
-            <Text style={styles.columnHeader}>Welcome</Text>
-            <Text style={styles.columnText}>-Your tenant committee</Text>
+          {moreInfo && (
+            <View style={styles.columnSection}>
+              <View style={styles.column}>
+                <Text style={styles.header}>Lisätietoa</Text>
+                <Text style={styles.columnText}>{moreInfo.fin}</Text>
+              </View>
+              <View style={styles.column}>
+                <Text style={styles.header}>More info</Text>
+                <Text style={styles.columnText}>{moreInfo.eng}</Text>
+              </View>
+            </View>
+          )}
+
+          <View style={styles.footer}>
+            <View style={styles.column}>
+              <Text style={styles.header}>Tervetuloa</Text>
+              <Text style={styles.columnText}>-Asukastoimikuntasi</Text>
+            </View>
+            <View style={styles.column}>
+              <Text style={styles.header}>Welcome</Text>
+              <Text style={styles.columnText}>-Your tenant committee</Text>
+            </View>
           </View>
         </View>
       </Page>
