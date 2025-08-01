@@ -11,6 +11,6 @@
       "password": "pass"
     }
   ],
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "eslint.useFlatConfig": true
+  "typescript.tsdk": "node_modules/typescript/lib"
+  // "eslint.useFlatConfig": true
 }
