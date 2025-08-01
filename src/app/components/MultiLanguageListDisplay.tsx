@@ -1,5 +1,5 @@
 import { FinEng } from "@/types";
-import React, { useMemo } from "react";
+import React from "react";
 import { removeItem } from "../utils/removeItem";
 
 interface Props<T> {
@@ -55,7 +55,6 @@ const MultiLanguageListDisplay = <T,>({
   );
 };
 
-// Wrapper component that handles memoization
 interface BuilderProps<T> {
   data: T;
   setData: React.Dispatch<React.SetStateAction<T>>;
@@ -67,21 +66,18 @@ export const MultiLanguageListDisplayBuilder = <T,>({
   data,
   setData,
 }: BuilderProps<T>) => {
-  const Component = useMemo(() => {
-    const DisplayComponent = (
-      fieldKey: keyof T,
-      headers?: { finHeader?: string; engHeader?: string },
-    ) => (
-      <MultiLanguageListDisplay
-        data={data}
-        setData={setData}
-        fieldKey={fieldKey}
-        finHeader={headers?.finHeader}
-        engHeader={headers?.engHeader}
-      />
-    );
-    DisplayComponent.displayName = "MemoizedMultiLanguageListDisplay";
-    return DisplayComponent;
-  }, [data, setData]);
+  const Component = (
+    fieldKey: keyof T,
+    headers?: { finHeader?: string; engHeader?: string },
+  ) => (
+    <MultiLanguageListDisplay
+      data={data}
+      setData={setData}
+      fieldKey={fieldKey}
+      finHeader={headers?.finHeader}
+      engHeader={headers?.engHeader}
+    />
+  );
+
   return Component;
 };

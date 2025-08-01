@@ -48,7 +48,6 @@ const MeetingInviteContent = ({
         </div>
 
         <div>
-          <h2>Esityslista</h2>
           <div>
             {ListDisplay("agendaItems", {
               finHeader: dict.meetingInvite.agendaFin,
@@ -58,10 +57,16 @@ const MeetingInviteContent = ({
         </div>
 
         <div>
-          <h2>Lisätietoa</h2>
           <div className="grid grid-cols-2">
-            <div>{inviteData.moreInfo?.fin}</div>
-            <div>{inviteData.moreInfo?.eng}</div>
+            <div>
+              <h2>Lisätietoa</h2>
+              <div>{inviteData.moreInfo?.fin}</div>
+            </div>
+
+            <div>
+              <h2>More info</h2>
+              <div>{inviteData.moreInfo?.eng}</div>
+            </div>
           </div>
         </div>
 
