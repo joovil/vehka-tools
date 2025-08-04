@@ -55,7 +55,7 @@ const MeetingInviteSidebar = ({
         data={inviteData}
         fieldKey="date"
         placeholder={dict.meetingInvite.placeholders.date}
-        hasError={checkErrors}
+        hasError={checkErrors && !inviteData.date}
         errorMessage={dict.meetingInvite.errors.date}
       />
 
@@ -65,8 +65,8 @@ const MeetingInviteSidebar = ({
         fieldKey="location"
         placeholder={dict.meetingInvite.placeholders.location}
         hasError={
-          (checkErrors && !inviteData.location?.fin) ||
-          !inviteData.location?.eng
+          checkErrors &&
+          (!inviteData.location?.fin || !inviteData.location?.eng)
         }
         errorMessage={dict.meetingInvite.errors.location}
       />
@@ -76,7 +76,7 @@ const MeetingInviteSidebar = ({
         placeholder={dict.meetingInvite.placeholders.agenda}
         fieldKey="agendaItems"
         setData={setInviteData}
-        hasError={checkErrors}
+        hasError={checkErrors && inviteData.agendaItems.length <= 0}
         errorMessage={dict.meetingInvite.errors.agenda}
       />
 
