@@ -30,9 +30,8 @@ const MinutesSidebar = ({
 
   const handlePdfDownload = () => {
     setCheckErrors(true);
-    const dataValid = scrollToError();
 
-    if (!dataValid) return;
+    if (!dataValid()) return;
 
     downloadPdf({
       filename: `Kokouspöytäkirja-${formatDate(minutesData.endTime).split(" ")[0]}`,
@@ -40,8 +39,8 @@ const MinutesSidebar = ({
     });
   };
 
-  const scrollToError = (): boolean => {
-    preMeetingItemsFilled();
+  const dataValid = (): boolean => {
+    if (!preMeetingItemsFilled()) return false;
 
     if (!minutesData.examiners.examiner1 || !minutesData.examiners.examiner2) {
       scrollToElement("examiners-anchor");
@@ -94,7 +93,7 @@ const MinutesSidebar = ({
           fieldKey="location"
           setData={setMinutesData}
           errorMessage={dict.minutes.errors.location}
-          checkErrors={checkPreMeetingErrors}
+          hasError={checkPreMeetingErrors}
         />
 
         <DatetimeInput

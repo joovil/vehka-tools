@@ -64,7 +64,7 @@ const MeetingInviteSidebar = ({
         setData={setInviteData}
         fieldKey="location"
         placeholder={dict.meetingInvite.placeholders.location}
-        checkErrors={
+        hasError={
           (checkErrors && !inviteData.location?.fin) ||
           !inviteData.location?.eng
         }
