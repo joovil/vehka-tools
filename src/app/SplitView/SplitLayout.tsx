@@ -16,7 +16,7 @@ export default function SplitLayout({
         <MenuItems />
         {sidebar}
       </div>
-      <div className="flex flex-4/5 justify-center px-20 py-10">
+      <div className="flex-4/5 justify-center px-20 py-10">
         <div className="aspect-[1/1.4] overflow-y-auto bg-white shadow-lg">
           {children}
         </div>

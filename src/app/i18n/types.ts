@@ -67,6 +67,11 @@ export interface Dictionary {
   meetingInvite: {
     agendaFin: string;
     agendaEng: string;
+    errors: {
+      date: string;
+      location: string;
+      agenda: string;
+    };
     headers: {
       date: string;
       location: string;

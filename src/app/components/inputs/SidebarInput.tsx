@@ -11,6 +11,8 @@ interface Props<T> {
   setData: React.Dispatch<React.SetStateAction<T>>;
   type?: "text" | "number";
   header?: string;
+  hasError?: boolean;
+  errorMessage?: string;
 }
 
 const SidebarInput = <T,>({
@@ -21,6 +23,8 @@ const SidebarInput = <T,>({
   label,
   type = "text",
   header,
+  hasError,
+  errorMessage,
 }: Props<T>) => {
   const handleChange = (item: string) => {
     if (fieldKey) {
@@ -40,6 +44,8 @@ const SidebarInput = <T,>({
       label={label}
       type={type}
       header={header}
+      hasError={hasError}
+      errorMessage={errorMessage}
     />
   );
 };

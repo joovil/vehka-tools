@@ -9,6 +9,8 @@ interface Props<T> {
   placeholder: string;
   setData: React.Dispatch<React.SetStateAction<T>>;
   header?: string;
+  hasError?: boolean;
+  errorMessage?: string;
 }
 
 const MultiLanguageListInput = <T,>({
@@ -16,6 +18,8 @@ const MultiLanguageListInput = <T,>({
   fieldKey,
   placeholder,
   header,
+  hasError,
+  errorMessage,
 }: Props<T>) => {
   const dict = useTranslations();
 
@@ -45,6 +49,8 @@ const MultiLanguageListInput = <T,>({
         fieldKey={"fin"}
         value={newItem.fin}
         setData={setNewItem}
+        hasError={hasError}
+        errorMessage={errorMessage}
       />
       <h3>{dict.english}</h3>
       <SidebarInput
@@ -52,6 +58,8 @@ const MultiLanguageListInput = <T,>({
         fieldKey={"eng"}
         value={newItem.eng}
         setData={setNewItem}
+        hasError={hasError}
+        errorMessage={errorMessage}
       />
 
       <button

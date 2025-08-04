@@ -69,6 +69,11 @@
       "date": "Date",
       "location": "Location"
     },
+    "errors": {
+      "date": "Date is required",
+      "location": "Location is required",
+      "agenda": "Agenda needs atleast one item"
+    },
     "labels": {
       "date": "Time",
       "location": "Location",

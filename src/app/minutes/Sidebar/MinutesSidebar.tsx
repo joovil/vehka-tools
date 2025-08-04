@@ -30,7 +30,9 @@ const MinutesSidebar = ({
 
   const handlePdfDownload = () => {
     setCheckErrors(true);
-    scrollToError();
+    const dataValid = scrollToError();
+
+    if (!dataValid) return;
 
     downloadPdf({
       filename: `Kokouspöytäkirja-${formatDate(minutesData.endTime).split(" ")[0]}`,
@@ -38,12 +40,12 @@ const MinutesSidebar = ({
     });
   };
 
-  const scrollToError = () => {
+  const scrollToError = (): boolean => {
     preMeetingItemsFilled();
 
     if (!minutesData.examiners.examiner1 || !minutesData.examiners.examiner2) {
       scrollToElement("examiners-anchor");
-      return;
+      return false;
     }
 
     if (
@@ -52,8 +54,9 @@ const MinutesSidebar = ({
       !minutesData.signatures.examiner1 ||
       !minutesData.signatures.examiner2
     ) {
-      return;
+      return false;
     }
+    return true;
   };
 
   const preMeetingItemsFilled = (): boolean => {
