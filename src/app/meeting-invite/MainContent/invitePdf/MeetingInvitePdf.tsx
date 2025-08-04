@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
   agendaItem: {
     fontFamily: "Circular",
     fontSize: 12,
-    marginBottom: 5,
+    marginBottom: 2,
   },
   columnSection: {
     flexDirection: "row",

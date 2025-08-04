@@ -8,19 +8,19 @@ export default function SplitLayout({
   sidebar: React.ReactNode;
 }>) {
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen overflow-hidden">
       <div
-        className="flex-2/5 overflow-y-auto border-1 p-10"
+        className="lex-2/5 overflow-y-auto border-1 p-10"
         style={{ scrollbarGutter: "stable" }}
       >
         <MenuItems />
         {sidebar}
       </div>
-      <div className="flex-4/5 overflow-y-scroll p-10">
-        <div className="aspect-[1/1.4] max-w-[1000px] bg-white shadow-lg">
-          {children}
-        </div>
+      <div className="flex flex-4/5 justify-center overflow-scroll px-20 py-10">
+        <div className="aspect-[1/1.4] bg-white shadow-lg">{children}</div>
       </div>
     </div>
   );
 }
+
+// aspect-[1/1.4]

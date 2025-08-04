@@ -8,6 +8,7 @@ export interface Dictionary {
   toggleClose: string;
   openMenu: string;
   closeMenu: string;
+  download: string;
   minutes: {
     errors: {
       chairman: string;

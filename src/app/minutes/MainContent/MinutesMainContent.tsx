@@ -1,12 +1,10 @@
 "use client";
 
 import { MultiLanguageListDisplayBuilder } from "@/app/components/MultiLanguageListDisplay";
-import PdfPreview from "@/app/components/pdf/PdfPreview";
 import { useTranslations } from "@/app/i18n/TranslationsProvider";
 import { formatDate } from "@/app/utils/formatDate";
 import { removeItem } from "@/app/utils/removeItem";
 import { FinEng, Signatures } from "@/types";
-import MinutesPdf from "../MinutesPdf";
 import { MinutesData, MinutesProps } from "../page";
 
 const MinutesContent = ({
@@ -159,9 +157,6 @@ const MinutesContent = ({
           ))}
         </div>
       </div>
-      <PdfPreview>
-        <MinutesPdf data={minutesData} />
-      </PdfPreview>
     </div>
   );
 };

@@ -208,7 +208,7 @@ const MinutesSidebar = ({
         className="mt-2"
         onClick={handlePdfDownload}
       >
-        Download
+        {dict.download}
       </button>
     </div>
   );
