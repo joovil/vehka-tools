@@ -21,18 +21,17 @@ export function SplitPage<T>({
 
   return (
     <SplitLayout
-      children={
-        <MainContent
-          data={data}
-          setData={setData}
-        />
-      }
       sidebar={
         <Sidebar
           data={data}
           setData={setData}
         />
       }
-    />
+    >
+      <MainContent
+        data={data}
+        setData={setData}
+      />
+    </SplitLayout>
   );
 }
