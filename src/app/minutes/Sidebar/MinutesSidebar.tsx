@@ -1,5 +1,6 @@
 "use client";
 
+import { savePdf } from "@/app/api/services/savePdf";
 import Dropdown from "@/app/components/Dropdown";
 import MultiLanguageInput from "@/app/components/inputs/MultiLanguageInput";
 import MultiLanguageListInput from "@/app/components/inputs/MultiLanguageListInput";
@@ -8,7 +9,6 @@ import SidebarListInput from "@/app/components/inputs/SidebarListInput";
 import { downloadPdf } from "@/app/components/pdf/downloadPdf";
 import ScrollAnchor from "@/app/components/ScrollAnchor";
 import { useTranslations } from "@/app/i18n/TranslationsProvider";
-import { formatDate } from "@/app/utils/formatDate";
 import { scrollToElement } from "@/app/utils/scrollToElement";
 import { useState } from "react";
 import DatetimeInput from "../../components/inputs/DatetimeInput";
@@ -28,15 +28,24 @@ const MinutesSidebar = ({
     useState<boolean>(false);
   const [checkErrors, setCheckErrors] = useState<boolean>(false);
 
-  const handlePdfDownload = () => {
-    setCheckErrors(true);
+  const handlePdfDownload = async () => {
+    try {
+      setCheckErrors(true);
 
-    if (!dataValid()) return;
+      if (!dataValid()) return;
 
-    downloadPdf({
-      filename: `Kokouspöytäkirja-${formatDate(minutesData.endTime).split(" ")[0]}`,
-      pdfElement: <MinutesPdf data={minutesData} />,
-    });
+      const filename = `Kokouspöytäkirja-${minutesData.endTime?.getDate()}_${minutesData.endTime!.getMonth() + 1}_${minutesData.endTime?.getFullYear()}`;
+
+      const newMinutesBlob = await downloadPdf({
+        filename,
+        pdfElement: <MinutesPdf data={minutesData} />,
+      });
+
+      const res = await savePdf(filename, newMinutesBlob);
+      console.log(res);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const dataValid = (): boolean => {

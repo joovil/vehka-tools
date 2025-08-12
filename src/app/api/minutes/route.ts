@@ -41,7 +41,8 @@ export const POST = async (req: Request) => {
       );
     }
 
-    const uploadBlobResponse = await uploadFile(filename, blob);
+    const filenameWithPath = `tempTenantCommittee/minutes/${filename}`;
+    const uploadBlobResponse = await uploadFile(filenameWithPath, blob);
 
     return Response.json({
       message: "File stored",
