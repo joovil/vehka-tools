@@ -2,9 +2,10 @@ import { Generated, Insertable, Selectable, Updateable } from "kysely";
 
 export interface MinutesTable {
   id: Generated<number>;
-  minutesFile: string;
+  filename: string;
+  blobUrl: string;
   minutesNumber: number;
-  createdDate: Date;
+  created: Date;
 }
 
 export type Minutes = Selectable<MinutesTable>;
