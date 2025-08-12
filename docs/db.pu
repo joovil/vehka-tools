@@ -4,15 +4,26 @@ hide circle
 skinparam linetype ortho
 
 !define primary_key(x) <b><&key> x</b>
+!define foreign_key(x) <i><&key> x</i>
 !define column(x) <&media-record> x
+
+
+entity "tenant_committees" as tenant_committees {
+  primary_key( id ): UUID
+  --
+  name: TEXT
+}
 
 entity "minutes" as minutes {
   primary_key( id ): SERIAL
   --
-  *file : TEXT
-  *number : INTEGER
-  *createad_date : DATE
+  foreign_key( tenant_committee ): UUID <<FK>>
+  filename : TEXT
+  blobUrl: TEXT
+  number: TEXT
+  created: DATE
 }
 
+tenant_committees ||--|| minutes
 
 @enduml
