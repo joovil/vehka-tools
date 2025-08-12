@@ -1,0 +1,54 @@
+import { getMinutes } from "@/server/db/repos/minutesRepo";
+import { uploadFile } from "@/server/utils/uploadFile";
+
+export const GET = async () => {
+  try {
+    const minutes = await getMinutes();
+    return Response.json(minutes);
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message);
+    }
+    return Response.json({ message: "error" }, { status: 400 });
+  }
+};
+
+export const POST = async (req: Request) => {
+  try {
+    const formData = await req.formData();
+
+    const file = formData.get("file");
+    const filename = formData.get("filename");
+
+    if (!(file instanceof File)) {
+      return Response.json(
+        { error: "File must be a File object" },
+        { status: 400 },
+      );
+    }
+
+    if (typeof filename !== "string") {
+      return Response.json(
+        { error: "Filename must be a string" },
+        { status: 400 },
+      );
+    }
+
+    if (!file || !filename) {
+      return Response.json(
+        { error: "Missing filename or blob data" },
+        { status: 400 },
+      );
+    }
+
+    const uploadBlobResponse = await uploadFile(filename, file);
+
+    return Response.json({
+      message: "File stored",
+      blobId: uploadBlobResponse.requestId,
+    });
+  } catch (error) {
+    console.error(error);
+    return Response.json({ error: "Error message missing" });
+  }
+};
