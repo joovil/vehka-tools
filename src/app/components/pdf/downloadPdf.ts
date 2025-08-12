@@ -9,6 +9,7 @@ export const downloadPdf = async ({
   pdfElement: React.ReactElement<any>;
 }) => {
   const blob = await pdf(pdfElement).toBlob();
+  console.log(blob);
 
   const url = URL.createObjectURL(blob);
 
@@ -22,4 +23,6 @@ export const downloadPdf = async ({
 
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
+
+  return blob;
 };

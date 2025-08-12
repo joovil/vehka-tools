@@ -1,5 +1,6 @@
 "use client";
 
+import { savePdf } from "@/app/api/services/savePdf";
 import DatetimeInput from "@/app/components/inputs/DatetimeInput";
 import MultiLanguageInput from "@/app/components/inputs/MultiLanguageInput";
 import MultiLanguageListInput from "@/app/components/inputs/MultiLanguageListInput";
@@ -19,17 +20,21 @@ const MeetingInviteSidebar = ({
 
   const [checkErrors, setCheckErrors] = useState<boolean>(false);
 
-  const handlePdfDownload = () => {
+  const handlePdfDownload = async () => {
     if (!dataValid()) return;
 
     const date = new Date();
     const dateString =
       date.getDate() + "_" + (date.getMonth() + 1) + "_" + date.getFullYear();
 
-    downloadPdf({
-      filename: `Kokouspöytäkirja-${dateString}`,
+    const filename = `Kokouspöytäkirja-${dateString}`;
+
+    const pdfBlob = await downloadPdf({
+      filename: filename,
       pdfElement: <MeetingInvitePdf data={inviteData} />,
     });
+
+    await savePdf(filename, pdfBlob);
   };
 
   const dataValid = () => {

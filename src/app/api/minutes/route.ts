@@ -17,10 +17,10 @@ export const POST = async (req: Request) => {
   try {
     const formData = await req.formData();
 
-    const file = formData.get("file");
+    const blob = formData.get("blob");
     const filename = formData.get("filename");
 
-    if (!(file instanceof File)) {
+    if (!(blob instanceof File)) {
       return Response.json(
         { error: "File must be a File object" },
         { status: 400 },
@@ -34,14 +34,14 @@ export const POST = async (req: Request) => {
       );
     }
 
-    if (!file || !filename) {
+    if (!blob || !filename) {
       return Response.json(
         { error: "Missing filename or blob data" },
         { status: 400 },
       );
     }
 
-    const uploadBlobResponse = await uploadFile(filename, file);
+    const uploadBlobResponse = await uploadFile(filename, blob);
 
     return Response.json({
       message: "File stored",

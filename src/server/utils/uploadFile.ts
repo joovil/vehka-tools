@@ -11,7 +11,7 @@ export class AzureStorageError extends Error {
   }
 }
 
-export const uploadFile = async (filename: string, file: File) => {
+export const uploadFile = async (filename: string, blob: Blob) => {
   let blobServiceClient: BlobServiceClient;
 
   try {
@@ -37,13 +37,13 @@ export const uploadFile = async (filename: string, file: File) => {
 
     // Ensure container exists
     await containerClient.createIfNotExists({
-      access: "blob", // or your preferred access level
+      access: "blob",
     });
 
     const blockBlobClient = containerClient.getBlockBlobClient(filename);
 
     // Convert File to ArrayBuffer
-    const arrayBuffer = await file.arrayBuffer();
+    const arrayBuffer = await blob.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
 
     const uploadBlobResponse = await blockBlobClient.uploadData(buffer);
