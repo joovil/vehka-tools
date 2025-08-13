@@ -1,0 +1,12 @@
+services:
+  test-db:
+    container_name: vehka-test-db
+    image: postgres
+    volumes:
+      - ./db_data:/var/lib/postgresql/data
+      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: pass
+    ports:
+      - 5433:5432
