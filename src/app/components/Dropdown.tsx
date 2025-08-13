@@ -38,7 +38,7 @@ const Dropdown = ({
       </div>
 
       <div
-        className={`pb-2 transition-all ease-in-out`}
+        className="flex flex-col gap-2 pb-2 transition-all ease-in-out"
         style={{
           transitionDuration: transitionDuration,
           ...((isOpen && !handledExternally) || open

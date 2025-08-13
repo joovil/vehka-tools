@@ -7,11 +7,10 @@ import MultiLanguageListInput from "@/app/components/inputs/MultiLanguageListInp
 import SidebarInput from "@/app/components/inputs/SidebarInput";
 import SidebarListInput from "@/app/components/inputs/SidebarListInput";
 import { downloadPdf } from "@/app/components/pdf/downloadPdf";
-import ScrollAnchor from "@/app/components/ScrollAnchor";
 import { useTranslations } from "@/app/i18n/TranslationsProvider";
-import { scrollToElement } from "@/app/utils/scrollToElement";
 import { useState } from "react";
 import DatetimeInput from "../../components/inputs/DatetimeInput";
+import { useFormValidation } from "../hooks/useFormValidation";
 import MinutesPdf from "../MinutesPdf";
 import { MinutesProps } from "../page";
 import DateButton from "./DateButton";
@@ -23,16 +22,15 @@ const MinutesSidebar = ({
   setData: setMinutesData,
 }: MinutesProps) => {
   const dict = useTranslations();
+  const [endMeeting, setEndMeeting] = useState<boolean>(false);
 
-  const [checkPreMeetingErrors, setCheckPreMeetingErrors] =
-    useState<boolean>(false);
-  const [checkErrors, setCheckErrors] = useState<boolean>(false);
+  const { formDataValid, checkErrors, preMeetingValid, checkPreMeetingErrors } =
+    // This validates the input data and scrolls to errors
+    useFormValidation(minutesData);
 
   const handlePdfDownload = async () => {
     try {
-      setCheckErrors(true);
-
-      if (!dataValid()) return;
+      if (!formDataValid()) return;
 
       const filename = `Kokouspöytäkirja-${minutesData.endTime?.getDate()}_${minutesData.endTime!.getMonth() + 1}_${minutesData.endTime?.getFullYear()}`;
 
@@ -48,119 +46,84 @@ const MinutesSidebar = ({
     }
   };
 
-  const dataValid = (): boolean => {
-    if (!preMeetingItemsFilled()) return false;
-
-    if (!minutesData.examiners.examiner1 || !minutesData.examiners.examiner2) {
-      scrollToElement("examiners-anchor");
-      return false;
-    }
-
-    if (
-      !minutesData.signatures.chairman ||
-      !minutesData.signatures.secretary ||
-      !minutesData.signatures.examiner1 ||
-      !minutesData.signatures.examiner2
-    ) {
-      return false;
-    }
-    return true;
-  };
-
-  const preMeetingItemsFilled = (): boolean => {
-    if (
-      !minutesData.location?.fin ||
-      !minutesData.location?.eng ||
-      !minutesData.timeOfMeeting
-    ) {
-      scrollToElement("location-anchor");
-      return false;
-    }
-
-    if (minutesData.attendants.length <= 0) {
-      scrollToElement("attendants-anchor");
-      return false;
-    }
-    return true;
-  };
-
   return (
     <div className="flex flex-col gap-2">
       {/* ###################### Pre-meeting ###################### */}
-      <ScrollAnchor id={"location-anchor"} />
-      <Dropdown header={dict.minutes.labels.location}>
-        <SidebarInput
-          fieldKey="minutesNumber"
-          setData={setMinutesData}
-          label={dict.minutes.labels.minutesNumber}
-          placeholder={dict.minutes.placeholders.minutesNumber}
-          type="number"
-        />
+      <div id="location-anchor">
+        <Dropdown header={dict.minutes.labels.location}>
+          <SidebarInput
+            fieldKey="minutesNumber"
+            setData={setMinutesData}
+            label={dict.minutes.labels.minutesNumber}
+            placeholder={dict.minutes.placeholders.minutesNumber}
+            type="number"
+          />
 
-        <MultiLanguageInput
-          placeholder={dict.minutes.placeholders.location}
-          fieldKey="location"
-          setData={setMinutesData}
-          errorMessage={dict.minutes.errors.location}
-          hasError={checkPreMeetingErrors}
-        />
+          <MultiLanguageInput
+            placeholder={dict.minutes.placeholders.location}
+            fieldKey="location"
+            setData={setMinutesData}
+            errorMessage={dict.minutes.errors.location}
+            hasError={checkPreMeetingErrors}
+          />
 
-        <DatetimeInput
-          label={dict.minutes.labels.timeOfMeeting}
-          placeholder={dict.minutes.placeholders.timeOfMeeting}
-          data={minutesData}
-          setData={setMinutesData}
-          fieldKey="timeOfMeeting"
-          showButton={false}
-          errorMessage={dict.minutes.errors.timeOfMeeting}
-          hasError={!minutesData.timeOfMeeting && checkPreMeetingErrors}
-        />
-      </Dropdown>
+          <DatetimeInput
+            label={dict.minutes.labels.timeOfMeeting}
+            placeholder={dict.minutes.placeholders.timeOfMeeting}
+            data={minutesData}
+            setData={setMinutesData}
+            fieldKey="timeOfMeeting"
+            showButton={false}
+            errorMessage={dict.minutes.errors.timeOfMeeting}
+            hasError={!minutesData.timeOfMeeting && checkPreMeetingErrors}
+          />
+        </Dropdown>
+      </div>
 
-      <ScrollAnchor id={"attendants-anchor"} />
-      <Dropdown header={dict.minutes.labels.attendants}>
-        <SidebarListInput
-          placeholder={dict.minutes.labels.attendants}
-          fieldKey="attendants"
-          setData={setMinutesData}
-          errorMessage={dict.minutes.errors.attendants}
-          hasError={minutesData.attendants.length <= 0 && checkPreMeetingErrors}
-        />
-      </Dropdown>
-      {/* ###################### Pre-meeting ###################### */}
+      <div id="attendants-anchor">
+        <Dropdown header={dict.minutes.labels.attendants}>
+          <SidebarListInput
+            placeholder={dict.minutes.labels.attendants}
+            fieldKey="attendants"
+            setData={setMinutesData}
+            errorMessage={dict.minutes.errors.attendants}
+            hasError={
+              minutesData.attendants.length <= 0 && checkPreMeetingErrors
+            }
+          />
+        </Dropdown>
+      </div>
+      {/* ###################### Meeting ###################### */}
 
       <Dropdown header={dict.minutes.labels.startTime}>
         <DateButton
           onClick={(setDate) => {
-            const ready = preMeetingItemsFilled();
-            if (!ready) {
-              setCheckPreMeetingErrors(true);
-              return;
-            }
+            if (!preMeetingValid()) return;
             setDate();
           }}
-          className="mt-2"
           buttonLabel={dict.minutes.buttons.startTime}
           minutesData={minutesData}
           setMinutesData={setMinutesData}
           fieldKey="startTime"
+          disabled={false}
         />
       </Dropdown>
 
-      <ScrollAnchor id={"examiners-anchor"} />
       <Dropdown
         handledExternally={true}
         open={minutesData.startTime !== undefined}
-        maxHeight="1300px"
+        maxHeight="1500px"
         transitionDuration="700"
       >
-        <Dropdown header={dict.minutes.labels.examiners}>
-          <ExaminerInput
-            data={minutesData}
-            setData={setMinutesData}
-            errorMessage={checkErrors ? dict.minutes.errors.examiners : ""}
-          />
-        </Dropdown>
+        <div id="examiners-anchor">
+          <Dropdown header={dict.minutes.labels.examiners}>
+            <ExaminerInput
+              data={minutesData}
+              setData={setMinutesData}
+              errorMessage={checkErrors ? dict.minutes.errors.examiners : ""}
+            />
+          </Dropdown>
+        </div>
 
         <Dropdown header={dict.minutes.labels.items}>
           <MultiLanguageListInput
@@ -196,16 +159,6 @@ const MinutesSidebar = ({
           />
         </Dropdown>
 
-        <Dropdown header={dict.minutes.labels.endTime}>
-          <DateButton
-            className="mt-2"
-            buttonLabel={dict.minutes.buttons.endTime}
-            minutesData={minutesData}
-            setMinutesData={setMinutesData}
-            fieldKey="endTime"
-          />
-        </Dropdown>
-
         <Dropdown header={dict.minutes.labels.signatures}>
           <SignaturesInput
             minutesData={minutesData}
@@ -213,14 +166,26 @@ const MinutesSidebar = ({
             checkErrors={checkErrors}
           />
         </Dropdown>
+
+        <Dropdown header={dict.minutes.labels.endTime}>
+          <DateButton
+            onClick={(setData) => {
+              if (!formDataValid()) return;
+              setEndMeeting(true);
+              setData();
+            }}
+            className="mt-2"
+            buttonLabel={dict.minutes.buttons.endTime}
+            minutesData={minutesData}
+            setMinutesData={setMinutesData}
+            fieldKey="endTime"
+          />
+        </Dropdown>
       </Dropdown>
 
-      <button
-        className="mt-2"
-        onClick={handlePdfDownload}
-      >
-        {dict.download}
-      </button>
+      {endMeeting && (
+        <button onClick={handlePdfDownload}>{dict.download}</button>
+      )}
     </div>
   );
 };

@@ -12,6 +12,7 @@ interface Props {
   ref?: React.RefObject<HTMLDivElement>;
   className?: string;
   onClick?: (setDate: () => void) => void;
+  disabled?: boolean;
 }
 
 const DateButton = ({
@@ -22,6 +23,7 @@ const DateButton = ({
   ref,
   className,
   onClick,
+  disabled,
 }: Props) => {
   const setDate = () => {
     setMinutesData({ ...minutesData, [fieldKey]: new Date() });
@@ -33,6 +35,7 @@ const DateButton = ({
       ref={ref}
     >
       <button
+        className="mt-2"
         onClick={() => {
           if (onClick) {
             onClick(setDate);
@@ -40,11 +43,12 @@ const DateButton = ({
             setDate();
           }
         }}
-        disabled={!!minutesData[fieldKey]}
+        // disabled={!!minutesData[fieldKey]}
+        disabled={disabled}
       >
         {buttonLabel}
       </button>
-      <div className="input-wrapper">
+      <div className="input-wrapper mt-2">
         {formatDate(minutesData[fieldKey]) || "_"}
       </div>
     </div>
