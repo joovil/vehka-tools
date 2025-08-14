@@ -7,23 +7,23 @@ skinparam linetype ortho
 !define foreign_key(x) <i><&key> x</i>
 !define column(x) <&media-record> x
 
-
-entity "tenant_committees" as tenant_committees {
-  primary_key( id ): UUID
+entity "committees" as committees {
+  primary_key( id ): int IDENTITY
   --
   name: TEXT
+  password: TEXT
 }
 
 entity "minutes" as minutes {
-  primary_key( id ): SERIAL
+  primary_key( id ): int IDENTITY
   --
-  foreign_key( tenant_committee ): UUID <<FK>>
+  foreign_key( committee_id ): INTEGER <<FK>>
   filename : TEXT
   blobUrl: TEXT
   number: TEXT
   created: DATE
 }
 
-tenant_committees ||--|| minutes
+committees ||--o{ minutes
 
 @enduml

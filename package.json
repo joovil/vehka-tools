@@ -8,8 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "test": "NODE_ENV=test node --import tsx --test src/**/*.spec.ts",
-    "pretty": "prettier --write \"./src/**/*.{js,jsx,mjs,cjs,ts,tsx,json}\"",
-    "db:reset": "docker compose down && rm -rf db_data"
+    "pretty": "prettier --write \"./src/**/*.{js,jsx,mjs,cjs,ts,tsx,json}\""
   },
   "dependencies": {
     "@azure/identity": "^4.11.1",

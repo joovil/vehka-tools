@@ -1,13 +1,13 @@
 import { Generated, Insertable, Selectable, Updateable } from "kysely";
 
-export interface TenantCommitteeTable {
+export interface CommitteeTable {
   id: Generated<number>;
   name: string;
 }
 
-export type TenantCommittee = Selectable<TenantCommitteeTable>;
-export type NewTenantCommittee = Insertable<TenantCommitteeTable>;
-export type TenantCommitteeUpdate = Updateable<TenantCommitteeTable>;
+export type Committee = Selectable<CommitteeTable>;
+export type NewCommittee = Insertable<CommitteeTable>;
+export type CommitteeUpdate = Updateable<CommitteeTable>;
 
 export interface MinutesTable {
   id: Generated<number>;
@@ -24,5 +24,5 @@ export type MinutesUpdate = Updateable<MinutesTable>;
 
 export interface Database {
   minutes: MinutesTable;
-  tenantCommittees: TenantCommitteeTable;
+  committees: CommitteeTable;
 }
