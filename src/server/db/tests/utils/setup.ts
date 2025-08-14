@@ -6,14 +6,14 @@ import { db } from "../../database.js";
 
 before(async () => {
   console.log("Clearing db");
-  await sql`TRUNCATE TABLE minutes, tenant_committees RESTART IDENTITY CASCADE`.execute(
+  await sql`TRUNCATE TABLE minutes, committees RESTART IDENTITY CASCADE`.execute(
     db,
   );
 });
 
 after(async () => {
   console.log("Cleaning up after tests");
-  await sql`TRUNCATE TABLE minutes, tenant_committees RESTART IDENTITY CASCADE`.execute(
+  await sql`TRUNCATE TABLE minutes, committees RESTART IDENTITY CASCADE`.execute(
     db,
   );
   await db.destroy();

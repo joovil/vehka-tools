@@ -3,6 +3,7 @@ import { Generated, Insertable, Selectable, Updateable } from "kysely";
 export interface CommitteeTable {
   id: Generated<number>;
   name: string;
+  password: string;
 }
 
 export type Committee = Selectable<CommitteeTable>;
@@ -11,7 +12,7 @@ export type CommitteeUpdate = Updateable<CommitteeTable>;
 
 export interface MinutesTable {
   id: Generated<number>;
-  tenantCommitteeId: number;
+  committeeId: number;
   filename: string;
   blobUrl: string;
   number: string;

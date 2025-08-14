@@ -13,6 +13,6 @@ CREATE TABLE minutes(
   blob_url text,
   number text,
   created date,
-  committee integer REFERENCES committees(id)
+  committee_id integer REFERENCES committees(id)
 );
 

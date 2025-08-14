@@ -7,24 +7,25 @@ import { db } from "../database";
 import { addMinutes, getMinutes } from "../repos/minutesRepo";
 
 describe("Minutes Repository", () => {
-  let tenantCommitteeId: number;
+  let committeeId: number;
 
   beforeEach(async () => {
     // Clean tables before each test
-    await sql`TRUNCATE TABLE minutes, tenant_committees RESTART IDENTITY CASCADE`.execute(
+    await sql`TRUNCATE TABLE minutes, committees RESTART IDENTITY CASCADE`.execute(
       db,
     );
 
-    // Create a test tenant committee
+    // Create a test committee
     const result = await db
-      .insertInto("tenantCommittees")
+      .insertInto("committees")
       .values({
         name: "Test Committee",
+        password: "TestPassword",
       })
       .returning("id")
       .executeTakeFirstOrThrow();
 
-    tenantCommitteeId = result.id;
+    committeeId = result.id;
   });
 
   describe("getMinutes", () => {
@@ -39,13 +40,13 @@ describe("Minutes Repository", () => {
       await addMinutes({
         filename: "test-minutes-1.pdf",
         blobUrl: "https://example.com/blob1",
-        tenantCommitteeId,
+        committeeId,
       });
 
       await addMinutes({
         filename: "test-minutes-2.pdf",
         blobUrl: "https://example.com/blob2",
-        tenantCommitteeId,
+        committeeId,
       });
 
       const minutes = await getMinutes();
@@ -62,14 +63,14 @@ describe("Minutes Repository", () => {
       await addMinutes({
         filename: "first-minutes.pdf",
         blobUrl: "https://example.com/blob",
-        tenantCommitteeId,
+        committeeId,
       });
 
       const minutes = await getMinutes();
       assert.strictEqual(minutes.length, 1);
       assert.strictEqual(minutes[0].filename, "first-minutes.pdf");
       assert.strictEqual(minutes[0].blobUrl, "https://example.com/blob");
-      assert.strictEqual(minutes[0].tenantCommitteeId, tenantCommitteeId);
+      assert.strictEqual(minutes[0].committeeId, committeeId);
       assert.strictEqual(minutes[0].number, `1/${currentYear}`);
       assert.strictEqual(minutes[0].created instanceof Date, true);
     });
@@ -81,14 +82,14 @@ describe("Minutes Repository", () => {
       await addMinutes({
         filename: "first-minutes.pdf",
         blobUrl: "https://example.com/blob1",
-        tenantCommitteeId,
+        committeeId,
       });
 
       // Add second minutes
       await addMinutes({
         filename: "second-minutes.pdf",
         blobUrl: "https://example.com/blob2",
-        tenantCommitteeId,
+        committeeId,
       });
 
       const minutes = await getMinutes();
@@ -108,14 +109,15 @@ describe("Minutes Repository", () => {
       assert.strictEqual(secondMinutes.number, `2/${currentYear}`);
     });
 
-    it("should handle multiple tenant committees separately", async () => {
+    it("should handle multiple committees separately", async () => {
       const currentYear = new Date().getFullYear();
 
-      // Create second tenant committee
+      // Create second committee
       const secondCommittee = await db
-        .insertInto("tenantCommittees")
+        .insertInto("committees")
         .values({
           name: "Second Committee",
+          password: "SecondPassword",
         })
         .returning("id")
         .executeTakeFirstOrThrow();
@@ -124,31 +126,31 @@ describe("Minutes Repository", () => {
       await addMinutes({
         filename: "committee1-minutes.pdf",
         blobUrl: "https://example.com/blob1",
-        tenantCommitteeId,
+        committeeId: committeeId,
       });
 
       // Add minutes for second committee
       await addMinutes({
         filename: "committee2-minutes.pdf",
         blobUrl: "https://example.com/blob2",
-        tenantCommitteeId: secondCommittee.id,
+        committeeId: secondCommittee.id,
       });
 
       // Add another for first committee
       await addMinutes({
         filename: "committee1-minutes-2.pdf",
         blobUrl: "https://example.com/blob3",
-        tenantCommitteeId,
+        committeeId: committeeId,
       });
 
       const minutes = await getMinutes();
       assert.strictEqual(minutes.length, 3);
 
       const committee1Minutes = minutes.filter(
-        (m) => m.tenantCommitteeId === tenantCommitteeId,
+        (m) => m.committeeId === committeeId,
       );
       const committee2Minutes = minutes.filter(
-        (m) => m.tenantCommitteeId === secondCommittee.id,
+        (m) => m.committeeId === secondCommittee.id,
       );
 
       assert.strictEqual(committee1Minutes.length, 2);
@@ -169,7 +171,7 @@ describe("Minutes Repository", () => {
       await addMinutes({
         filename: "date-test-minutes.pdf",
         blobUrl: "https://example.com/blob",
-        tenantCommitteeId,
+        committeeId: committeeId,
       });
 
       const minutes = await getMinutes();
@@ -200,11 +202,11 @@ describe("Minutes Repository", () => {
 
       let errorThrown = false;
       try {
-        // Try to add minutes with invalid tenant committee ID
+        // Try to add minutes with invalid committee ID
         await addMinutes({
           filename: "invalid-minutes.pdf",
           blobUrl: "https://example.com/blob",
-          tenantCommitteeId: 99999, // Non-existent ID
+          committeeId: 99999, // Non-existent ID
         });
       } catch (error) {
         errorThrown = true;

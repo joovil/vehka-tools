@@ -8,11 +8,11 @@ export const getMinutes = async () => {
 export const addMinutes = async ({
   filename,
   blobUrl,
-  tenantCommitteeId,
+  committeeId,
 }: {
   filename: string;
   blobUrl: string;
-  tenantCommitteeId: number;
+  committeeId: number;
 }) => {
   await db.transaction().execute(async (trx) => {
     const year = new Date().getFullYear();
@@ -20,7 +20,7 @@ export const addMinutes = async ({
     const [{ count }] = await trx
       .selectFrom("minutes")
       .select((eb) => eb.fn.count("id").as("count"))
-      .where("tenantCommitteeId", "=", tenantCommitteeId)
+      .where("committeeId", "=", committeeId)
       .where(sql`EXTRACT(YEAR FROM "created")`, "=", year)
       .execute();
 
@@ -29,7 +29,7 @@ export const addMinutes = async ({
     const newEntry = await trx
       .insertInto("minutes")
       .values({
-        tenantCommitteeId: tenantCommitteeId,
+        committeeId,
         filename,
         blobUrl,
         number: `${entryNumber}/${year}`,
