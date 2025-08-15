@@ -3,7 +3,7 @@ import { Generated, Insertable, Selectable, Updateable } from "kysely";
 export interface CommitteeTable {
   id: Generated<number>;
   name: string;
-  password: string;
+  passwordHash: string;
 }
 
 export type Committee = Selectable<CommitteeTable>;

@@ -4,7 +4,7 @@ import { sql } from "kysely";
 import assert from "node:assert";
 import { beforeEach, describe, it } from "node:test";
 import { db } from "../database";
-import { createCommittee, getCommittee } from "../repos/committeesRepo";
+import { createCommittee, getCommitteeById } from "../repos/committeesRepo";
 
 /**
  * Test suite for Committee Repository functions
@@ -35,7 +35,7 @@ describe("Committee Repository", () => {
 
       assert.ok(committee);
       assert.strictEqual(committee.name, name);
-      assert.strictEqual(committee.password, password);
+      assert.strictEqual(committee.passwordHash, password);
       assert.ok(typeof committee.id === "number");
       assert.ok(committee.id > 0);
     });
@@ -58,15 +58,22 @@ describe("Committee Repository", () => {
       const committee = await createCommittee(name, password);
 
       assert.strictEqual(committee.name, name);
-      assert.strictEqual(committee.password, password);
+      assert.strictEqual(committee.passwordHash, password);
     });
 
-    it("should handle empty strings", async () => {
-      const committee = await createCommittee("", "");
-
-      assert.strictEqual(committee.name, "");
-      assert.strictEqual(committee.password, "");
-      assert.ok(typeof committee.id === "number");
+    it("should not create a committee with empty strings", async () => {
+      let errorThrown = false;
+      try {
+        await createCommittee("", "");
+      } catch (error) {
+        errorThrown = true;
+        assert.ok(error instanceof Error);
+      }
+      assert.strictEqual(
+        errorThrown,
+        true,
+        "Expected an error to be thrown for empty name and password",
+      );
     });
 
     it("should handle long strings", async () => {
@@ -76,20 +83,27 @@ describe("Committee Repository", () => {
       const committee = await createCommittee(longName, longPassword);
 
       assert.strictEqual(committee.name, longName);
-      assert.strictEqual(committee.password, longPassword);
+      assert.strictEqual(committee.passwordHash, longPassword);
     });
 
-    it("should allow duplicate names with different passwords", async () => {
+    it("should not allow duplicate names", async () => {
       const name = "Duplicate Name Committee";
 
-      const committee1 = await createCommittee(name, "Password1");
-      const committee2 = await createCommittee(name, "Password2");
+      await createCommittee(name, "Password1");
 
-      assert.strictEqual(committee1.name, name);
-      assert.strictEqual(committee2.name, name);
-      assert.strictEqual(committee1.password, "Password1");
-      assert.strictEqual(committee2.password, "Password2");
-      assert.notStrictEqual(committee1.id, committee2.id);
+      let errorThrown = false;
+      try {
+        await createCommittee(name, "Password2");
+      } catch (error) {
+        errorThrown = true;
+        assert.ok(error instanceof Error);
+      }
+
+      assert.strictEqual(
+        errorThrown,
+        true,
+        "Expected an error to be thrown for duplicate committee name",
+      );
     });
 
     it("should handle Unicode characters", async () => {
@@ -99,7 +113,7 @@ describe("Committee Repository", () => {
       const committee = await createCommittee(unicodeName, unicodePassword);
 
       assert.strictEqual(committee.name, unicodeName);
-      assert.strictEqual(committee.password, unicodePassword);
+      assert.strictEqual(committee.passwordHash, unicodePassword);
     });
   });
 
@@ -114,22 +128,23 @@ describe("Committee Repository", () => {
     });
 
     it("should retrieve committee by ID", async () => {
-      const committee = await getCommittee(testCommitteeId);
+      const committee = await getCommitteeById(testCommitteeId);
 
       assert.ok(committee);
       assert.strictEqual(committee.name, "Test Committee");
-      assert.strictEqual(committee.password, "TestPassword");
+      assert.strictEqual(committee.passwordHash, "TestPassword");
     });
 
-    it("should return only name and password fields", async () => {
-      const committee = await getCommittee(testCommitteeId);
+    it("should return all fields", async () => {
+      const committee = await getCommitteeById(testCommitteeId);
 
-      // Verify only expected fields are present
+      // Verify all expected fields are present
       const keys = Object.keys(committee);
-      assert.strictEqual(keys.length, 2);
+      assert.ok(keys.includes("id"));
       assert.ok(keys.includes("name"));
-      assert.ok(keys.includes("password"));
-      assert.ok(!keys.includes("id"));
+      assert.ok(keys.includes("passwordHash"));
+      // Optionally, check the number of fields if you expect exactly 3
+      assert.strictEqual(keys.length, 3);
     });
 
     it("should throw error when committee does not exist", async () => {
@@ -137,7 +152,7 @@ describe("Committee Repository", () => {
 
       let errorThrown = false;
       try {
-        await getCommittee(nonExistentId);
+        await getCommitteeById(nonExistentId);
       } catch (error) {
         errorThrown = true;
         assert.ok(error instanceof Error);
@@ -162,18 +177,18 @@ describe("Committee Repository", () => {
       const committee3 = await createCommittee("Committee 3", "Password3");
 
       // Get each committee and verify correct data
-      const retrieved1 = await getCommittee(testCommitteeId);
-      const retrieved2 = await getCommittee(committee2.id);
-      const retrieved3 = await getCommittee(committee3.id);
+      const retrieved1 = await getCommitteeById(testCommitteeId);
+      const retrieved2 = await getCommitteeById(committee2.id);
+      const retrieved3 = await getCommitteeById(committee3.id);
 
       assert.strictEqual(retrieved1.name, "Test Committee");
-      assert.strictEqual(retrieved1.password, "TestPassword");
+      assert.strictEqual(retrieved1.passwordHash, "TestPassword");
 
       assert.strictEqual(retrieved2.name, "Committee 2");
-      assert.strictEqual(retrieved2.password, "Password2");
+      assert.strictEqual(retrieved2.passwordHash, "Password2");
 
       assert.strictEqual(retrieved3.name, "Committee 3");
-      assert.strictEqual(retrieved3.password, "Password3");
+      assert.strictEqual(retrieved3.passwordHash, "Password3");
     });
 
     it("should handle committee with special characters", async () => {
@@ -182,26 +197,32 @@ describe("Committee Repository", () => {
         "Sp3c!@l_P@ssw0rd",
       );
 
-      const retrieved = await getCommittee(specialCommittee.id);
+      const retrieved = await getCommitteeById(specialCommittee.id);
 
       assert.strictEqual(retrieved.name, "Special @#$% Committee");
-      assert.strictEqual(retrieved.password, "Sp3c!@l_P@ssw0rd");
+      assert.strictEqual(retrieved.passwordHash, "Sp3c!@l_P@ssw0rd");
     });
 
-    it("should handle committee with empty name and password", async () => {
-      const emptyCommittee = await createCommittee("", "");
-
-      const retrieved = await getCommittee(emptyCommittee.id);
-
-      assert.strictEqual(retrieved.name, "");
-      assert.strictEqual(retrieved.password, "");
+    it("should throw error when creating committee with empty name and password", async () => {
+      let errorThrown = false;
+      try {
+        await createCommittee("", "");
+      } catch (error) {
+        errorThrown = true;
+        assert.ok(error instanceof Error);
+      }
+      assert.strictEqual(
+        errorThrown,
+        true,
+        "Expected an error to be thrown for empty name and password",
+      );
     });
 
     it("should throw error for invalid ID types", async () => {
       let errorThrown = false;
       try {
         // Test with negative ID
-        await getCommittee(-1);
+        await getCommitteeById(-1);
       } catch (error) {
         errorThrown = true;
         assert.ok(error instanceof Error);
@@ -219,7 +240,7 @@ describe("Committee Repository", () => {
 
       let errorThrown = false;
       try {
-        await getCommittee(veryLargeId);
+        await getCommitteeById(veryLargeId);
       } catch (error) {
         errorThrown = true;
         assert.ok(error instanceof Error);
@@ -247,13 +268,13 @@ describe("Committee Repository", () => {
       const created = await createCommittee(name, password);
 
       // Retrieve committee
-      const retrieved = await getCommittee(created.id);
+      const retrieved = await getCommitteeById(created.id);
 
       // Verify they match
       assert.strictEqual(retrieved.name, created.name);
-      assert.strictEqual(retrieved.password, created.password);
+      assert.strictEqual(retrieved.passwordHash, created.passwordHash);
       assert.strictEqual(retrieved.name, name);
-      assert.strictEqual(retrieved.password, password);
+      assert.strictEqual(retrieved.passwordHash, password);
     });
 
     it("should handle rapid creation and retrieval", async () => {
@@ -270,9 +291,9 @@ describe("Committee Repository", () => {
 
       // Retrieve all committees and verify
       for (let i = 0; i < committees.length; i++) {
-        const retrieved = await getCommittee(committees[i].id);
+        const retrieved = await getCommitteeById(committees[i].id);
         assert.strictEqual(retrieved.name, `Committee ${i}`);
-        assert.strictEqual(retrieved.password, `Password${i}`);
+        assert.strictEqual(retrieved.passwordHash, `Password${i}`);
       }
     });
   });

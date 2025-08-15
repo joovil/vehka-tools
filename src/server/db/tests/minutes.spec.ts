@@ -20,7 +20,7 @@ describe("Minutes Repository", () => {
       .insertInto("committees")
       .values({
         name: "Test Committee",
-        password: "TestPassword",
+        passwordHash: "TestPassword",
       })
       .returning("id")
       .executeTakeFirstOrThrow();
@@ -117,7 +117,7 @@ describe("Minutes Repository", () => {
         .insertInto("committees")
         .values({
           name: "Second Committee",
-          password: "SecondPassword",
+          passwordHash: "SecondPassword",
         })
         .returning("id")
         .executeTakeFirstOrThrow();

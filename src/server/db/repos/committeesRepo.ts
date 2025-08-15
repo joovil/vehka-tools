@@ -1,17 +1,25 @@
 import { db } from "../database";
 
-export const getCommittee = async (id: number) => {
+export const getCommitteeById = async (id: number) => {
   return await db
     .selectFrom("committees")
-    .select(["name", "password"])
+    .selectAll()
     .where("id", "=", id)
     .executeTakeFirstOrThrow();
 };
 
-export const createCommittee = async (name: string, password: string) => {
+export const getCommitteeByName = async (name: string) => {
+  return await db
+    .selectFrom("committees")
+    .where("name", "=", name)
+    .selectAll()
+    .executeTakeFirstOrThrow();
+};
+
+export const createCommittee = async (name: string, passwordHash: string) => {
   return await db
     .insertInto("committees")
-    .values({ name, password })
+    .values({ name, passwordHash })
     .returningAll()
     .executeTakeFirstOrThrow();
 };
