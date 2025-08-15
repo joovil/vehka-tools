@@ -8,6 +8,7 @@ import SidebarInput from "@/app/components/inputs/SidebarInput";
 import SidebarListInput from "@/app/components/inputs/SidebarListInput";
 import { downloadPdf } from "@/app/components/pdf/downloadPdf";
 import { useTranslations } from "@/app/i18n/TranslationsProvider";
+import { isClientAuthenticated } from "@/app/utils/clientAuth";
 import { useState } from "react";
 import DatetimeInput from "../../components/inputs/DatetimeInput";
 import { useFormValidation } from "../hooks/useFormValidation";
@@ -33,6 +34,11 @@ const MinutesSidebar = ({
       if (!formDataValid()) return;
 
       const filename = `Kokouspöytäkirja-${minutesData.endTime?.getDate()}_${minutesData.endTime!.getMonth() + 1}_${minutesData.endTime?.getFullYear()}`;
+
+      if (!isClientAuthenticated()) {
+        window.confirm("Not logged in. Log in to store minutes?");
+      }
+      return;
 
       const newMinutesBlob = await downloadPdf({
         filename,

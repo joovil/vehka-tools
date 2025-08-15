@@ -1,3 +1,4 @@
+import { decodeToken } from "@/server/auth/auth";
 import { getMinutes } from "@/server/db/repos/minutesRepo";
 import { uploadFile } from "@/server/utils/uploadFile";
 
@@ -20,6 +21,15 @@ export const POST = async (req: Request) => {
     const blob = formData.get("blob");
     const filename = formData.get("filename");
 
+    const authHeader = req.headers.get("Authorization");
+
+    if (!authHeader) {
+      return Response.json(
+        { error: "Authentication token missing" },
+        { status: 400 },
+      );
+    }
+
     if (!(blob instanceof File)) {
       return Response.json(
         { error: "File must be a File object" },
@@ -41,7 +51,10 @@ export const POST = async (req: Request) => {
       );
     }
 
-    const filenameWithPath = `tempTenantCommittee/minutes/${filename}`;
+    const authToken = authHeader.split(" ")[1];
+    const decodedToken = decodeToken(authToken);
+
+    const filenameWithPath = `tempTenantCommittee/${decodedToken.name}/minutes/${filename}`;
     const uploadBlobResponse = await uploadFile(filenameWithPath, blob);
 
     return Response.json({
