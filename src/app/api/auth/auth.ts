@@ -1,6 +1,6 @@
+import { getCommitteeByName } from "@/server/db/repos/committeesRepo";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { getCommitteeByName } from "../db/repos/committeesRepo";
 
 export const authenticate = async (committeeName: string, password: string) => {
   const committee = await getCommitteeByName(committeeName);
@@ -11,8 +11,8 @@ export const authenticate = async (committeeName: string, password: string) => {
   );
 
   if (passwordCorrect) {
-    const secret = process.env.JWT_SECRET;
-    if (!secret) throw new Error("JWT_SECRET MISSING");
+    const secret = process.env.AUTH_SECRET;
+    if (!secret) throw new Error("AUTH_SECRET MISSING");
 
     const token = jwt.sign(committee, secret);
     return token;
@@ -23,12 +23,12 @@ export const authenticate = async (committeeName: string, password: string) => {
 
 interface DecodedToken {
   id: string;
-  name: string;
+  committeeName: string;
 }
 
 export const decodeToken = (token: string): DecodedToken => {
-  const secret = process.env.JWT_SECRET;
-  if (!secret) throw new Error("JWT_SECRET MISSING");
+  const secret = process.env.AUTH_SECRET;
+  if (!secret) throw new Error("AUTH_SECRET MISSING");
 
   try {
     const decoded = jwt.verify(token, secret) as jwt.JwtPayload & {
@@ -37,9 +37,21 @@ export const decodeToken = (token: string): DecodedToken => {
     };
     return {
       id: decoded.id,
-      name: decoded.name,
+      committeeName: decoded.name,
     };
   } catch (error) {
     throw error;
+  }
+};
+
+export const tokenValid = (token: string) => {
+  const secret = process.env.AUTH_SECRET;
+  if (!secret) throw new Error("AUTH_SECRET MISSING");
+
+  try {
+    jwt.verify(token, secret);
+    return true;
+  } catch {
+    return false;
   }
 };

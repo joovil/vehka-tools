@@ -11,7 +11,7 @@ const Login = () => {
   const [newCommitteePassword, setNewCommitteePassword] = useState("");
 
   const login = async () => {
-    const res = await apiFetch("/login", {
+    const res = await apiFetch("/auth/login", {
       method: "POST",
       body: JSON.stringify({ committeeName, password }),
       headers: { "Content-Type": "application/json" },
@@ -81,6 +81,11 @@ const Login = () => {
             className="w-full rounded bg-green-600 px-3 py-2 transition hover:bg-green-700"
           >
             Create
+          </button>
+        </div>
+        <div>
+          <button onClick={() => apiFetch("/auth/logout", { method: "POST" })}>
+            Logout
           </button>
         </div>
       </div>

@@ -1,6 +1,9 @@
 import { getMinutes } from "@/server/db/repos/minutesRepo";
+import { NextRequest } from "next/server";
 
-export const GET = async () => {
+export const GET = async (req: NextRequest) => {
+  const token = req.cookies.get("token");
+  console.log(token);
   try {
     const minutes = await getMinutes();
     return Response.json(minutes);
