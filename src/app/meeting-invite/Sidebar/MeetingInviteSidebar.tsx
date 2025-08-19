@@ -5,7 +5,6 @@ import DatetimeInput from "@/app/components/inputs/DatetimeInput";
 import MultiLanguageInput from "@/app/components/inputs/MultiLanguageInput";
 import MultiLanguageListInput from "@/app/components/inputs/MultiLanguageListInput";
 import { downloadPdf } from "@/app/components/pdf/downloadPdf";
-import ScrollAnchor from "@/app/components/ScrollAnchor";
 import { useTranslations } from "@/app/i18n/TranslationsProvider";
 import { scrollToElement } from "@/app/utils/scrollToElement";
 import { useState } from "react";
@@ -53,7 +52,7 @@ const MeetingInviteSidebar = ({
 
   return (
     <div className="flex flex-col gap-2">
-      <ScrollAnchor id="page-top" />
+      {/* <ScrollAnchor id="page-top" /> */}
       <DatetimeInput
         header={dict.meetingInvite.headers.date}
         setData={setInviteData}
