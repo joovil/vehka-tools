@@ -8,6 +8,13 @@ export const downloadPdf = async ({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   pdfElement: React.ReactElement<any>;
 }) => {
+  if (
+    process.env.NODE_ENV === "development" ||
+    !!process.env.PDF_DEV_DOWNLOAD
+  ) {
+    return new Blob(["Test PDF content"], { type: "application/pdf" });
+  }
+
   const blob = await pdf(pdfElement).toBlob();
   console.log(blob);
 

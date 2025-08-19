@@ -1,5 +1,4 @@
 import { apiFetch } from "@/app/utils/apiFetch";
-// import { getToken } from "@/app/utils/auth";
 
 export const savePdf = async (filename: string, blob: Blob) => {
   try {
@@ -8,14 +7,9 @@ export const savePdf = async (filename: string, blob: Blob) => {
     formData.append("filename", filename);
     formData.append("blob", blob);
 
-    // const authToken = await getToken();
-
     const res = await apiFetch("/minutes", {
       method: "POST",
       body: formData,
-      headers: {
-        // Authorization: `Bearer ${authToken}`,
-      },
     });
 
     if (!res.ok) {

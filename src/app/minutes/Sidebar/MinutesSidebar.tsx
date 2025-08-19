@@ -50,8 +50,7 @@ const MinutesSidebar = ({
             filename,
             pdfElement: <MinutesPdf data={minutesData} />,
           });
-          const res = await savePdf(filename, newMinutesBlob);
-          console.log(res);
+          await savePdf(filename, newMinutesBlob);
         } else {
           // User cancelled or login failed, just download locally
           await downloadPdf({

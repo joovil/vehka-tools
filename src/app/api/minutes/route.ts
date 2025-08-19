@@ -1,6 +1,6 @@
 import { getMinutes } from "@/server/db/repos/minutesRepo";
 import { uploadFile } from "@/server/utils/uploadFile";
-import { decodeToken } from "../auth/auth";
+import { getSession } from "../auth/auth";
 
 export const GET = async () => {
   try {
@@ -21,9 +21,9 @@ export const POST = async (req: Request) => {
     const blob = formData.get("blob");
     const filename = formData.get("filename");
 
-    const authHeader = req.headers.get("Authorization");
+    const session = await getSession();
 
-    if (!authHeader) {
+    if (!session) {
       return Response.json(
         { error: "Authentication token missing" },
         { status: 400 },
@@ -51,10 +51,7 @@ export const POST = async (req: Request) => {
       );
     }
 
-    const authToken = authHeader.split(" ")[1];
-    const decodedToken = decodeToken(authToken);
-
-    const filenameWithPath = `tempTenantCommittee/${decodedToken.committeeName}/minutes/${filename}`;
+    const filenameWithPath = `${session.committeeName}/minutes/${filename}`;
     const uploadBlobResponse = await uploadFile(filenameWithPath, blob);
 
     return Response.json({

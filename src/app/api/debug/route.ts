@@ -1,12 +1,13 @@
-import { getMinutes } from "@/server/db/repos/minutesRepo";
 import { NextRequest } from "next/server";
+import { savePdf } from "../services/savePdf";
 
 export const GET = async (req: NextRequest) => {
-  const token = req.cookies.get("token");
-  console.log(token);
   try {
-    const minutes = await getMinutes();
-    return Response.json(minutes);
+    const testBlob = new Blob(["This is a test PDF content"], {
+      type: "application/pdf",
+    });
+    await savePdf("test", testBlob);
+    return Response.json({ test: "debug" });
   } catch (error) {
     if (error instanceof Error) {
       console.error(error.message);
