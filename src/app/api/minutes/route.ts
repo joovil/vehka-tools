@@ -1,6 +1,6 @@
-import { decodeToken } from "@/server/auth/auth";
 import { getMinutes } from "@/server/db/repos/minutesRepo";
 import { uploadFile } from "@/server/utils/uploadFile";
+import { decodeToken } from "../auth/auth";
 
 export const GET = async () => {
   try {
@@ -54,7 +54,7 @@ export const POST = async (req: Request) => {
     const authToken = authHeader.split(" ")[1];
     const decodedToken = decodeToken(authToken);
 
-    const filenameWithPath = `tempTenantCommittee/${decodedToken.name}/minutes/${filename}`;
+    const filenameWithPath = `tempTenantCommittee/${decodedToken.committeeName}/minutes/${filename}`;
     const uploadBlobResponse = await uploadFile(filenameWithPath, blob);
 
     return Response.json({

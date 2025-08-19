@@ -7,8 +7,9 @@ import MultiLanguageListInput from "@/app/components/inputs/MultiLanguageListInp
 import SidebarInput from "@/app/components/inputs/SidebarInput";
 import SidebarListInput from "@/app/components/inputs/SidebarListInput";
 import { downloadPdf } from "@/app/components/pdf/downloadPdf";
+import useConfirmModal from "@/app/components/useConfirmModal";
 import { useTranslations } from "@/app/i18n/TranslationsProvider";
-import { isClientAuthenticated } from "@/app/utils/clientAuth";
+import { apiFetch } from "@/app/utils/apiFetch";
 import { useState } from "react";
 import DatetimeInput from "../../components/inputs/DatetimeInput";
 import { useFormValidation } from "../hooks/useFormValidation";
@@ -23,6 +24,8 @@ const MinutesSidebar = ({
   setData: setMinutesData,
 }: MinutesProps) => {
   const dict = useTranslations();
+  const { ConfirmModal, confirmModalControls } = useConfirmModal();
+
   const [endMeeting, setEndMeeting] = useState<boolean>(false);
 
   const { formDataValid, checkErrors, preMeetingValid, checkPreMeetingErrors } =
@@ -35,11 +38,31 @@ const MinutesSidebar = ({
 
       const filename = `Kokouspöytäkirja-${minutesData.endTime?.getDate()}_${minutesData.endTime!.getMonth() + 1}_${minutesData.endTime?.getFullYear()}`;
 
-      if (!isClientAuthenticated()) {
-        window.confirm("Not logged in. Log in to store minutes?");
-      }
-      return;
+      const isLoggedRes = await apiFetch("/auth/status");
 
+      if (!isLoggedRes.ok) {
+        // Show modal and wait for user action
+        const loginSuccessful = await confirmModalControls.showModal();
+
+        if (loginSuccessful) {
+          // User logged in successfully, save to cloud
+          const newMinutesBlob = await downloadPdf({
+            filename,
+            pdfElement: <MinutesPdf data={minutesData} />,
+          });
+          const res = await savePdf(filename, newMinutesBlob);
+          console.log(res);
+        } else {
+          // User cancelled or login failed, just download locally
+          await downloadPdf({
+            filename,
+            pdfElement: <MinutesPdf data={minutesData} />,
+          });
+        }
+        return;
+      }
+
+      // User is already logged in
       const newMinutesBlob = await downloadPdf({
         filename,
         pdfElement: <MinutesPdf data={minutesData} />,
@@ -54,6 +77,7 @@ const MinutesSidebar = ({
 
   return (
     <div className="flex flex-col gap-2">
+      {ConfirmModal}
       {/* ###################### Pre-meeting ###################### */}
       <div id="location-anchor">
         <Dropdown header={dict.minutes.labels.location}>

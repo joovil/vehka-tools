@@ -8,7 +8,7 @@ export default function SplitLayout({
   sidebar: React.ReactNode;
 }>) {
   return (
-    <div className="flex h-screen overflow-hidden">
+    <div className="relative flex h-screen overflow-hidden">
       <div
         className="flex-2/5 overflow-y-auto border-1 p-10"
         style={{ scrollbarGutter: "stable" }}
