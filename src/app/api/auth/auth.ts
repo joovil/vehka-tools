@@ -32,7 +32,7 @@ export const getSession = async () => {
   if (!authToken) {
     throw new Error("Token error: user not logged in or token invalid");
   }
-  const session = await decodeToken(authToken.value);
+  const session = decodeToken(authToken.value);
   return session;
 };
 
