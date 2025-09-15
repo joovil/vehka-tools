@@ -2,15 +2,21 @@ import { createCommittee } from "@/server/db/repos/committeesRepo";
 import bcrypt from "bcryptjs";
 import { DatabaseError } from "pg";
 
+// Allow only admins to create a new tenant committee.
+// Admin status is checked with admin password sent with the post req.
 export const POST = async (req: Request) => {
   try {
-    const { committeeName, password } = await req.json();
+    const { committeeName, password, adminPassword } = await req.json();
 
-    if (!committeeName || !password) {
+    if (!committeeName || !password || !adminPassword) {
       return Response.json(
         { message: "Required data missing" },
         { status: 400 },
       );
+    }
+
+    if (adminPassword !== process.env.ADMIN_PASS) {
+      return Response.json({ message: "Unauthorized" }, { status: 401 });
     }
 
     const passwordHash = await bcrypt.hash(password, 10);
