@@ -1,15 +1,13 @@
 "use client";
 
-import { savePdf } from "@/app/api/services/savePdf";
 import Dropdown from "@/app/components/Dropdown";
 import MultiLanguageInput from "@/app/components/inputs/MultiLanguageInput";
 import MultiLanguageListInput from "@/app/components/inputs/MultiLanguageListInput";
 import SidebarInput from "@/app/components/inputs/SidebarInput";
 import SidebarListInput from "@/app/components/inputs/SidebarListInput";
-import { downloadPdf } from "@/app/components/pdf/downloadPdf";
 import useConfirmModal from "@/app/components/useConfirmModal";
 import { useTranslations } from "@/app/i18n/TranslationsProvider";
-import { apiFetch } from "@/app/utils/apiFetch";
+import { handlePdfDownload } from "@/app/utils/handlePdfDownload";
 import { useState } from "react";
 import DatetimeInput from "../../components/inputs/DatetimeInput";
 import { useFormValidation } from "../hooks/useFormValidation";
@@ -32,46 +30,16 @@ const MinutesSidebar = ({
     // This validates the input data and scrolls to errors
     useFormValidation(minutesData);
 
-  const handlePdfDownload = async () => {
-    try {
-      if (!formDataValid()) return;
+  const handlePdfDownloadClick = async () => {
+    if (!formDataValid) return;
 
-      const filename = `Kokouspöytäkirja-${minutesData.endTime?.getDate()}_${minutesData.endTime!.getMonth() + 1}_${minutesData.endTime?.getFullYear()}`;
+    const filename = `Kokouspöytäkirja-${new Date().toLocaleDateString("fi-FI")}`;
 
-      const isLoggedRes = await apiFetch("/auth/status");
-
-      if (!isLoggedRes.ok) {
-        // Show modal and wait for user action
-        const loginSuccessful = await confirmModalControls.showModal();
-
-        if (loginSuccessful) {
-          // User logged in successfully, save to cloud
-          const newMinutesBlob = await downloadPdf({
-            filename,
-            pdfElement: <MinutesPdf data={minutesData} />,
-          });
-          await savePdf(filename, newMinutesBlob);
-        } else {
-          // User cancelled or login failed, just download locally
-          await downloadPdf({
-            filename,
-            pdfElement: <MinutesPdf data={minutesData} />,
-          });
-        }
-        return;
-      }
-
-      // User is already logged in
-      const newMinutesBlob = await downloadPdf({
-        filename,
-        pdfElement: <MinutesPdf data={minutesData} />,
-      });
-
-      const res = await savePdf(filename, newMinutesBlob);
-      console.log(res);
-    } catch (error) {
-      console.error(error);
-    }
+    await handlePdfDownload({
+      filename,
+      pdfElement: <MinutesPdf data={minutesData} />,
+      confirmModalControls,
+    });
   };
 
   return (
@@ -213,7 +181,7 @@ const MinutesSidebar = ({
       </Dropdown>
 
       {endMeeting && (
-        <button onClick={handlePdfDownload}>{dict.download}</button>
+        <button onClick={handlePdfDownloadClick}>{dict.download}</button>
       )}
     </div>
   );

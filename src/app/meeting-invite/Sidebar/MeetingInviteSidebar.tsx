@@ -1,11 +1,11 @@
 "use client";
 
-import { savePdf } from "@/app/api/services/savePdf";
 import DatetimeInput from "@/app/components/inputs/DatetimeInput";
 import MultiLanguageInput from "@/app/components/inputs/MultiLanguageInput";
 import MultiLanguageListInput from "@/app/components/inputs/MultiLanguageListInput";
-import { downloadPdf } from "@/app/components/pdf/downloadPdf";
+import useConfirmModal from "@/app/components/useConfirmModal";
 import { useTranslations } from "@/app/i18n/TranslationsProvider";
+import { handlePdfDownload } from "@/app/utils/handlePdfDownload";
 import { scrollToElement } from "@/app/utils/scrollToElement";
 import { useState } from "react";
 import MeetingInvitePdf from "../MainContent/invitePdf/MeetingInvitePdf";
@@ -16,24 +16,20 @@ const MeetingInviteSidebar = ({
   setData: setInviteData,
 }: MeetingInviteProps) => {
   const dict = useTranslations();
+  const { ConfirmModal, confirmModalControls } = useConfirmModal();
 
   const [checkErrors, setCheckErrors] = useState<boolean>(false);
 
-  const handlePdfDownload = async () => {
+  const handlePdfDownloadClick = async () => {
     if (!dataValid()) return;
 
-    const date = new Date();
-    const dateString =
-      date.getDate() + "_" + (date.getMonth() + 1) + "_" + date.getFullYear();
+    const filename = `Kokouspöytäkirja-${new Date().toLocaleDateString("fi-FI")}`;
 
-    const filename = `Kokouspöytäkirja-${dateString}`;
-
-    const pdfBlob = await downloadPdf({
-      filename: filename,
+    await handlePdfDownload({
+      filename,
       pdfElement: <MeetingInvitePdf data={inviteData} />,
+      confirmModalControls,
     });
-
-    await savePdf(filename, pdfBlob);
   };
 
   const dataValid = () => {
@@ -52,6 +48,8 @@ const MeetingInviteSidebar = ({
 
   return (
     <div className="flex flex-col gap-2">
+      {ConfirmModal}
+
       {/* <ScrollAnchor id="page-top" /> */}
       <DatetimeInput
         header={dict.meetingInvite.headers.date}
@@ -93,7 +91,7 @@ const MeetingInviteSidebar = ({
 
       <button
         className="mt-2"
-        onClick={handlePdfDownload}
+        onClick={handlePdfDownloadClick}
       >
         {dict.download}
       </button>
