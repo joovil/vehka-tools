@@ -21,8 +21,8 @@ const MenuItems = () => {
       >
         <div>
           <h2>Kokoukset ja tapahtumat</h2>
-          <Link href={"/meeting-invite"}>Kokouskutsu</Link>
           <Link href={"/minutes"}>Kokouspöytäkirja</Link>
+          <Link href={"/meeting-invite"}>Kokouskutsu</Link>
         </div>
 
         <div>

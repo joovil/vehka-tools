@@ -10,7 +10,7 @@ export default function SplitLayout({
   return (
     <div className="relative flex h-screen overflow-hidden">
       <div
-        className="flex-2/5 overflow-y-auto border-1 p-10"
+        className="flex-2/5 overflow-y-auto border-r-1 p-10"
         style={{ scrollbarGutter: "stable" }}
       >
         <MenuItems />
