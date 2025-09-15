@@ -1,12 +1,18 @@
-import { decodeToken } from "@/auth/auth";
+import { printMagenta } from "@/app/utils/loggers";
+import { cookies } from "next/headers";
 
-export const POST = async (req: Request) => {
-  const authHeader = req.headers.get("Authentication");
+export const POST = async () => {
+  try {
+    const cookieStore = await cookies();
 
-  const token = authHeader?.split(" ")[1];
-  console.log(token);
-  const decodedToken = decodeToken(token!);
-  console.log(decodedToken);
+    // Clear the authentication token cookie
+    cookieStore.delete("token");
 
-  return Response.json({ not: "implemented" });
+    printMagenta("User logged out");
+
+    return Response.json({ message: "Logged out successfully" });
+  } catch (error) {
+    if (error instanceof Error)
+      return Response.json({ message: error.message }, { status: 500 });
+  }
 };
