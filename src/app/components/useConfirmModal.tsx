@@ -53,6 +53,7 @@ export const useConfirmModal = () => {
     const res = await apiFetch("/auth/login", {
       method: "POST",
       body: JSON.stringify({ committeeName, password }),
+      headers: { "Content-Type": "application/json" },
     });
 
     if (!res.ok) {

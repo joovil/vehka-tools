@@ -1,12 +1,10 @@
+import { getCommitteeDocuments } from "@/server/azure/getCommitteeDocuments";
 import { NextRequest } from "next/server";
-import { savePdf } from "../services/savePdf";
 
 export const GET = async (req: NextRequest) => {
   try {
-    const testBlob = new Blob(["This is a test PDF content"], {
-      type: "application/pdf",
-    });
-    await savePdf("test", testBlob);
+    const docs = await getCommitteeDocuments("test", "minutes");
+    console.log(docs);
     return Response.json({ test: "debug" });
   } catch (error) {
     if (error instanceof Error) {
