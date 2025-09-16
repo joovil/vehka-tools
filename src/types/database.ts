@@ -10,6 +10,8 @@ export type Committee = Selectable<CommitteeTable>;
 export type NewCommittee = Insertable<CommitteeTable>;
 export type CommitteeUpdate = Updateable<CommitteeTable>;
 
+export type CommitteeWithoutPassword = Omit<Committee, "passwordHash">;
+
 export interface MinutesTable {
   id: Generated<number>;
   committeeId: number;

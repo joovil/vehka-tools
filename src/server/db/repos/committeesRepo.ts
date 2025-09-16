@@ -16,6 +16,10 @@ export const getCommitteeByName = async (name: string) => {
     .executeTakeFirstOrThrow();
 };
 
+export const getAllCommittees = async () => {
+  return await db.selectFrom("committees").select(["name", "id"]).execute();
+};
+
 export const createCommittee = async (name: string, passwordHash: string) => {
   return await db
     .insertInto("committees")
