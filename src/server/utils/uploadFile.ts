@@ -1,5 +1,4 @@
-import { DefaultAzureCredential } from "@azure/identity";
-import { BlobServiceClient } from "@azure/storage-blob";
+import { getServiceClient } from "../azure/getServiceClient";
 
 export class AzureStorageError extends Error {
   constructor(
@@ -12,28 +11,8 @@ export class AzureStorageError extends Error {
 }
 
 export const uploadFile = async (filename: string, blob: Blob) => {
-  let blobServiceClient: BlobServiceClient;
-
   try {
-    const accountName = process.env.AZURE_STORAGE_ACCOUNT_NAME;
-    if (!accountName)
-      throw new AzureStorageError("Azure Storage accountName not found");
-
-    if (process.env.NODE_ENV === "development") {
-      const connectionString = process.env.AZURE_BLOB_CONNECTION_STRING;
-      if (!connectionString) {
-        throw new AzureStorageError("Azure Storage connectionString not found");
-      }
-      blobServiceClient =
-        BlobServiceClient.fromConnectionString(connectionString);
-    } else {
-      blobServiceClient = new BlobServiceClient(
-        `https://${accountName}.blob.core.windows.net`,
-        new DefaultAzureCredential(),
-      );
-    }
-
-    const containerClient = blobServiceClient.getContainerClient(accountName);
+    const containerClient = getServiceClient();
 
     // Ensure container exists
     await containerClient.createIfNotExists({
