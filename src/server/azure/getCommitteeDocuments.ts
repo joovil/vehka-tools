@@ -1,86 +1,77 @@
-import { BlobItem } from "@azure/storage-blob";
-import { getServiceClient } from "./getServiceClient";
+"use server";
 
-export const getCommitteeDocument = async (
+import { getServiceClient } from "@/server/azure/getServiceClient";
+import { getAllCommittees } from "@/server/db/repos/committeesRepo";
+import { ContainerClient } from "@azure/storage-blob";
+
+export const fetchAllCommittees = async () => {
+  return getAllCommittees();
+};
+
+export const getFileNames = async (committee: string, folder: string) => {
+  const containerClient = getServiceClient();
+
+  const names = [];
+
+  for await (const blobItem of containerClient.listBlobsFlat({
+    prefix: `${committee}/${folder}`,
+  })) {
+    names.push(blobItem.name);
+  }
+  return names;
+};
+
+export const getDocument = async (
   committee: string,
   folder: string,
   filename: string,
-): Promise<Buffer | null> => {
-  const containerClient = getServiceClient();
-
-  const blobPath = folder.endsWith("/")
-    ? `${committee}/${folder}${filename}`
-    : `${committee}/${folder}/${filename}`;
-  const blobClient = containerClient.getBlobClient(blobPath);
-
-  const exists = await blobClient.exists();
-  if (!exists) {
-    return null;
-  }
-
-  // Download the blob content as a Buffer
-  const downloadBlockBlobResponse = await blobClient.download();
-  const downloaded = await streamToBuffer(
-    downloadBlockBlobResponse.readableStreamBody!,
-  );
-
-  return downloaded;
+): Promise<Blob | null> => {
+  return await getBlobFromAzure(`${committee}/${folder}/${filename}`);
 };
 
-export const getCommitteeDocumentByPath = async (
+export const getDocumentByPath = async (
   filePath: string,
-): Promise<Buffer | null> => {
-  const containerClient = getServiceClient();
-
-  const blobClient = containerClient.getBlobClient(filePath);
-
-  const exists = await blobClient.exists();
-  if (!exists) {
-    return null;
-  }
-
-  const downloadBlockBlobResponse = await blobClient.download();
-  const downloaded = await streamToBuffer(
-    downloadBlockBlobResponse.readableStreamBody!,
-  );
-
-  return downloaded;
+): Promise<Blob | null> => {
+  return await getBlobFromAzure(filePath);
 };
 
-// Helper function to convert stream to buffer
-async function streamToBuffer(
-  readableStream: NodeJS.ReadableStream,
-): Promise<Buffer> {
-  return new Promise((resolve, reject) => {
-    const chunks: Buffer[] = [];
-    readableStream.on("data", (data) => {
-      chunks.push(data instanceof Buffer ? data : Buffer.from(data));
-    });
-    readableStream.on("end", () => {
-      resolve(Buffer.concat(chunks));
-    });
-    readableStream.on("error", reject);
-  });
-}
-
-export const getCommitteeDocuments = async (
+export const getAllDocuments = async (
   committee: string,
   folder: string,
-): Promise<BlobItem[]> => {
+): Promise<Blob[]> => {
   const containerClient = getServiceClient();
 
-  console.log(committee, folder);
-
   const blobs = [];
-  for await (const blob of containerClient.listBlobsByHierarchy("/", {
-    prefix: folder.endsWith("/")
-      ? `${committee}/${folder}`
-      : `${committee}/${folder}/`,
+
+  for await (const blobItem of containerClient.listBlobsFlat({
+    prefix: `${committee}/${folder}`,
   })) {
-    if (blob.kind === "blob") {
-      blobs.push(blob);
-    }
+    const blob = await getBlobFromAzure(blobItem.name, containerClient);
+
+    if (!blob) continue;
+
+    blobs.push(blob);
   }
 
   return blobs;
+};
+
+const getBlobFromAzure = async (
+  blobName: string,
+  containerClient?: ContainerClient,
+): Promise<Blob | null> => {
+  if (!containerClient) {
+    containerClient = getServiceClient();
+  }
+
+  const blobClient = containerClient.getBlobClient(blobName);
+
+  const exists = await blobClient.exists();
+  if (!exists) {
+    return null;
+  }
+
+  const bufferLike = await blobClient.downloadToBuffer();
+  const buffer = new Uint8Array(bufferLike).buffer;
+  return new Blob([buffer]);
 };

@@ -1,8 +1,12 @@
 "use client";
 
+import {
+  fetchAllCommittees,
+  getDocumentByPath,
+  getFileNames,
+} from "@/server/azure/getCommitteeDocuments";
 import { CommitteeWithoutPassword } from "@/types";
 import { useEffect, useState } from "react";
-import { fetchAllCommittees, fetchFileByPath, fetchFileNames } from "./actions";
 
 const Documents = () => {
   const [committees, setCommittees] = useState<CommitteeWithoutPassword[]>([]);
@@ -29,7 +33,7 @@ const Documents = () => {
   }, [pdfUrl]);
 
   const handleCommitteeClick = async (committee: CommitteeWithoutPassword) => {
-    const files = await fetchFileNames(committee.name);
+    const files = await getFileNames(committee.name, "minutes");
     setDocNames(files);
     setSelectedCommittee(committee);
   };
@@ -43,18 +47,11 @@ const Documents = () => {
     try {
       console.log("filename", filename);
 
-      const result = await fetchFileByPath(filename);
+      const blob = await getDocumentByPath(filename);
+      if (!blob) throw new Error("Blob not found");
 
-      // Check if the server action returned an error
-      if (!result.success) {
-        throw new Error(result.error || "Failed to fetch document");
-      }
-
-      // Create blob from the returned data
-      const blob = new Blob([result.data!], { type: result.contentType });
       const url = URL.createObjectURL(blob);
 
-      // Clean up previous URL to prevent memory leaks
       if (pdfUrl) {
         URL.revokeObjectURL(pdfUrl);
       }
