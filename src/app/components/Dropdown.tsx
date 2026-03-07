@@ -27,10 +27,14 @@ const Dropdown = ({
     : `${transitionDuration}ms`;
 
   return (
-    <div className="rounded-lg border border-gray-200 bg-white/50">
-      <div className="flex items-center justify-between px-3 py-2">
-        <div className="text-teal-darker text-base font-bold">{header}</div>
-        {!handledExternally && (
+    <div
+      className={
+        handledExternally ? "" : "rounded-lg border border-gray-200 bg-white/50"
+      }
+    >
+      {!handledExternally && (
+        <div className="flex items-center justify-between px-3 py-2">
+          <div className="text-teal-darker text-base font-bold">{header}</div>
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="flex items-center gap-1 bg-transparent! px-2 py-1 text-sm shadow-none!"
@@ -43,11 +47,11 @@ const Dropdown = ({
             </span>
             {isOpen ? dict.toggleClose : dict.toggleOpen}
           </button>
-        )}
-      </div>
+        </div>
+      )}
 
       <div
-        className="flex flex-col gap-2 px-3 transition-all ease-in-out"
+        className={`flex flex-col gap-2 transition-all ease-in-out ${handledExternally ? "" : "px-3"}`}
         style={{
           transitionDuration: transitionDuration,
           ...((isOpen && !handledExternally) || open

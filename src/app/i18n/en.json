@@ -60,6 +60,9 @@
       "startTime": "Start meeting",
       "endTime": "End meeting",
       "nextMeeting": "Next meeting"
+    },
+    "hints": {
+      "startMeetingInfo": "Additional fields will appear after the meeting is started"
     }
   },
   "meetingInvite": {

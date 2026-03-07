@@ -1,7 +1,9 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import MenuItems from "../MenuItems";
+
+type MobileTab = "form" | "preview";
 
 export default function SplitLayout({
   children,
@@ -10,9 +12,18 @@ export default function SplitLayout({
   children: React.ReactNode;
   sidebar: React.ReactNode;
 }>) {
-  const [sidebarWidth, setSidebarWidth] = useState(40); // percentage
+  const [sidebarWidth, setSidebarWidth] = useState(40);
+  const [isMobile, setIsMobile] = useState(false);
+  const [activeTab, setActiveTab] = useState<MobileTab>("form");
   const containerRef = useRef<HTMLDivElement>(null);
   const isDragging = useRef(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   const handleMouseDown = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
@@ -38,6 +49,50 @@ export default function SplitLayout({
     document.addEventListener("mousemove", onMouseMove);
     document.addEventListener("mouseup", onMouseUp);
   }, []);
+
+  if (isMobile) {
+    return (
+      <div className="flex h-screen flex-col overflow-hidden">
+        {/* Tab bar */}
+        <div className="flex border-b border-gray-200 bg-gray-50">
+          <button
+            onClick={() => setActiveTab("form")}
+            className={`flex-1 rounded-none px-4 py-3 text-sm font-bold shadow-none transition-colors ${
+              activeTab === "form"
+                ? "border-teal-dark text-teal-darker border-b-2 bg-white"
+                : "text-gray-500 hover:text-gray-700"
+            }`}
+          >
+            Lomake
+          </button>
+          <button
+            onClick={() => setActiveTab("preview")}
+            className={`flex-1 rounded-none px-4 py-3 text-sm font-bold shadow-none transition-colors ${
+              activeTab === "preview"
+                ? "border-teal-dark text-teal-darker border-b-2 bg-white"
+                : "text-gray-500 hover:text-gray-700"
+            }`}
+          >
+            Esikatselu
+          </button>
+        </div>
+
+        {/* Content */}
+        {activeTab === "form" ? (
+          <div className="flex-1 overflow-y-auto bg-gray-50 px-4 py-4">
+            <MenuItems />
+            <div className="mt-2">{sidebar}</div>
+          </div>
+        ) : (
+          <div className="flex flex-1 items-start justify-center overflow-y-auto bg-gray-200/60 p-4">
+            <div className="w-full max-w-lg rounded bg-white shadow-xl ring-1 ring-gray-200">
+              {children}
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  }
 
   return (
     <div

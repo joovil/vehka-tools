@@ -63,6 +63,9 @@ export interface Dictionary {
       endTime: string;
       nextMeeting: string;
     };
+    hints: {
+      startMeetingInfo: string;
+    };
   };
   meetingInvite: {
     agendaFin: string;

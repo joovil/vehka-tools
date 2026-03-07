@@ -60,6 +60,9 @@
       "startTime": "Start meeting",
       "endTime": "End meeting",
       "nextMeeting": "Next meeting"
+    },
+    "hints": {
+      "startMeetingInfo": "Lisää kenttiä tulee näkyviin kokouksen aloittamisen jälkeen"
     }
   },
   "meetingInvite": {

@@ -104,6 +104,11 @@ const MinutesSidebar = ({
           fieldKey="startTime"
           disabled={false}
         />
+        {!minutesData.startTime && (
+          <p className="mt-1 text-sm text-gray-400 italic">
+            {dict.minutes.hints.startMeetingInfo}
+          </p>
+        )}
       </Dropdown>
 
       <Dropdown
