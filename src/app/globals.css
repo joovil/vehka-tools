@@ -200,6 +200,27 @@ body {
 } */
 
 /* Accounting form styles */
+.accounting-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.accounting-header > h1 {
+  flex: 1;
+}
+
+.accounting-header > div:last-child {
+  width: 50px;
+  flex-shrink: 0;
+  margin-left: 1rem;
+}
+
+.accounting-header > div:last-child img {
+  width: 50px !important;
+  height: auto !important;
+}
+
 .accounting-personal-info > div {
   border-bottom: 1px solid #ccc;
   padding: 4px 0;
@@ -221,12 +242,12 @@ body {
 }
 
 .accounting-table table thead tr {
-  background-color: #E83C6A;
+  background-color: #e83c6a;
 }
 
 .accounting-table table thead th {
   color: white;
-  border: 1px solid #E83C6A;
+  border: 1px solid #e83c6a;
   padding: 6px 8px;
   font-weight: bold;
   font-size: 0.8rem;

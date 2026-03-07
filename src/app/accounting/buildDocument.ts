@@ -42,10 +42,12 @@ export const buildAccountingDocument = (
   ]);
 
   const sections: DocumentDefinition = [
-    // Title
+    // Title with logo
     {
+      htmlClassName: "accounting-header",
       blocks: [
         { type: "heading", content: t("accounting.pdf.title"), level: 1 },
+        { type: "image", src: "/vehka_vertical.svg", alt: "Vehka" },
       ],
     },
     // Personal info
