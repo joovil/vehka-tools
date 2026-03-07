@@ -1,9 +1,11 @@
 "use client";
 
 import { apiFetch } from "@/app/utils/apiFetch";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 const CreateCommittee = () => {
+  const t = useTranslations();
   const [newCommitteeName, setNewCommitteeName] = useState("");
   const [newCommitteePassword, setNewCommitteePassword] = useState("");
   const [adminPassword, setAdminPassword] = useState<string>("");
@@ -26,24 +28,24 @@ const CreateCommittee = () => {
   return (
     <div className="flex min-h-screen items-center justify-center">
       <div className="flex w-full max-w-xs flex-col items-center gap-4">
-        <h1>Luo uusi asukastoimikunta</h1>
+        <h1>{t("admin.createCommitteeTitle")}</h1>
         <input
           type="text"
-          placeholder="New committee name"
+          placeholder={t("admin.newCommitteeName")}
           value={newCommitteeName}
           onChange={(e) => setNewCommitteeName(e.target.value)}
           className="w-full rounded border px-3 py-2"
         />
         <input
           type="password"
-          placeholder="New password"
+          placeholder={t("admin.newPassword")}
           value={newCommitteePassword}
           onChange={(e) => setNewCommitteePassword(e.target.value)}
           className="w-full rounded border px-3 py-2"
         />
         <input
           type="password"
-          placeholder="Admin password"
+          placeholder={t("admin.adminPassword")}
           value={adminPassword}
           onChange={(e) => setAdminPassword(e.target.value)}
           className="w-full rounded border px-3 py-2"
@@ -52,7 +54,7 @@ const CreateCommittee = () => {
           onClick={handleCreate}
           className="w-full rounded bg-green-600 px-3 py-2 transition hover:bg-green-700"
         >
-          Create
+          {t("admin.create")}
         </button>
       </div>
     </div>

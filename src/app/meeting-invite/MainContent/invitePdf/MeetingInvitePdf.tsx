@@ -12,6 +12,17 @@ import {
 import { MeetingInviteProps } from "../../page";
 import HeaderSvg from "./HeaderSvg";
 
+export type MeetingInvitePdfTranslations = {
+  date: string;
+  location: string;
+  agendaFin: string;
+  agendaEng: string;
+  furtherInformation: string;
+  moreInfo: string;
+  welcome: string;
+  yourCommittee: string;
+};
+
 const styles = StyleSheet.create({
   page: {
     backgroundColor: "white",
@@ -88,7 +99,10 @@ Font.register({
 
 const MeetingInvitePdf = ({
   data: inviteData,
-}: Omit<MeetingInviteProps, "setData">) => {
+  translations: tr,
+}: Omit<MeetingInviteProps, "setData"> & {
+  translations: MeetingInvitePdfTranslations;
+}) => {
   const { date, location, agendaItems, moreInfo } = inviteData;
 
   return (
@@ -102,12 +116,12 @@ const MeetingInvitePdf = ({
         <View style={styles.contentContainer}>
           <View style={styles.infoContainer}>
             <View style={styles.infoRow}>
-              <Text style={styles.label}>Aika:</Text>
+              <Text style={styles.label}>{tr.date}</Text>
               <Text style={styles.value}>{date ? formatDate(date) : ""}</Text>
             </View>
 
             <View style={styles.infoRow}>
-              <Text style={styles.label}>Paikka:</Text>
+              <Text style={styles.label}>{tr.location}</Text>
               <Text style={styles.value}>
                 {location ? `${location.fin} / ${location.eng}` : ""}
               </Text>
@@ -116,7 +130,7 @@ const MeetingInvitePdf = ({
 
           <View style={styles.columnSection}>
             <View style={styles.column}>
-              <Text style={styles.header}>Esityslista</Text>
+              <Text style={styles.header}>{tr.agendaFin}</Text>
               {agendaItems.map((item, index) => (
                 <View key={index}>
                   <Text style={styles.agendaItem}>{item.fin}</Text>
@@ -125,7 +139,7 @@ const MeetingInvitePdf = ({
             </View>
 
             <View style={styles.column}>
-              <Text style={styles.header}>Agenda</Text>
+              <Text style={styles.header}>{tr.agendaEng}</Text>
               {agendaItems.map((item, index) => (
                 <View key={index}>
                   <Text style={styles.agendaItem}>{item.eng}</Text>
@@ -137,11 +151,11 @@ const MeetingInvitePdf = ({
           {moreInfo && (
             <View style={styles.columnSection}>
               <View style={styles.column}>
-                <Text style={styles.header}>Lisätietoa</Text>
+                <Text style={styles.header}>{tr.furtherInformation}</Text>
                 <Text style={styles.columnText}>{moreInfo.fin}</Text>
               </View>
               <View style={styles.column}>
-                <Text style={styles.header}>More info</Text>
+                <Text style={styles.header}>{tr.moreInfo}</Text>
                 <Text style={styles.columnText}>{moreInfo.eng}</Text>
               </View>
             </View>
@@ -149,8 +163,8 @@ const MeetingInvitePdf = ({
 
           <View style={styles.footer}>
             <View style={styles.column}>
-              <Text style={styles.header}>Tervetuloa</Text>
-              <Text style={styles.columnText}>-Asukastoimikuntasi</Text>
+              <Text style={styles.header}>{tr.welcome}</Text>
+              <Text style={styles.columnText}>{tr.yourCommittee}</Text>
             </View>
             <View style={styles.column}>
               <Text style={styles.header}>Welcome</Text>

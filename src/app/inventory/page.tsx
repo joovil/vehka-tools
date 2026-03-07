@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Fragment, useRef, useState } from "react";
 
 interface InventoryItem {
@@ -8,6 +9,7 @@ interface InventoryItem {
 }
 
 const Inventory = () => {
+  const t = useTranslations();
   const focusRef = useRef<HTMLInputElement | null>(null);
   const [items, setItems] = useState<InventoryItem[]>([
     {
@@ -49,10 +51,10 @@ const Inventory = () => {
 
   return (
     <section>
-      <h2>Tavarainventaario</h2>
+      <h2>{t("inventory.title")}</h2>
       <div className="grid grid-cols-2">
-        <h3>Nimi</h3>
-        <h3>Määrä</h3>
+        <h3>{t("inventory.name")}</h3>
+        <h3>{t("inventory.amount")}</h3>
 
         {items.map((item, i) => (
           <Fragment key={i}>
@@ -73,7 +75,7 @@ const Inventory = () => {
         ))}
       </div>
 
-      <button onClick={addItem}>Lisää</button>
+      <button onClick={addItem}>{t("inventory.add")}</button>
     </section>
   );
 };

@@ -33,44 +33,44 @@ const MenuItems = () => {
         }}
       >
         <div>
-          <h2>Kokoukset ja tapahtumat</h2>
-          <Link href={"/minutes"}>Kokouspöytäkirja</Link>
-          <Link href={"/meeting-invite"}>Kokouskutsu</Link>
+          <h2>{t("nav.meetingsAndEvents")}</h2>
+          <Link href={"/minutes"}>{t("nav.minutes")}</Link>
+          <Link href={"/meeting-invite"}>{t("nav.meetingInvite")}</Link>
         </div>
 
         <div>
-          <h2>Yhteistilat ja tavarat</h2>
-          <Link href={"/inventory"}>Tavarainventaario</Link>
+          <h2>{t("nav.spacesAndItems")}</h2>
+          <Link href={"/inventory"}>{t("nav.inventory")}</Link>
         </div>
 
         <div>
-          <h2>Määrärahat ja tilitykset</h2>
-          <Link href={"/accounting"}>Tilityslomake</Link>
+          <h2>{t("nav.budgetAndAccounting")}</h2>
+          <Link href={"/accounting"}>{t("nav.accountingForm")}</Link>
         </div>
 
         <div>
-          <h2>Alkuvuoden materiaalit</h2>
+          <h2>{t("nav.earlyYearMaterials")}</h2>
           <a href="https://hoas.fi/app/uploads/2024/01/ASUKASKOKOUSPOYTAKIRJA.pdf">
-            Asukaskokouksen pöytäkirja
+            {t("nav.residentMeetingMinutes")}
           </a>
           <a href="https://hoas.fi/app/uploads/2021/06/Asukaskokouksen-osallistuja-ja-yhteystietolomake-FI-EN.pdf">
-            Asukaskokoukset osallituja- ja yhteystietolomake
+            {t("nav.residentMeetingContactForm")}
           </a>
         </div>
 
         <div>
-          <h2>Dokumentit</h2>
+          <h2>{t("nav.documents")}</h2>
           <a href="https://hoas.fi/app/uploads/2024/01/Asukastoimintaopas.pdf">
-            Asukastoimikuntaopas
+            {t("nav.committeeGuide")}
           </a>
           <a href="https://hoas.fi/app/uploads/2021/06/Tapahtumien-osallistujalista-FI-EN.pdf">
-            Tapahtumien osallistujalista
+            {t("nav.eventParticipantList")}
           </a>
           <a href="https://hoas.fi/app/uploads/2024/01/Asukastoimikuntien-avainlainalomake-2.pdf">
-            Avainlomake
+            {t("nav.keyForm")}
           </a>
           <a href="https://hoas.fi/app/uploads/2021/06/Asukastoimikunnan-korvausvastuuhinnasto-FI-EN.pdf">
-            Asukastoimikunnan korvausvastuuhinnasto
+            {t("nav.compensationPriceList")}
           </a>
         </div>
       </nav>

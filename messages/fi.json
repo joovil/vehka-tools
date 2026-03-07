@@ -1,95 +1,182 @@
 {
   "finnish": "Finnish",
   "english": "English",
-  "addItem": "Add item",
-  "toggleOpen": "Open",
-  "toggleClose": "Close",
-  "openMenu": "Open menu",
-  "closeMenu": "Close menu",
-  "download": "Download",
+  "addItem": "Lisää kohde",
+  "toggleOpen": "Avaa",
+  "toggleClose": "Sulje",
+  "openMenu": "Avaa valikko",
+  "closeMenu": "Sulje valikko",
+  "download": "Lataa",
+  "clear": "Tyhjennä",
+  "unsavedItem": "Tallentamaton kohde",
+  "nav": {
+    "meetingsAndEvents": "Kokoukset ja tapahtumat",
+    "meetingInvite": "Kokouskutsu",
+    "minutes": "Kokouspöytäkirja",
+    "spacesAndItems": "Yhteistilat ja tavarat",
+    "inventory": "Tavarainventaario",
+    "budgetAndAccounting": "Määrärahat ja tilitykset",
+    "accountingForm": "Tilityslomake",
+    "earlyYearMaterials": "Alkuvuoden materiaalit",
+    "residentMeetingMinutes": "Asukaskokouksen pöytäkirja",
+    "residentMeetingContactForm": "Asukaskokoukset osallituja- ja yhteystietolomake",
+    "documents": "Dokumentit",
+    "committeeGuide": "Asukastoimikuntaopas",
+    "eventParticipantList": "Tapahtumien osallistujalista",
+    "keyForm": "Avainlomake",
+    "compensationPriceList": "Asukastoimikunnan korvausvastuuhinnasto"
+  },
+  "splitView": {
+    "form": "Lomake",
+    "preview": "Esikatselu"
+  },
+  "login": {
+    "committeeName": "Toimikunnan nimi",
+    "password": "Salasana",
+    "logIn": "Kirjaudu",
+    "newCommitteeName": "Uuden toimikunnan nimi",
+    "newPassword": "Uusi salasana",
+    "create": "Luo",
+    "logout": "Kirjaudu ulos"
+  },
+  "admin": {
+    "createCommitteeTitle": "Luo uusi asukastoimikunta",
+    "newCommitteeName": "Uuden toimikunnan nimi",
+    "newPassword": "Uusi salasana",
+    "adminPassword": "Ylläpitäjän salasana",
+    "create": "Luo"
+  },
+  "documents": {
+    "title": "Dokumentit",
+    "committees": "Asukastoimikunnat",
+    "documents": "Dokumentit",
+    "openInNewTab": "Avaa uudessa välilehdessä",
+    "selectDocumentPrompt": "Valitse dokumentti nähdäksesi esikatselu",
+    "selectCommitteeFirst": "Valitse ensin toimikunta, sitten dokumentti"
+  },
+  "inventory": {
+    "title": "Tavarainventaario",
+    "name": "Nimi",
+    "amount": "Määrä",
+    "add": "Lisää"
+  },
+  "confirmModal": {
+    "invalidCredentials": "Virheelliset tunnukset",
+    "loginPrompt": "Tallentaaksesi dokumentin pilveen, kirjaudu sisään",
+    "committeeName": "Toimikunnan nimi",
+    "password": "Salasana",
+    "logIn": "Kirjaudu",
+    "cancel": "Peruuta"
+  },
   "minutes": {
+    "pdfFilename": "Kokouspöytäkirja",
     "errors": {
-      "chairman": "Chairman signature is required",
-      "secretary": "Secretary signature is required",
-      "examiner1": "First examiner signature is required",
-      "examiner2": "Second examiner signature is required",
-      "location": "Location is required",
-      "timeOfMeeting": "Time of meeting is required",
-      "attendants": "Attendants are required",
-      "examiners": "Examiners are required"
+      "chairman": "Puheenjohtajan allekirjoitus vaaditaan",
+      "secretary": "Sihteerin allekirjoitus vaaditaan",
+      "examiner1": "Ensimmäisen tarkastajan allekirjoitus vaaditaan",
+      "examiner2": "Toisen tarkastajan allekirjoitus vaaditaan",
+      "location": "Sijainti vaaditaan",
+      "timeOfMeeting": "Kokouksen aika vaaditaan",
+      "attendants": "Osallistujat vaaditaan",
+      "examiners": "Tarkastajat vaaditaan"
     },
     "labels": {
-      "minutesNumber": "Minutes",
-      "attendants": "Attendants",
-      "items": "Items",
-      "otherItems": "Other items",
-      "location": "Location",
-      "startTime": "Start time",
-      "endTime": "End time",
-      "signature": "signature",
-      "signatures": "Signatures",
-      "chairman": "Chairman",
-      "secretary": "Secretary",
-      "examiners": "Examiners",
-      "examiner1": "Examiner 1",
-      "examiner2": "Examiner 2",
-      "newMembers": "New members",
-      "acceptAgenda": "Accept agenda",
-      "nextMeeting": "Next meeting",
-      "timeOfMeeting": "Time of meeting"
+      "minutesNumber": "Pöytäkirja",
+      "attendants": "Osallistujat",
+      "items": "Asiat",
+      "otherItems": "Muut asiat",
+      "location": "Sijainti",
+      "startTime": "Aloitusaika",
+      "endTime": "Päättymisaika",
+      "signature": "allekirjoitus",
+      "signatures": "Allekirjoitukset",
+      "chairman": "Puheenjohtaja",
+      "secretary": "Sihteeri",
+      "examiners": "Tarkastajat",
+      "examiner1": "Tarkastaja 1",
+      "examiner2": "Tarkastaja 2",
+      "newMembers": "Uudet jäsenet",
+      "acceptAgenda": "Hyväksy esityslista",
+      "nextMeeting": "Seuraava kokous",
+      "timeOfMeeting": "Kokouksen aika"
     },
     "placeholders": {
-      "minutesNumber": "Number of these minutes",
-      "attendants": "Who was present at the meeting",
-      "items": "What was discussed in the meeting",
-      "otherItems": "Other discussed items",
-      "location": "Where was the meeting held",
-      "startTime": "When did the meeting start",
-      "endTime": "When did the meeting end",
-      "signatures": "Who signed the document",
-      "examiner1": "First examiner",
-      "examiner2": "Second examiner",
-      "newMembers": "Who is the new member",
-      "nextMeeting": "When is the next meeting",
-      "timeOfMeeting": "What time was the meeting planned",
-      "chairmanSignature": "Signature of chairman",
-      "secretarySignature": "Signature of signature",
-      "examinerSignature": "Signature of examiner"
+      "minutesNumber": "Pöytäkirjan numero",
+      "attendants": "Ketkä olivat kokouksessa läsnä",
+      "items": "Mitä kokouksessa käsiteltiin",
+      "otherItems": "Muut käsitellyt asiat",
+      "location": "Missä kokous pidettiin",
+      "startTime": "Milloin kokous alkoi",
+      "endTime": "Milloin kokous päättyi",
+      "signatures": "Kuka allekirjoitti asiakirjan",
+      "examiner1": "Ensimmäinen tarkastaja",
+      "examiner2": "Toinen tarkastaja",
+      "newMembers": "Kuka on uusi jäsen",
+      "nextMeeting": "Milloin on seuraava kokous",
+      "timeOfMeeting": "Mihin aikaan kokous oli suunniteltu",
+      "chairmanSignature": "Puheenjohtajan allekirjoitus",
+      "secretarySignature": "Sihteerin allekirjoitus",
+      "examinerSignature": "Tarkastajan allekirjoitus"
     },
     "buttons": {
-      "startTime": "Start meeting",
-      "endTime": "End meeting",
-      "nextMeeting": "Next meeting"
+      "startTime": "Aloita kokous",
+      "endTime": "Päätä kokous",
+      "nextMeeting": "Seuraava kokous"
     },
     "hints": {
       "startMeetingInfo": "Lisää kenttiä tulee näkyviin kokouksen aloittamisen jälkeen"
+    },
+    "pdf": {
+      "organization": "Helsingin seudun opiskelija-asuntosäätiö",
+      "minutesLabel": "Pöytäkirja",
+      "meetingTitle": "Asukastoimikunnan kokous",
+      "dateAndTime": "Päivämäärä ja kellonaika",
+      "present": "Läsnä",
+      "section1": "1. Kokouksen avaus, laillisuus ja päätösvaltaisuus",
+      "chairmanOpenedAt": "Puheenjohtaja avasi kokouksen kello:",
+      "meetingDeclaredLegal": "Todettiin kokous laillisesti koolle kutsutuksi ja päätösvaltaiseksi.",
+      "section2": "2. Kahden Pöytäkirjantarkastajan valinta",
+      "elected": "Valittiin:",
+      "section3": "3. Esityslistan hyväksyminen",
+      "agendaApproved": "Esityslista hyväksyttiin kokouksen työjärjestykseksi.",
+      "section4": "4. Hankinnat/ talkoot/ muita päätettäviä asioita",
+      "section5": "5. Muut mahdolliset asiat",
+      "newMembers": "Uudet jäsenet",
+      "section6": "6. Seuraavan kokouksen ajankohta",
+      "nextMeetingHeldAt": "Seuraava kokous pidetään:",
+      "section7": "7. Kokouksen päättäminen",
+      "chairmanClosedAt": "Puheenjohtaja päätti kokouksen kello:",
+      "certification": "Vakuudeksi",
+      "signatureSuffix": "allekirjoitus"
     }
   },
   "meetingInvite": {
+    "pdfFilename": "Kokouskutsu",
     "agendaFin": "Esityslista",
     "agendaEng": "Agenda",
     "headers": {
-      "date": "Date",
-      "location": "Location"
+      "date": "Päivämäärä",
+      "location": "Sijainti"
     },
     "errors": {
-      "date": "Date is required",
-      "location": "Location is required",
-      "agenda": "Agenda needs atleast one item"
+      "date": "Päivämäärä vaaditaan",
+      "location": "Sijainti vaaditaan",
+      "agenda": "Esityslistalla täytyy olla vähintään yksi kohde"
     },
     "labels": {
-      "date": "Time",
-      "location": "Location",
-      "agenda": "Agenda",
-      "furtherInformation": "Further information",
-      "welcome": "Welcome",
-      "yourCommittee": "Your tenant committee"
+      "date": "Aika:",
+      "location": "Paikka:",
+      "agenda": "Esityslista",
+      "furtherInformation": "Lisätietoa",
+      "moreInfo": "More info",
+      "welcome": "Tervetuloa",
+      "yourCommittee": "-Asukastoimikuntasi"
     },
     "placeholders": {
-      "date": "When will the meeting be held",
-      "location": "Where will the meeting be held",
-      "agenda": "What will be in the meeting agenda",
-      "furtherInformation": "Further information"
+      "date": "Milloin kokous pidetään",
+      "location": "Missä kokous pidetään",
+      "agenda": "Mitä kokouksen esityslistalla on",
+      "furtherInformation": "Lisätietoa"
     }
   }
 }

@@ -7,7 +7,69 @@
   "openMenu": "Open menu",
   "closeMenu": "Close menu",
   "download": "Download",
+  "clear": "Clear",
+  "unsavedItem": "Unsaved item",
+  "nav": {
+    "meetingsAndEvents": "Meetings and events",
+    "meetingInvite": "Meeting invite",
+    "minutes": "Meeting minutes",
+    "spacesAndItems": "Common spaces and items",
+    "inventory": "Item inventory",
+    "budgetAndAccounting": "Budget and accounting",
+    "accountingForm": "Accounting form",
+    "earlyYearMaterials": "Early year materials",
+    "residentMeetingMinutes": "Resident meeting minutes",
+    "residentMeetingContactForm": "Resident meeting participant and contact form",
+    "documents": "Documents",
+    "committeeGuide": "Tenant committee guide",
+    "eventParticipantList": "Event participant list",
+    "keyForm": "Key form",
+    "compensationPriceList": "Tenant committee compensation price list"
+  },
+  "splitView": {
+    "form": "Form",
+    "preview": "Preview"
+  },
+  "login": {
+    "committeeName": "Committee name",
+    "password": "Password",
+    "logIn": "Log in",
+    "newCommitteeName": "New committee name",
+    "newPassword": "New password",
+    "create": "Create",
+    "logout": "Logout"
+  },
+  "admin": {
+    "createCommitteeTitle": "Create new tenant committee",
+    "newCommitteeName": "New committee name",
+    "newPassword": "New password",
+    "adminPassword": "Admin password",
+    "create": "Create"
+  },
+  "documents": {
+    "title": "Documents",
+    "committees": "Tenant committees",
+    "documents": "Documents",
+    "openInNewTab": "Open in new tab",
+    "selectDocumentPrompt": "Select a document to see preview",
+    "selectCommitteeFirst": "Select a committee first, then a document"
+  },
+  "inventory": {
+    "title": "Item inventory",
+    "name": "Name",
+    "amount": "Amount",
+    "add": "Add"
+  },
+  "confirmModal": {
+    "invalidCredentials": "Invalid credentials",
+    "loginPrompt": "To save the document to the cloud please log in",
+    "committeeName": "Committee name",
+    "password": "Password",
+    "logIn": "Log in",
+    "cancel": "Cancel"
+  },
   "minutes": {
+    "pdfFilename": "Meeting-minutes",
     "errors": {
       "chairman": "Chairman signature is required",
       "secretary": "Secretary signature is required",
@@ -63,9 +125,33 @@
     },
     "hints": {
       "startMeetingInfo": "Additional fields will appear after the meeting is started"
+    },
+    "pdf": {
+      "organization": "Helsingin seudun opiskelija-asuntosäätiö",
+      "minutesLabel": "Minutes",
+      "meetingTitle": "Tenant committee meeting",
+      "dateAndTime": "Date and time",
+      "present": "Present",
+      "section1": "1. Opening, legality and quorum",
+      "chairmanOpenedAt": "The chairman opened the meeting at:",
+      "meetingDeclaredLegal": "The meeting was declared legally convened and quorate.",
+      "section2": "2. Election of two minutes examiners",
+      "elected": "Elected:",
+      "section3": "3. Approval of the agenda",
+      "agendaApproved": "The agenda was approved as the working order of the meeting.",
+      "section4": "4. Purchases / volunteer work / other matters to be decided",
+      "section5": "5. Other possible matters",
+      "newMembers": "New members",
+      "section6": "6. Time of the next meeting",
+      "nextMeetingHeldAt": "The next meeting will be held:",
+      "section7": "7. Closing of the meeting",
+      "chairmanClosedAt": "The chairman closed the meeting at:",
+      "certification": "In witness whereof",
+      "signatureSuffix": "signature"
     }
   },
   "meetingInvite": {
+    "pdfFilename": "Meeting-invite",
     "agendaFin": "Esityslista",
     "agendaEng": "Agenda",
     "headers": {
@@ -78,12 +164,13 @@
       "agenda": "Agenda needs atleast one item"
     },
     "labels": {
-      "date": "Time",
-      "location": "Location",
+      "date": "Time:",
+      "location": "Location:",
       "agenda": "Agenda",
       "furtherInformation": "Further information",
+      "moreInfo": "More info",
       "welcome": "Welcome",
-      "yourCommittee": "Your tenant committee"
+      "yourCommittee": "-Your tenant committee"
     },
     "placeholders": {
       "date": "When will the meeting be held",

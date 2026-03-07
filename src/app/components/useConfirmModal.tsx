@@ -1,9 +1,11 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { apiFetch } from "../utils/apiFetch";
 
 export const useConfirmModal = () => {
+  const t = useTranslations();
   const formRef = useRef<HTMLFormElement | null>(null);
   const resolveRef = useRef<((value: boolean) => void) | null>(null);
 
@@ -45,7 +47,7 @@ export const useConfirmModal = () => {
     const committeeName = e.currentTarget.committeeName.value;
     const password = e.currentTarget.password.value;
     if (!committeeName || !password) {
-      setErrorMessage("Invalid credentials");
+      setErrorMessage(t("confirmModal.invalidCredentials"));
       setTimeout(() => setErrorMessage(""), 5000);
       return;
     }
@@ -57,7 +59,7 @@ export const useConfirmModal = () => {
     });
 
     if (!res.ok) {
-      setErrorMessage("Invalid credentials");
+      setErrorMessage(t("confirmModal.invalidCredentials"));
       return;
     }
 
@@ -72,10 +74,10 @@ export const useConfirmModal = () => {
         className="rounded-lg border bg-white p-6 pt-4 shadow-lg"
       >
         <div className="font-bold text-wrap">
-          To save the document to the cloud please log in
+          {t("confirmModal.loginPrompt")}
         </div>
         <div className="flex flex-col">
-          <label>Committee name</label>
+          <label>{t("confirmModal.committeeName")}</label>
           <input
             name="committeeName"
             type="text"
@@ -83,7 +85,7 @@ export const useConfirmModal = () => {
           />
         </div>
         <div className="flex flex-col">
-          <label>Password</label>
+          <label>{t("confirmModal.password")}</label>
           <input
             name="password"
             type="password"
@@ -91,13 +93,13 @@ export const useConfirmModal = () => {
           />
         </div>
         <div className="mt-2 flex gap-2">
-          <button className="w-full">Log in</button>
+          <button className="w-full">{t("confirmModal.logIn")}</button>
           <button
             type="button"
             onClick={() => setVisibleWithResolve(false, false)}
             className="w-full"
           >
-            Cancel
+            {t("confirmModal.cancel")}
           </button>
         </div>
         {errorMessage && (

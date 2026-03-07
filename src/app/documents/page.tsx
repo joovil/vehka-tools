@@ -6,9 +6,11 @@ import {
   getFileNames,
 } from "@/server/azure/getCommitteeDocuments";
 import { CommitteeWithoutPassword } from "@/types";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
 const Documents = () => {
+  const t = useTranslations();
   const [committees, setCommittees] = useState<CommitteeWithoutPassword[]>([]);
   const [docNames, setDocNames] = useState<string[]>([]);
   const [selectedCommittee, setSelectedCommittee] =
@@ -67,9 +69,11 @@ const Documents = () => {
     <div className="flex h-screen w-screen">
       {/* Sidebar */}
       <div className="flex w-1/3 flex-col overflow-y-auto border-r border-gray-200 p-6">
-        <h1 className="mb-4 text-2xl font-bold">Dokumentit</h1>
+        <h1 className="mb-4 text-2xl font-bold">{t("documents.title")}</h1>
 
-        <h2 className="mb-2 text-lg font-semibold">Asukastoimikunnat</h2>
+        <h2 className="mb-2 text-lg font-semibold">
+          {t("documents.committees")}
+        </h2>
         <div className="mb-6">
           {committees.map((com) => (
             <div
@@ -89,7 +93,7 @@ const Documents = () => {
         {selectedCommittee && (
           <>
             <h2 className="mb-2 text-lg font-semibold">
-              {selectedCommittee.name} - Dokumentit
+              {selectedCommittee.name} - {t("documents.documents")}
             </h2>
             <div>
               {docNames.map((d) => (
@@ -122,7 +126,7 @@ const Documents = () => {
                 onClick={() => window.open(pdfUrl, "_blank")}
                 className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
               >
-                Avaa uudessa välilehdessä
+                {t("documents.openInNewTab")}
               </button>
             </div>
             <iframe
@@ -135,11 +139,9 @@ const Documents = () => {
           <div className="flex flex-1 items-center justify-center text-gray-500">
             <div className="text-center">
               <p className="mb-2 text-lg">
-                Valitse dokumentti nähdäksesi esikatselu
+                {t("documents.selectDocumentPrompt")}
               </p>
-              <p className="text-sm">
-                Valitse ensin toimikunta, sitten dokumentti
-              </p>
+              <p className="text-sm">{t("documents.selectCommitteeFirst")}</p>
             </div>
           </div>
         )}

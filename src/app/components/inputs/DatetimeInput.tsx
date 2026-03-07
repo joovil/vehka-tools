@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import ErrorModal from "./ErrorModal";
@@ -29,6 +30,7 @@ const DatetimeInput = <T,>({
   hasError,
   header,
 }: Props<T>) => {
+  const t = useTranslations();
   const [isHovered, setIsHovered] = useState<boolean>(false); // hover state
 
   return (
@@ -68,7 +70,7 @@ const DatetimeInput = <T,>({
         className="mt-1 w-fit"
         onClick={() => setData({ ...data, [fieldKey]: undefined })}
       >
-        Clear
+        {t("clear")}
       </button>
     </div>
   );

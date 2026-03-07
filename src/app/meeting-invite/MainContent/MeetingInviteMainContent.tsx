@@ -35,12 +35,12 @@ const MeetingInviteContent = ({
       <div className="px-10">
         <div className="mx-auto w-fit">
           <div className="flex items-baseline">
-            <h2>Aika:</h2>
+            <h2>{t("meetingInvite.labels.date")}</h2>
             <div className="ml-2">{formatDate(date)}</div>
           </div>
 
           <div className="flex items-baseline">
-            <h2>Paikka:</h2>
+            <h2>{t("meetingInvite.labels.location")}</h2>
             <div className="ml-2">
               {location?.fin} / {location?.eng}
             </div>
@@ -59,12 +59,12 @@ const MeetingInviteContent = ({
         <div>
           <div className="grid grid-cols-2">
             <div>
-              <h2>Lisätietoa</h2>
+              <h2>{t("meetingInvite.labels.furtherInformation")}</h2>
               <div>{inviteData.moreInfo?.fin}</div>
             </div>
 
             <div>
-              <h2>More info</h2>
+              <h2>{t("meetingInvite.labels.moreInfo")}</h2>
               <div>{inviteData.moreInfo?.eng}</div>
             </div>
           </div>
@@ -72,8 +72,8 @@ const MeetingInviteContent = ({
 
         <div className="grid grid-cols-2">
           <div>
-            <h2>Tervetuloa</h2>
-            <div>-Asukastoimikuntasi</div>
+            <h2>{t("meetingInvite.labels.welcome")}</h2>
+            <div>{t("meetingInvite.labels.yourCommittee")}</div>
           </div>
           <div>
             <h2>Welcome</h2>

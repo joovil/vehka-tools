@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { useRef, useState } from "react";
 
 const DynamicInputList = ({
@@ -13,6 +14,7 @@ const DynamicInputList = ({
   items: string[];
   setItems: React.Dispatch<React.SetStateAction<string[]>>;
 }) => {
+  const t = useTranslations();
   const focusRef = useRef<HTMLInputElement>(null);
   const [newItem, setNewItem] = useState<string>("");
 
@@ -65,7 +67,7 @@ const DynamicInputList = ({
         className="text-red-800"
         style={{ display: newItem ? "block" : "none" }}
       >
-        Tallentamaton kohde
+        {t("unsavedItem")}
       </div>
       <button
         onClick={addItem}

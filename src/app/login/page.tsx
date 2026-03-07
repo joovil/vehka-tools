@@ -1,9 +1,11 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { apiFetch } from "../utils/apiFetch";
 
 const Login = () => {
+  const t = useTranslations();
   const [committeeName, setCommitteeName] = useState("");
   const [password, setPassword] = useState("");
 
@@ -41,14 +43,14 @@ const Login = () => {
         <div className="flex w-full max-w-xs flex-col items-center gap-4">
           <input
             type="text"
-            placeholder="Committee name"
+            placeholder={t("login.committeeName")}
             value={committeeName}
             onChange={(e) => setCommitteeName(e.target.value)}
             className="w-full rounded border px-3 py-2"
           />
           <input
             type="password"
-            placeholder="Password"
+            placeholder={t("login.password")}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="w-full rounded border px-3 py-2"
@@ -57,21 +59,21 @@ const Login = () => {
             onClick={login}
             className="w-full rounded bg-blue-600 px-3 py-2 transition hover:bg-blue-700"
           >
-            Log in
+            {t("login.logIn")}
           </button>
         </div>
         {/* Create form */}
         <div className="flex w-full max-w-xs flex-col items-center gap-4">
           <input
             type="text"
-            placeholder="New committee name"
+            placeholder={t("login.newCommitteeName")}
             value={newCommitteeName}
             onChange={(e) => setNewCommitteeName(e.target.value)}
             className="w-full rounded border px-3 py-2"
           />
           <input
             type="password"
-            placeholder="New password"
+            placeholder={t("login.newPassword")}
             value={newCommitteePassword}
             onChange={(e) => setNewCommitteePassword(e.target.value)}
             className="w-full rounded border px-3 py-2"
@@ -80,12 +82,12 @@ const Login = () => {
             onClick={handleCreate}
             className="w-full rounded bg-green-600 px-3 py-2 transition hover:bg-green-700"
           >
-            Create
+            {t("login.create")}
           </button>
         </div>
         <div>
           <button onClick={() => apiFetch("/auth/logout", { method: "POST" })}>
-            Logout
+            {t("login.logout")}
           </button>
         </div>
       </div>

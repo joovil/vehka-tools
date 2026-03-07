@@ -4,8 +4,33 @@ import { Document, Font, Page, Text, View } from "@react-pdf/renderer";
 import { formatDate } from "../utils/formatDate";
 import { MinutesData } from "./page";
 
+export type MinutesPdfTranslations = {
+  organization: string;
+  minutesLabel: string;
+  meetingTitle: string;
+  dateAndTime: string;
+  present: string;
+  section1: string;
+  chairmanOpenedAt: string;
+  meetingDeclaredLegal: string;
+  section2: string;
+  elected: string;
+  section3: string;
+  agendaApproved: string;
+  section4: string;
+  section5: string;
+  newMembers: string;
+  section6: string;
+  nextMeetingHeldAt: string;
+  section7: string;
+  chairmanClosedAt: string;
+  certification: string;
+  signatureSuffix: string;
+};
+
 type MinutesPdfProps = {
   data: MinutesData;
+  translations: MinutesPdfTranslations;
 };
 
 Font.register({
@@ -14,7 +39,7 @@ Font.register({
   fontWeight: 400,
 });
 
-const MinutesPdf = ({ data }: MinutesPdfProps) => {
+const MinutesPdf = ({ data, translations: tr }: MinutesPdfProps) => {
   const {
     location = { fin: "_", eng: "_" },
     attendants,
@@ -38,21 +63,21 @@ const MinutesPdf = ({ data }: MinutesPdfProps) => {
       >
         <View style={{ gap: 16 }}>
           <View>
-            <Text>Helsingin seudeun opiskelija-asuntosäätiö</Text>
+            <Text>{tr.organization}</Text>
             <Text>
-              Pöytäkirja {minutesNumber}/{new Date().getFullYear()}
+              {tr.minutesLabel} {minutesNumber}/{new Date().getFullYear()}
             </Text>
           </View>
 
           <View>
             <Text style={{ fontSize: 16, fontWeight: "bold" }}>
-              Asukastoimikunnan kokous
+              {tr.meetingTitle}
             </Text>
           </View>
 
           <View>
             <Text style={{ fontSize: 14, fontWeight: "bold" }}>
-              Päivämäärä ja kellonaika
+              {tr.dateAndTime}
             </Text>
             <Text>{formatDate(timeOfMeeting)}</Text>
             <Text>
@@ -61,7 +86,9 @@ const MinutesPdf = ({ data }: MinutesPdfProps) => {
           </View>
 
           <View>
-            <Text style={{ fontSize: 14, fontWeight: "bold" }}>Läsnä</Text>
+            <Text style={{ fontSize: 14, fontWeight: "bold" }}>
+              {tr.present}
+            </Text>
             {attendants.map((att, index) => (
               <Text key={index}>{att}</Text>
             ))}
@@ -69,23 +96,20 @@ const MinutesPdf = ({ data }: MinutesPdfProps) => {
 
           <View>
             <Text style={{ fontSize: 14, fontWeight: "bold" }}>
-              1. Kokouksen avaus, laillisuus ja päätösvaltaisuus
+              {tr.section1}
             </Text>
             <Text>
-              Puheenjohtaja avasi kokouksen kello: {formatDate(startTime)}
+              {tr.chairmanOpenedAt} {formatDate(startTime)}
             </Text>
-            <Text>
-              Todettiin kokous laillisesti koolle kutsutuksi ja
-              päätösvaltaiseksi.
-            </Text>
+            <Text>{tr.meetingDeclaredLegal}</Text>
           </View>
 
           <View>
             <Text style={{ fontSize: 14, fontWeight: "bold" }}>
-              2. Kahden Pöytäkirjantarkastajan valinta
+              {tr.section2}
             </Text>
             <Text>
-              Valittiin:{" "}
+              {tr.elected}{" "}
               <Text style={{ textDecoration: "underline" }}>
                 {examiners.examiner1}
               </Text>
@@ -98,14 +122,14 @@ const MinutesPdf = ({ data }: MinutesPdfProps) => {
 
           <View>
             <Text style={{ fontSize: 14, fontWeight: "bold" }}>
-              3. Esityslistan hyväksyminen
+              {tr.section3}
             </Text>
-            <Text>Esityslista hyväksyttiin kokouksen työjärjestykseksi.</Text>
+            <Text>{tr.agendaApproved}</Text>
           </View>
 
           <View>
             <Text style={{ fontSize: 14, fontWeight: "bold" }}>
-              4. Hankinnat/ talkoot/ muita päätettäviä asioita
+              {tr.section4}
             </Text>
             <View style={{ flexDirection: "row", gap: 20, marginTop: 8 }}>
               <View style={{ flex: 1 }}>
@@ -123,7 +147,7 @@ const MinutesPdf = ({ data }: MinutesPdfProps) => {
 
           <View>
             <Text style={{ fontSize: 14, fontWeight: "bold" }}>
-              5. Muut mahdolliset asiat
+              {tr.section5}
             </Text>
             <View style={{ flexDirection: "row", gap: 20, marginTop: 8 }}>
               <View style={{ flex: 1 }}>
@@ -141,7 +165,7 @@ const MinutesPdf = ({ data }: MinutesPdfProps) => {
 
           <View>
             <Text style={{ fontSize: 14, fontWeight: "bold" }}>
-              Uudet jäsenet
+              {tr.newMembers}
             </Text>
             {newMembers?.map((newMember, index) => (
               <Text key={index}>{newMember}</Text>
@@ -150,23 +174,26 @@ const MinutesPdf = ({ data }: MinutesPdfProps) => {
 
           <View>
             <Text style={{ fontSize: 14, fontWeight: "bold" }}>
-              6. Seuraavan kokouksen ajankohta
+              {tr.section6}
             </Text>
-            <Text>Seuraava kokous pidetään: {formatDate(nextMeeting)}</Text>
+            <Text>
+              {tr.nextMeetingHeldAt} {formatDate(nextMeeting)}
+            </Text>
           </View>
 
           <View>
             <Text style={{ fontSize: 14, fontWeight: "bold" }}>
-              7. Kokouksen päättäminen
+              {tr.section7}
             </Text>
             <Text>
-              Puheenjohtaja päätti kokouksen kello:{" "}
-              {formatDate(endTime).split(" ")[1]}
+              {tr.chairmanClosedAt} {formatDate(endTime).split(" ")[1]}
             </Text>
           </View>
 
           <View>
-            <Text style={{ fontSize: 14, fontWeight: "bold" }}>Vakuudeksi</Text>
+            <Text style={{ fontSize: 14, fontWeight: "bold" }}>
+              {tr.certification}
+            </Text>
             <View
               style={{
                 flexDirection: "row",
@@ -189,7 +216,9 @@ const MinutesPdf = ({ data }: MinutesPdfProps) => {
                   >
                     {value}
                   </Text>
-                  <Text>{key} allekirjoitus</Text>
+                  <Text>
+                    {key} {tr.signatureSuffix}
+                  </Text>
                 </View>
               ))}
             </View>

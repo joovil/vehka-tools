@@ -43,24 +43,25 @@ const MinutesContent = ({
   return (
     <div className="flex flex-col gap-4 p-10">
       <div>
-        <div>Helsingin seudeun opiskelija-asuntosäätiö</div>
+        <div>{t("minutes.pdf.organization")}</div>
         <div>
-          Pöytäkirja {minutesNumber}/{new Date().getFullYear()}
+          {t("minutes.pdf.minutesLabel")} {minutesNumber}/
+          {new Date().getFullYear()}
         </div>
       </div>
 
       <div>
-        <h1>Asukastoimikunnan kokous</h1>
+        <h1>{t("minutes.pdf.meetingTitle")}</h1>
       </div>
 
       <div>
-        <h2 className="text-lg">Päivämäärä ja kellonaika</h2>
+        <h2 className="text-lg">{t("minutes.pdf.dateAndTime")}</h2>
         <div>{formatDate(timeOfMeeting)}</div>
         {location.fin} / {location.eng}
       </div>
 
       <div>
-        <h2>Läsnä</h2>
+        <h2>{t("minutes.pdf.present")}</h2>
         <div>
           {attendants.map((att, index) => (
             <div
@@ -80,39 +81,39 @@ const MinutesContent = ({
       </div>
 
       <div>
-        <h2>1. Kokouksen avaus, laillisuus ja päätösvaltaisuus</h2>
-        <div>Puheenjohtaja avasi kokouksen kello: {formatDate(startTime)}</div>
+        <h2>{t("minutes.pdf.section1")}</h2>
         <div>
-          Todettiin kokous laillisesti koolle kutsutuksi ja päätösvaltaiseksi.
+          {t("minutes.pdf.chairmanOpenedAt")} {formatDate(startTime)}
         </div>
+        <div>{t("minutes.pdf.meetingDeclaredLegal")}</div>
       </div>
 
       <div>
-        <h2>2.Kahden Pöytäkirjantarkastajan valinta</h2>
+        <h2>{t("minutes.pdf.section2")}</h2>
         <div className="flex gap-2">
-          <div>Valittiin:</div>
+          <div>{t("minutes.pdf.elected")}</div>
           <div className="underline">{examiners.examiner1}</div>
           <div className="underline">{examiners.examiner2}</div>
         </div>
       </div>
 
       <div>
-        <h2>3. Esityslistan hyväksyminen</h2>
-        <div>Esityslista hyväksyttiin kokouksen työjärjestykseksi.</div>
+        <h2>{t("minutes.pdf.section3")}</h2>
+        <div>{t("minutes.pdf.agendaApproved")}</div>
       </div>
 
       <div>
-        <h2>4. Hankinnat/ talkoot/ muita päätettäviä asioita</h2>
+        <h2>{t("minutes.pdf.section4")}</h2>
         {ListDisplay("meetingItems")}
       </div>
 
       <div>
-        <h2>5. Muut mahdolliset asiat</h2>
+        <h2>{t("minutes.pdf.section5")}</h2>
         {ListDisplay("otherItems")}
       </div>
 
       <div>
-        <h2>Uudet jäsenet</h2>
+        <h2>{t("minutes.pdf.newMembers")}</h2>
         {newMembers?.map((newMember, index) => (
           <div key={index}>
             <div className="flex">
@@ -129,20 +130,22 @@ const MinutesContent = ({
       </div>
 
       <div>
-        <h2>6. Seuraavan kokouksen ajankohta</h2>
-        <div>Seuraava kokous pidetään: {formatDate(nextMeeting)}</div>
+        <h2>{t("minutes.pdf.section6")}</h2>
+        <div>
+          {t("minutes.pdf.nextMeetingHeldAt")} {formatDate(nextMeeting)}
+        </div>
       </div>
 
       <div>
-        <h2>7. Kokouksen päättäminen</h2>
+        <h2>{t("minutes.pdf.section7")}</h2>
         <div>
-          Puheenjohtaja päätti kokouksen kello:{" "}
+          {t("minutes.pdf.chairmanClosedAt")}{" "}
           {formatDate(endTime).split(" ")[1]}
         </div>
       </div>
 
       <div>
-        <h2>Vakuudeksi</h2>
+        <h2>{t("minutes.pdf.certification")}</h2>
         <div className="grid grid-cols-2 grid-rows-2">
           {Object.keys(signatures).map((key) => (
             <div key={key}>

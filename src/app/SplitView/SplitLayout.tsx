@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useRef, useState } from "react";
 import MenuItems from "../MenuItems";
 
@@ -12,6 +13,7 @@ export default function SplitLayout({
   children: React.ReactNode;
   sidebar: React.ReactNode;
 }>) {
+  const t = useTranslations();
   const [sidebarWidth, setSidebarWidth] = useState(40);
   const [isMobile, setIsMobile] = useState(false);
   const [activeTab, setActiveTab] = useState<MobileTab>("form");
@@ -63,7 +65,7 @@ export default function SplitLayout({
                 : "text-gray-500 hover:text-gray-700"
             }`}
           >
-            Lomake
+            {t("splitView.form")}
           </button>
           <button
             onClick={() => setActiveTab("preview")}
@@ -73,7 +75,7 @@ export default function SplitLayout({
                 : "text-gray-500 hover:text-gray-700"
             }`}
           >
-            Esikatselu
+            {t("splitView.preview")}
           </button>
         </div>
 
