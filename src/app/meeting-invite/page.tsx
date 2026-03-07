@@ -2,6 +2,7 @@
 
 import { FinEng } from "@/types";
 import { SplitPage } from "../SplitView/SplitComponent";
+import { DocumentLanguage } from "../components/document/types";
 import MeetingInviteContent from "./MainContent/MeetingInviteMainContent";
 import MeetingInviteSidebar from "./Sidebar/MeetingInviteSidebar";
 
@@ -15,6 +16,7 @@ export interface MeetingInviteData {
   location?: FinEng;
   agendaItems: FinEng[];
   moreInfo?: FinEng;
+  language?: DocumentLanguage;
 }
 
 const MeetingInvitePage = () => {

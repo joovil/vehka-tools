@@ -28,6 +28,8 @@ const SidebarListInput = <T,>({
 
   // Adds a new item to the end of the array using the key as the field name
   const handleListChange = (item: string) => {
+    if (!item.trim()) return;
+
     setData((prev: T) => ({
       ...prev,
       [fieldKey]: [

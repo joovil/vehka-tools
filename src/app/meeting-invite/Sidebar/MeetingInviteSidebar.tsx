@@ -1,6 +1,7 @@
 "use client";
 
 import DatetimeInput from "@/app/components/inputs/DatetimeInput";
+import LanguageSelector from "@/app/components/inputs/LanguageSelector";
 import MultiLanguageInput from "@/app/components/inputs/MultiLanguageInput";
 import MultiLanguageListInput from "@/app/components/inputs/MultiLanguageListInput";
 import useConfirmModal from "@/app/components/useConfirmModal";
@@ -51,6 +52,13 @@ const MeetingInviteSidebar = ({
   return (
     <div className="flex flex-col gap-2">
       {ConfirmModal}
+
+      <LanguageSelector
+        value={inviteData.language ?? "bilingual"}
+        onChange={(lang) =>
+          setInviteData((prev) => ({ ...prev, language: lang }))
+        }
+      />
 
       {/* <ScrollAnchor id="page-top" /> */}
       <DatetimeInput

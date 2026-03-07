@@ -13,6 +13,17 @@ export const buildInviteDocument = (
 ): DocumentDefinition => {
   const { date, location, agendaItems, moreInfo } = data;
 
+  const lang = data.language ?? "bilingual";
+  const singleLang = lang !== "bilingual" ? lang : undefined;
+
+  const locationText = location
+    ? lang === "fin"
+      ? location.fin
+      : lang === "eng"
+        ? location.eng
+        : `${location.fin} / ${location.eng}`
+    : "";
+
   const sections: DocumentDefinition = [
     // Banner image
     {
@@ -37,7 +48,7 @@ export const buildInviteDocument = (
           segments: [
             { text: t("meetingInvite.labels.location"), bold: true },
             {
-              text: ` ${location ? `${location.fin} / ${location.eng}` : ""}`,
+              text: ` ${locationText}`,
             },
           ],
         },
@@ -53,6 +64,7 @@ export const buildInviteDocument = (
           fieldKey: "agendaItems",
           finHeader: t("meetingInvite.agendaFin"),
           engHeader: t("meetingInvite.agendaEng"),
+          language: singleLang,
         },
       ],
     },
@@ -75,6 +87,7 @@ export const buildInviteDocument = (
               content: moreInfo.eng,
             },
           ],
+          language: singleLang,
         },
       ],
     });
@@ -93,6 +106,7 @@ export const buildInviteDocument = (
           },
           { header: "Welcome", content: "-Your tenant committee" },
         ],
+        language: singleLang,
       },
     ],
   });

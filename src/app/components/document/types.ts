@@ -1,5 +1,7 @@
 import { FinEng } from "@/types";
 
+export type DocumentLanguage = "bilingual" | "fin" | "eng";
+
 // ─── Block types ───────────────────────────────────────────────
 
 export type DocumentBlock =
@@ -37,12 +39,16 @@ export interface BilingualListBlock {
   fieldKey?: string;
   finHeader?: string;
   engHeader?: string;
+  /** When set, render only the specified language column. */
+  language?: "fin" | "eng";
 }
 
 /** Two-column layout with optional headers (e.g. "Lisätietoa" / "More info"). */
 export interface BilingualColumnsBlock {
   type: "bilingual-columns";
   columns: Array<{ header?: string; content: string }>;
+  /** When set, render only column[0] (fin) or column[1] (eng). */
+  language?: "fin" | "eng";
 }
 
 /** Inline segments rendered as a single row (e.g. "Elected: name1 / name2"). */

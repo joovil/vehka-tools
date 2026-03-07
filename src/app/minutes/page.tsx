@@ -2,6 +2,7 @@
 
 import { Examiners, FinEng, Signatures } from "@/types";
 import { SplitPage } from "../SplitView/SplitComponent";
+import { DocumentLanguage } from "../components/document/types";
 import MinutesContent from "./MainContent/MinutesMainContent";
 import MinutesSidebar from "./Sidebar/MinutesSidebar";
 
@@ -23,6 +24,7 @@ export interface MinutesData {
   newMembers?: string[];
   nextMeeting?: Date;
   timeOfMeeting?: Date;
+  language?: DocumentLanguage;
 }
 
 const MinutesPage = () => {

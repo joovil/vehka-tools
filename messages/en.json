@@ -9,6 +9,12 @@
   "download": "Download",
   "clear": "Clear",
   "unsavedItem": "Unsaved item",
+  "language": {
+    "label": "Document language",
+    "bilingual": "Bilingual (FI/EN)",
+    "finnishOnly": "Finnish only",
+    "englishOnly": "English only"
+  },
   "nav": {
     "meetingsAndEvents": "Meetings and events",
     "meetingInvite": "Meeting invite",

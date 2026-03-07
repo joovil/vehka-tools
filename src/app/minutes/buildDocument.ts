@@ -22,9 +22,19 @@ export const buildMinutesDocument = (
     startTime,
     endTime,
     timeOfMeeting,
+    language: rawLang,
   } = data;
 
+  const lang = rawLang ?? "bilingual";
+  const singleLang = lang !== "bilingual" ? lang : undefined;
   const loc = location ?? { fin: "_", eng: "_" };
+
+  const locationText =
+    lang === "fin"
+      ? loc.fin
+      : lang === "eng"
+        ? loc.eng
+        : `${loc.fin} / ${loc.eng}`;
 
   return [
     // Header
@@ -48,7 +58,7 @@ export const buildMinutesDocument = (
       blocks: [
         { type: "heading", content: t("minutes.pdf.dateAndTime"), level: 2 },
         { type: "text", content: formatDate(timeOfMeeting) },
-        { type: "text", content: `${loc.fin} / ${loc.eng}` },
+        { type: "text", content: locationText },
       ],
     },
     // Present
@@ -99,6 +109,7 @@ export const buildMinutesDocument = (
           type: "bilingual-list",
           items: data.meetingItems,
           fieldKey: "meetingItems",
+          language: singleLang,
         },
       ],
     },
@@ -110,6 +121,7 @@ export const buildMinutesDocument = (
           type: "bilingual-list",
           items: data.otherItems,
           fieldKey: "otherItems",
+          language: singleLang,
         },
       ],
     },

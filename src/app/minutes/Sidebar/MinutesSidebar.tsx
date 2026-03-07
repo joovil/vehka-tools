@@ -1,6 +1,7 @@
 "use client";
 
 import Dropdown from "@/app/components/Dropdown";
+import LanguageSelector from "@/app/components/inputs/LanguageSelector";
 import MultiLanguageInput from "@/app/components/inputs/MultiLanguageInput";
 import MultiLanguageListInput from "@/app/components/inputs/MultiLanguageListInput";
 import SidebarInput from "@/app/components/inputs/SidebarInput";
@@ -47,6 +48,12 @@ const MinutesSidebar = ({
   return (
     <div className="flex flex-col gap-2">
       {ConfirmModal}
+      <LanguageSelector
+        value={minutesData.language ?? "bilingual"}
+        onChange={(lang) =>
+          setMinutesData((prev) => ({ ...prev, language: lang }))
+        }
+      />
       {/* ###################### Pre-meeting ###################### */}
       <div id="location-anchor">
         <Dropdown header={t("minutes.labels.location")}>

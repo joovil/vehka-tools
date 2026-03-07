@@ -46,7 +46,32 @@ export const renderPdfBlock = (
         </View>
       );
 
-    case "bilingual-list":
+    case "bilingual-list": {
+      const lang = block.language;
+      if (lang) {
+        const header = lang === "fin" ? block.finHeader : block.engHeader;
+        return (
+          <View
+            key={index}
+            style={{ marginTop: 8 }}
+          >
+            {header && (
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontWeight: "bold",
+                  marginBottom: 10,
+                }}
+              >
+                {header}
+              </Text>
+            )}
+            {block.items.map((item, i) => (
+              <Text key={i}>{item[lang]}</Text>
+            ))}
+          </View>
+        );
+      }
       return (
         <View
           key={index}
@@ -86,14 +111,21 @@ export const renderPdfBlock = (
           </View>
         </View>
       );
+    }
 
-    case "bilingual-columns":
+    case "bilingual-columns": {
+      const cols = block.language
+        ? [block.columns[block.language === "fin" ? 0 : 1]]
+        : block.columns;
       return (
         <View
           key={index}
-          style={{ flexDirection: "row", marginVertical: 20 }}
+          style={{
+            flexDirection: cols.length > 1 ? "row" : undefined,
+            marginVertical: 20,
+          }}
         >
-          {block.columns.map((col, i) => (
+          {cols.map((col, i) => (
             <View
               key={i}
               style={{ flex: 1, paddingHorizontal: 10 }}
@@ -114,6 +146,7 @@ export const renderPdfBlock = (
           ))}
         </View>
       );
+    }
 
     case "inline":
       return (

@@ -72,7 +72,29 @@ export const HtmlDocumentRenderer = <T,>({
           </div>
         );
 
-      case "bilingual-list":
+      case "bilingual-list": {
+        const lang = block.language;
+        if (lang) {
+          const header = lang === "fin" ? block.finHeader : block.engHeader;
+          return (
+            <div key={index}>
+              {header && <h2>{header}</h2>}
+              {block.items.map((item, i) => (
+                <div
+                  className="flex"
+                  key={i}
+                >
+                  {isEditable && block.fieldKey && (
+                    <RemoveButton
+                      onClick={() => removeItem(item, block.fieldKey!)}
+                    />
+                  )}
+                  <div>{item[lang]}</div>
+                </div>
+              ))}
+            </div>
+          );
+        }
         return (
           <div
             key={index}
@@ -104,14 +126,18 @@ export const HtmlDocumentRenderer = <T,>({
             </div>
           </div>
         );
+      }
 
-      case "bilingual-columns":
+      case "bilingual-columns": {
+        const cols = block.language
+          ? [block.columns[block.language === "fin" ? 0 : 1]]
+          : block.columns;
         return (
           <div
             key={index}
-            className="grid grid-cols-2"
+            className={block.language ? undefined : "grid grid-cols-2"}
           >
-            {block.columns.map((col, i) => (
+            {cols.map((col, i) => (
               <div key={i}>
                 {col.header && <h2>{col.header}</h2>}
                 <div>{col.content}</div>
@@ -119,6 +145,7 @@ export const HtmlDocumentRenderer = <T,>({
             ))}
           </div>
         );
+      }
 
       case "inline":
         return (
