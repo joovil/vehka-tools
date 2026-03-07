@@ -280,3 +280,14 @@ body {
 .accounting-signatures .grid > div {
   max-width: 70%;
 }
+
+/* Inventory styles */
+.inventory-header {
+  background-color: #E83C6A;
+  color: white;
+}
+
+.inventory-header th {
+  padding: 0.5rem;
+  font-weight: bold;
+}

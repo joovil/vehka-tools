@@ -1,83 +1,64 @@
 "use client";
 
-import { useTranslations } from "next-intl";
-import { Fragment, useRef, useState } from "react";
+import { SplitPage } from "../SplitView/SplitComponent";
+import InventoryContent from "./MainContent/InventoryMainContent";
+import InventorySidebar from "./Sidebar/InventorySidebar";
 
-interface InventoryItem {
-  name: string;
-  amount: number;
+export interface InventoryProps {
+  data: InventoryData;
+  setData: React.Dispatch<React.SetStateAction<InventoryData>>;
 }
 
-const Inventory = () => {
-  const t = useTranslations();
-  const focusRef = useRef<HTMLInputElement | null>(null);
-  const [items, setItems] = useState<InventoryItem[]>([
-    {
-      name: "",
-      amount: 0,
-    },
-  ]);
+export type ItemCondition =
+  | "excellent"
+  | "good"
+  | "satisfactory"
+  | "poor"
+  | "disposable";
 
-  const addItem = () => {
-    // Reset first item and shift rest by 1
-    if (!items[0].name) return;
+export type InventorySection =
+  | "clubroom"
+  | "gym"
+  | "homeAppliances"
+  | "otherSpaces";
 
-    const update = [...items];
-    update.unshift({ name: "", amount: 0 });
+export const SECTIONS: InventorySection[] = [
+  "clubroom",
+  "gym",
+  "homeAppliances",
+  "otherSpaces",
+];
 
-    setItems(update);
-    focusRef.current?.focus();
-  };
+export interface InventoryItem {
+  name: string;
+  amount: number;
+  condition: ItemCondition;
+  additionalInfo: string;
+  location: string;
+}
 
-  const handleEnter = (e: React.KeyboardEvent<HTMLInputElement>, i: number) => {
-    if (!items[i].name) return;
+export interface InventoryData {
+  address: string;
+  date: string;
+  clubroom: InventoryItem[];
+  gym: InventoryItem[];
+  homeAppliances: InventoryItem[];
+  otherSpaces: InventoryItem[];
+}
 
-    if (e.key === "Enter") {
-      addItem();
-    }
-  };
+const InventoryPage = () => (
+  <SplitPage<InventoryData>
+    MainContent={InventoryContent}
+    Sidebar={InventorySidebar}
+    initialData={{
+      address: "",
+      date: "",
+      clubroom: [],
+      gym: [],
+      homeAppliances: [],
+      otherSpaces: [],
+    }}
+  />
+);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>, i: number) => {
-    const key = e.currentTarget.name as "name" | "amount";
-    const value =
-      key === "amount"
-        ? parseInt(e.currentTarget.value, 10) || 0
-        : e.currentTarget.value;
-
-    const update = [...items];
-    update[i] = { ...update[i], [key]: value };
-    setItems(update);
-  };
-
-  return (
-    <section>
-      <h2>{t("inventory.title")}</h2>
-      <div className="grid grid-cols-2">
-        <h3>{t("inventory.name")}</h3>
-        <h3>{t("inventory.amount")}</h3>
-
-        {items.map((item, i) => (
-          <Fragment key={i}>
-            <input
-              ref={i === 0 ? focusRef : null}
-              name="name"
-              value={item.name}
-              onChange={(e) => handleChange(e, i)}
-              onKeyDown={(e) => handleEnter(e, i)}
-            />
-            <input
-              name="amount"
-              value={item.amount}
-              onChange={(e) => handleChange(e, i)}
-              onKeyDown={(e) => handleEnter(e, i)}
-            />
-          </Fragment>
-        ))}
-      </div>
-
-      <button onClick={addItem}>{t("inventory.add")}</button>
-    </section>
-  );
-};
-
-export default Inventory;
+export default InventoryPage;

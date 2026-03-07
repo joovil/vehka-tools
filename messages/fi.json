@@ -62,9 +62,53 @@
   },
   "inventory": {
     "title": "Tavarainventaario",
-    "name": "Nimi",
-    "amount": "Määrä",
-    "add": "Lisää"
+    "excelFilename": "Tavarainventaario",
+    "info": "Tiedot",
+    "address": "Kiinteistön osoite",
+    "date": "Päivämäärä",
+    "section": "Osio",
+    "add": "Lisää",
+    "addItem": "Lisää tavara",
+    "exportExcel": "Vie Excel-tiedostoksi",
+    "emptySection": "Ei tavaroita tässä osiossa.",
+    "sections": {
+      "clubroom": "Kerhotila",
+      "gym": "Kuntosali",
+      "homeAppliances": "Kodinkoneet",
+      "otherSpaces": "Muut tilat"
+    },
+    "columns": {
+      "item": "Tavara",
+      "amount": "Kpl",
+      "condition": "Kunto",
+      "additionalInfo": "Lisätietoja",
+      "location": "Sijainti"
+    },
+    "conditions": {
+      "excellent": "Erinomainen",
+      "good": "Hyvä",
+      "satisfactory": "Tyydyttävä",
+      "poor": "Välttävä",
+      "disposable": "Poistettava"
+    },
+    "placeholders": {
+      "name": "Tavaran nimi",
+      "amount": "Määrä",
+      "additionalInfo": "Lisätietoja",
+      "location": "Sijainti",
+      "address": "Kiinteistön osoite",
+      "date": "pp.kk.vvvv"
+    },
+    "excel": {
+      "conditionGuide": "Tavaran kunto: Erinomainen, Hyvä, Tyydyttävä, Välttävä, Poistettava",
+      "tabs": {
+        "instructions": "Täyttöohjeet",
+        "clubroom": "Kerhotila",
+        "gym": "Kuntosali",
+        "homeAppliances": "Kodinkoneet",
+        "otherSpaces": "Muut tilat"
+      }
+    }
   },
   "confirmModal": {
     "invalidCredentials": "Virheelliset tunnukset",

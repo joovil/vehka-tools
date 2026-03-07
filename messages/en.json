@@ -62,9 +62,53 @@
   },
   "inventory": {
     "title": "Item inventory",
-    "name": "Name",
-    "amount": "Amount",
-    "add": "Add"
+    "excelFilename": "Item-inventory",
+    "info": "Info",
+    "address": "Property address",
+    "date": "Date",
+    "section": "Section",
+    "add": "Add",
+    "addItem": "Add item",
+    "exportExcel": "Export as Excel",
+    "emptySection": "No items in this section.",
+    "sections": {
+      "clubroom": "Clubroom",
+      "gym": "Gym",
+      "homeAppliances": "Home appliances",
+      "otherSpaces": "Other spaces"
+    },
+    "columns": {
+      "item": "Item",
+      "amount": "Pcs",
+      "condition": "Condition",
+      "additionalInfo": "Additional info",
+      "location": "Location"
+    },
+    "conditions": {
+      "excellent": "Excellent",
+      "good": "Good",
+      "satisfactory": "Satisfactory",
+      "poor": "Poor",
+      "disposable": "Disposable"
+    },
+    "placeholders": {
+      "name": "Item name",
+      "amount": "Amount",
+      "additionalInfo": "Additional info",
+      "location": "Location",
+      "address": "Property address",
+      "date": "dd.mm.yyyy"
+    },
+    "excel": {
+      "conditionGuide": "Condition: Excellent, Good, Satisfactory, Poor, Disposable",
+      "tabs": {
+        "instructions": "Instructions",
+        "clubroom": "Clubroom",
+        "gym": "Gym",
+        "homeAppliances": "Home appliances",
+        "otherSpaces": "Other spaces"
+      }
+    }
   },
   "confirmModal": {
     "invalidCredentials": "Invalid credentials",
