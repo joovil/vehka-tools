@@ -12,7 +12,7 @@ const SignaturesInput = ({ data, setData }: Props) => {
   const t = useTranslations();
 
   const handleChange =
-    (fieldKey: "chairman" | "treasurer") =>
+    (fieldKey: "recipient" | "committeeMember") =>
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setData({
         ...data,
@@ -27,22 +27,22 @@ const SignaturesInput = ({ data, setData }: Props) => {
     <div className="flex flex-col gap-2">
       <div>
         <label className="text-sm text-gray-600">
-          {t("accounting.labels.chairman")}
+          {t("accounting.labels.recipient")}
         </label>
         <input
-          className={`w-full border-b p-1 ${data.signatures.chairman ? "font-alex text-xl" : ""}`}
-          placeholder={t("accounting.labels.chairman")}
-          onChange={handleChange("chairman")}
+          className={`w-full border-b p-1 ${data.signatures.recipient ? "font-alex text-xl" : ""}`}
+          placeholder={t("accounting.labels.recipient")}
+          onChange={handleChange("recipient")}
         />
       </div>
       <div>
         <label className="text-sm text-gray-600">
-          {t("accounting.labels.treasurer")}
+          {t("accounting.labels.committeeMember")}
         </label>
         <input
-          className={`w-full border-b p-1 ${data.signatures.treasurer ? "font-alex text-xl" : ""}`}
-          placeholder={t("accounting.labels.treasurer")}
-          onChange={handleChange("treasurer")}
+          className={`w-full border-b p-1 ${data.signatures.committeeMember ? "font-alex text-xl" : ""}`}
+          placeholder={t("accounting.labels.committeeMember")}
+          onChange={handleChange("committeeMember")}
         />
       </div>
     </div>

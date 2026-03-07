@@ -9,13 +9,24 @@ export interface AccountingProps {
   setData: React.Dispatch<React.SetStateAction<AccountingData>>;
 }
 
+export type ExpenseCategory = "701" | "704" | "707" | "709" | "unclear";
+
+export interface AccountingExpense {
+  category: ExpenseCategory;
+  description: string;
+  amount: string;
+}
+
 export interface AccountingData {
-  committeeName?: string;
-  period?: string;
-  expenses: Array<{ description: string; amount: string }>;
-  incomes: Array<{ description: string; amount: string }>;
-  notes?: string;
-  signatures: { chairman: string; treasurer: string };
+  name?: string;
+  address?: string;
+  iban?: string;
+  bic?: string;
+  committeeRole?: string;
+  minutesNumber?: string;
+  expenses: AccountingExpense[];
+  date?: string;
+  signatures: { recipient: string; committeeMember: string };
 }
 
 const AccountingPage = () => (
@@ -24,8 +35,7 @@ const AccountingPage = () => (
     Sidebar={AccountingSidebar}
     initialData={{
       expenses: [],
-      incomes: [],
-      signatures: { chairman: "", treasurer: "" },
+      signatures: { recipient: "", committeeMember: "" },
     }}
   />
 );

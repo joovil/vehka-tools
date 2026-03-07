@@ -188,34 +188,59 @@
   "accounting": {
     "pdfFilename": "Tilityslomake",
     "labels": {
-      "info": "Tiedot",
-      "committeeName": "Toimikunnan nimi",
-      "period": "Tilityskausi",
+      "personalInfo": "Henkilötiedot",
+      "name": "Nimi",
+      "address": "Osoite",
+      "iban": "IBAN",
+      "bic": "BIC/SWIFT",
+      "hoasCode": "Hoas-kohdenumero (Hoas täyttää)",
+      "committeeRole": "Tehtävä toimikunnassa",
+      "minutesNumber": "Pöytäkirjanumero",
       "expenses": "Menot",
-      "incomes": "Tulot",
+      "category": "Tililaji",
       "description": "Kuvaus",
       "amount": "Summa (€)",
       "total": "Yhteensä",
-      "notes": "Lisätiedot",
+      "totalEur": "YHTEENSÄ (EUROA)",
       "signatures": "Allekirjoitukset",
-      "chairman": "Puheenjohtaja",
-      "treasurer": "Taloudenhoitaja",
+      "recipient": "Tilityksen saaja",
+      "committeeMember": "Asukastoimikuntalainen",
+      "date": "Päivämäärä",
       "signature": "allekirjoitus"
     },
+    "categories": {
+      "701": "701 hankinnat",
+      "704": "704 virkistys",
+      "707": "707 alkoholi",
+      "709": "709 lisäbudjetti",
+      "unclear": "Epäselvät"
+    },
     "placeholders": {
-      "committeeName": "Asukastoimikunnan nimi",
-      "period": "esim. 1.1.2024 - 31.12.2024",
-      "description": "Kuvaus",
+      "name": "Nimi",
+      "address": "Osoite",
+      "iban": "FI00 0000 0000 0000 00",
+      "bic": "NDEAFIHH",
+      "committeeRole": "esim. Puheenjohtaja",
+      "minutesNumber": "Pöytäkirjanumero",
+      "description": "Hankinnan kuvaus",
       "amount": "Summa euroina",
-      "notes": "Lisätietoja"
+      "date": "pp.kk.vvvv"
     },
     "pdf": {
       "title": "Tilityslomake",
-      "committeeName": "Toimikunta:",
-      "period": "Tilityskausi:",
-      "total": "Yhteensä:",
-      "notes": "Lisätiedot:",
-      "certification": "Vakuudeksi"
+      "tableHeaderCategory": "TILILAJI",
+      "tableHeaderDescription": "HANKINNAT KUITTIEN MUKAAN (liitä alkuperäiset kuitit mukaan)",
+      "tableHeaderAmount": "€",
+      "categoryDescriptions": {
+        "701": "Tililaji 701: hankinnat, sisustus, harrastusvälineet, toimistotarvikkeet, lehtitilaukset, pelit, yms.",
+        "704": "Tililaji 704: virkistys, talkoo- ja kokoustarjoilut, juhlakulut, peli-illat, palkinnot, uima- ja teatteriliput yms.",
+        "707": "Tililaji 707: kaikki alkoholit",
+        "709": "Tililaji 709: myönnetty lisäbudjetti"
+      },
+      "footerNote1": "Osallistujalista liitettävä tilitykseen, joka koskee erilaisia tilaisuuksia (talkoot, retket, juhlat yms.)",
+      "footerNote2": "Tilitykset tulee varmentaa sekä tilittäjän että yhden asukastoimikunnan jäsenen allekirjoituksin ja nimenselvennyksin.",
+      "recipientSignature": "Tilityksen saajan allekirjoitus, nimenselvennys ja puh.nro.",
+      "memberSignature": "Asukastoimikuntalaisen allekirjoitus, nimenselvennys ja puh.nro"
     }
   },
   "residentMeeting": {

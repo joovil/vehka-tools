@@ -198,3 +198,64 @@ body {
     @apply text-2xl;
   }
 } */
+
+/* Accounting form styles */
+.accounting-personal-info > div {
+  border-bottom: 1px solid #ccc;
+  padding: 4px 0;
+}
+
+.accounting-categories {
+  font-style: italic;
+  font-size: 0.75rem;
+  color: #555;
+  margin-top: 4px;
+}
+
+.accounting-categories > div {
+  line-height: 1.4;
+}
+
+.accounting-table table {
+  border-collapse: collapse;
+}
+
+.accounting-table table thead tr {
+  background-color: #E83C6A;
+}
+
+.accounting-table table thead th {
+  color: white;
+  border: 1px solid #E83C6A;
+  padding: 6px 8px;
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+
+.accounting-table table td {
+  border: 1px solid #bbb;
+  padding: 4px 8px;
+}
+
+.accounting-table table tbody tr:last-child {
+  font-weight: bold;
+}
+
+.accounting-table table tbody tr:last-child td {
+  border-top: 2px solid #333;
+}
+
+.accounting-footer {
+  font-style: italic;
+  font-size: 0.75rem;
+  color: #555;
+}
+
+.accounting-signatures .grid {
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.accounting-signatures .grid > div {
+  max-width: 70%;
+}

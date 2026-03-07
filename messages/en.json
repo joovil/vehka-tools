@@ -188,34 +188,59 @@
   "accounting": {
     "pdfFilename": "Accounting-form",
     "labels": {
-      "info": "Information",
-      "committeeName": "Committee name",
-      "period": "Reporting period",
+      "personalInfo": "Personal information",
+      "name": "Name",
+      "address": "Address",
+      "iban": "IBAN",
+      "bic": "BIC/SWIFT",
+      "hoasCode": "Hoas target code (filled by Hoas)",
+      "committeeRole": "Role in committee",
+      "minutesNumber": "Minutes number",
       "expenses": "Expenses",
-      "incomes": "Incomes",
+      "category": "Account type",
       "description": "Description",
       "amount": "Amount (€)",
       "total": "Total",
-      "notes": "Notes",
+      "totalEur": "TOTAL (EUR)",
       "signatures": "Signatures",
-      "chairman": "Chairman",
-      "treasurer": "Treasurer",
+      "recipient": "Recipient",
+      "committeeMember": "Committee member",
+      "date": "Date",
       "signature": "signature"
     },
+    "categories": {
+      "701": "701 purchases",
+      "704": "704 entertainment",
+      "707": "707 alcohol",
+      "709": "709 additional budget",
+      "unclear": "Unclear"
+    },
     "placeholders": {
-      "committeeName": "Name of the tenant committee",
-      "period": "e.g. 1.1.2024 - 31.12.2024",
-      "description": "Description",
+      "name": "Full name",
+      "address": "Address",
+      "iban": "FI00 0000 0000 0000 00",
+      "bic": "NDEAFIHH",
+      "committeeRole": "e.g. Chairman",
+      "minutesNumber": "Minutes number",
+      "description": "Description of purchase",
       "amount": "Amount in euros",
-      "notes": "Additional notes"
+      "date": "dd.mm.yyyy"
     },
     "pdf": {
       "title": "Accounting form",
-      "committeeName": "Committee:",
-      "period": "Period:",
-      "total": "Total:",
-      "notes": "Notes:",
-      "certification": "In witness whereof"
+      "tableHeaderCategory": "ACCOUNT TYPE",
+      "tableHeaderDescription": "PURCHASES PER RECEIPTS (attach original receipts)",
+      "tableHeaderAmount": "€",
+      "categoryDescriptions": {
+        "701": "Account 701: purchases, furniture, hobby equipment, office supplies, magazine subscriptions, games, etc.",
+        "704": "Account 704: entertainment, event catering, celebration costs, game nights, prizes, swimming and theater tickets, etc.",
+        "707": "Account 707: all alcohol",
+        "709": "Account 709: granted additional budget"
+      },
+      "footerNote1": "A participant list must be attached to the accounting for various events (volunteer work, trips, celebrations, etc.)",
+      "footerNote2": "Accountings must be verified with signatures and name clarifications of both the accountant and one committee member.",
+      "recipientSignature": "Recipient's signature, name clarification and phone number",
+      "memberSignature": "Committee member's signature, name clarification and phone number"
     }
   },
   "residentMeeting": {
