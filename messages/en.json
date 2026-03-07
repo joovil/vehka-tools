@@ -184,5 +184,169 @@
       "agenda": "What will be in the meeting agenda",
       "furtherInformation": "Further information"
     }
+  },
+  "accounting": {
+    "pdfFilename": "Accounting-form",
+    "labels": {
+      "info": "Information",
+      "committeeName": "Committee name",
+      "period": "Reporting period",
+      "expenses": "Expenses",
+      "incomes": "Incomes",
+      "description": "Description",
+      "amount": "Amount (€)",
+      "total": "Total",
+      "notes": "Notes",
+      "signatures": "Signatures",
+      "chairman": "Chairman",
+      "treasurer": "Treasurer",
+      "signature": "signature"
+    },
+    "placeholders": {
+      "committeeName": "Name of the tenant committee",
+      "period": "e.g. 1.1.2024 - 31.12.2024",
+      "description": "Description",
+      "amount": "Amount in euros",
+      "notes": "Additional notes"
+    },
+    "pdf": {
+      "title": "Accounting form",
+      "committeeName": "Committee:",
+      "period": "Period:",
+      "total": "Total:",
+      "notes": "Notes:",
+      "certification": "In witness whereof"
+    }
+  },
+  "residentMeeting": {
+    "pdfFilename": "Resident-meeting-minutes",
+    "labels": {
+      "info": "Information",
+      "meetingNumber": "Meeting number",
+      "date": "Date",
+      "location": "Location",
+      "attendantCount": "Number of attendants",
+      "agendaItems": "Agenda items",
+      "decisions": "Decisions",
+      "nextMeeting": "Next meeting",
+      "signatures": "Signatures",
+      "chairman": "Chairman",
+      "secretary": "Secretary",
+      "signature": "signature"
+    },
+    "placeholders": {
+      "meetingNumber": "Meeting number",
+      "date": "Date of the meeting",
+      "location": "Where was the meeting held",
+      "attendantCount": "Number of attendants",
+      "agenda": "Agenda item",
+      "decisions": "Decision made",
+      "nextMeeting": "When is the next meeting",
+      "chairman": "Chairman signature",
+      "secretary": "Secretary signature"
+    },
+    "pdf": {
+      "title": "Resident meeting minutes",
+      "meetingNumber": "Meeting no.",
+      "date": "Date:",
+      "location": "Location:",
+      "attendantCount": "Number of attendants:",
+      "agendaItems": "Agenda items",
+      "decisions": "Decisions",
+      "nextMeeting": "Next meeting:",
+      "certification": "In witness whereof"
+    }
+  },
+  "contactForm": {
+    "pdfFilename": "Contact-form",
+    "labels": {
+      "info": "Meeting information",
+      "meetingDate": "Meeting date",
+      "location": "Location",
+      "participants": "Participants",
+      "name": "Name",
+      "apartment": "Apartment",
+      "phone": "Phone",
+      "email": "Email"
+    },
+    "placeholders": {
+      "meetingDate": "When is the meeting",
+      "location": "Location of the meeting",
+      "name": "Participant name",
+      "apartment": "Apartment number",
+      "phone": "Phone number",
+      "email": "Email address"
+    },
+    "pdf": {
+      "title": "Participant and contact form",
+      "meetingDate": "Meeting date:",
+      "location": "Location:"
+    }
+  },
+  "eventParticipants": {
+    "pdfFilename": "Event-participants",
+    "labels": {
+      "info": "Event information",
+      "eventName": "Event name",
+      "date": "Date",
+      "location": "Location",
+      "participants": "Participants",
+      "name": "Name",
+      "apartment": "Apartment"
+    },
+    "placeholders": {
+      "eventName": "Name of the event",
+      "date": "Date of the event",
+      "location": "Location of the event",
+      "name": "Participant name",
+      "apartment": "Apartment number"
+    },
+    "pdf": {
+      "title": "Event participant list"
+    }
+  },
+  "keyForm": {
+    "pdfFilename": "Key-form",
+    "labels": {
+      "info": "Information",
+      "committeeName": "Committee name",
+      "keyLoans": "Key loans",
+      "borrower": "Borrower",
+      "apartment": "Apartment",
+      "keyType": "Key type",
+      "dateBorrowed": "Date borrowed",
+      "dateReturned": "Date returned"
+    },
+    "placeholders": {
+      "committeeName": "Name of the committee",
+      "borrower": "Who borrowed the key",
+      "apartment": "Apartment number",
+      "keyType": "Type of key",
+      "dateBorrowed": "When was the key borrowed",
+      "dateReturned": "When was the key returned"
+    },
+    "pdf": {
+      "title": "Key loan form"
+    }
+  },
+  "compensationPrices": {
+    "pdfFilename": "Compensation-prices",
+    "labels": {
+      "info": "Information",
+      "committeeName": "Committee name",
+      "items": "Items",
+      "item": "Item",
+      "price": "Price (€)",
+      "condition": "Condition / Notes"
+    },
+    "placeholders": {
+      "committeeName": "Name of the committee",
+      "item": "Item name",
+      "price": "Price in euros",
+      "condition": "Condition or notes"
+    },
+    "pdf": {
+      "title": "Compensation price list"
+    }
   }
 }

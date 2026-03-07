@@ -45,17 +45,17 @@ const MenuItems = () => {
 
         <div>
           <h2>{t("nav.budgetAndAccounting")}</h2>
-          <Link href={"/accounting"}>{t("nav.accountingForm")}</Link>
+          <Link href="/accounting">{t("nav.accountingForm")}</Link>
         </div>
 
         <div>
           <h2>{t("nav.earlyYearMaterials")}</h2>
-          <a href="https://hoas.fi/app/uploads/2024/01/ASUKASKOKOUSPOYTAKIRJA.pdf">
+          <Link href="/resident-meeting-minutes">
             {t("nav.residentMeetingMinutes")}
-          </a>
-          <a href="https://hoas.fi/app/uploads/2021/06/Asukaskokouksen-osallistuja-ja-yhteystietolomake-FI-EN.pdf">
+          </Link>
+          <Link href="/resident-meeting-contact">
             {t("nav.residentMeetingContactForm")}
-          </a>
+          </Link>
         </div>
 
         <div>
@@ -63,15 +63,13 @@ const MenuItems = () => {
           <a href="https://hoas.fi/app/uploads/2024/01/Asukastoimintaopas.pdf">
             {t("nav.committeeGuide")}
           </a>
-          <a href="https://hoas.fi/app/uploads/2021/06/Tapahtumien-osallistujalista-FI-EN.pdf">
+          <Link href="/event-participants">
             {t("nav.eventParticipantList")}
-          </a>
-          <a href="https://hoas.fi/app/uploads/2024/01/Asukastoimikuntien-avainlainalomake-2.pdf">
-            {t("nav.keyForm")}
-          </a>
-          <a href="https://hoas.fi/app/uploads/2021/06/Asukastoimikunnan-korvausvastuuhinnasto-FI-EN.pdf">
+          </Link>
+          <Link href="/key-form">{t("nav.keyForm")}</Link>
+          <Link href="/compensation-prices">
             {t("nav.compensationPriceList")}
-          </a>
+          </Link>
         </div>
       </nav>
     </div>

@@ -12,7 +12,8 @@ export type DocumentBlock =
   | BilingualColumnsBlock
   | InlineBlock
   | SignatureBlock
-  | ImageBlock;
+  | ImageBlock
+  | TableBlock;
 
 export interface TextBlock {
   type: "text";
@@ -67,6 +68,14 @@ export interface ImageBlock {
   type: "image";
   src: string;
   alt?: string;
+}
+
+/** Table with header row and data rows. Set `fieldKey` to enable row removal. */
+export interface TableBlock {
+  type: "table";
+  headers: string[];
+  rows: string[][];
+  fieldKey?: string;
 }
 
 // ─── Document structure ────────────────────────────────────────

@@ -184,5 +184,169 @@
       "agenda": "Mitä kokouksen esityslistalla on",
       "furtherInformation": "Lisätietoa"
     }
+  },
+  "accounting": {
+    "pdfFilename": "Tilityslomake",
+    "labels": {
+      "info": "Tiedot",
+      "committeeName": "Toimikunnan nimi",
+      "period": "Tilityskausi",
+      "expenses": "Menot",
+      "incomes": "Tulot",
+      "description": "Kuvaus",
+      "amount": "Summa (€)",
+      "total": "Yhteensä",
+      "notes": "Lisätiedot",
+      "signatures": "Allekirjoitukset",
+      "chairman": "Puheenjohtaja",
+      "treasurer": "Taloudenhoitaja",
+      "signature": "allekirjoitus"
+    },
+    "placeholders": {
+      "committeeName": "Asukastoimikunnan nimi",
+      "period": "esim. 1.1.2024 - 31.12.2024",
+      "description": "Kuvaus",
+      "amount": "Summa euroina",
+      "notes": "Lisätietoja"
+    },
+    "pdf": {
+      "title": "Tilityslomake",
+      "committeeName": "Toimikunta:",
+      "period": "Tilityskausi:",
+      "total": "Yhteensä:",
+      "notes": "Lisätiedot:",
+      "certification": "Vakuudeksi"
+    }
+  },
+  "residentMeeting": {
+    "pdfFilename": "Asukaskokouspöytäkirja",
+    "labels": {
+      "info": "Tiedot",
+      "meetingNumber": "Kokouksen numero",
+      "date": "Päivämäärä",
+      "location": "Paikka",
+      "attendantCount": "Osallistujien määrä",
+      "agendaItems": "Esityslistan kohdat",
+      "decisions": "Päätökset",
+      "nextMeeting": "Seuraava kokous",
+      "signatures": "Allekirjoitukset",
+      "chairman": "Puheenjohtaja",
+      "secretary": "Sihteeri",
+      "signature": "allekirjoitus"
+    },
+    "placeholders": {
+      "meetingNumber": "Kokouksen numero",
+      "date": "Kokouksen päivämäärä",
+      "location": "Missä kokous pidettiin",
+      "attendantCount": "Osallistujien määrä",
+      "agenda": "Esityslistan kohta",
+      "decisions": "Tehty päätös",
+      "nextMeeting": "Milloin on seuraava kokous",
+      "chairman": "Puheenjohtajan allekirjoitus",
+      "secretary": "Sihteerin allekirjoitus"
+    },
+    "pdf": {
+      "title": "Asukaskokouspöytäkirja",
+      "meetingNumber": "Kokous nro",
+      "date": "Päivämäärä:",
+      "location": "Paikka:",
+      "attendantCount": "Osallistujien määrä:",
+      "agendaItems": "Esityslistan kohdat",
+      "decisions": "Päätökset",
+      "nextMeeting": "Seuraava kokous:",
+      "certification": "Vakuudeksi"
+    }
+  },
+  "contactForm": {
+    "pdfFilename": "Yhteystietolomake",
+    "labels": {
+      "info": "Kokouksen tiedot",
+      "meetingDate": "Kokouksen päivämäärä",
+      "location": "Paikka",
+      "participants": "Osallistujat",
+      "name": "Nimi",
+      "apartment": "Asunto",
+      "phone": "Puhelin",
+      "email": "Sähköposti"
+    },
+    "placeholders": {
+      "meetingDate": "Milloin kokous pidetään",
+      "location": "Kokouksen paikka",
+      "name": "Osallistujan nimi",
+      "apartment": "Asunnon numero",
+      "phone": "Puhelinnumero",
+      "email": "Sähköpostiosoite"
+    },
+    "pdf": {
+      "title": "Osallistuja- ja yhteystietolomake",
+      "meetingDate": "Kokouksen päivämäärä:",
+      "location": "Paikka:"
+    }
+  },
+  "eventParticipants": {
+    "pdfFilename": "Tapahtuman-osallistujat",
+    "labels": {
+      "info": "Tapahtuman tiedot",
+      "eventName": "Tapahtuman nimi",
+      "date": "Päivämäärä",
+      "location": "Paikka",
+      "participants": "Osallistujat",
+      "name": "Nimi",
+      "apartment": "Asunto"
+    },
+    "placeholders": {
+      "eventName": "Tapahtuman nimi",
+      "date": "Tapahtuman päivämäärä",
+      "location": "Tapahtuman paikka",
+      "name": "Osallistujan nimi",
+      "apartment": "Asunnon numero"
+    },
+    "pdf": {
+      "title": "Tapahtumien osallistujalista"
+    }
+  },
+  "keyForm": {
+    "pdfFilename": "Avainlainalomake",
+    "labels": {
+      "info": "Tiedot",
+      "committeeName": "Toimikunnan nimi",
+      "keyLoans": "Avainlainat",
+      "borrower": "Lainaaja",
+      "apartment": "Asunto",
+      "keyType": "Avaimen tyyppi",
+      "dateBorrowed": "Lainauspäivä",
+      "dateReturned": "Palautuspäivä"
+    },
+    "placeholders": {
+      "committeeName": "Toimikunnan nimi",
+      "borrower": "Kuka lainasi avaimen",
+      "apartment": "Asunnon numero",
+      "keyType": "Avaimen tyyppi",
+      "dateBorrowed": "Milloin avain lainattiin",
+      "dateReturned": "Milloin avain palautettiin"
+    },
+    "pdf": {
+      "title": "Avainlainalomake"
+    }
+  },
+  "compensationPrices": {
+    "pdfFilename": "Korvausvastuuhinnasto",
+    "labels": {
+      "info": "Tiedot",
+      "committeeName": "Toimikunnan nimi",
+      "items": "Kohteet",
+      "item": "Kohde",
+      "price": "Hinta (€)",
+      "condition": "Kunto / Huomiot"
+    },
+    "placeholders": {
+      "committeeName": "Toimikunnan nimi",
+      "item": "Kohteen nimi",
+      "price": "Hinta euroina",
+      "condition": "Kunto tai huomiot"
+    },
+    "pdf": {
+      "title": "Korvausvastuuhinnasto"
+    }
   }
 }

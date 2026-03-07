@@ -199,6 +199,50 @@ export const renderPdfBlock = (
     case "image":
       // Images are handled by the specific PDF page wrapper, not the generic renderer.
       return null;
+
+    case "table":
+      return (
+        <View key={index}>
+          <View
+            style={{
+              flexDirection: "row",
+              borderBottomWidth: 1,
+              paddingBottom: 4,
+              marginBottom: 4,
+            }}
+          >
+            {block.headers.map((h, i) => (
+              <Text
+                key={i}
+                style={{ flex: 1, fontWeight: "bold", fontSize: 10 }}
+              >
+                {h}
+              </Text>
+            ))}
+          </View>
+          {block.rows.map((row, i) => (
+            <View
+              key={i}
+              style={{
+                flexDirection: "row",
+                marginBottom: 2,
+                borderBottomWidth: 0.5,
+                borderBottomColor: "#ccc",
+                paddingBottom: 2,
+              }}
+            >
+              {row.map((cell, j) => (
+                <Text
+                  key={j}
+                  style={{ flex: 1, fontSize: 10 }}
+                >
+                  {cell}
+                </Text>
+              ))}
+            </View>
+          ))}
+        </View>
+      );
   }
 };
 

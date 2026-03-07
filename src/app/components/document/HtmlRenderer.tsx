@@ -32,6 +32,14 @@ export const HtmlDocumentRenderer = <T,>({
     }
   };
 
+  const removeByIndex = (fieldKey: string, index: number) => {
+    if (!isEditable) return;
+    const current = (data as Record<string, unknown>)[fieldKey];
+    if (Array.isArray(current)) {
+      setData({ ...data, [fieldKey]: current.filter((_, i) => i !== index) });
+    }
+  };
+
   const RemoveButton = ({ onClick }: { onClick: () => void }) => (
     <button
       className="mr-2 flex h-6 w-6 items-center justify-center p-0"
@@ -198,6 +206,49 @@ export const HtmlDocumentRenderer = <T,>({
               className="w-full object-cover"
             />
           </div>
+        );
+
+      case "table":
+        return (
+          <table
+            key={index}
+            className="w-full border-collapse text-sm"
+          >
+            <thead>
+              <tr>
+                {isEditable && block.fieldKey && <th className="w-8" />}
+                {block.headers.map((h, i) => (
+                  <th
+                    key={i}
+                    className="border-b p-2 text-left font-bold"
+                  >
+                    {h}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {block.rows.map((row, i) => (
+                <tr key={i}>
+                  {isEditable && block.fieldKey && (
+                    <td className="w-8 p-1">
+                      <RemoveButton
+                        onClick={() => removeByIndex(block.fieldKey!, i)}
+                      />
+                    </td>
+                  )}
+                  {row.map((cell, j) => (
+                    <td
+                      key={j}
+                      className="border-b p-2"
+                    >
+                      {cell}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
         );
     }
   };
