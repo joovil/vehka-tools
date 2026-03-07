@@ -33,7 +33,9 @@ const DatetimeInput = <T,>({
 
   return (
     <div className={`${!label && "first:mt-2"} flex flex-col`}>
-      {header && <div className="text-xl font-bold">{header}</div>}
+      {header && (
+        <div className="text-teal-darker text-base font-bold">{header}</div>
+      )}
       {label && <label>{label}</label>}
       <ErrorModal message={isHovered && hasError ? errorMessage : ""} />
       <div className="flex gap-2">

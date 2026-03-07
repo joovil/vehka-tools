@@ -26,9 +26,9 @@ const MultiLanguageListDisplay = <T,>({
       <div className="grid grid-cols-2">
         <div>
           {finHeader && <h2>{finHeader}</h2>}
-          {(data[fieldKey] as FinEng[]).map((item: FinEng) => (
+          {(data[fieldKey] as FinEng[]).map((item: FinEng, index: number) => (
             <div
-              key={item.fin}
+              key={index}
               className="flex"
             >
               <button
@@ -44,8 +44,8 @@ const MultiLanguageListDisplay = <T,>({
 
         <div>
           {engHeader && <h2>{engHeader}</h2>}
-          {(data[fieldKey] as FinEng[]).map((item: FinEng) => (
-            <div key={item.eng}>
+          {(data[fieldKey] as FinEng[]).map((item: FinEng, index: number) => (
+            <div key={index}>
               <div>{item.eng}</div>
             </div>
           ))}

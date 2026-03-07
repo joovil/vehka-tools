@@ -41,9 +41,11 @@ const MultiLanguageListInput = <T,>({
 
   return (
     <div className="relative">
-      {header && <div className="text-xl font-bold">{header}</div>}
+      {header && (
+        <div className="text-teal-darker text-base font-bold">{header}</div>
+      )}
 
-      <h3>{dict.finnish}</h3>
+      <h3 className="text-sm text-gray-600">{dict.finnish}</h3>
       <SidebarInput
         placeholder={placeholder}
         fieldKey={"fin"}
@@ -52,7 +54,7 @@ const MultiLanguageListInput = <T,>({
         hasError={hasError}
         errorMessage={errorMessage}
       />
-      <h3>{dict.english}</h3>
+      <h3 className="text-sm text-gray-600">{dict.english}</h3>
       <SidebarInput
         placeholder={placeholder}
         fieldKey={"eng"}

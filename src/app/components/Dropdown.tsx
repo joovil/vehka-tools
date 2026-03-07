@@ -27,24 +27,33 @@ const Dropdown = ({
     : `${transitionDuration}ms`;
 
   return (
-    <div>
-      <div className="flex justify-between">
-        <div className="text-xl font-bold">{header}</div>
+    <div className="rounded-lg border border-gray-200 bg-white/50">
+      <div className="flex items-center justify-between px-3 py-2">
+        <div className="text-teal-darker text-base font-bold">{header}</div>
         {!handledExternally && (
-          <button onClick={() => setIsOpen(!isOpen)}>
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="flex items-center gap-1 bg-transparent! px-2 py-1 text-sm shadow-none!"
+          >
+            <span
+              className="inline-block text-xs transition-transform duration-200"
+              style={{ transform: isOpen ? "rotate(180deg)" : "rotate(0deg)" }}
+            >
+              ▼
+            </span>
             {isOpen ? dict.toggleClose : dict.toggleOpen}
           </button>
         )}
       </div>
 
       <div
-        className="flex flex-col gap-2 pb-2 transition-all ease-in-out"
+        className="flex flex-col gap-2 px-3 transition-all ease-in-out"
         style={{
           transitionDuration: transitionDuration,
           ...((isOpen && !handledExternally) || open
             ? {
                 maxHeight: maxHeight || "500px",
-                paddingBottom: "8px",
+                paddingBottom: "12px",
                 visibility: "visible",
                 overflowY: "visible",
               }

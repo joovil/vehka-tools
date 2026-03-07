@@ -62,10 +62,10 @@ const MinutesContent = ({
       <div>
         <h2>Läsnä</h2>
         <div>
-          {attendants.map((att) => (
+          {attendants.map((att, index) => (
             <div
               className="flex"
-              key={att}
+              key={index}
             >
               <button
                 className="mr-2 flex h-6 w-6 items-center justify-center p-0"
@@ -113,8 +113,8 @@ const MinutesContent = ({
 
       <div>
         <h2>Uudet jäsenet</h2>
-        {newMembers?.map((newMember) => (
-          <div key={newMember}>
+        {newMembers?.map((newMember, index) => (
+          <div key={index}>
             <div className="flex">
               <button
                 className="mr-2 flex h-6 w-6 items-center justify-center p-0"

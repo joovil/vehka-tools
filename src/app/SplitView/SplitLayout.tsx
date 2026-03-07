@@ -40,23 +40,34 @@ export default function SplitLayout({
   }, []);
 
   return (
-    <div ref={containerRef} className="relative flex h-screen overflow-hidden">
+    <div
+      ref={containerRef}
+      className="relative flex h-screen overflow-hidden"
+    >
       <div
-        className="overflow-y-auto border-r p-10"
+        className="overflow-y-auto bg-gray-50 px-6 py-6"
         style={{ width: `${sidebarWidth}%`, scrollbarGutter: "stable" }}
       >
         <MenuItems />
-        {sidebar}
+        <div className="mt-2">{sidebar}</div>
       </div>
       <div
         onMouseDown={handleMouseDown}
-        className="z-10 w-1 cursor-col-resize bg-gray-300 transition-colors hover:bg-blue-400 active:bg-blue-500"
-      />
+        className="group z-10 flex w-2 cursor-col-resize items-center justify-center bg-gray-200 transition-colors hover:bg-blue-300 active:bg-blue-400"
+      >
+        <div className="flex flex-col gap-1">
+          <span className="h-1 w-1 rounded-full bg-gray-400 transition-colors group-hover:bg-blue-500" />
+          <span className="h-1 w-1 rounded-full bg-gray-400 transition-colors group-hover:bg-blue-500" />
+          <span className="h-1 w-1 rounded-full bg-gray-400 transition-colors group-hover:bg-blue-500" />
+          <span className="h-1 w-1 rounded-full bg-gray-400 transition-colors group-hover:bg-blue-500" />
+          <span className="h-1 w-1 rounded-full bg-gray-400 transition-colors group-hover:bg-blue-500" />
+        </div>
+      </div>
       <div
-        className="flex items-center justify-center bg-gray-100 p-10"
+        className="flex items-center justify-center bg-gray-200/60 p-8"
         style={{ width: `${100 - sidebarWidth}%` }}
       >
-        <div className="aspect-[1/1.4142] h-full max-h-full overflow-y-auto bg-white shadow-lg">
+        <div className="aspect-[1/1.4142] h-full max-h-full overflow-y-auto rounded bg-white shadow-xl ring-1 ring-gray-200">
           {children}
         </div>
       </div>

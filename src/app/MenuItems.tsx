@@ -10,14 +10,27 @@ const MenuItems = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
-    <div>
-      <div onClick={() => setIsOpen((b) => !b)}>
+    <div className="mb-4">
+      <button
+        onClick={() => setIsOpen((b) => !b)}
+        className="bg-teal-dark/10 text-teal-darker hover:bg-teal-dark/20 flex w-full items-center gap-2 rounded-md px-3 py-2 text-base font-bold shadow-sm transition-all"
+      >
+        <span
+          className="inline-block transition-transform duration-200"
+          style={{ transform: isOpen ? "rotate(90deg)" : "rotate(0deg)" }}
+        >
+          ▶
+        </span>
         {isOpen ? dict.closeMenu : dict.openMenu}
-      </div>
+      </button>
 
-      <main
-        className="flex flex-col gap-4 overflow-hidden transition-all duration-300 ease-in-out *:flex *:flex-col"
-        style={{ maxHeight: isOpen ? "540px" : "0" }}
+      <nav
+        className="[&_a]:text-teal-darker mt-1 flex flex-col gap-3 overflow-hidden rounded-md bg-white/60 px-4 transition-all duration-300 ease-in-out [&_a]:underline-offset-2 [&_a:hover]:underline [&_div]:flex [&_div]:flex-col [&_div]:gap-0.5 [&_h2]:mt-2 [&_h2]:mb-0.5 [&_h2]:text-sm [&_h2]:font-bold [&_h2]:tracking-wide [&_h2]:text-gray-500 [&_h2]:uppercase"
+        style={{
+          maxHeight: isOpen ? "800px" : "0",
+          paddingTop: isOpen ? "12px" : "0",
+          paddingBottom: isOpen ? "12px" : "0",
+        }}
       >
         <div>
           <h2>Kokoukset ja tapahtumat</h2>
@@ -60,7 +73,7 @@ const MenuItems = () => {
             Asukastoimikunnan korvausvastuuhinnasto
           </a>
         </div>
-      </main>
+      </nav>
     </div>
   );
 };

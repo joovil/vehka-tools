@@ -33,9 +33,11 @@ const SidebarInputComponent = <T,>({
   const [isHovered, setIsHovered] = useState<boolean>(false);
 
   return (
-    <div className="flex flex-col">
-      {header && <div className="text-xl font-bold">{header}</div>}
-      {label && <label>{label}</label>}
+    <div className="flex flex-col gap-0.5">
+      {header && (
+        <div className="text-teal-darker text-base font-bold">{header}</div>
+      )}
+      {label && <label className="text-sm text-gray-600">{label}</label>}
       <ErrorModal message={isHovered && hasError ? errorMessage : ""} />
       <div className={`input-wrapper ${hasError ? "has-error" : ""}`}>
         <input

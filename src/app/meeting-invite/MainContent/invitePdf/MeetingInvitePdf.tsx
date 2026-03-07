@@ -117,8 +117,8 @@ const MeetingInvitePdf = ({
           <View style={styles.columnSection}>
             <View style={styles.column}>
               <Text style={styles.header}>Esityslista</Text>
-              {agendaItems.map((item) => (
-                <View key={item.fin}>
+              {agendaItems.map((item, index) => (
+                <View key={index}>
                   <Text style={styles.agendaItem}>{item.fin}</Text>
                 </View>
               ))}
@@ -126,8 +126,8 @@ const MeetingInvitePdf = ({
 
             <View style={styles.column}>
               <Text style={styles.header}>Agenda</Text>
-              {agendaItems.map((item) => (
-                <View key={item.eng}>
+              {agendaItems.map((item, index) => (
+                <View key={index}>
                   <Text style={styles.agendaItem}>{item.eng}</Text>
                 </View>
               ))}
