@@ -10,8 +10,9 @@ import { handlePdfDownload } from "@/app/utils/handlePdfDownload";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import DatetimeInput from "../../components/inputs/DatetimeInput";
+import { buildMinutesDocument } from "../buildDocument";
 import { useFormValidation } from "../hooks/useFormValidation";
-import MinutesPdf, { type MinutesPdfTranslations } from "../MinutesPdf";
+import MinutesPdf from "../MinutesPdf";
 import { MinutesProps } from "../page";
 import DateButton from "./DateButton";
 import ExaminerInput from "./ExaminerInput";
@@ -34,39 +35,11 @@ const MinutesSidebar = ({
     if (!formDataValid) return;
 
     const filename = `${t("minutes.pdfFilename")}-${new Date().toLocaleDateString("fi-FI")}`;
-
-    const pdfTranslations: MinutesPdfTranslations = {
-      organization: t("minutes.pdf.organization"),
-      minutesLabel: t("minutes.pdf.minutesLabel"),
-      meetingTitle: t("minutes.pdf.meetingTitle"),
-      dateAndTime: t("minutes.pdf.dateAndTime"),
-      present: t("minutes.pdf.present"),
-      section1: t("minutes.pdf.section1"),
-      chairmanOpenedAt: t("minutes.pdf.chairmanOpenedAt"),
-      meetingDeclaredLegal: t("minutes.pdf.meetingDeclaredLegal"),
-      section2: t("minutes.pdf.section2"),
-      elected: t("minutes.pdf.elected"),
-      section3: t("minutes.pdf.section3"),
-      agendaApproved: t("minutes.pdf.agendaApproved"),
-      section4: t("minutes.pdf.section4"),
-      section5: t("minutes.pdf.section5"),
-      newMembers: t("minutes.pdf.newMembers"),
-      section6: t("minutes.pdf.section6"),
-      nextMeetingHeldAt: t("minutes.pdf.nextMeetingHeldAt"),
-      section7: t("minutes.pdf.section7"),
-      chairmanClosedAt: t("minutes.pdf.chairmanClosedAt"),
-      certification: t("minutes.pdf.certification"),
-      signatureSuffix: t("minutes.pdf.signatureSuffix"),
-    };
+    const document = buildMinutesDocument(minutesData, t);
 
     await handlePdfDownload({
       filename,
-      pdfElement: (
-        <MinutesPdf
-          data={minutesData}
-          translations={pdfTranslations}
-        />
-      ),
+      pdfElement: <MinutesPdf document={document} />,
       confirmModalControls,
     });
   };

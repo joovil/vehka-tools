@@ -8,9 +8,8 @@ import { handlePdfDownload } from "@/app/utils/handlePdfDownload";
 import { scrollToElement } from "@/app/utils/scrollToElement";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import MeetingInvitePdf, {
-  type MeetingInvitePdfTranslations,
-} from "../MainContent/invitePdf/MeetingInvitePdf";
+import MeetingInvitePdf from "../MainContent/invitePdf/MeetingInvitePdf";
+import { buildInviteDocument } from "../buildDocument";
 import { MeetingInviteProps } from "../page";
 
 const MeetingInviteSidebar = ({
@@ -26,26 +25,11 @@ const MeetingInviteSidebar = ({
     if (!dataValid()) return;
 
     const filename = `${t("meetingInvite.pdfFilename")}-${new Date().toLocaleDateString("fi-FI")}`;
-
-    const pdfTranslations: MeetingInvitePdfTranslations = {
-      date: t("meetingInvite.labels.date"),
-      location: t("meetingInvite.labels.location"),
-      agendaFin: t("meetingInvite.agendaFin"),
-      agendaEng: t("meetingInvite.agendaEng"),
-      furtherInformation: t("meetingInvite.labels.furtherInformation"),
-      moreInfo: t("meetingInvite.labels.moreInfo"),
-      welcome: t("meetingInvite.labels.welcome"),
-      yourCommittee: t("meetingInvite.labels.yourCommittee"),
-    };
+    const document = buildInviteDocument(inviteData, t);
 
     await handlePdfDownload({
       filename,
-      pdfElement: (
-        <MeetingInvitePdf
-          data={inviteData}
-          translations={pdfTranslations}
-        />
-      ),
+      pdfElement: <MeetingInvitePdf document={document} />,
       confirmModalControls,
     });
   };

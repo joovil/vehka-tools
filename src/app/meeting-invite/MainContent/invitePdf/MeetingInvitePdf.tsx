@@ -1,6 +1,7 @@
 "use client";
 
-import { formatDate } from "@/app/utils/formatDate";
+import { renderPdfBlock } from "@/app/components/document/PdfBlockRenderer";
+import { DocumentDefinition } from "@/app/components/document/types";
 import {
   Document,
   Font,
@@ -9,31 +10,16 @@ import {
   Text,
   View,
 } from "@react-pdf/renderer";
-import { MeetingInviteProps } from "../../page";
 import HeaderSvg from "./HeaderSvg";
-
-export type MeetingInvitePdfTranslations = {
-  date: string;
-  location: string;
-  agendaFin: string;
-  agendaEng: string;
-  furtherInformation: string;
-  moreInfo: string;
-  welcome: string;
-  yourCommittee: string;
-};
 
 const styles = StyleSheet.create({
   page: {
     backgroundColor: "white",
   },
-  banner: {
-    width: "100%",
-    marginBottom: 20,
-  },
   contentContainer: {
     top: 270,
     padding: "0 40px 40px 40px",
+    fontFamily: "Circular",
   },
   infoContainer: {
     display: "flex",
@@ -47,44 +33,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   label: {
-    fontFamily: "Circular",
     fontSize: 14,
     fontWeight: "bold",
     marginRight: 8,
   },
   value: {
-    fontFamily: "Circular",
     fontSize: 12,
-  },
-  agendaSection: {
-    marginVertical: 20,
-  },
-  header: {
-    fontFamily: "Circular",
-    fontSize: 16,
-    fontWeight: "bold",
-    marginBottom: 10,
-  },
-  agendaItem: {
-    fontFamily: "Circular",
-    fontSize: 12,
-    marginBottom: 2,
-  },
-  columnSection: {
-    flexDirection: "row",
-    marginVertical: 20,
-  },
-  column: {
-    flex: 1,
-    paddingHorizontal: 10,
-  },
-  columnText: {
-    fontFamily: "Circular",
-    fontSize: 12,
-  },
-  footer: {
-    flexDirection: "row",
-    marginTop: 20,
   },
 });
 
@@ -97,13 +51,11 @@ Font.register({
   ],
 });
 
-const MeetingInvitePdf = ({
-  data: inviteData,
-  translations: tr,
-}: Omit<MeetingInviteProps, "setData"> & {
-  translations: MeetingInvitePdfTranslations;
-}) => {
-  const { date, location, agendaItems, moreInfo } = inviteData;
+const MeetingInvitePdf = ({ document }: { document: DocumentDefinition }) => {
+  // Filter out image sections — HeaderSvg replaces them
+  const contentSections = document.filter(
+    (section) => !section.blocks.some((b) => b.type === "image"),
+  );
 
   return (
     <Document>
@@ -112,65 +64,46 @@ const MeetingInvitePdf = ({
         style={styles.page}
       >
         <HeaderSvg />
-
         <View style={styles.contentContainer}>
-          <View style={styles.infoContainer}>
-            <View style={styles.infoRow}>
-              <Text style={styles.label}>{tr.date}</Text>
-              <Text style={styles.value}>{date ? formatDate(date) : ""}</Text>
-            </View>
-
-            <View style={styles.infoRow}>
-              <Text style={styles.label}>{tr.location}</Text>
-              <Text style={styles.value}>
-                {location ? `${location.fin} / ${location.eng}` : ""}
-              </Text>
-            </View>
-          </View>
-
-          <View style={styles.columnSection}>
-            <View style={styles.column}>
-              <Text style={styles.header}>{tr.agendaFin}</Text>
-              {agendaItems.map((item, index) => (
-                <View key={index}>
-                  <Text style={styles.agendaItem}>{item.fin}</Text>
+          {contentSections.map((section, i) => {
+            // Info section: custom centered row layout for date/location
+            if (section.tag === "info") {
+              return (
+                <View
+                  key={i}
+                  style={styles.infoContainer}
+                >
+                  {section.blocks.map((block, j) => {
+                    if (block.type === "inline") {
+                      return (
+                        <View
+                          key={j}
+                          style={styles.infoRow}
+                        >
+                          {block.segments.map((seg, k) => (
+                            <Text
+                              key={k}
+                              style={seg.bold ? styles.label : styles.value}
+                            >
+                              {seg.text}
+                            </Text>
+                          ))}
+                        </View>
+                      );
+                    }
+                    return renderPdfBlock(block, j);
+                  })}
                 </View>
-              ))}
-            </View>
+              );
+            }
 
-            <View style={styles.column}>
-              <Text style={styles.header}>{tr.agendaEng}</Text>
-              {agendaItems.map((item, index) => (
-                <View key={index}>
-                  <Text style={styles.agendaItem}>{item.eng}</Text>
-                </View>
-              ))}
-            </View>
-          </View>
-
-          {moreInfo && (
-            <View style={styles.columnSection}>
-              <View style={styles.column}>
-                <Text style={styles.header}>{tr.furtherInformation}</Text>
-                <Text style={styles.columnText}>{moreInfo.fin}</Text>
+            // All other sections: use shared block renderer
+            return (
+              <View key={i}>
+                {section.blocks.map((block, j) => renderPdfBlock(block, j))}
               </View>
-              <View style={styles.column}>
-                <Text style={styles.header}>{tr.moreInfo}</Text>
-                <Text style={styles.columnText}>{moreInfo.eng}</Text>
-              </View>
-            </View>
-          )}
-
-          <View style={styles.footer}>
-            <View style={styles.column}>
-              <Text style={styles.header}>{tr.welcome}</Text>
-              <Text style={styles.columnText}>{tr.yourCommittee}</Text>
-            </View>
-            <View style={styles.column}>
-              <Text style={styles.header}>Welcome</Text>
-              <Text style={styles.columnText}>-Your tenant committee</Text>
-            </View>
-          </View>
+            );
+          })}
         </View>
       </Page>
     </Document>
