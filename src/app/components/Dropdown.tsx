@@ -1,7 +1,7 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { ReactNode, useState } from "react";
-import { useTranslations } from "../i18n/TranslationsProvider";
 
 interface DropdownProps {
   children: ReactNode;
@@ -19,7 +19,7 @@ const Dropdown = ({
   maxHeight,
   transitionDuration,
 }: DropdownProps) => {
-  const dict = useTranslations();
+  const t = useTranslations();
   const [isOpen, setIsOpen] = useState(!false);
 
   transitionDuration = !transitionDuration
@@ -45,7 +45,7 @@ const Dropdown = ({
             >
               ▼
             </span>
-            {isOpen ? dict.toggleClose : dict.toggleOpen}
+            {isOpen ? t("toggleClose") : t("toggleOpen")}
           </button>
         </div>
       )}

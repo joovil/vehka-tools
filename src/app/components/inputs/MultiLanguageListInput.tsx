@@ -1,7 +1,7 @@
 "use client";
 
-import { useTranslations } from "@/app/i18n/TranslationsProvider";
 import { FinEng } from "@/types";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import SidebarInput from "./SidebarInput";
 interface Props<T> {
@@ -21,7 +21,7 @@ const MultiLanguageListInput = <T,>({
   hasError,
   errorMessage,
 }: Props<T>) => {
-  const dict = useTranslations();
+  const t = useTranslations();
 
   const [newItem, setNewItem] = useState<FinEng>({ fin: "", eng: "" });
 
@@ -45,7 +45,7 @@ const MultiLanguageListInput = <T,>({
         <div className="text-teal-darker text-base font-bold">{header}</div>
       )}
 
-      <h3 className="text-sm text-gray-600">{dict.finnish}</h3>
+      <h3 className="text-sm text-gray-600">{t("finnish")}</h3>
       <SidebarInput
         placeholder={placeholder}
         fieldKey={"fin"}
@@ -54,7 +54,7 @@ const MultiLanguageListInput = <T,>({
         hasError={hasError}
         errorMessage={errorMessage}
       />
-      <h3 className="text-sm text-gray-600">{dict.english}</h3>
+      <h3 className="text-sm text-gray-600">{t("english")}</h3>
       <SidebarInput
         placeholder={placeholder}
         fieldKey={"eng"}
@@ -68,7 +68,7 @@ const MultiLanguageListInput = <T,>({
         className="mt-2"
         onClick={handleClick}
       >
-        {dict.addItem}
+        {t("addItem")}
       </button>
     </div>
   );

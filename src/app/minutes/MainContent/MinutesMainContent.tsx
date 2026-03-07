@@ -1,17 +1,17 @@
 "use client";
 
 import { MultiLanguageListDisplayBuilder } from "@/app/components/MultiLanguageListDisplay";
-import { useTranslations } from "@/app/i18n/TranslationsProvider";
 import { formatDate } from "@/app/utils/formatDate";
 import { removeItem } from "@/app/utils/removeItem";
 import { FinEng, Signatures } from "@/types";
+import { useTranslations } from "next-intl";
 import { MinutesData, MinutesProps } from "../page";
 
 const MinutesContent = ({
   data: minutesData,
   setData: setMinutesData,
 }: MinutesProps) => {
-  const dict = useTranslations();
+  const t = useTranslations();
 
   const {
     location = { fin: "_", eng: "_" },
@@ -150,8 +150,7 @@ const MinutesContent = ({
                 {signatures[key as keyof Signatures]}
               </div>
               <div>
-                {dict.minutes.labels[key as keyof typeof dict.minutes.labels]}{" "}
-                {dict.minutes.labels.signature}
+                {t(`minutes.labels.${key}`)} {t("minutes.labels.signature")}
               </div>
             </div>
           ))}

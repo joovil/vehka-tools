@@ -1,8 +1,8 @@
 "use client";
 
 import { MultiLanguageListDisplayBuilder } from "@/app/components/MultiLanguageListDisplay";
-import { useTranslations } from "@/app/i18n/TranslationsProvider";
 import { formatDate } from "@/app/utils/formatDate";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { MeetingInviteProps } from "../page";
 
@@ -12,7 +12,7 @@ const MeetingInviteContent = ({
 }: MeetingInviteProps) => {
   const { date, location } = inviteData;
 
-  const dict = useTranslations();
+  const t = useTranslations();
 
   const ListDisplay = MultiLanguageListDisplayBuilder({
     data: inviteData,
@@ -50,8 +50,8 @@ const MeetingInviteContent = ({
         <div>
           <div>
             {ListDisplay("agendaItems", {
-              finHeader: dict.meetingInvite.agendaFin,
-              engHeader: dict.meetingInvite.agendaEng,
+              finHeader: t("meetingInvite.agendaFin"),
+              engHeader: t("meetingInvite.agendaEng"),
             })}
           </div>
         </div>

@@ -4,9 +4,9 @@ import DatetimeInput from "@/app/components/inputs/DatetimeInput";
 import MultiLanguageInput from "@/app/components/inputs/MultiLanguageInput";
 import MultiLanguageListInput from "@/app/components/inputs/MultiLanguageListInput";
 import useConfirmModal from "@/app/components/useConfirmModal";
-import { useTranslations } from "@/app/i18n/TranslationsProvider";
 import { handlePdfDownload } from "@/app/utils/handlePdfDownload";
 import { scrollToElement } from "@/app/utils/scrollToElement";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import MeetingInvitePdf from "../MainContent/invitePdf/MeetingInvitePdf";
 import { MeetingInviteProps } from "../page";
@@ -15,7 +15,7 @@ const MeetingInviteSidebar = ({
   data: inviteData,
   setData: setInviteData,
 }: MeetingInviteProps) => {
-  const dict = useTranslations();
+  const t = useTranslations();
   const { ConfirmModal, confirmModalControls } = useConfirmModal();
 
   const [checkErrors, setCheckErrors] = useState<boolean>(false);
@@ -52,39 +52,39 @@ const MeetingInviteSidebar = ({
 
       {/* <ScrollAnchor id="page-top" /> */}
       <DatetimeInput
-        header={dict.meetingInvite.headers.date}
+        header={t("meetingInvite.headers.date")}
         setData={setInviteData}
         data={inviteData}
         fieldKey="date"
-        placeholder={dict.meetingInvite.placeholders.date}
+        placeholder={t("meetingInvite.placeholders.date")}
         hasError={checkErrors && !inviteData.date}
-        errorMessage={dict.meetingInvite.errors.date}
+        errorMessage={t("meetingInvite.errors.date")}
       />
 
       <MultiLanguageInput
-        header={dict.meetingInvite.headers.location}
+        header={t("meetingInvite.headers.location")}
         setData={setInviteData}
         fieldKey="location"
-        placeholder={dict.meetingInvite.placeholders.location}
+        placeholder={t("meetingInvite.placeholders.location")}
         hasError={
           checkErrors &&
           (!inviteData.location?.fin || !inviteData.location?.eng)
         }
-        errorMessage={dict.meetingInvite.errors.location}
+        errorMessage={t("meetingInvite.errors.location")}
       />
 
       <MultiLanguageListInput
-        header={dict.meetingInvite.labels.agenda}
-        placeholder={dict.meetingInvite.placeholders.agenda}
+        header={t("meetingInvite.labels.agenda")}
+        placeholder={t("meetingInvite.placeholders.agenda")}
         fieldKey="agendaItems"
         setData={setInviteData}
         hasError={checkErrors && inviteData.agendaItems.length <= 0}
-        errorMessage={dict.meetingInvite.errors.agenda}
+        errorMessage={t("meetingInvite.errors.agenda")}
       />
 
       <MultiLanguageInput
-        header={dict.meetingInvite.labels.furtherInformation}
-        placeholder={dict.meetingInvite.placeholders.furtherInformation}
+        header={t("meetingInvite.labels.furtherInformation")}
+        placeholder={t("meetingInvite.placeholders.furtherInformation")}
         fieldKey="moreInfo"
         setData={setInviteData}
       />
@@ -93,7 +93,7 @@ const MeetingInviteSidebar = ({
         className="mt-2"
         onClick={handlePdfDownloadClick}
       >
-        {dict.download}
+        {t("download")}
       </button>
     </div>
   );

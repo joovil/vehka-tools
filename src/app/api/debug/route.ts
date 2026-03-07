@@ -1,9 +1,9 @@
-import { getCommitteeDocuments } from "@/server/azure/getCommitteeDocuments";
+import { getFileNames } from "@/server/azure/getCommitteeDocuments";
 import { NextRequest } from "next/server";
 
 export const GET = async (req: NextRequest) => {
   try {
-    const docs = await getCommitteeDocuments("test", "minutes");
+    const docs = await getFileNames("test", "minutes");
     console.log(docs);
     return Response.json({ test: "debug" });
   } catch (error) {

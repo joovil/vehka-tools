@@ -1,7 +1,7 @@
 "use client";
 
 import SidebarInputComponent from "@/app/components/inputs/SidebarInputComponent";
-import { useTranslations } from "@/app/i18n/TranslationsProvider";
+import { useTranslations } from "next-intl";
 import { MinutesData } from "../page";
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
 }
 
 const ExaminerInput = ({ data, setData, errorMessage }: Props) => {
-  const dict = useTranslations();
+  const t = useTranslations();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -27,17 +27,17 @@ const ExaminerInput = ({ data, setData, errorMessage }: Props) => {
 
   return (
     <div>
-      <label>{dict.minutes.labels.examiner1}</label>
+      <label>{t("minutes.labels.examiner1")}</label>
       <SidebarInputComponent
-        placeholder={dict.minutes.placeholders.examiner1}
+        placeholder={t("minutes.placeholders.examiner1")}
         fieldKey={"examiner1"}
         onChange={handleChange}
         errorMessage={errorMessage}
         hasError={!data.examiners.examiner1 && !!errorMessage}
       />
-      <label>{dict.minutes.labels.examiner2}</label>
+      <label>{t("minutes.labels.examiner2")}</label>
       <SidebarInputComponent
-        placeholder={dict.minutes.placeholders.examiner2}
+        placeholder={t("minutes.placeholders.examiner2")}
         fieldKey={"examiner2"}
         onChange={handleChange}
         errorMessage={errorMessage}

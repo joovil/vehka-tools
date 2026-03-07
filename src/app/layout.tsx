@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
+import { NextIntlClientProvider } from "next-intl";
+import { getLocale, getMessages } from "next-intl/server";
 import { Alex_Brush, Geist, Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
-import { cookies } from "next/headers";
-import { getDictionary } from "./i18n/getDictionary";
-import { TranslationsProvider } from "./i18n/TranslationsProvider";
-import { Locale } from "./i18n/types";
 
 import "react-datepicker/dist/react-datepicker.css";
 import "./globals.css";
@@ -61,26 +59,17 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const cookieStore = await cookies();
-
-  let locale: Locale = "en"; // default locale
-  if (cookieStore.has("locale")) {
-    const storedLocale = cookieStore.get("locale");
-    if (storedLocale && typeof storedLocale.value === "string") {
-      locale = storedLocale.value as Locale;
-    }
-  }
-
-  const dictionary = await getDictionary(locale);
+  const locale = await getLocale();
+  const messages = await getMessages();
 
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body
         className={`${circular.variable} ${geistSans.variable} ${geistMono.variable} ${alexBrush.variable} antialiased`}
       >
-        <TranslationsProvider dictionary={dictionary}>
+        <NextIntlClientProvider messages={messages}>
           {children}
-        </TranslationsProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

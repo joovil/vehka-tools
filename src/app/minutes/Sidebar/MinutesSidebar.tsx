@@ -6,8 +6,8 @@ import MultiLanguageListInput from "@/app/components/inputs/MultiLanguageListInp
 import SidebarInput from "@/app/components/inputs/SidebarInput";
 import SidebarListInput from "@/app/components/inputs/SidebarListInput";
 import useConfirmModal from "@/app/components/useConfirmModal";
-import { useTranslations } from "@/app/i18n/TranslationsProvider";
 import { handlePdfDownload } from "@/app/utils/handlePdfDownload";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import DatetimeInput from "../../components/inputs/DatetimeInput";
 import { useFormValidation } from "../hooks/useFormValidation";
@@ -21,7 +21,7 @@ const MinutesSidebar = ({
   data: minutesData,
   setData: setMinutesData,
 }: MinutesProps) => {
-  const dict = useTranslations();
+  const t = useTranslations();
   const { ConfirmModal, confirmModalControls } = useConfirmModal();
 
   const [endMeeting, setEndMeeting] = useState<boolean>(false);
@@ -47,43 +47,43 @@ const MinutesSidebar = ({
       {ConfirmModal}
       {/* ###################### Pre-meeting ###################### */}
       <div id="location-anchor">
-        <Dropdown header={dict.minutes.labels.location}>
+        <Dropdown header={t("minutes.labels.location")}>
           <SidebarInput
             fieldKey="minutesNumber"
             setData={setMinutesData}
-            label={dict.minutes.labels.minutesNumber}
-            placeholder={dict.minutes.placeholders.minutesNumber}
+            label={t("minutes.labels.minutesNumber")}
+            placeholder={t("minutes.placeholders.minutesNumber")}
             type="number"
           />
 
           <MultiLanguageInput
-            placeholder={dict.minutes.placeholders.location}
+            placeholder={t("minutes.placeholders.location")}
             fieldKey="location"
             setData={setMinutesData}
-            errorMessage={dict.minutes.errors.location}
+            errorMessage={t("minutes.errors.location")}
             hasError={checkPreMeetingErrors}
           />
 
           <DatetimeInput
-            label={dict.minutes.labels.timeOfMeeting}
-            placeholder={dict.minutes.placeholders.timeOfMeeting}
+            label={t("minutes.labels.timeOfMeeting")}
+            placeholder={t("minutes.placeholders.timeOfMeeting")}
             data={minutesData}
             setData={setMinutesData}
             fieldKey="timeOfMeeting"
             showButton={false}
-            errorMessage={dict.minutes.errors.timeOfMeeting}
+            errorMessage={t("minutes.errors.timeOfMeeting")}
             hasError={!minutesData.timeOfMeeting && checkPreMeetingErrors}
           />
         </Dropdown>
       </div>
 
       <div id="attendants-anchor">
-        <Dropdown header={dict.minutes.labels.attendants}>
+        <Dropdown header={t("minutes.labels.attendants")}>
           <SidebarListInput
-            placeholder={dict.minutes.labels.attendants}
+            placeholder={t("minutes.labels.attendants")}
             fieldKey="attendants"
             setData={setMinutesData}
-            errorMessage={dict.minutes.errors.attendants}
+            errorMessage={t("minutes.errors.attendants")}
             hasError={
               minutesData.attendants.length <= 0 && checkPreMeetingErrors
             }
@@ -92,13 +92,13 @@ const MinutesSidebar = ({
       </div>
       {/* ###################### Meeting ###################### */}
 
-      <Dropdown header={dict.minutes.labels.startTime}>
+      <Dropdown header={t("minutes.labels.startTime")}>
         <DateButton
           onClick={(setDate) => {
             if (!preMeetingValid()) return;
             setDate();
           }}
-          buttonLabel={dict.minutes.buttons.startTime}
+          buttonLabel={t("minutes.buttons.startTime")}
           minutesData={minutesData}
           setMinutesData={setMinutesData}
           fieldKey="startTime"
@@ -106,7 +106,7 @@ const MinutesSidebar = ({
         />
         {!minutesData.startTime && (
           <p className="mt-1 text-sm text-gray-400 italic">
-            {dict.minutes.hints.startMeetingInfo}
+            {t("minutes.hints.startMeetingInfo")}
           </p>
         )}
       </Dropdown>
@@ -118,50 +118,50 @@ const MinutesSidebar = ({
         transitionDuration="700"
       >
         <div id="examiners-anchor">
-          <Dropdown header={dict.minutes.labels.examiners}>
+          <Dropdown header={t("minutes.labels.examiners")}>
             <ExaminerInput
               data={minutesData}
               setData={setMinutesData}
-              errorMessage={checkErrors ? dict.minutes.errors.examiners : ""}
+              errorMessage={checkErrors ? t("minutes.errors.examiners") : ""}
             />
           </Dropdown>
         </div>
 
-        <Dropdown header={dict.minutes.labels.items}>
+        <Dropdown header={t("minutes.labels.items")}>
           <MultiLanguageListInput
-            placeholder={dict.minutes.placeholders.attendants}
+            placeholder={t("minutes.placeholders.attendants")}
             fieldKey="meetingItems"
             setData={setMinutesData}
           />
         </Dropdown>
 
-        <Dropdown header={dict.minutes.labels.otherItems}>
+        <Dropdown header={t("minutes.labels.otherItems")}>
           <MultiLanguageListInput
-            placeholder={dict.minutes.placeholders.attendants}
+            placeholder={t("minutes.placeholders.attendants")}
             fieldKey="otherItems"
             setData={setMinutesData}
           />
         </Dropdown>
 
-        <Dropdown header={dict.minutes.labels.newMembers}>
+        <Dropdown header={t("minutes.labels.newMembers")}>
           <SidebarListInput
-            placeholder={dict.minutes.placeholders.newMembers}
+            placeholder={t("minutes.placeholders.newMembers")}
             setData={setMinutesData}
             fieldKey={"newMembers"}
           />
         </Dropdown>
 
-        <Dropdown header={dict.minutes.labels.nextMeeting}>
+        <Dropdown header={t("minutes.labels.nextMeeting")}>
           <DatetimeInput
-            buttonLabel={dict.minutes.buttons.nextMeeting}
-            placeholder={dict.minutes.placeholders.nextMeeting}
+            buttonLabel={t("minutes.buttons.nextMeeting")}
+            placeholder={t("minutes.placeholders.nextMeeting")}
             setData={setMinutesData}
             data={minutesData}
             fieldKey="nextMeeting"
           />
         </Dropdown>
 
-        <Dropdown header={dict.minutes.labels.signatures}>
+        <Dropdown header={t("minutes.labels.signatures")}>
           <SignaturesInput
             minutesData={minutesData}
             setMinutesData={setMinutesData}
@@ -169,7 +169,7 @@ const MinutesSidebar = ({
           />
         </Dropdown>
 
-        <Dropdown header={dict.minutes.labels.endTime}>
+        <Dropdown header={t("minutes.labels.endTime")}>
           <DateButton
             onClick={(setData) => {
               if (!formDataValid()) return;
@@ -177,7 +177,7 @@ const MinutesSidebar = ({
               setData();
             }}
             className="mt-2"
-            buttonLabel={dict.minutes.buttons.endTime}
+            buttonLabel={t("minutes.buttons.endTime")}
             minutesData={minutesData}
             setMinutesData={setMinutesData}
             fieldKey="endTime"
@@ -186,7 +186,7 @@ const MinutesSidebar = ({
       </Dropdown>
 
       {endMeeting && (
-        <button onClick={handlePdfDownloadClick}>{dict.download}</button>
+        <button onClick={handlePdfDownloadClick}>{t("download")}</button>
       )}
     </div>
   );

@@ -1,7 +1,7 @@
 "use client";
 
-import { useTranslations } from "@/app/i18n/TranslationsProvider";
 import { FinEng } from "@/types";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import SidebarInputComponent from "./SidebarInputComponent";
 
@@ -22,7 +22,7 @@ const MultiLanguageInput = <T,>({
   hasError,
   header,
 }: Props<T>) => {
-  const dict = useTranslations();
+  const t = useTranslations();
 
   const [newItem, setNewItem] = useState<FinEng>({} as FinEng);
 
@@ -42,7 +42,7 @@ const MultiLanguageInput = <T,>({
         <div className="text-teal-darker text-base font-bold">{header}</div>
       )}
 
-      <label className="text-sm text-gray-600">{dict.finnish}</label>
+      <label className="text-sm text-gray-600">{t("finnish")}</label>
       <SidebarInputComponent
         placeholder={placeholder}
         fieldKey={"fin"}
@@ -50,7 +50,7 @@ const MultiLanguageInput = <T,>({
         hasError={hasError && !newItem["fin"]}
         errorMessage={errorMessage}
       />
-      <label className="text-sm text-gray-600">{dict.english}</label>
+      <label className="text-sm text-gray-600">{t("english")}</label>
       <SidebarInputComponent
         placeholder={placeholder}
         fieldKey={"eng"}

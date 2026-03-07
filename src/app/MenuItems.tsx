@@ -1,11 +1,11 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useState } from "react";
-import { useTranslations } from "./i18n/TranslationsProvider";
 
 const MenuItems = () => {
-  const dict = useTranslations();
+  const t = useTranslations();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -21,7 +21,7 @@ const MenuItems = () => {
         >
           ▶
         </span>
-        {isOpen ? dict.closeMenu : dict.openMenu}
+        {isOpen ? t("closeMenu") : t("openMenu")}
       </button>
 
       <nav

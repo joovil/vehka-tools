@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslations } from "@/app/i18n/TranslationsProvider";
+import { useTranslations } from "next-intl";
 import React, { useState } from "react";
 import SidebarInputComponent from "./SidebarInputComponent";
 
@@ -23,7 +23,7 @@ const SidebarListInput = <T,>({
   errorMessage,
   hasError,
 }: Props<T>) => {
-  const dict = useTranslations();
+  const t = useTranslations();
   const [newItem, setNewItem] = useState<string>("");
 
   // Adds a new item to the end of the array using the key as the field name
@@ -54,7 +54,7 @@ const SidebarListInput = <T,>({
           className="mt-1 w-fit"
           onClick={() => handleListChange(newItem)}
         >
-          {dict.addItem}
+          {t("addItem")}
         </button>
       </SidebarInputComponent>
       {children}

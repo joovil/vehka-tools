@@ -1,8 +1,8 @@
 "use client";
 
 import ErrorModal from "@/app/components/inputs/ErrorModal";
-import { useTranslations } from "@/app/i18n/TranslationsProvider";
 import { Signatures } from "@/types";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { MinutesData } from "../page";
 
@@ -17,7 +17,7 @@ const SignaturesInput = ({
   setMinutesData,
   checkErrors,
 }: Props) => {
-  const dict = useTranslations();
+  const t = useTranslations();
 
   const handleChange =
     (fieldKey: keyof Signatures) =>
@@ -34,35 +34,35 @@ const SignaturesInput = ({
   return (
     <div>
       <SignatureInput
-        label={dict.minutes.labels.chairman}
-        placeholder={dict.minutes.placeholders.chairmanSignature}
+        label={t("minutes.labels.chairman")}
+        placeholder={t("minutes.placeholders.chairmanSignature")}
         onChange={handleChange("chairman")}
         isStyled={!!minutesData.signatures.chairman}
-        errorMessage={dict.minutes.errors.chairman}
+        errorMessage={t("minutes.errors.chairman")}
         hasError={!minutesData.signatures.chairman && checkErrors}
       />
       <SignatureInput
-        label={dict.minutes.labels.secretary}
-        placeholder={dict.minutes.placeholders.secretarySignature}
+        label={t("minutes.labels.secretary")}
+        placeholder={t("minutes.placeholders.secretarySignature")}
         onChange={handleChange("secretary")}
         isStyled={!!minutesData.signatures.secretary}
-        errorMessage={dict.minutes.errors.secretary}
+        errorMessage={t("minutes.errors.secretary")}
         hasError={!minutesData.signatures.secretary && checkErrors}
       />
       <SignatureInput
-        label={dict.minutes.labels.examiner1}
-        placeholder={dict.minutes.placeholders.examinerSignature}
+        label={t("minutes.labels.examiner1")}
+        placeholder={t("minutes.placeholders.examinerSignature")}
         onChange={handleChange("examiner1")}
         isStyled={!!minutesData.signatures.examiner1}
-        errorMessage={dict.minutes.errors.examiner1}
+        errorMessage={t("minutes.errors.examiner1")}
         hasError={!minutesData.signatures.examiner1 && checkErrors}
       />
       <SignatureInput
-        label={dict.minutes.labels.examiner2}
-        placeholder={dict.minutes.placeholders.examinerSignature}
+        label={t("minutes.labels.examiner2")}
+        placeholder={t("minutes.placeholders.examinerSignature")}
         onChange={handleChange("examiner2")}
         isStyled={!!minutesData.signatures.examiner2}
-        errorMessage={dict.minutes.errors.examiner2}
+        errorMessage={t("minutes.errors.examiner2")}
         hasError={!minutesData.signatures.examiner2 && checkErrors}
       />
     </div>
