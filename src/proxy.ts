@@ -1,7 +1,7 @@
-import type { NextMiddleware } from "next/server";
+import type { NextProxy } from "next/server";
 import { NextRequest, NextResponse } from "next/server";
 
-export const middleware: NextMiddleware = (req: NextRequest) => {
+export const proxy: NextProxy = (req: NextRequest) => {
   if (req.nextUrl.pathname === "/" && req.method === "GET") {
     const url = req.nextUrl.clone();
     url.pathname = "/minutes";
