@@ -3,14 +3,49 @@
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useState } from "react";
+import { useAuth } from "./components/AuthProvider";
+import useConfirmModal from "./components/useConfirmModal";
 
 const MenuItems = () => {
   const t = useTranslations();
+  const { isLoggedIn, committeeName, loading, logout } = useAuth();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
+  const { ConfirmModal, confirmModalControls } = useConfirmModal(
+    t("confirmModal.loginPromptGeneric"),
+  );
+
   return (
     <div className="mb-4">
+      {ConfirmModal}
+
+      {/* Auth control. Hidden while the session is still being checked so an
+          already logged-in user never sees a flash of "Log in". */}
+      {!loading && (
+        <div className="mb-2 flex items-center justify-between gap-2 text-sm">
+          {isLoggedIn ? (
+            <>
+              <span className="truncate">
+                {t("auth.loggedInAs", { name: committeeName ?? "" })}
+              </span>
+              <button
+                onClick={logout}
+                className="shrink-0 text-sm"
+              >
+                {t("auth.logOut")}
+              </button>
+            </>
+          ) : (
+            <button
+              onClick={() => confirmModalControls.showModal()}
+              className="ml-auto shrink-0 text-sm"
+            >
+              {t("auth.logIn")}
+            </button>
+          )}
+        </div>
+      )}
       <button
         onClick={() => setIsOpen((b) => !b)}
         className="bg-teal-dark/10 text-teal-darker hover:bg-teal-dark/20 flex w-full items-center gap-2 rounded-md px-3 py-2 text-base font-bold shadow-sm transition-all"
@@ -70,6 +105,9 @@ const MenuItems = () => {
           <Link href="/compensation-prices">
             {t("nav.compensationPriceList")}
           </Link>
+          {isLoggedIn && (
+            <Link href="/documents">{t("nav.committeeDocuments")}</Link>
+          )}
         </div>
       </nav>
     </div>
