@@ -24,6 +24,7 @@ const ContactFormPage = () => (
   <SplitPage<ContactFormData>
     MainContent={ContactFormContent}
     Sidebar={ContactFormSidebar}
+    storageKey="resident-meeting-contact"
     initialData={{ participants: [] }}
   />
 );

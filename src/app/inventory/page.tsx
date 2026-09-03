@@ -50,6 +50,7 @@ const InventoryPage = () => (
   <SplitPage<InventoryData>
     MainContent={InventoryContent}
     Sidebar={InventorySidebar}
+    storageKey="inventory"
     initialData={{
       address: "",
       date: "",

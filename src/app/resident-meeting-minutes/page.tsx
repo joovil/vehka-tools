@@ -27,6 +27,7 @@ const ResidentMeetingPage = () => (
   <SplitPage<ResidentMeetingData>
     MainContent={ResidentMeetingContent}
     Sidebar={ResidentMeetingSidebar}
+    storageKey="resident-meeting-minutes"
     initialData={{
       agendaItems: [],
       decisions: [],

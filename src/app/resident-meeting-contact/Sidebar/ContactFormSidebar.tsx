@@ -56,6 +56,7 @@ const ContactFormSidebar = ({ data, setData }: ContactFormProps) => {
         />
         <SidebarInput
           fieldKey="location"
+          data={data}
           setData={setData}
           label={t("contactForm.labels.location")}
           placeholder={t("contactForm.placeholders.location")}

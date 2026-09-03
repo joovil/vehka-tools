@@ -33,6 +33,7 @@ const AccountingPage = () => (
   <SplitPage<AccountingData>
     MainContent={AccountingContent}
     Sidebar={AccountingSidebar}
+    storageKey="accounting"
     initialData={{
       expenses: [],
       signatures: { recipient: "", committeeMember: "" },

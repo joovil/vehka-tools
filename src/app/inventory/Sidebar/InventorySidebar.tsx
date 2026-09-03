@@ -91,12 +91,14 @@ const InventorySidebar = ({ data, setData }: InventoryProps) => {
       <Dropdown header={t("inventory.info")}>
         <SidebarInput<InventoryData>
           fieldKey="address"
+          data={data}
           setData={setData}
           placeholder={t("inventory.placeholders.address")}
           label={t("inventory.address")}
         />
         <SidebarInput<InventoryData>
           fieldKey="date"
+          data={data}
           setData={setData}
           placeholder={t("inventory.placeholders.date")}
           label={t("inventory.date")}

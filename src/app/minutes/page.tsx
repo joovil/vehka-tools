@@ -32,6 +32,7 @@ const MinutesPage = () => {
     <SplitPage<MinutesData>
       MainContent={MinutesContent}
       Sidebar={MinutesSidebar}
+      storageKey="minutes"
       initialData={{
         attendants: [],
         meetingItems: [],

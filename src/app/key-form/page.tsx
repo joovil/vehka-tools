@@ -24,6 +24,7 @@ const KeyFormPage = () => (
   <SplitPage<KeyFormData>
     MainContent={KeyFormContent}
     Sidebar={KeyFormSidebar}
+    storageKey="key-form"
     initialData={{ keyLoans: [] }}
   />
 );

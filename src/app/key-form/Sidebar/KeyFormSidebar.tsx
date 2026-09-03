@@ -54,6 +54,7 @@ const KeyFormSidebar = ({ data, setData }: KeyFormProps) => {
       <Dropdown header={t("keyForm.labels.info")}>
         <SidebarInput
           fieldKey="committeeName"
+          data={data}
           setData={setData}
           label={t("keyForm.labels.committeeName")}
           placeholder={t("keyForm.placeholders.committeeName")}

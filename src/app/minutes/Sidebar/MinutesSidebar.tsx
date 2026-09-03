@@ -9,7 +9,6 @@ import SidebarListInput from "@/app/components/inputs/SidebarListInput";
 import useConfirmModal from "@/app/components/useConfirmModal";
 import { handlePdfDownload } from "@/app/utils/handlePdfDownload";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
 import DatetimeInput from "../../components/inputs/DatetimeInput";
 import { buildMinutesDocument } from "../buildDocument";
 import { useFormValidation } from "../hooks/useFormValidation";
@@ -25,8 +24,6 @@ const MinutesSidebar = ({
 }: MinutesProps) => {
   const t = useTranslations();
   const { ConfirmModal, confirmModalControls } = useConfirmModal();
-
-  const [endMeeting, setEndMeeting] = useState<boolean>(false);
 
   const { formDataValid, checkErrors, preMeetingValid, checkPreMeetingErrors } =
     // This validates the input data and scrolls to errors
@@ -59,6 +56,7 @@ const MinutesSidebar = ({
         <Dropdown header={t("minutes.labels.location")}>
           <SidebarInput
             fieldKey="minutesNumber"
+            data={minutesData}
             setData={setMinutesData}
             label={t("minutes.labels.minutesNumber")}
             placeholder={t("minutes.placeholders.minutesNumber")}
@@ -68,6 +66,7 @@ const MinutesSidebar = ({
           <MultiLanguageInput
             placeholder={t("minutes.placeholders.location")}
             fieldKey="location"
+            data={minutesData}
             setData={setMinutesData}
             errorMessage={t("minutes.errors.location")}
             hasError={checkPreMeetingErrors}
@@ -182,7 +181,6 @@ const MinutesSidebar = ({
           <DateButton
             onClick={(setData) => {
               if (!formDataValid()) return;
-              setEndMeeting(true);
               setData();
             }}
             className="mt-2"
@@ -194,7 +192,7 @@ const MinutesSidebar = ({
         </Dropdown>
       </Dropdown>
 
-      {endMeeting && (
+      {minutesData.endTime && (
         <button onClick={handlePdfDownloadClick}>{t("download")}</button>
       )}
     </div>

@@ -22,6 +22,7 @@ const CompensationPricesPage = () => (
   <SplitPage<CompensationData>
     MainContent={CompensationContent}
     Sidebar={CompensationSidebar}
+    storageKey="compensation-prices"
     initialData={{ items: [] }}
   />
 );

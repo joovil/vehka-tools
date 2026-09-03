@@ -7,6 +7,7 @@ interface Props<T> {
   label?: string;
   fieldKey?: keyof T;
   value?: string;
+  data?: T;
   placeholder: string;
   setData: React.Dispatch<React.SetStateAction<T>>;
   type?: "text" | "number";
@@ -20,12 +21,15 @@ const SidebarInput = <T,>({
   placeholder,
   setData,
   value,
+  data,
   label,
   type = "text",
   header,
   hasError,
   errorMessage,
 }: Props<T>) => {
+  const derivedValue =
+    value ?? (data && fieldKey ? String(data[fieldKey] ?? "") : undefined);
   const handleChange = (item: string) => {
     if (fieldKey) {
       setData((prev: T) => ({ ...prev, [fieldKey]: item }));
@@ -40,7 +44,7 @@ const SidebarInput = <T,>({
       placeholder={placeholder}
       fieldKey={fieldKey}
       onChange={(e) => handleChange(e.currentTarget.value)}
-      value={value}
+      value={derivedValue}
       label={label}
       type={type}
       header={header}

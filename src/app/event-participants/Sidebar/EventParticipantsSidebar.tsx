@@ -53,6 +53,7 @@ const EventParticipantsSidebar = ({
       <Dropdown header={t("eventParticipants.labels.info")}>
         <MultiLanguageInput
           fieldKey="eventName"
+          data={data}
           setData={setData}
           header={t("eventParticipants.labels.eventName")}
           placeholder={t("eventParticipants.placeholders.eventName")}
@@ -67,6 +68,7 @@ const EventParticipantsSidebar = ({
         />
         <MultiLanguageInput
           fieldKey="location"
+          data={data}
           setData={setData}
           header={t("eventParticipants.labels.location")}
           placeholder={t("eventParticipants.placeholders.location")}

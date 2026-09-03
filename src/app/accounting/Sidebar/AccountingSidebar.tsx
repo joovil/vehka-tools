@@ -49,36 +49,42 @@ const AccountingSidebar = ({ data, setData }: AccountingProps) => {
       <Dropdown header={t("accounting.labels.personalInfo")}>
         <SidebarInput
           fieldKey="name"
+          data={data}
           setData={setData}
           placeholder={t("accounting.placeholders.name")}
           label={t("accounting.labels.name")}
         />
         <SidebarInput
           fieldKey="address"
+          data={data}
           setData={setData}
           placeholder={t("accounting.placeholders.address")}
           label={t("accounting.labels.address")}
         />
         <SidebarInput
           fieldKey="iban"
+          data={data}
           setData={setData}
           placeholder={t("accounting.placeholders.iban")}
           label={t("accounting.labels.iban")}
         />
         <SidebarInput
           fieldKey="bic"
+          data={data}
           setData={setData}
           placeholder={t("accounting.placeholders.bic")}
           label={t("accounting.labels.bic")}
         />
         <SidebarInput
           fieldKey="committeeRole"
+          data={data}
           setData={setData}
           placeholder={t("accounting.placeholders.committeeRole")}
           label={t("accounting.labels.committeeRole")}
         />
         <SidebarInput
           fieldKey="minutesNumber"
+          data={data}
           setData={setData}
           placeholder={t("accounting.placeholders.minutesNumber")}
           label={t("accounting.labels.minutesNumber")}
@@ -142,6 +148,7 @@ const AccountingSidebar = ({ data, setData }: AccountingProps) => {
       <Dropdown header={t("accounting.labels.date")}>
         <SidebarInput
           fieldKey="date"
+          data={data}
           setData={setData}
           placeholder={t("accounting.placeholders.date")}
           label={t("accounting.labels.date")}

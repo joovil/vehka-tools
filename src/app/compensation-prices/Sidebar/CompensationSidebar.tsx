@@ -46,6 +46,7 @@ const CompensationSidebar = ({ data, setData }: CompensationProps) => {
       <Dropdown header={t("compensationPrices.labels.info")}>
         <SidebarInput
           fieldKey="committeeName"
+          data={data}
           setData={setData}
           label={t("compensationPrices.labels.committeeName")}
           placeholder={t("compensationPrices.placeholders.committeeName")}

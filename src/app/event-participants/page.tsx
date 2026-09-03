@@ -23,6 +23,7 @@ const EventParticipantsPage = () => (
   <SplitPage<EventParticipantsData>
     MainContent={EventParticipantsContent}
     Sidebar={EventParticipantsSidebar}
+    storageKey="event-participants"
     initialData={{ participants: [] }}
   />
 );

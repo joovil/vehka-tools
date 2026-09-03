@@ -24,6 +24,7 @@ const MeetingInvitePage = () => {
     <SplitPage<MeetingInviteData>
       MainContent={MeetingInviteContent}
       Sidebar={MeetingInviteSidebar}
+      storageKey="meeting-invite"
       initialData={{
         agendaItems: [],
       }}

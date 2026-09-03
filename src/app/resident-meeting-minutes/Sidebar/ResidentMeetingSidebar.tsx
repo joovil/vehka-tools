@@ -39,6 +39,7 @@ const ResidentMeetingSidebar = ({ data, setData }: ResidentMeetingProps) => {
       <Dropdown header={t("residentMeeting.labels.info")}>
         <SidebarInput
           fieldKey="meetingNumber"
+          data={data}
           setData={setData}
           label={t("residentMeeting.labels.meetingNumber")}
           placeholder={t("residentMeeting.placeholders.meetingNumber")}
@@ -55,10 +56,12 @@ const ResidentMeetingSidebar = ({ data, setData }: ResidentMeetingProps) => {
         <MultiLanguageInput
           placeholder={t("residentMeeting.placeholders.location")}
           fieldKey="location"
+          data={data}
           setData={setData}
         />
         <SidebarInput
           fieldKey="attendantCount"
+          data={data}
           setData={setData}
           label={t("residentMeeting.labels.attendantCount")}
           placeholder={t("residentMeeting.placeholders.attendantCount")}
@@ -100,6 +103,7 @@ const ResidentMeetingSidebar = ({ data, setData }: ResidentMeetingProps) => {
             <input
               className={`w-full border-b p-1 ${data.signatures.chairman ? "font-alex text-xl" : ""}`}
               placeholder={t("residentMeeting.labels.chairman")}
+              value={data.signatures.chairman}
               onChange={(e) =>
                 setData({
                   ...data,
@@ -118,6 +122,7 @@ const ResidentMeetingSidebar = ({ data, setData }: ResidentMeetingProps) => {
             <input
               className={`w-full border-b p-1 ${data.signatures.secretary ? "font-alex text-xl" : ""}`}
               placeholder={t("residentMeeting.labels.secretary")}
+              value={data.signatures.secretary}
               onChange={(e) =>
                 setData({
                   ...data,

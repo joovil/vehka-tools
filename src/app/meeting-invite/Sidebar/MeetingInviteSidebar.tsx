@@ -73,6 +73,7 @@ const MeetingInviteSidebar = ({
 
       <MultiLanguageInput
         header={t("meetingInvite.headers.location")}
+        data={inviteData}
         setData={setInviteData}
         fieldKey="location"
         placeholder={t("meetingInvite.placeholders.location")}
@@ -96,6 +97,7 @@ const MeetingInviteSidebar = ({
         header={t("meetingInvite.labels.furtherInformation")}
         placeholder={t("meetingInvite.placeholders.furtherInformation")}
         fieldKey="moreInfo"
+        data={inviteData}
         setData={setInviteData}
       />
 

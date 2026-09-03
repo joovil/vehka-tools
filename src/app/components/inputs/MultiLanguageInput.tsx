@@ -2,11 +2,11 @@
 
 import { FinEng } from "@/types";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
 import SidebarInputComponent from "./SidebarInputComponent";
 
 interface Props<T> {
   placeholder: string;
+  data?: T;
   setData: React.Dispatch<React.SetStateAction<T>>;
   fieldKey: keyof T;
   errorMessage?: string;
@@ -15,6 +15,7 @@ interface Props<T> {
 }
 
 const MultiLanguageInput = <T,>({
+  data,
   setData,
   placeholder,
   fieldKey,
@@ -24,16 +25,16 @@ const MultiLanguageInput = <T,>({
 }: Props<T>) => {
   const t = useTranslations();
 
-  const [newItem, setNewItem] = useState<FinEng>({} as FinEng);
+  const currentValue = (data ? data[fieldKey] : undefined) as
+    | FinEng
+    | undefined;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-
-    const update = { ...newItem, [name]: value };
-
-    console.log(update);
-    setNewItem((prev) => ({ ...prev, [name]: value }));
-    setData((prev: T) => ({ ...prev, [fieldKey]: update }));
+    setData((prev: T) => ({
+      ...prev,
+      [fieldKey]: { ...((prev[fieldKey] as FinEng) ?? {}), [name]: value },
+    }));
   };
 
   return (
@@ -47,7 +48,8 @@ const MultiLanguageInput = <T,>({
         placeholder={placeholder}
         fieldKey={"fin"}
         onChange={handleChange}
-        hasError={hasError && !newItem["fin"]}
+        value={currentValue?.fin ?? ""}
+        hasError={hasError && !currentValue?.fin}
         errorMessage={errorMessage}
       />
       <label className="text-sm text-gray-600">{t("english")}</label>
@@ -55,7 +57,8 @@ const MultiLanguageInput = <T,>({
         placeholder={placeholder}
         fieldKey={"eng"}
         onChange={handleChange}
-        hasError={hasError && !newItem["eng"]}
+        value={currentValue?.eng ?? ""}
+        hasError={hasError && !currentValue?.eng}
         errorMessage={errorMessage}
       />
     </div>
