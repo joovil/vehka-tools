@@ -1,3 +1,4 @@
+import { AuthProvider } from "@/app/components/AuthProvider";
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
@@ -68,7 +69,7 @@ export default async function RootLayout({
         className={`${circular.variable} ${geistSans.variable} ${geistMono.variable} ${alexBrush.variable} antialiased`}
       >
         <NextIntlClientProvider messages={messages}>
-          {children}
+          <AuthProvider>{children}</AuthProvider>
         </NextIntlClientProvider>
       </body>
     </html>
