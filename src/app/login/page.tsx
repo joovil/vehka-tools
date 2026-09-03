@@ -11,6 +11,10 @@ const Login = () => {
 
   const [newCommitteeName, setNewCommitteeName] = useState("");
   const [newCommitteePassword, setNewCommitteePassword] = useState("");
+  const [adminPassword, setAdminPassword] = useState("");
+
+  const [loginMessage, setLoginMessage] = useState("");
+  const [createMessage, setCreateMessage] = useState("");
 
   const login = async () => {
     const res = await apiFetch("/auth/login", {
@@ -19,21 +23,29 @@ const Login = () => {
       headers: { "Content-Type": "application/json" },
     });
     const data = await res.json();
-    console.log(data);
+    setLoginMessage(
+      res.ok
+        ? t("login.loginSuccess")
+        : (data.message ?? t("login.loginFailed")),
+    );
   };
 
   const handleCreate = async () => {
-    // Implement create logic here
     const res = await apiFetch("/committees", {
       method: "POST",
       body: JSON.stringify({
         committeeName: newCommitteeName,
         password: newCommitteePassword,
+        adminPassword,
       }),
       headers: { "Content-Type": "application/json" },
     });
     const data = await res.json();
-    console.log(data);
+    setCreateMessage(
+      res.ok
+        ? t("login.createSuccess")
+        : (data.message ?? t("login.createFailed")),
+    );
   };
 
   return (
@@ -61,6 +73,7 @@ const Login = () => {
           >
             {t("login.logIn")}
           </button>
+          {loginMessage && <div className="text-sm">{loginMessage}</div>}
         </div>
         {/* Create form */}
         <div className="flex w-full max-w-xs flex-col items-center gap-4">
@@ -78,12 +91,20 @@ const Login = () => {
             onChange={(e) => setNewCommitteePassword(e.target.value)}
             className="w-full rounded border px-3 py-2"
           />
+          <input
+            type="password"
+            placeholder={t("login.adminPassword")}
+            value={adminPassword}
+            onChange={(e) => setAdminPassword(e.target.value)}
+            className="w-full rounded border px-3 py-2"
+          />
           <button
             onClick={handleCreate}
             className="w-full rounded bg-green-600 px-3 py-2 transition hover:bg-green-700"
           >
             {t("login.create")}
           </button>
+          {createMessage && <div className="text-sm">{createMessage}</div>}
         </div>
         <div>
           <button onClick={() => apiFetch("/auth/logout", { method: "POST" })}>

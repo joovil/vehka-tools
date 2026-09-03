@@ -6,7 +6,7 @@ export const POST = async () => {
     const cookieStore = await cookies();
 
     // Clear the authentication token cookie
-    cookieStore.delete("token");
+    cookieStore.delete({ name: "token", path: "/" });
 
     printMagenta("User logged out");
 

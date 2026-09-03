@@ -1,6 +1,6 @@
 import { printMagenta } from "@/app/utils/loggers";
 import { cookies } from "next/headers";
-import { authenticate } from "../auth";
+import { TOKEN_MAX_AGE_SECONDS, authenticate } from "../auth";
 
 export const POST = async (req: Request) => {
   try {
@@ -10,10 +10,16 @@ export const POST = async (req: Request) => {
 
     const token = await authenticate(committeeName, password);
 
-    cookieStore.set("token", token);
+    cookieStore.set("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/",
+      maxAge: TOKEN_MAX_AGE_SECONDS,
+    });
     printMagenta("User logged in");
 
-    return Response.json({ token: token });
+    return Response.json({ message: "Logged in" });
   } catch (error) {
     if (error instanceof Error)
       return Response.json({ message: error.message }, { status: 401 });
