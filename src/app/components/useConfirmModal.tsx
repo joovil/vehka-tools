@@ -30,6 +30,12 @@ export const useConfirmModal = (promptMessage?: string) => {
   };
 
   useEffect(() => {
+    // Only listen while open. Attaching this permanently meant the same click
+    // that opened the modal also closed it: React commits the render during
+    // the click, so by the time this document listener runs the form exists
+    // and the opening button counts as an outside click.
+    if (!visible) return;
+
     const detectOutsideClick = (e: MouseEvent) => {
       if (
         formRef.current &&
@@ -41,7 +47,7 @@ export const useConfirmModal = (promptMessage?: string) => {
 
     document.addEventListener("click", detectOutsideClick);
     return () => document.removeEventListener("click", detectOutsideClick);
-  }, []);
+  }, [visible]);
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
