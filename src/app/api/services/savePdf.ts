@@ -2,7 +2,7 @@ import { apiFetch } from "@/app/utils/apiFetch";
 
 export const savePdf = async (filename: string, blob: Blob) => {
   try {
-    if (process.env.SAVE_PDF_TO_AZURE === "false") return;
+    if (process.env.NEXT_PUBLIC_SAVE_PDF === "false") return;
 
     const formData = new FormData();
 

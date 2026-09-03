@@ -30,7 +30,8 @@
     "committeeGuide": "Asukastoimikuntaopas",
     "eventParticipantList": "Tapahtumien osallistujalista",
     "keyForm": "Avainlomake",
-    "compensationPriceList": "Asukastoimikunnan korvausvastuuhinnasto"
+    "compensationPriceList": "Asukastoimikunnan korvausvastuuhinnasto",
+    "committeeDocuments": "Tallennetut asiakirjat"
   },
   "splitView": {
     "form": "Lomake",
@@ -43,7 +44,12 @@
     "newCommitteeName": "Uuden toimikunnan nimi",
     "newPassword": "Uusi salasana",
     "create": "Luo",
-    "logout": "Kirjaudu ulos"
+    "logout": "Kirjaudu ulos",
+    "adminPassword": "Ylläpitäjän salasana",
+    "loginSuccess": "Kirjauduttu sisään",
+    "loginFailed": "Kirjautuminen epäonnistui",
+    "createSuccess": "Toimikunta luotu",
+    "createFailed": "Toimikunnan luonti epäonnistui"
   },
   "admin": {
     "createCommitteeTitle": "Luo uusi asukastoimikunta",
@@ -116,7 +122,8 @@
     "committeeName": "Toimikunnan nimi",
     "password": "Salasana",
     "logIn": "Kirjaudu",
-    "cancel": "Peruuta"
+    "cancel": "Peruuta",
+    "loginPromptGeneric": "Kirjaudu asukastoimikuntaasi"
   },
   "minutes": {
     "pdfFilename": "Kokouspöytäkirja",
@@ -419,5 +426,10 @@
     "pdf": {
       "title": "Korvausvastuuhinnasto"
     }
+  },
+  "auth": {
+    "loggedInAs": "Kirjautuneena: {name}",
+    "logIn": "Kirjaudu",
+    "logOut": "Kirjaudu ulos"
   }
 }

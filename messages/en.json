@@ -30,7 +30,8 @@
     "committeeGuide": "Tenant committee guide",
     "eventParticipantList": "Event participant list",
     "keyForm": "Key form",
-    "compensationPriceList": "Tenant committee compensation price list"
+    "compensationPriceList": "Tenant committee compensation price list",
+    "committeeDocuments": "Saved documents"
   },
   "splitView": {
     "form": "Form",
@@ -43,7 +44,12 @@
     "newCommitteeName": "New committee name",
     "newPassword": "New password",
     "create": "Create",
-    "logout": "Logout"
+    "logout": "Logout",
+    "adminPassword": "Admin password",
+    "loginSuccess": "Logged in",
+    "loginFailed": "Login failed",
+    "createSuccess": "Committee created",
+    "createFailed": "Could not create committee"
   },
   "admin": {
     "createCommitteeTitle": "Create new tenant committee",
@@ -116,7 +122,8 @@
     "committeeName": "Committee name",
     "password": "Password",
     "logIn": "Log in",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "loginPromptGeneric": "Log in to your tenant committee"
   },
   "minutes": {
     "pdfFilename": "Meeting-minutes",
@@ -419,5 +426,10 @@
     "pdf": {
       "title": "Compensation price list"
     }
+  },
+  "auth": {
+    "loggedInAs": "Logged in: {name}",
+    "logIn": "Log in",
+    "logOut": "Log out"
   }
 }

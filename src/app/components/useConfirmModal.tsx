@@ -3,9 +3,11 @@
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { apiFetch } from "../utils/apiFetch";
+import { useAuth } from "./AuthProvider";
 
-export const useConfirmModal = () => {
+export const useConfirmModal = (promptMessage?: string) => {
   const t = useTranslations();
+  const { refresh } = useAuth();
   const formRef = useRef<HTMLFormElement | null>(null);
   const resolveRef = useRef<((value: boolean) => void) | null>(null);
 
@@ -63,6 +65,9 @@ export const useConfirmModal = () => {
       return;
     }
 
+    // Every login in the app goes through this hook, so refreshing here keeps
+    // the menu's indicator in sync no matter which entry point was used.
+    await refresh();
     setVisibleWithResolve(false, true);
   };
 
@@ -74,7 +79,7 @@ export const useConfirmModal = () => {
         className="rounded-lg border bg-white p-6 pt-4 shadow-lg"
       >
         <div className="font-bold text-wrap">
-          {t("confirmModal.loginPrompt")}
+          {promptMessage ?? t("confirmModal.loginPrompt")}
         </div>
         <div className="flex flex-col">
           <label>{t("confirmModal.committeeName")}</label>

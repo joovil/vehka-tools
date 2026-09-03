@@ -20,7 +20,7 @@ export const handlePdfDownload = async ({
   pdfElement,
   confirmModalControls,
 }: HandlePdfDownloadOptions) => {
-  const isLoggedIn = await checkAuthStatus();
+  const { isLoggedIn } = await checkAuthStatus();
 
   if (isLoggedIn) {
     await handleLoggedInDownload(filename, pdfElement);
