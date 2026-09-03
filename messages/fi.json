@@ -43,7 +43,12 @@
     "newCommitteeName": "Uuden toimikunnan nimi",
     "newPassword": "Uusi salasana",
     "create": "Luo",
-    "logout": "Kirjaudu ulos"
+    "logout": "Kirjaudu ulos",
+    "adminPassword": "Ylläpitäjän salasana",
+    "loginSuccess": "Kirjauduttu sisään",
+    "loginFailed": "Kirjautuminen epäonnistui",
+    "createSuccess": "Toimikunta luotu",
+    "createFailed": "Toimikunnan luonti epäonnistui"
   },
   "admin": {
     "createCommitteeTitle": "Luo uusi asukastoimikunta",

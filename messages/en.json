@@ -43,7 +43,12 @@
     "newCommitteeName": "New committee name",
     "newPassword": "New password",
     "create": "Create",
-    "logout": "Logout"
+    "logout": "Logout",
+    "adminPassword": "Admin password",
+    "loginSuccess": "Logged in",
+    "loginFailed": "Login failed",
+    "createSuccess": "Committee created",
+    "createFailed": "Could not create committee"
   },
   "admin": {
     "createCommitteeTitle": "Create new tenant committee",

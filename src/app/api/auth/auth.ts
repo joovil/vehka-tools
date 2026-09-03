@@ -3,6 +3,8 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 
+export const TOKEN_MAX_AGE_SECONDS = 60 * 60 * 8;
+
 export const authenticate = async (committeeName: string, password: string) => {
   const committee = await getCommitteeByName(committeeName);
 
@@ -15,7 +17,11 @@ export const authenticate = async (committeeName: string, password: string) => {
     const secret = process.env.AUTH_SECRET;
     if (!secret) throw new Error("AUTH_SECRET MISSING");
 
-    const token = jwt.sign(committee, secret);
+    // Sign only what the session needs. The committee row also holds
+    // passwordHash, and a JWT payload is base64, not encrypted.
+    const token = jwt.sign({ id: committee.id, name: committee.name }, secret, {
+      expiresIn: TOKEN_MAX_AGE_SECONDS,
+    });
     return token;
   }
 
@@ -23,7 +29,7 @@ export const authenticate = async (committeeName: string, password: string) => {
 };
 
 interface DecodedToken {
-  id: string;
+  id: number;
   committeeName: string;
 }
 
@@ -42,7 +48,7 @@ export const decodeToken = (token: string): DecodedToken | undefined => {
 
   try {
     const decoded = jwt.verify(token, secret) as jwt.JwtPayload & {
-      id: string;
+      id: number;
       name: string;
     };
     return {
