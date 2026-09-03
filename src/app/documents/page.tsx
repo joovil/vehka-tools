@@ -4,7 +4,7 @@ import {
   fetchAllCommittees,
   getDocumentByPath,
   getFileNames,
-} from "@/server/azure/getCommitteeDocuments";
+} from "@/server/blob/getCommitteeDocuments";
 import { CommitteeWithoutPassword } from "@/types";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";

@@ -2,9 +2,8 @@ export const apiFetch = async (
   endpoint: RequestInfo | URL,
   options?: RequestInit,
 ): Promise<Response> => {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api${endpoint}`,
-    options,
-  );
+  // Only called from the browser, so a relative path is enough and avoids
+  // depending on a per-environment base URL.
+  const res = await fetch(`/api${endpoint}`, options);
   return res;
 };

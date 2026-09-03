@@ -1,4 +1,4 @@
-import { getMinutes } from "@/server/db/repos/minutesRepo";
+import { addMinutes, getMinutes } from "@/server/db/repos/minutesRepo";
 import { uploadFile } from "@/server/utils/uploadFile";
 import { getSession } from "../auth/auth";
 
@@ -52,11 +52,18 @@ export const POST = async (req: Request) => {
     }
 
     const filenameWithPath = `${session.committeeName}/minutes/${filename}`;
-    const uploadBlobResponse = await uploadFile(filenameWithPath, blob);
+    const uploaded = await uploadFile(filenameWithPath, blob);
+
+    await addMinutes({
+      filename,
+      blobUrl: uploaded.url,
+      committeeId: Number(session.id),
+    });
 
     return Response.json({
       message: "File stored",
-      blobId: uploadBlobResponse.requestId,
+      blobUrl: uploaded.url,
+      pathname: uploaded.pathname,
     });
   } catch (error) {
     console.error(error);

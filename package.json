@@ -11,12 +11,11 @@
     "pretty": "prettier --write \"./src/**/*.{js,jsx,mjs,cjs,ts,tsx,json}\""
   },
   "dependencies": {
-    "@azure/identity": "^4.13.0",
-    "@azure/storage-blob": "^12.31.0",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@next/eslint-plugin-next": "16.1.6",
     "@react-pdf/renderer": "^4.3.2",
+    "@vercel/blob": "^2.8.0",
     "bcryptjs": "^3.0.3",
     "jsonwebtoken": "^9.0.3",
     "kysely": "^0.28.11",
