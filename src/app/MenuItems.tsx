@@ -1,5 +1,19 @@
 "use client";
 
+import {
+  BookOpen,
+  Calculator,
+  ClipboardList,
+  ExternalLink,
+  FileText,
+  Folder,
+  Key,
+  Mail,
+  Package,
+  Tag,
+  User,
+  Users,
+} from "lucide-react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useState } from "react";
@@ -60,7 +74,7 @@ const MenuItems = () => {
       </button>
 
       <nav
-        className="[&_a]:text-teal-darker mt-1 flex flex-col gap-3 overflow-hidden rounded-md bg-white/60 px-4 transition-all duration-300 ease-in-out [&_a]:underline-offset-2 [&_a:hover]:underline [&_div]:flex [&_div]:flex-col [&_div]:gap-0.5 [&_h2]:mt-2 [&_h2]:mb-0.5 [&_h2]:text-sm [&_h2]:font-bold [&_h2]:tracking-wide [&_h2]:text-gray-500 [&_h2]:uppercase"
+        className="[&_a]:text-teal-darker mt-1 flex flex-col gap-3 overflow-hidden rounded-md bg-white/60 px-4 transition-all duration-300 ease-in-out [&_a]:flex [&_a]:items-center [&_a]:gap-2 [&_a]:underline-offset-2 [&_a:hover]:underline [&_div]:flex [&_div]:flex-col [&_div]:gap-0.5 [&_h2]:mt-2 [&_h2]:mb-0.5 [&_h2]:text-sm [&_h2]:font-bold [&_h2]:tracking-wide [&_h2]:text-gray-500 [&_h2]:uppercase"
         style={{
           maxHeight: isOpen ? "800px" : "0",
           paddingTop: isOpen ? "12px" : "0",
@@ -69,26 +83,40 @@ const MenuItems = () => {
       >
         <div>
           <h2>{t("nav.meetingsAndEvents")}</h2>
-          <Link href={"/minutes"}>{t("nav.minutes")}</Link>
-          <Link href={"/meeting-invite"}>{t("nav.meetingInvite")}</Link>
+          <Link href={"/minutes"}>
+            <FileText className="size-4 shrink-0" />
+            {t("nav.minutes")}
+          </Link>
+          <Link href={"/meeting-invite"}>
+            <Mail className="size-4 shrink-0" />
+            {t("nav.meetingInvite")}
+          </Link>
         </div>
 
         <div>
           <h2>{t("nav.spacesAndItems")}</h2>
-          <Link href={"/inventory"}>{t("nav.inventory")}</Link>
+          <Link href={"/inventory"}>
+            <Package className="size-4 shrink-0" />
+            {t("nav.inventory")}
+          </Link>
         </div>
 
         <div>
           <h2>{t("nav.budgetAndAccounting")}</h2>
-          <Link href="/accounting">{t("nav.accountingForm")}</Link>
+          <Link href="/accounting">
+            <Calculator className="size-4 shrink-0" />
+            {t("nav.accountingForm")}
+          </Link>
         </div>
 
         <div>
           <h2>{t("nav.earlyYearMaterials")}</h2>
           <Link href="/resident-meeting-minutes">
+            <ClipboardList className="size-4 shrink-0" />
             {t("nav.residentMeetingMinutes")}
           </Link>
           <Link href="/resident-meeting-contact">
+            <User className="size-4 shrink-0" />
             {t("nav.residentMeetingContactForm")}
           </Link>
         </div>
@@ -96,17 +124,27 @@ const MenuItems = () => {
         <div>
           <h2>{t("nav.documents")}</h2>
           <a href="https://hoas.fi/app/uploads/2024/01/Asukastoimintaopas.pdf">
+            <BookOpen className="size-4 shrink-0" />
             {t("nav.committeeGuide")}
+            <ExternalLink className="size-3 shrink-0 opacity-60" />
           </a>
           <Link href="/event-participants">
+            <Users className="size-4 shrink-0" />
             {t("nav.eventParticipantList")}
           </Link>
-          <Link href="/key-form">{t("nav.keyForm")}</Link>
+          <Link href="/key-form">
+            <Key className="size-4 shrink-0" />
+            {t("nav.keyForm")}
+          </Link>
           <Link href="/compensation-prices">
+            <Tag className="size-4 shrink-0" />
             {t("nav.compensationPriceList")}
           </Link>
           {isLoggedIn && (
-            <Link href="/documents">{t("nav.committeeDocuments")}</Link>
+            <Link href="/documents">
+              <Folder className="size-4 shrink-0" />
+              {t("nav.committeeDocuments")}
+            </Link>
           )}
         </div>
       </nav>
