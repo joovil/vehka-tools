@@ -13,7 +13,7 @@ interface Props<T> {
   required?: boolean;
   errorMessage?: string;
   hasError?: boolean;
-  type?: "text" | "number";
+  type?: "text" | "number" | "password";
   header?: string;
 }
 

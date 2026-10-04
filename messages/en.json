@@ -37,26 +37,19 @@
     "form": "Form",
     "preview": "Preview"
   },
-  "login": {
-    "committeeName": "Committee name",
-    "password": "Password",
-    "logIn": "Log in",
-    "newCommitteeName": "New committee name",
-    "newPassword": "New password",
-    "create": "Create",
-    "logout": "Logout",
-    "adminPassword": "Admin password",
-    "loginSuccess": "Logged in",
-    "loginFailed": "Login failed",
-    "createSuccess": "Committee created",
-    "createFailed": "Could not create committee"
-  },
   "admin": {
-    "createCommitteeTitle": "Create new tenant committee",
-    "newCommitteeName": "New committee name",
-    "newPassword": "New password",
+    "title": "Admin",
+    "createCommitteeTitle": "Create a new tenant committee",
+    "newCommitteeName": "Committee name",
+    "newPassword": "Password",
+    "retypePassword": "Retype password",
+    "passwordsDontMatch": "Passwords don't match",
     "adminPassword": "Admin password",
-    "create": "Create"
+    "required": "This field is required",
+    "create": "Create committee",
+    "creating": "Creating…",
+    "createSuccess": "Committee \"{name}\" created",
+    "createFailed": "Could not create committee"
   },
   "documents": {
     "title": "Documents",
