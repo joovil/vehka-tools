@@ -8,20 +8,24 @@ import {
   FileText,
   Folder,
   Key,
+  Languages,
   Mail,
   Package,
   Tag,
   User,
   Users,
 } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useAuth } from "./components/AuthProvider";
 import useConfirmModal from "./components/useConfirmModal";
 
 const MenuItems = () => {
   const t = useTranslations();
+  const locale = useLocale();
+  const router = useRouter();
   const { isLoggedIn, committeeName, loading, logout } = useAuth();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -30,36 +34,54 @@ const MenuItems = () => {
     t("confirmModal.loginPromptGeneric"),
   );
 
+  // The locale is read from this cookie on the server (src/i18n/request.ts),
+  // so refreshing re-renders the page with the other language's messages.
+  const switchLanguage = () => {
+    const next = locale === "fi" ? "en" : "fi";
+    document.cookie = `locale=${next}; path=/; max-age=31536000; samesite=lax`;
+    router.refresh();
+  };
+
   return (
     <div className="mb-4">
       {ConfirmModal}
 
-      {/* Auth control. Hidden while the session is still being checked so an
-          already logged-in user never sees a flash of "Log in". */}
-      {!loading && (
-        <div className="mb-2 flex items-center justify-between gap-2 text-sm">
-          {isLoggedIn ? (
-            <>
-              <span className="truncate">
-                {t("auth.loggedInAs", { name: committeeName ?? "" })}
-              </span>
+      <div className="mb-2 flex items-center justify-between gap-2 text-sm">
+        <button
+          onClick={switchLanguage}
+          aria-label={t("languageSwitch.ariaLabel")}
+          className="flex shrink-0 items-center gap-1 text-sm"
+        >
+          <Languages className="size-4 shrink-0" />
+          {t("languageSwitch.label")}
+        </button>
+        {/* Auth control. Hidden while the session is still being checked so an
+            already logged-in user never sees a flash of "Log in". */}
+        {!loading && (
+          <div className="flex min-w-0 items-center gap-2">
+            {isLoggedIn ? (
+              <>
+                <span className="truncate">
+                  {t("auth.loggedInAs", { name: committeeName ?? "" })}
+                </span>
+                <button
+                  onClick={logout}
+                  className="shrink-0 text-sm"
+                >
+                  {t("auth.logOut")}
+                </button>
+              </>
+            ) : (
               <button
-                onClick={logout}
+                onClick={() => confirmModalControls.showModal()}
                 className="shrink-0 text-sm"
               >
-                {t("auth.logOut")}
+                {t("auth.logIn")}
               </button>
-            </>
-          ) : (
-            <button
-              onClick={() => confirmModalControls.showModal()}
-              className="ml-auto shrink-0 text-sm"
-            >
-              {t("auth.logIn")}
-            </button>
-          )}
-        </div>
-      )}
+            )}
+          </div>
+        )}
+      </div>
       <button
         onClick={() => setIsOpen((b) => !b)}
         className="bg-teal-dark/10 text-teal-darker hover:bg-teal-dark/20 flex w-full items-center gap-2 rounded-md px-3 py-2 text-base font-bold shadow-sm transition-all"

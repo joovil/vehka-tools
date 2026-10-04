@@ -422,5 +422,9 @@
     "loggedInAs": "Logged in: {name}",
     "logIn": "Log in",
     "logOut": "Log out"
+  },
+  "languageSwitch": {
+    "label": "Suomi",
+    "ariaLabel": "Switch language to Finnish"
   }
 }

@@ -422,5 +422,9 @@
     "loggedInAs": "Kirjautuneena: {name}",
     "logIn": "Kirjaudu",
     "logOut": "Kirjaudu ulos"
+  },
+  "languageSwitch": {
+    "label": "English",
+    "ariaLabel": "Vaihda kieli englanniksi"
   }
 }
