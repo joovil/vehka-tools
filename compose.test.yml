@@ -1,7 +1,7 @@
 services:
   test-db:
     container_name: vehka-test-db
-    image: postgres
+    image: postgres:17
     volumes:
       - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
