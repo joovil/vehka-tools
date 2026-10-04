@@ -22,6 +22,7 @@ const ResidentMeetingSidebar = ({ data, setData }: ResidentMeetingProps) => {
     const document = buildResidentMeetingDocument(data, t);
     await handlePdfDownload({
       filename,
+      documentType: "resident-meeting-minutes",
       pdfElement: <SimplePdf document={document} />,
       confirmModalControls,
     });

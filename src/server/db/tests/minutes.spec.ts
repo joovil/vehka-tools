@@ -4,7 +4,11 @@ import { sql } from "kysely";
 import assert from "node:assert";
 import { beforeEach, describe, it } from "node:test";
 import { db } from "../database";
-import { addMinutes, getMinutes } from "../repos/minutesRepo";
+import {
+  addMinutes,
+  getMinutes,
+  getMinutesByCommittee,
+} from "../repos/minutesRepo";
 
 describe("Minutes Repository", () => {
   let committeeId: number;
@@ -53,6 +57,46 @@ describe("Minutes Repository", () => {
       assert.strictEqual(minutes.length, 2);
       assert.strictEqual(minutes[0].filename, "test-minutes-1.pdf");
       assert.strictEqual(minutes[1].filename, "test-minutes-2.pdf");
+    });
+  });
+
+  describe("getMinutesByCommittee", () => {
+    it("should return only the given committee's minutes", async () => {
+      const secondCommittee = await db
+        .insertInto("committees")
+        .values({
+          name: "Second Committee",
+          passwordHash: "SecondPassword",
+        })
+        .returning("id")
+        .executeTakeFirstOrThrow();
+
+      await addMinutes({
+        filename: "committee1-minutes.pdf",
+        blobUrl: "https://example.com/blob1",
+        committeeId: committeeId,
+      });
+      await addMinutes({
+        filename: "committee2-minutes.pdf",
+        blobUrl: "https://example.com/blob2",
+        committeeId: secondCommittee.id,
+      });
+
+      const minutes = await getMinutesByCommittee(committeeId);
+      assert.strictEqual(minutes.length, 1);
+      assert.strictEqual(minutes[0].filename, "committee1-minutes.pdf");
+      assert.strictEqual(minutes[0].committeeId, committeeId);
+    });
+
+    it("should return empty array for a committee with no minutes", async () => {
+      await addMinutes({
+        filename: "committee1-minutes.pdf",
+        blobUrl: "https://example.com/blob1",
+        committeeId: committeeId,
+      });
+
+      const minutes = await getMinutesByCommittee(committeeId + 1);
+      assert.deepStrictEqual(minutes, []);
     });
   });
 

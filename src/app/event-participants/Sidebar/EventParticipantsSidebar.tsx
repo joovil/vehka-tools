@@ -36,6 +36,7 @@ const EventParticipantsSidebar = ({
     const document = buildEventParticipantsDocument(data, t);
     await handlePdfDownload({
       filename,
+      documentType: "event-participants",
       pdfElement: <SimplePdf document={document} />,
       confirmModalControls,
     });

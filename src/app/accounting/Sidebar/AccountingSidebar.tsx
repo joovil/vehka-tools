@@ -37,6 +37,7 @@ const AccountingSidebar = ({ data, setData }: AccountingProps) => {
     const document = buildAccountingDocument(data, t);
     await handlePdfDownload({
       filename,
+      documentType: "accounting",
       pdfElement: <SimplePdf document={document} />,
       confirmModalControls,
     });

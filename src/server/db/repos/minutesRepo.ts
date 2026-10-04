@@ -5,6 +5,14 @@ export const getMinutes = async () => {
   return await db.selectFrom("minutes").selectAll().execute();
 };
 
+export const getMinutesByCommittee = async (committeeId: number) => {
+  return await db
+    .selectFrom("minutes")
+    .selectAll()
+    .where("committeeId", "=", committeeId)
+    .execute();
+};
+
 export const addMinutes = async ({
   filename,
   blobUrl,
