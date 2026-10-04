@@ -37,26 +37,19 @@
     "form": "Lomake",
     "preview": "Esikatselu"
   },
-  "login": {
-    "committeeName": "Toimikunnan nimi",
-    "password": "Salasana",
-    "logIn": "Kirjaudu",
-    "newCommitteeName": "Uuden toimikunnan nimi",
-    "newPassword": "Uusi salasana",
-    "create": "Luo",
-    "logout": "Kirjaudu ulos",
-    "adminPassword": "Ylläpitäjän salasana",
-    "loginSuccess": "Kirjauduttu sisään",
-    "loginFailed": "Kirjautuminen epäonnistui",
-    "createSuccess": "Toimikunta luotu",
-    "createFailed": "Toimikunnan luonti epäonnistui"
-  },
   "admin": {
+    "title": "Ylläpito",
     "createCommitteeTitle": "Luo uusi asukastoimikunta",
-    "newCommitteeName": "Uuden toimikunnan nimi",
-    "newPassword": "Uusi salasana",
+    "newCommitteeName": "Toimikunnan nimi",
+    "newPassword": "Salasana",
+    "retypePassword": "Salasana uudelleen",
+    "passwordsDontMatch": "Salasanat eivät täsmää",
     "adminPassword": "Ylläpitäjän salasana",
-    "create": "Luo"
+    "required": "Pakollinen kenttä",
+    "create": "Luo toimikunta",
+    "creating": "Luodaan…",
+    "createSuccess": "Toimikunta \"{name}\" luotu",
+    "createFailed": "Toimikunnan luonti epäonnistui"
   },
   "documents": {
     "title": "Dokumentit",
