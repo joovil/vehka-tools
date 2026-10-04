@@ -32,7 +32,8 @@ const emptyItem: InventoryItem = {
 
 const InventorySidebar = ({ data, setData }: InventoryProps) => {
   const t = useTranslations();
-  const [activeSection, setActiveSection] = useState<InventorySection>("clubroom");
+  const [activeSection, setActiveSection] =
+    useState<InventorySection>("clubroom");
   const [newItem, setNewItem] = useState<InventoryItem>({ ...emptyItem });
 
   const addItem = () => {
@@ -52,7 +53,9 @@ const InventorySidebar = ({ data, setData }: InventoryProps) => {
     const rows = items.map((item) => ({
       [t("inventory.columns.item")]: item.name,
       [t("inventory.columns.amount")]: item.amount,
-      [t("inventory.columns.condition")]: t(`inventory.conditions.${item.condition}`),
+      [t("inventory.columns.condition")]: t(
+        `inventory.conditions.${item.condition}`,
+      ),
       [t("inventory.columns.additionalInfo")]: item.additionalInfo,
       [t("inventory.columns.location")]: item.location,
     }));
@@ -72,12 +75,20 @@ const InventorySidebar = ({ data, setData }: InventoryProps) => {
       [t("inventory.excel.conditionGuide")],
     ];
     const wsInstructions = XLSX.utils.aoa_to_sheet(instructionsData);
-    XLSX.utils.book_append_sheet(wb, wsInstructions, t("inventory.excel.tabs.instructions"));
+    XLSX.utils.book_append_sheet(
+      wb,
+      wsInstructions,
+      t("inventory.excel.tabs.instructions"),
+    );
 
     // Section tabs
     for (const section of SECTIONS) {
       const ws = buildSheet(data[section]);
-      XLSX.utils.book_append_sheet(wb, ws, t(`inventory.excel.tabs.${section}`));
+      XLSX.utils.book_append_sheet(
+        wb,
+        ws,
+        t(`inventory.excel.tabs.${section}`),
+      );
     }
 
     XLSX.writeFile(
@@ -107,14 +118,21 @@ const InventorySidebar = ({ data, setData }: InventoryProps) => {
 
       <Dropdown header={t("inventory.addItem")}>
         <div className="mb-2">
-          <label className="mb-1 block text-sm font-bold">{t("inventory.section")}</label>
+          <label className="mb-1 block text-sm font-bold">
+            {t("inventory.section")}
+          </label>
           <select
             className="input-wrapper w-full"
             value={activeSection}
-            onChange={(e) => setActiveSection(e.target.value as InventorySection)}
+            onChange={(e) =>
+              setActiveSection(e.target.value as InventorySection)
+            }
           >
             {SECTIONS.map((s) => (
-              <option key={s} value={s}>
+              <option
+                key={s}
+                value={s}
+              >
                 {t(`inventory.sections.${s}`)}
               </option>
             ))}
@@ -124,7 +142,9 @@ const InventorySidebar = ({ data, setData }: InventoryProps) => {
           <input
             placeholder={t("inventory.placeholders.name")}
             value={newItem.name}
-            onChange={(e) => setNewItem((prev) => ({ ...prev, name: e.target.value }))}
+            onChange={(e) =>
+              setNewItem((prev) => ({ ...prev, name: e.target.value }))
+            }
             onKeyDown={handleKeyDown}
           />
         </div>
@@ -143,16 +163,24 @@ const InventorySidebar = ({ data, setData }: InventoryProps) => {
           />
         </div>
         <div className="mb-2">
-          <label className="mb-1 block text-sm font-bold">{t("inventory.columns.condition")}</label>
+          <label className="mb-1 block text-sm font-bold">
+            {t("inventory.columns.condition")}
+          </label>
           <select
             className="input-wrapper w-full"
             value={newItem.condition}
             onChange={(e) =>
-              setNewItem((prev) => ({ ...prev, condition: e.target.value as ItemCondition }))
+              setNewItem((prev) => ({
+                ...prev,
+                condition: e.target.value as ItemCondition,
+              }))
             }
           >
             {CONDITIONS.map((c) => (
-              <option key={c} value={c}>
+              <option
+                key={c}
+                value={c}
+              >
                 {t(`inventory.conditions.${c}`)}
               </option>
             ))}
@@ -163,7 +191,10 @@ const InventorySidebar = ({ data, setData }: InventoryProps) => {
             placeholder={t("inventory.placeholders.additionalInfo")}
             value={newItem.additionalInfo}
             onChange={(e) =>
-              setNewItem((prev) => ({ ...prev, additionalInfo: e.target.value }))
+              setNewItem((prev) => ({
+                ...prev,
+                additionalInfo: e.target.value,
+              }))
             }
             onKeyDown={handleKeyDown}
           />
