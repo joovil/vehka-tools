@@ -37,6 +37,7 @@ const MinutesSidebar = ({
 
     await handlePdfDownload({
       filename,
+      documentType: "minutes",
       pdfElement: <MinutesPdf document={document} />,
       confirmModalControls,
     });

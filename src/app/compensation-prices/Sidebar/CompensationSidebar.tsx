@@ -34,6 +34,7 @@ const CompensationSidebar = ({ data, setData }: CompensationProps) => {
     const document = buildCompensationDocument(data, t);
     await handlePdfDownload({
       filename,
+      documentType: "compensation-prices",
       pdfElement: <SimplePdf document={document} />,
       confirmModalControls,
     });

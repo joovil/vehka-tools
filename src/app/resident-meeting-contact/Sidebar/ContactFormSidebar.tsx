@@ -36,6 +36,7 @@ const ContactFormSidebar = ({ data, setData }: ContactFormProps) => {
     const document = buildContactFormDocument(data, t);
     await handlePdfDownload({
       filename,
+      documentType: "resident-meeting-contact",
       pdfElement: <SimplePdf document={document} />,
       confirmModalControls,
     });

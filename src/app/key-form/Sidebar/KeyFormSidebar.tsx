@@ -42,6 +42,7 @@ const KeyFormSidebar = ({ data, setData }: KeyFormProps) => {
     const document = buildKeyFormDocument(data, t);
     await handlePdfDownload({
       filename,
+      documentType: "key-form",
       pdfElement: <SimplePdf document={document} />,
       confirmModalControls,
     });

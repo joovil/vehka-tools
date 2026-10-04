@@ -60,11 +60,9 @@
   },
   "documents": {
     "title": "Dokumentit",
-    "committees": "Asukastoimikunnat",
-    "documents": "Dokumentit",
-    "openInNewTab": "Avaa uudessa välilehdessä",
+    "backToHome": "Takaisin etusivulle",
     "selectDocumentPrompt": "Valitse dokumentti nähdäksesi esikatselu",
-    "selectCommitteeFirst": "Valitse ensin toimikunta, sitten dokumentti"
+    "noDocuments": "Ei vielä tallennettuja asiakirjoja"
   },
   "inventory": {
     "title": "Tavarainventaario",

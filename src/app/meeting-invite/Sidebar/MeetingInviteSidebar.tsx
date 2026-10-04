@@ -30,6 +30,7 @@ const MeetingInviteSidebar = ({
 
     await handlePdfDownload({
       filename,
+      documentType: "meeting-invite",
       pdfElement: <MeetingInvitePdf document={document} />,
       confirmModalControls,
     });

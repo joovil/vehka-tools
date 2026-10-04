@@ -60,11 +60,9 @@
   },
   "documents": {
     "title": "Documents",
-    "committees": "Tenant committees",
-    "documents": "Documents",
-    "openInNewTab": "Open in new tab",
+    "backToHome": "Back to main page",
     "selectDocumentPrompt": "Select a document to see preview",
-    "selectCommitteeFirst": "Select a committee first, then a document"
+    "noDocuments": "No saved documents yet"
   },
   "inventory": {
     "title": "Item inventory",
