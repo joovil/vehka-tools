@@ -3,10 +3,11 @@ import { BlobStorageError } from "../blob/store";
 
 export const uploadFile = async (filename: string, blob: Blob) => {
   try {
-    // A random suffix keeps the public blob URL unguessable and means
-    // re-saving the same document never clobbers an earlier version.
+    // The store is private, so blobs are only readable with the store token.
+    // A random suffix means re-saving the same document never clobbers an
+    // earlier version.
     return await put(filename, blob, {
-      access: "public",
+      access: "private",
       addRandomSuffix: true,
     });
   } catch (error) {

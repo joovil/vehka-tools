@@ -1,11 +1,13 @@
-import { list, type ListBlobResultBlob } from "@vercel/blob";
+import { get, list, type ListBlobResultBlob } from "@vercel/blob";
 
 export class BlobStorageError extends Error {
   constructor(
     message: string,
     public readonly originalError?: Error,
   ) {
-    super(message);
+    // Pass the cause along so the underlying SDK error (e.g. a missing token)
+    // shows up in the Next.js error overlay and server logs.
+    super(message, { cause: originalError });
     this.name = "BlobStorageError";
   }
 }
@@ -35,11 +37,12 @@ export const listBlobs = async (
 
 export const downloadBlob = async (url: string): Promise<Blob> => {
   try {
-    const res = await fetch(url);
-    if (!res.ok) {
-      throw new Error(`Blob download failed with status ${res.status}`);
+    // Private blobs can't be fetched by URL alone; get() adds the store token.
+    const res = await get(url, { access: "private" });
+    if (!res || res.statusCode !== 200) {
+      throw new Error(`Blob not found: ${url}`);
     }
-    return await res.blob();
+    return await new Response(res.stream).blob();
   } catch (error) {
     throw new BlobStorageError("Error downloading blob", error as Error);
   }
