@@ -1,5 +1,6 @@
 import { savePdf } from "@/app/api/services/savePdf";
 import { downloadPdf } from "@/app/components/pdf/downloadPdf";
+import { ConfirmModalResult } from "@/app/components/useConfirmModal";
 import { checkAuthStatus } from "@/app/utils/checkAuthStatus";
 import { DocumentType } from "@/types";
 import { ReactElement } from "react";
@@ -10,7 +11,9 @@ interface HandlePdfDownloadOptions {
   // Folder the saved copy goes into, see DOCUMENT_TYPES
   documentType: DocumentType;
   confirmModalControls: {
-    showModal: () => Promise<boolean>;
+    showModal: (options?: {
+      allowSkip?: boolean;
+    }) => Promise<ConfirmModalResult>;
   };
 }
 
@@ -32,8 +35,10 @@ export const handlePdfDownload = async ({
     return;
   }
 
-  const loginSuccessful = await confirmModalControls.showModal();
-  if (loginSuccessful) {
+  const result = await confirmModalControls.showModal({ allowSkip: true });
+  if (result === "cancelled") return;
+
+  if (result === "loggedIn") {
     await handleLoggedInDownload(filename, pdfElement, documentType);
     console.log("Downloading PDF");
     return;

@@ -114,7 +114,8 @@
     "password": "Salasana",
     "logIn": "Kirjaudu",
     "cancel": "Peruuta",
-    "loginPromptGeneric": "Kirjaudu asukastoimikuntaasi"
+    "loginPromptGeneric": "Kirjaudu asukastoimikuntaasi",
+    "downloadWithoutLogin": "Lataa kirjautumatta"
   },
   "minutes": {
     "pdfFilename": "Kokouspöytäkirja",
