@@ -6,8 +6,6 @@ export const DOCUMENT_TYPES = [
   { type: "meeting-invite", labelKey: "nav.meetingInvite" },
   { type: "accounting", labelKey: "nav.accountingForm" },
   { type: "key-form", labelKey: "nav.keyForm" },
-  { type: "compensation-prices", labelKey: "nav.compensationPriceList" },
-  { type: "event-participants", labelKey: "nav.eventParticipantList" },
   { type: "resident-meeting-minutes", labelKey: "nav.residentMeetingMinutes" },
   {
     type: "resident-meeting-contact",
