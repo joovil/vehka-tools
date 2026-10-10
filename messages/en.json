@@ -411,28 +411,6 @@
       "signature": "ALLEKIRJOITUS / SIGNATURE"
     }
   },
-  "eventParticipants": {
-    "pdfFilename": "Event-participants",
-    "labels": {
-      "info": "Event information",
-      "eventName": "Event name",
-      "date": "Date",
-      "location": "Location",
-      "participants": "Participants",
-      "name": "Name",
-      "apartment": "Apartment"
-    },
-    "placeholders": {
-      "eventName": "Name of the event",
-      "date": "Date of the event",
-      "location": "Location of the event",
-      "name": "Participant name",
-      "apartment": "Apartment number"
-    },
-    "pdf": {
-      "title": "Event participant list"
-    }
-  },
   "keyForm": {
     "pdfFilename": "Key-form",
     "labels": {
@@ -455,26 +433,6 @@
     },
     "pdf": {
       "title": "Key loan form"
-    }
-  },
-  "compensationPrices": {
-    "pdfFilename": "Compensation-prices",
-    "labels": {
-      "info": "Information",
-      "committeeName": "Committee name",
-      "items": "Items",
-      "item": "Item",
-      "price": "Price (€)",
-      "condition": "Condition / Notes"
-    },
-    "placeholders": {
-      "committeeName": "Name of the committee",
-      "item": "Item name",
-      "price": "Price in euros",
-      "condition": "Condition or notes"
-    },
-    "pdf": {
-      "title": "Compensation price list"
     }
   },
   "auth": {

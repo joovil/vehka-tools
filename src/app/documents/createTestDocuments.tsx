@@ -7,10 +7,8 @@
 
 import { savePdf } from "@/app/api/services/savePdf";
 import { buildAccountingDocument } from "@/app/accounting/buildDocument";
-import { buildCompensationDocument } from "@/app/compensation-prices/buildDocument";
 import SimplePdf from "@/app/components/document/SimplePdf";
 import { DocumentDefinition } from "@/app/components/document/types";
-import { buildEventParticipantsDocument } from "@/app/event-participants/buildDocument";
 import { buildKeyFormDocument } from "@/app/key-form/buildDocument";
 import { buildInviteDocument } from "@/app/meeting-invite/buildDocument";
 import MeetingInvitePdf from "@/app/meeting-invite/MainContent/invitePdf/MeetingInvitePdf";
@@ -168,46 +166,6 @@ const testDocuments = (
                 dateReturned: "",
               },
             ],
-          },
-          t,
-        ),
-      ),
-    },
-    {
-      documentType: "compensation-prices",
-      filenameKey: "compensationPrices.pdfFilename",
-      element: simple(
-        buildCompensationDocument(
-          {
-            committeeName: "Test committee",
-            items: [
-              { item: "Grilli", price: "50 €", condition: "Hyvä" },
-              {
-                item: "Pöytätennismaila",
-                price: "15 €",
-                condition: "Käytetty",
-              },
-            ],
-          },
-          t,
-        ),
-      ),
-    },
-    {
-      documentType: "event-participants",
-      filenameKey: "eventParticipants.pdfFilename",
-      element: simple(
-        buildEventParticipantsDocument(
-          {
-            eventName: { fin: "Pihatalkoot", eng: "Yard cleanup day" },
-            date: daysFromNow(-3, 12),
-            location: { fin: "Sisäpiha", eng: "Courtyard" },
-            participants: [
-              { name: "Matti Meikäläinen", apartment: "A 1" },
-              { name: "Liisa Koski", apartment: "A 12" },
-              { name: "Pekka Laine", apartment: "B 4" },
-            ],
-            language: "bilingual",
           },
           t,
         ),

@@ -411,28 +411,6 @@
       "signature": "ALLEKIRJOITUS / SIGNATURE"
     }
   },
-  "eventParticipants": {
-    "pdfFilename": "Tapahtuman-osallistujat",
-    "labels": {
-      "info": "Tapahtuman tiedot",
-      "eventName": "Tapahtuman nimi",
-      "date": "Päivämäärä",
-      "location": "Paikka",
-      "participants": "Osallistujat",
-      "name": "Nimi",
-      "apartment": "Asunto"
-    },
-    "placeholders": {
-      "eventName": "Tapahtuman nimi",
-      "date": "Tapahtuman päivämäärä",
-      "location": "Tapahtuman paikka",
-      "name": "Osallistujan nimi",
-      "apartment": "Asunnon numero"
-    },
-    "pdf": {
-      "title": "Tapahtumien osallistujalista"
-    }
-  },
   "keyForm": {
     "pdfFilename": "Avainlainalomake",
     "labels": {
@@ -455,26 +433,6 @@
     },
     "pdf": {
       "title": "Avainlainalomake"
-    }
-  },
-  "compensationPrices": {
-    "pdfFilename": "Korvausvastuuhinnasto",
-    "labels": {
-      "info": "Tiedot",
-      "committeeName": "Toimikunnan nimi",
-      "items": "Kohteet",
-      "item": "Kohde",
-      "price": "Hinta (€)",
-      "condition": "Kunto / Huomiot"
-    },
-    "placeholders": {
-      "committeeName": "Toimikunnan nimi",
-      "item": "Kohteen nimi",
-      "price": "Hinta euroina",
-      "condition": "Kunto tai huomiot"
-    },
-    "pdf": {
-      "title": "Korvausvastuuhinnasto"
     }
   },
   "auth": {
