@@ -10,10 +10,17 @@ Font.register({
   fontWeight: 400,
 });
 
-const SimplePdf = ({ document }: { document: DocumentDefinition }) => (
+const SimplePdf = ({
+  document,
+  orientation = "portrait",
+}: {
+  document: DocumentDefinition;
+  orientation?: "portrait" | "landscape";
+}) => (
   <Document>
     <Page
       size="A4"
+      orientation={orientation}
       style={{ padding: 40, fontSize: 12, fontFamily: "Helvetica" }}
     >
       {renderPdfDocument(document)}

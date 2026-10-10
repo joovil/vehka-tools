@@ -9,15 +9,21 @@ export interface ContactFormProps {
   setData: React.Dispatch<React.SetStateAction<ContactFormData>>;
 }
 
+export interface Participant {
+  name: string;
+  address: string;
+  email: string;
+  phone: string;
+  task: string;
+}
+
+// Follows HOAS's bilingual resident meeting participant and contact form.
 export interface ContactFormData {
+  property?: string;
   meetingDate?: Date;
   location?: string;
-  participants: Array<{
-    name: string;
-    apartment: string;
-    phone: string;
-    email: string;
-  }>;
+  chairman?: string;
+  participants: Participant[];
 }
 
 const ContactFormPage = () => (

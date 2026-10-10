@@ -262,28 +262,35 @@ const testDocuments = (
     {
       documentType: "resident-meeting-contact",
       filenameKey: "contactForm.pdfFilename",
-      element: simple(
-        buildContactFormDocument(
-          {
-            meetingDate: daysFromNow(-30),
-            location: "Kerhohuone, A-rappu",
-            participants: [
-              {
-                name: "Liisa Koski",
-                apartment: "A 12",
-                phone: "040 123 4567",
-                email: "liisa.koski@example.com",
-              },
-              {
-                name: "Pekka Laine",
-                apartment: "B 4",
-                phone: "050 765 4321",
-                email: "pekka.laine@example.com",
-              },
-            ],
-          },
-          t,
-        ),
+      element: (
+        <SimplePdf
+          orientation="landscape"
+          document={buildContactFormDocument(
+            {
+              property: "Vehkatie 1",
+              meetingDate: daysFromNow(-30),
+              location: "Kerhohuone, A-rappu",
+              chairman: "Matti Meikäläinen",
+              participants: [
+                {
+                  name: "Liisa Koski",
+                  address: "Vehkatie 1 A 12",
+                  email: "liisa.koski@example.com",
+                  phone: "040 123 4567",
+                  task: "Sihteeri",
+                },
+                {
+                  name: "Pekka Laine",
+                  address: "Vehkatie 1 B 4",
+                  email: "pekka.laine@example.com",
+                  phone: "050 765 4321",
+                  task: "",
+                },
+              ],
+            },
+            t,
+          )}
+        />
       ),
     },
   ];
