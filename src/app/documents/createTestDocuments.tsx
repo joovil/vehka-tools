@@ -219,27 +219,39 @@ const testDocuments = (
       element: simple(
         buildResidentMeetingDocument(
           {
-            meetingNumber: 1,
+            minutesNumber: 1,
             date: daysFromNow(-30),
             location,
-            attendantCount: 12,
-            agendaItems: [
-              {
-                fin: "Asukastoimikunnan valinta",
-                eng: "Electing the committee",
-              },
-              { fin: "Toimintasuunnitelma", eng: "Action plan" },
+            attendants: [
+              "Matti Meikäläinen",
+              "Maija Virtanen",
+              "Liisa Koski",
+              "Pekka Nieminen",
             ],
-            decisions: [
-              {
-                fin: "Toimikuntaan valittiin viisi jäsentä.",
-                eng: "Five members were elected to the committee.",
-              },
+            startTime: daysFromNow(-30),
+            meetingChairman: "Matti Meikäläinen",
+            meetingSecretary: "Maija Virtanen",
+            examiners: {
+              examiner1: "Liisa Koski",
+              examiner2: "Pekka Nieminen",
+            },
+            committeeYear: String(new Date().getFullYear()),
+            committeeMembers: [
+              "Matti Meikäläinen",
+              "Maija Virtanen",
+              "Liisa Koski",
             ],
-            nextMeeting: daysFromNow(335),
+            committeeChairman: "Matti Meikäläinen",
+            chairmanConsent: "yes",
+            committeeSecretary: "Maija Virtanen",
+            otherRoles: ["Avainvastaava: Liisa Koski"],
+            termLength: "tammikuu – joulukuu",
+            endTime: daysFromNow(-30, 19),
             signatures: {
               chairman: "Matti Meikäläinen",
               secretary: "Maija Virtanen",
+              examiner1: "Liisa Koski",
+              examiner2: "Pekka Nieminen",
             },
             language: "bilingual",
           },
