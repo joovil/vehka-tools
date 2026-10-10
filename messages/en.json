@@ -114,7 +114,8 @@
     "password": "Password",
     "logIn": "Log in",
     "cancel": "Cancel",
-    "loginPromptGeneric": "Log in to your tenant committee"
+    "loginPromptGeneric": "Log in to your tenant committee",
+    "downloadWithoutLogin": "Download without logging in"
   },
   "minutes": {
     "pdfFilename": "Meeting-minutes",

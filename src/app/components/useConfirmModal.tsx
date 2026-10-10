@@ -5,26 +5,37 @@ import { useEffect, useRef, useState } from "react";
 import { apiFetch } from "../utils/apiFetch";
 import { useAuth } from "./AuthProvider";
 
+export type ConfirmModalResult = "loggedIn" | "skipped" | "cancelled";
+
 export const useConfirmModal = (promptMessage?: string) => {
   const t = useTranslations();
   const { refresh } = useAuth();
   const formRef = useRef<HTMLFormElement | null>(null);
-  const resolveRef = useRef<((value: boolean) => void) | null>(null);
+  const resolveRef = useRef<((value: ConfirmModalResult) => void) | null>(null);
 
   const [visible, setVisible] = useState<boolean>(false);
+  const [allowSkip, setAllowSkip] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
 
-  const setVisibleWithResolve = (newVisible: boolean, loginSuccess = false) => {
+  const setVisibleWithResolve = (
+    newVisible: boolean,
+    result: ConfirmModalResult = "cancelled",
+  ) => {
     setVisible(newVisible);
     if (!newVisible && resolveRef.current) {
-      resolveRef.current(loginSuccess);
+      resolveRef.current(result);
       resolveRef.current = null;
     }
   };
 
-  const showModal = (): Promise<boolean> => {
+  // allowSkip shows a button for continuing without logging in, e.g. to
+  // download a PDF without saving it to the cloud
+  const showModal = ({
+    allowSkip = false,
+  }: { allowSkip?: boolean } = {}): Promise<ConfirmModalResult> => {
     return new Promise((resolve) => {
       resolveRef.current = resolve;
+      setAllowSkip(allowSkip);
       setVisible(true);
     });
   };
@@ -41,7 +52,7 @@ export const useConfirmModal = (promptMessage?: string) => {
         formRef.current &&
         !formRef.current.contains(e.target as HTMLElement)
       ) {
-        setVisibleWithResolve(false, false);
+        setVisibleWithResolve(false, "cancelled");
       }
     };
 
@@ -74,7 +85,7 @@ export const useConfirmModal = (promptMessage?: string) => {
     // Every login in the app goes through this hook, so refreshing here keeps
     // the menu's indicator in sync no matter which entry point was used.
     await refresh();
-    setVisibleWithResolve(false, true);
+    setVisibleWithResolve(false, "loggedIn");
   };
 
   const ConfirmModal = visible ? (
@@ -107,12 +118,21 @@ export const useConfirmModal = (promptMessage?: string) => {
           <button className="w-full">{t("confirmModal.logIn")}</button>
           <button
             type="button"
-            onClick={() => setVisibleWithResolve(false, false)}
+            onClick={() => setVisibleWithResolve(false, "cancelled")}
             className="w-full"
           >
             {t("confirmModal.cancel")}
           </button>
         </div>
+        {allowSkip && (
+          <button
+            type="button"
+            onClick={() => setVisibleWithResolve(false, "skipped")}
+            className="mt-2 w-full"
+          >
+            {t("confirmModal.downloadWithoutLogin")}
+          </button>
+        )}
         {errorMessage && (
           <div className="mt-2 text-red-700">{errorMessage}</div>
         )}
