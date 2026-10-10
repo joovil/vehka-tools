@@ -370,29 +370,44 @@
     }
   },
   "contactForm": {
-    "pdfFilename": "Yhteystietolomake",
+    "pdfFilename": "Osallistuja-ja-yhteystietolomake",
     "labels": {
       "info": "Kokouksen tiedot",
-      "meetingDate": "Kokouksen päivämäärä",
+      "property": "Kiinteistö",
+      "meetingDate": "Kokouksen päivämäärä ja aika",
       "location": "Paikka",
+      "chairman": "Puheenjohtaja",
       "participants": "Osallistujat",
       "name": "Nimi",
-      "apartment": "Asunto",
+      "address": "Osoite",
+      "email": "Sähköposti",
       "phone": "Puhelin",
-      "email": "Sähköposti"
+      "task": "Tehtävä"
     },
     "placeholders": {
+      "property": "Kiinteistön nimi",
       "meetingDate": "Milloin kokous pidetään",
       "location": "Kokouksen paikka",
+      "chairman": "Kokouksen puheenjohtaja",
       "name": "Osallistujan nimi",
-      "apartment": "Asunnon numero",
+      "address": "Osoite",
+      "email": "Sähköpostiosoite",
       "phone": "Puhelinnumero",
-      "email": "Sähköpostiosoite"
+      "task": "esim. puheenjohtaja, sihteeri"
     },
     "pdf": {
-      "title": "Osallistuja- ja yhteystietolomake",
-      "meetingDate": "Kokouksen päivämäärä:",
-      "location": "Paikka:"
+      "title": "ASUKASKOKOUS, Osallistujalista / TENANT MEETING, List of participants",
+      "property": "Kiinteistö / Property:",
+      "dateTimeAndPlace": "Pvm, aika ja paikka / Date, time and place:",
+      "chairman": "Puheenjohtaja / Chairman:",
+      "consent": "Mikäli olen asukastoimikunnan jäsen, annan suostumukseni siihen, että yhteystietojani voidaan luovuttaa asukastoimikuntaan liittyvissä asioissa. / If I am a part of a tenant committee I give a permission to forward my contact details in matters related to tenant committee.",
+      "handwriting": "Kirjoitathan selkeällä käsialalla! / Please use clear handwriting!",
+      "name": "NIMI / NAME",
+      "address": "OSOITE / ADDRESS",
+      "email": "S-POSTI / E-MAIL",
+      "phone": "PUH. / TEL.",
+      "task": "TEHTÄVÄ / TASK",
+      "signature": "ALLEKIRJOITUS / SIGNATURE"
     }
   },
   "eventParticipants": {

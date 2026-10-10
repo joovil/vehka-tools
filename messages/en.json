@@ -370,29 +370,44 @@
     }
   },
   "contactForm": {
-    "pdfFilename": "Contact-form",
+    "pdfFilename": "Participant-and-contact-form",
     "labels": {
       "info": "Meeting information",
-      "meetingDate": "Meeting date",
+      "property": "Property",
+      "meetingDate": "Meeting date and time",
       "location": "Location",
+      "chairman": "Chairman",
       "participants": "Participants",
       "name": "Name",
-      "apartment": "Apartment",
+      "address": "Address",
+      "email": "Email",
       "phone": "Phone",
-      "email": "Email"
+      "task": "Task"
     },
     "placeholders": {
+      "property": "Name of the property",
       "meetingDate": "When is the meeting",
       "location": "Location of the meeting",
+      "chairman": "Chairman of the meeting",
       "name": "Participant name",
-      "apartment": "Apartment number",
+      "address": "Address",
+      "email": "Email address",
       "phone": "Phone number",
-      "email": "Email address"
+      "task": "e.g. chairman, secretary"
     },
     "pdf": {
-      "title": "Participant and contact form",
-      "meetingDate": "Meeting date:",
-      "location": "Location:"
+      "title": "ASUKASKOKOUS, Osallistujalista / TENANT MEETING, List of participants",
+      "property": "Kiinteistö / Property:",
+      "dateTimeAndPlace": "Pvm, aika ja paikka / Date, time and place:",
+      "chairman": "Puheenjohtaja / Chairman:",
+      "consent": "Mikäli olen asukastoimikunnan jäsen, annan suostumukseni siihen, että yhteystietojani voidaan luovuttaa asukastoimikuntaan liittyvissä asioissa. / If I am a part of a tenant committee I give a permission to forward my contact details in matters related to tenant committee.",
+      "handwriting": "Kirjoitathan selkeällä käsialalla! / Please use clear handwriting!",
+      "name": "NIMI / NAME",
+      "address": "OSOITE / ADDRESS",
+      "email": "S-POSTI / E-MAIL",
+      "phone": "PUH. / TEL.",
+      "task": "TEHTÄVÄ / TASK",
+      "signature": "ALLEKIRJOITUS / SIGNATURE"
     }
   },
   "eventParticipants": {

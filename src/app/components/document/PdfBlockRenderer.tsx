@@ -200,49 +200,88 @@ export const renderPdfBlock = (
       // Images are handled by the specific PDF page wrapper, not the generic renderer.
       return null;
 
-    case "table":
+    case "table": {
+      const gapped = block.gappedUnderlines;
+      // Gapped tables underline each cell instead of the whole row
+      const rowStyle = (borderWidth: number, borderColor?: string) =>
+        gapped
+          ? { flexDirection: "row" as const }
+          : {
+              flexDirection: "row" as const,
+              borderBottomWidth: borderWidth,
+              borderBottomColor: borderColor,
+            };
+      const cellStyle = (borderWidth: number, borderColor?: string) =>
+        gapped
+          ? {
+              flex: 1,
+              marginHorizontal: 4,
+              borderBottomWidth: borderWidth,
+              borderBottomColor: borderColor,
+            }
+          : { flex: 1 };
+
       return (
         <View key={index}>
-          <View
-            style={{
-              flexDirection: "row",
-              borderBottomWidth: 1,
-              paddingBottom: 4,
-              marginBottom: 4,
-            }}
-          >
+          <View style={{ ...rowStyle(1), marginBottom: 4 }}>
             {block.headers.map((h, i) => (
-              <Text
+              // Cells are Views so their text can sit on the underline
+              <View
                 key={i}
-                style={{ flex: 1, fontWeight: "bold", fontSize: 10 }}
+                style={{
+                  ...cellStyle(1),
+                  justifyContent: "flex-end",
+                  paddingBottom: 4,
+                }}
               >
-                {h}
-              </Text>
+                <Text
+                  style={{ fontWeight: "bold", fontSize: 10 }}
+                  // Wrap headers only between words, never mid-word
+                  hyphenationCallback={(word) => [word]}
+                >
+                  {h}
+                </Text>
+              </View>
             ))}
           </View>
           {block.rows.map((row, i) => (
             <View
               key={i}
               style={{
-                flexDirection: "row",
+                ...rowStyle(0.5, "#ccc"),
+                minHeight: 20,
                 marginBottom: 2,
-                borderBottomWidth: 0.5,
-                borderBottomColor: "#ccc",
-                paddingBottom: 2,
               }}
             >
               {row.map((cell, j) => (
-                <Text
+                <View
                   key={j}
-                  style={{ flex: 1, fontSize: 10 }}
+                  style={{
+                    ...cellStyle(0.5, "#ccc"),
+                    justifyContent: "flex-end",
+                    paddingBottom: 2,
+                  }}
                 >
-                  {cell}
-                </Text>
+                  <Text
+                    style={
+                      j === block.signatureColumn
+                        ? {
+                            fontFamily: opts.signatureFont,
+                            fontSize: 14,
+                            lineHeight: 1,
+                          }
+                        : { fontSize: 10 }
+                    }
+                  >
+                    {cell}
+                  </Text>
+                </View>
               ))}
             </View>
           ))}
         </View>
       );
+    }
   }
 };
 

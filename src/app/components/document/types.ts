@@ -76,6 +76,10 @@ export interface TableBlock {
   headers: string[];
   rows: string[][];
   fieldKey?: string;
+  /** Underline each cell separately, leaving a gap between columns. */
+  gappedUnderlines?: boolean;
+  /** Column index rendered in the handwriting signature font. */
+  signatureColumn?: number;
 }
 
 // ─── Document structure ────────────────────────────────────────

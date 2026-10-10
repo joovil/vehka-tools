@@ -6,7 +6,11 @@ export const buildContactFormDocument = (
   data: ContactFormData,
   t: (key: string) => string,
 ): DocumentDefinition => {
-  const { meetingDate, location, participants } = data;
+  const { property, meetingDate, location, chairman, participants } = data;
+
+  const dateTimeAndPlace = [formatDate(meetingDate), location]
+    .filter(Boolean)
+    .join(", ");
 
   return [
     {
@@ -17,37 +21,54 @@ export const buildContactFormDocument = (
     {
       blocks: [
         {
-          type: "text",
-          content: `${t("contactForm.labels.meetingDate")}: ${formatDate(meetingDate)}`,
+          type: "inline",
+          segments: [
+            { text: `${t("contactForm.pdf.property")} ` },
+            { text: property ?? "", underline: true },
+          ],
         },
         {
-          type: "text",
-          content: `${t("contactForm.labels.location")}: ${location ?? ""}`,
+          type: "inline",
+          segments: [
+            { text: `${t("contactForm.pdf.dateTimeAndPlace")} ` },
+            { text: dateTimeAndPlace, underline: true },
+          ],
         },
+        {
+          type: "inline",
+          segments: [
+            { text: `${t("contactForm.pdf.chairman")} ` },
+            { text: chairman ?? "", underline: true },
+          ],
+        },
+        { type: "text", content: t("contactForm.pdf.consent") },
       ],
     },
     {
       blocks: [
-        {
-          type: "heading",
-          content: t("contactForm.labels.participants"),
-          level: 2,
-        },
+        { type: "text", content: t("contactForm.pdf.handwriting") },
         {
           type: "table",
           headers: [
-            t("contactForm.labels.name"),
-            t("contactForm.labels.apartment"),
-            t("contactForm.labels.phone"),
-            t("contactForm.labels.email"),
+            t("contactForm.pdf.name"),
+            t("contactForm.pdf.address"),
+            t("contactForm.pdf.email"),
+            t("contactForm.pdf.phone"),
+            t("contactForm.pdf.task"),
+            t("contactForm.pdf.signature"),
           ],
+          // The signature is the participant's name in a handwriting font
           rows: participants.map((p) => [
             p.name,
-            p.apartment,
-            p.phone,
+            p.address,
             p.email,
+            p.phone,
+            p.task,
+            p.name,
           ]),
+          signatureColumn: 5,
           fieldKey: "participants",
+          gappedUnderlines: true,
         },
       ],
     },

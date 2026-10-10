@@ -9,18 +9,29 @@ import { handlePdfDownload } from "@/app/utils/handlePdfDownload";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { buildContactFormDocument } from "../buildDocument";
-import { ContactFormProps } from "../page";
+import { ContactFormProps, Participant } from "../page";
+
+const EMPTY_ROW: Participant = {
+  name: "",
+  address: "",
+  email: "",
+  phone: "",
+  task: "",
+};
+
+const PARTICIPANT_FIELDS: (keyof Participant)[] = [
+  "name",
+  "address",
+  "email",
+  "phone",
+  "task",
+];
 
 const ContactFormSidebar = ({ data, setData }: ContactFormProps) => {
   const t = useTranslations();
   const { ConfirmModal, confirmModalControls } = useConfirmModal();
 
-  const [newRow, setNewRow] = useState({
-    name: "",
-    apartment: "",
-    phone: "",
-    email: "",
-  });
+  const [newRow, setNewRow] = useState<Participant>(EMPTY_ROW);
 
   const addParticipant = () => {
     if (!newRow.name.trim()) return;
@@ -28,7 +39,7 @@ const ContactFormSidebar = ({ data, setData }: ContactFormProps) => {
       ...prev,
       participants: [...prev.participants, newRow],
     }));
-    setNewRow({ name: "", apartment: "", phone: "", email: "" });
+    setNewRow(EMPTY_ROW);
   };
 
   const handlePdfDownloadClick = async () => {
@@ -37,7 +48,12 @@ const ContactFormSidebar = ({ data, setData }: ContactFormProps) => {
     await handlePdfDownload({
       filename,
       documentType: "resident-meeting-contact",
-      pdfElement: <SimplePdf document={document} />,
+      pdfElement: (
+        <SimplePdf
+          document={document}
+          orientation="landscape"
+        />
+      ),
       confirmModalControls,
     });
   };
@@ -47,6 +63,13 @@ const ContactFormSidebar = ({ data, setData }: ContactFormProps) => {
       {ConfirmModal}
 
       <Dropdown header={t("contactForm.labels.info")}>
+        <SidebarInput
+          fieldKey="property"
+          data={data}
+          setData={setData}
+          label={t("contactForm.labels.property")}
+          placeholder={t("contactForm.placeholders.property")}
+        />
         <DatetimeInput
           label={t("contactForm.labels.meetingDate")}
           placeholder={t("contactForm.placeholders.meetingDate")}
@@ -62,37 +85,26 @@ const ContactFormSidebar = ({ data, setData }: ContactFormProps) => {
           label={t("contactForm.labels.location")}
           placeholder={t("contactForm.placeholders.location")}
         />
+        <SidebarInput
+          fieldKey="chairman"
+          data={data}
+          setData={setData}
+          label={t("contactForm.labels.chairman")}
+          placeholder={t("contactForm.placeholders.chairman")}
+        />
       </Dropdown>
 
       <Dropdown header={t("contactForm.labels.participants")}>
-        <SidebarInput
-          fieldKey="name"
-          setData={setNewRow}
-          placeholder={t("contactForm.placeholders.name")}
-          label={t("contactForm.labels.name")}
-          value={newRow.name}
-        />
-        <SidebarInput
-          fieldKey="apartment"
-          setData={setNewRow}
-          placeholder={t("contactForm.placeholders.apartment")}
-          label={t("contactForm.labels.apartment")}
-          value={newRow.apartment}
-        />
-        <SidebarInput
-          fieldKey="phone"
-          setData={setNewRow}
-          placeholder={t("contactForm.placeholders.phone")}
-          label={t("contactForm.labels.phone")}
-          value={newRow.phone}
-        />
-        <SidebarInput
-          fieldKey="email"
-          setData={setNewRow}
-          placeholder={t("contactForm.placeholders.email")}
-          label={t("contactForm.labels.email")}
-          value={newRow.email}
-        />
+        {PARTICIPANT_FIELDS.map((field) => (
+          <SidebarInput
+            key={field}
+            fieldKey={field}
+            setData={setNewRow}
+            placeholder={t(`contactForm.placeholders.${field}`)}
+            label={t(`contactForm.labels.${field}`)}
+            value={newRow[field]}
+          />
+        ))}
         <button
           className="mt-1 w-fit"
           onClick={addParticipant}

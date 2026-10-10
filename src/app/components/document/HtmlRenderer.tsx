@@ -212,7 +212,7 @@ export const HtmlDocumentRenderer = <T,>({
         return (
           <table
             key={index}
-            className="w-full border-collapse text-sm"
+            className={`w-full text-sm ${block.gappedUnderlines ? "border-separate border-spacing-x-2" : "border-collapse"}`}
           >
             <thead>
               <tr>
@@ -220,7 +220,7 @@ export const HtmlDocumentRenderer = <T,>({
                 {block.headers.map((h, i) => (
                   <th
                     key={i}
-                    className="border-b p-2 text-left font-bold"
+                    className="border-b p-2 text-left align-bottom font-bold"
                   >
                     {h}
                   </th>
@@ -240,7 +240,7 @@ export const HtmlDocumentRenderer = <T,>({
                   {row.map((cell, j) => (
                     <td
                       key={j}
-                      className="border-b p-2"
+                      className={`border-b p-2 align-bottom ${j === block.signatureColumn ? "font-alex text-xl leading-none" : ""}`}
                     >
                       {cell}
                     </td>
