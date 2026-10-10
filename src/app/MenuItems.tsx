@@ -129,6 +129,11 @@ const MenuItems = () => {
             <Calculator className="size-4 shrink-0" />
             {t("nav.accountingForm")}
           </Link>
+          <a href="https://hoas.fi/app/uploads/2021/06/Asukastoimikunnan-korvausvastuuhinnasto-FI-EN.pdf">
+            <Tag className="size-4 shrink-0" />
+            {t("nav.compensationPriceList")}
+            <ExternalLink className="size-3 shrink-0 opacity-60" />
+          </a>
         </div>
 
         <div>
@@ -150,17 +155,14 @@ const MenuItems = () => {
             {t("nav.committeeGuide")}
             <ExternalLink className="size-3 shrink-0 opacity-60" />
           </a>
-          <Link href="/event-participants">
+          <a href="https://hoas.fi/app/uploads/2021/06/Tapahtumien-osallistujalista-FI-EN.pdf">
             <Users className="size-4 shrink-0" />
             {t("nav.eventParticipantList")}
-          </Link>
+            <ExternalLink className="size-3 shrink-0 opacity-60" />
+          </a>
           <Link href="/key-form">
             <Key className="size-4 shrink-0" />
             {t("nav.keyForm")}
-          </Link>
-          <Link href="/compensation-prices">
-            <Tag className="size-4 shrink-0" />
-            {t("nav.compensationPriceList")}
           </Link>
           {isLoggedIn && (
             <Link href="/documents">
