@@ -1,5 +1,21 @@
 import { pdf } from "@react-pdf/renderer";
 
+export const downloadFile = (blob: Blob, filename: string) => {
+  const url = URL.createObjectURL(blob);
+
+  // Create temporary <a/> element to download the file
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  a.target = "_self";
+  document.body.appendChild(a);
+
+  a.click();
+
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+};
+
 export const downloadPdf = async ({
   filename,
   pdfElement,
@@ -14,20 +30,7 @@ export const downloadPdf = async ({
   }
 
   const blob = await pdf(pdfElement).toBlob();
-
-  const url = URL.createObjectURL(blob);
-
-  // Create temporary <a/> element to download the pdf
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = `${filename}.pdf`;
-  a.target = "_self";
-  document.body.appendChild(a);
-
-  a.click();
-
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
+  downloadFile(blob, `${filename}.pdf`);
 
   return blob;
 };

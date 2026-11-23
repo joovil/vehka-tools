@@ -1,6 +1,6 @@
 "use client";
 
-import { Examiners, FinEng, Signatures } from "@/types";
+import { Examiners, FinEng, SavedDocument, Signatures } from "@/types";
 import { SplitPage } from "../SplitView/SplitComponent";
 import { DocumentLanguage } from "../components/document/types";
 import MinutesContent from "./MainContent/MinutesMainContent";
@@ -13,6 +13,7 @@ export interface MinutesProps {
 
 export interface MinutesData {
   minutesNumber?: number;
+  suggestedNumber?: number;
   location?: FinEng;
   attendants: string[];
   meetingItems: FinEng[];
@@ -25,6 +26,7 @@ export interface MinutesData {
   nextMeeting?: Date;
   timeOfMeeting?: Date;
   language?: DocumentLanguage;
+  saved?: SavedDocument;
 }
 
 const MinutesPage = () => {

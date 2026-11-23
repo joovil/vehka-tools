@@ -1,6 +1,8 @@
 "use client";
 
+import { SavedDocument } from "@/types";
 import { useEffect, useRef, useState } from "react";
+import SavedDocumentBanner from "./SavedDocumentBanner";
 import SplitLayout from "./SplitLayout";
 
 export interface SplitPageProps<T> {
@@ -21,7 +23,7 @@ const dateReviver = (_key: string, value: unknown) => {
   return value;
 };
 
-export function SplitPage<T>({
+export function SplitPage<T extends object>({
   MainContent,
   Sidebar,
   initialData,
@@ -62,19 +64,42 @@ export function SplitPage<T>({
     }
   }, [data, storageKey]);
 
+  // A disabled fieldset disables every input and button inside it, which
+  // keeps a saved document's form and preview unchanged
+  const { saved } = data as { saved?: SavedDocument };
+  const locked = saved !== undefined;
+
   return (
     <SplitLayout
       sidebar={
-        <Sidebar
+        <>
+          {saved && (
+            <SavedDocumentBanner
+              saved={saved}
+              onNewDocument={() => setData(initialData)}
+            />
+          )}
+          <fieldset
+            disabled={locked}
+            className={`contents ${locked ? "opacity-60" : ""}`}
+          >
+            <Sidebar
+              data={data}
+              setData={setData}
+            />
+          </fieldset>
+        </>
+      }
+    >
+      <fieldset
+        disabled={locked}
+        className="contents"
+      >
+        <MainContent
           data={data}
           setData={setData}
         />
-      }
-    >
-      <MainContent
-        data={data}
-        setData={setData}
-      />
+      </fieldset>
     </SplitLayout>
   );
 }

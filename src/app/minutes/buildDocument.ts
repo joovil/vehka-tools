@@ -43,7 +43,7 @@ export const buildMinutesDocument = (
         { type: "text", content: t("minutes.pdf.organization") },
         {
           type: "text",
-          content: `${t("minutes.pdf.minutesLabel")} ${minutesNumber ?? "_"}/${new Date().getFullYear()}`,
+          content: `${t("minutes.pdf.minutesLabel")} ${minutesNumber ?? "_"}/${(timeOfMeeting ?? new Date()).getFullYear()}`,
         },
       ],
     },

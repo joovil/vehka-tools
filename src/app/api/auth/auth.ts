@@ -42,6 +42,18 @@ export const getSession = async () => {
   return session;
 };
 
+// getSession throws when the token cookie is missing or invalid
+export const getSessionOrNull = async () => {
+  try {
+    return (await getSession()) ?? null;
+  } catch {
+    return null;
+  }
+};
+
+export const unauthorized = () =>
+  Response.json({ error: "Not authenticated" }, { status: 401 });
+
 export const decodeToken = (token: string): DecodedToken | undefined => {
   const secret = process.env.AUTH_SECRET;
   if (!secret) throw new Error("AUTH_SECRET MISSING");

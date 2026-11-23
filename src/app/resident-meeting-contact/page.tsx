@@ -1,5 +1,6 @@
 "use client";
 
+import { SavedDocument } from "@/types";
 import { SplitPage } from "../SplitView/SplitComponent";
 import ContactFormContent from "./MainContent/ContactFormMainContent";
 import ContactFormSidebar from "./Sidebar/ContactFormSidebar";
@@ -24,6 +25,7 @@ export interface ContactFormData {
   location?: string;
   chairman?: string;
   participants: Participant[];
+  saved?: SavedDocument;
 }
 
 const ContactFormPage = () => (

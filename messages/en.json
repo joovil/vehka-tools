@@ -9,6 +9,16 @@
   "download": "Download",
   "clear": "Clear",
   "unsavedItem": "Unsaved item",
+  "savedDocument": {
+    "info": "This document was saved on {date}. The saved version no longer changes.",
+    "download": "Download saved copy",
+    "new": "New document",
+    "error": "The saved document couldn't be downloaded. Are you logged in?"
+  },
+  "minutesNumber": {
+    "auto": "Automatic: {number}",
+    "hint": "The number is filled in automatically. Type one only if you want to change it."
+  },
   "language": {
     "label": "Document language",
     "bilingual": "Bilingual (FI/EN)",

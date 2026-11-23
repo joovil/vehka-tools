@@ -11,6 +11,7 @@ CREATE TABLE minutes(
   id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   filename text,
   blob_url text,
+  document_type text,
   number text,
   created date,
   committee_id integer REFERENCES committees(id)

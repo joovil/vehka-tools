@@ -8,6 +8,7 @@ import {
   addMinutes,
   getMinutes,
   getMinutesByCommittee,
+  getNextMinutesNumber,
 } from "../repos/minutesRepo";
 
 describe("Minutes Repository", () => {
@@ -101,13 +102,15 @@ describe("Minutes Repository", () => {
   });
 
   describe("addMinutes", () => {
-    it("should add minutes with correct number format for first entry of year", async () => {
+    it("should store the given number and document type", async () => {
       const currentYear = new Date().getFullYear();
 
       await addMinutes({
         filename: "first-minutes.pdf",
         blobUrl: "https://example.com/blob",
         committeeId,
+        documentType: "minutes",
+        number: `1/${currentYear}`,
       });
 
       const minutes = await getMinutes();
@@ -115,100 +118,21 @@ describe("Minutes Repository", () => {
       assert.strictEqual(minutes[0].filename, "first-minutes.pdf");
       assert.strictEqual(minutes[0].blobUrl, "https://example.com/blob");
       assert.strictEqual(minutes[0].committeeId, committeeId);
+      assert.strictEqual(minutes[0].documentType, "minutes");
       assert.strictEqual(minutes[0].number, `1/${currentYear}`);
-      assert.strictEqual(minutes[0].created instanceof Date, true);
     });
 
-    it("should increment number correctly for subsequent entries in same year", async () => {
-      const currentYear = new Date().getFullYear();
-
-      // Add first minutes
+    it("should store no number when none is given", async () => {
       await addMinutes({
-        filename: "first-minutes.pdf",
-        blobUrl: "https://example.com/blob1",
+        filename: "invite.pdf",
+        blobUrl: "https://example.com/blob",
         committeeId,
-      });
-
-      // Add second minutes
-      await addMinutes({
-        filename: "second-minutes.pdf",
-        blobUrl: "https://example.com/blob2",
-        committeeId,
+        documentType: "meeting-invite",
       });
 
       const minutes = await getMinutes();
-      assert.strictEqual(minutes.length, 2);
-
-      // Find the entries by filename since order might vary
-      const firstMinutes = minutes.find(
-        (m) => m.filename === "first-minutes.pdf",
-      );
-      const secondMinutes = minutes.find(
-        (m) => m.filename === "second-minutes.pdf",
-      );
-
-      assert.ok(firstMinutes);
-      assert.ok(secondMinutes);
-      assert.strictEqual(firstMinutes.number, `1/${currentYear}`);
-      assert.strictEqual(secondMinutes.number, `2/${currentYear}`);
-    });
-
-    it("should handle multiple committees separately", async () => {
-      const currentYear = new Date().getFullYear();
-
-      // Create second committee
-      const secondCommittee = await db
-        .insertInto("committees")
-        .values({
-          name: "Second Committee",
-          passwordHash: "SecondPassword",
-        })
-        .returning("id")
-        .executeTakeFirstOrThrow();
-
-      // Add minutes for first committee
-      await addMinutes({
-        filename: "committee1-minutes.pdf",
-        blobUrl: "https://example.com/blob1",
-        committeeId: committeeId,
-      });
-
-      // Add minutes for second committee
-      await addMinutes({
-        filename: "committee2-minutes.pdf",
-        blobUrl: "https://example.com/blob2",
-        committeeId: secondCommittee.id,
-      });
-
-      // Add another for first committee
-      await addMinutes({
-        filename: "committee1-minutes-2.pdf",
-        blobUrl: "https://example.com/blob3",
-        committeeId: committeeId,
-      });
-
-      const minutes = await getMinutes();
-      assert.strictEqual(minutes.length, 3);
-
-      const committee1Minutes = minutes.filter(
-        (m) => m.committeeId === committeeId,
-      );
-      const committee2Minutes = minutes.filter(
-        (m) => m.committeeId === secondCommittee.id,
-      );
-
-      assert.strictEqual(committee1Minutes.length, 2);
-      assert.strictEqual(committee2Minutes.length, 1);
-
-      // Check numbering is separate per committee
-      const committee1Numbers = committee1Minutes.map((m) => m.number).sort();
-      const committee2Numbers = committee2Minutes.map((m) => m.number);
-
-      assert.deepStrictEqual(committee1Numbers, [
-        `1/${currentYear}`,
-        `2/${currentYear}`,
-      ]);
-      assert.deepStrictEqual(committee2Numbers, [`1/${currentYear}`]);
+      assert.strictEqual(minutes.length, 1);
+      assert.strictEqual(minutes[0].number, null);
     });
 
     it("should create minutes with current date", async () => {
@@ -240,10 +164,7 @@ describe("Minutes Repository", () => {
       );
     });
 
-    it("should handle transaction rollback on error", async () => {
-      // This test ensures that if something fails during the transaction,
-      // no partial data is left in the database
-
+    it("should not add minutes for an invalid committee", async () => {
       let errorThrown = false;
       try {
         // Try to add minutes with invalid committee ID
@@ -273,6 +194,94 @@ describe("Minutes Repository", () => {
       // Verify no minutes were added
       const minutes = await getMinutes();
       assert.strictEqual(minutes.length, 0);
+    });
+  });
+
+  describe("getNextMinutesNumber", () => {
+    const year = new Date().getFullYear();
+    let blob = 0;
+    const save = (
+      documentType: "minutes" | "resident-meeting-minutes" | "accounting",
+      number?: string,
+      committee = committeeId,
+    ) =>
+      addMinutes({
+        filename: `doc-${blob}.pdf`,
+        blobUrl: `https://example.com/blob${blob++}`,
+        committeeId: committee,
+        documentType,
+        number,
+      });
+
+    it("should start at 1 when nothing is saved", async () => {
+      assert.strictEqual(
+        await getNextMinutesNumber(committeeId, "minutes", year),
+        1,
+      );
+    });
+
+    it("should continue from the highest saved number", async () => {
+      await save("minutes", `1/${year}`);
+      await save("minutes", `4/${year}`);
+      assert.strictEqual(
+        await getNextMinutesNumber(committeeId, "minutes", year),
+        5,
+      );
+    });
+
+    it("should not advance when the same number is saved again", async () => {
+      await save("minutes", `2/${year}`);
+      await save("minutes", `2/${year}`);
+      assert.strictEqual(
+        await getNextMinutesNumber(committeeId, "minutes", year),
+        3,
+      );
+    });
+
+    it("should keep a separate sequence per document type", async () => {
+      await save("minutes", `3/${year}`);
+      await save("resident-meeting-minutes", `1/${year}`);
+      await save("accounting");
+      await save("accounting");
+
+      assert.strictEqual(
+        await getNextMinutesNumber(committeeId, "minutes", year),
+        4,
+      );
+      assert.strictEqual(
+        await getNextMinutesNumber(
+          committeeId,
+          "resident-meeting-minutes",
+          year,
+        ),
+        2,
+      );
+    });
+
+    it("should only count the given year", async () => {
+      await save("minutes", `9/${year - 1}`);
+      assert.strictEqual(
+        await getNextMinutesNumber(committeeId, "minutes", year),
+        1,
+      );
+      assert.strictEqual(
+        await getNextMinutesNumber(committeeId, "minutes", year - 1),
+        10,
+      );
+    });
+
+    it("should only count the given committee", async () => {
+      const other = await db
+        .insertInto("committees")
+        .values({ name: "Other Committee", passwordHash: "OtherPassword" })
+        .returning("id")
+        .executeTakeFirstOrThrow();
+
+      await save("minutes", `5/${year}`, other.id);
+      assert.strictEqual(
+        await getNextMinutesNumber(committeeId, "minutes", year),
+        1,
+      );
     });
   });
 });

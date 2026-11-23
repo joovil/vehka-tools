@@ -28,12 +28,14 @@ const MeetingInviteSidebar = ({
     const filename = `${t("meetingInvite.pdfFilename")}-${new Date().toLocaleDateString("fi-FI")}`;
     const document = buildInviteDocument(inviteData, t);
 
-    await handlePdfDownload({
+    const saved = await handlePdfDownload({
       filename,
       documentType: "meeting-invite",
       pdfElement: <MeetingInvitePdf document={document} />,
       confirmModalControls,
     });
+
+    if (saved) setInviteData((prev) => ({ ...prev, saved }));
   };
 
   const dataValid = () => {
