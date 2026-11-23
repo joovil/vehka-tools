@@ -2,7 +2,7 @@
 
 import { FinEng } from "@/types";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import SidebarInput from "./SidebarInput";
 interface Props<T> {
   fieldKey: keyof T;
@@ -24,10 +24,17 @@ const MultiLanguageListInput = <T,>({
   const t = useTranslations();
 
   const [newItem, setNewItem] = useState<FinEng>({ fin: "", eng: "" });
+  const finRef = useRef<HTMLInputElement>(null);
+  const engRef = useRef<HTMLInputElement>(null);
 
   const handleClick = () => {
-    if (!newItem.eng || !newItem.fin) {
-      console.log("Values required");
+    if (!newItem.fin) {
+      finRef.current?.focus();
+      return;
+    }
+
+    if (!newItem.eng) {
+      engRef.current?.focus();
       return;
     }
 
@@ -37,6 +44,19 @@ const MultiLanguageListInput = <T,>({
     });
 
     setNewItem({ fin: "", eng: "" });
+    finRef.current?.focus();
+  };
+
+  const handleFinEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      engRef.current?.focus();
+    }
+  };
+
+  const handleEngEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleClick();
+    }
   };
 
   return (
@@ -51,6 +71,8 @@ const MultiLanguageListInput = <T,>({
         fieldKey={"fin"}
         value={newItem.fin}
         setData={setNewItem}
+        inputRef={finRef}
+        onKeyDown={handleFinEnter}
         hasError={hasError}
         errorMessage={errorMessage}
       />
@@ -60,6 +82,8 @@ const MultiLanguageListInput = <T,>({
         fieldKey={"eng"}
         value={newItem.eng}
         setData={setNewItem}
+        inputRef={engRef}
+        onKeyDown={handleEngEnter}
         hasError={hasError}
         errorMessage={errorMessage}
       />

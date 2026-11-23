@@ -10,6 +10,8 @@ interface Props<T> {
   children?: React.ReactNode;
   value?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  inputRef?: React.Ref<HTMLInputElement>;
   required?: boolean;
   errorMessage?: string;
   hasError?: boolean;
@@ -24,6 +26,8 @@ const SidebarInputComponent = <T,>({
   children,
   value,
   onChange,
+  onKeyDown,
+  inputRef,
   required,
   errorMessage,
   hasError,
@@ -45,6 +49,8 @@ const SidebarInputComponent = <T,>({
           type={type}
           placeholder={placeholder}
           onChange={onChange}
+          onKeyDown={onKeyDown}
+          ref={inputRef}
           value={value}
           required={required}
           onMouseEnter={() => setIsHovered(true)}
