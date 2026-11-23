@@ -14,6 +14,8 @@ interface Props<T> {
   header?: string;
   hasError?: boolean;
   errorMessage?: string;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  inputRef?: React.Ref<HTMLInputElement>;
 }
 
 const SidebarInput = <T,>({
@@ -27,6 +29,8 @@ const SidebarInput = <T,>({
   header,
   hasError,
   errorMessage,
+  onKeyDown,
+  inputRef,
 }: Props<T>) => {
   const derivedValue =
     value ?? (data && fieldKey ? String(data[fieldKey] ?? "") : undefined);
@@ -50,6 +54,8 @@ const SidebarInput = <T,>({
       header={header}
       hasError={hasError}
       errorMessage={errorMessage}
+      onKeyDown={onKeyDown}
+      inputRef={inputRef}
     />
   );
 };
