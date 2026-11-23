@@ -1,5 +1,6 @@
 "use client";
 
+import { SavedDocument } from "@/types";
 import { SplitPage } from "../SplitView/SplitComponent";
 import KeyFormContent from "./MainContent/KeyFormMainContent";
 import KeyFormSidebar from "./Sidebar/KeyFormSidebar";
@@ -18,6 +19,7 @@ export interface KeyFormData {
     dateBorrowed: string;
     dateReturned: string;
   }>;
+  saved?: SavedDocument;
 }
 
 const KeyFormPage = () => (

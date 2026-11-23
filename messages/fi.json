@@ -9,6 +9,16 @@
   "download": "Lataa",
   "clear": "Tyhjennä",
   "unsavedItem": "Tallentamaton kohde",
+  "savedDocument": {
+    "info": "Tämä asiakirja tallennettiin {date}. Tallennettu versio ei enää muutu.",
+    "download": "Lataa tallennettu",
+    "new": "Uusi asiakirja",
+    "error": "Tallennettua asiakirjaa ei voitu ladata. Oletko kirjautunut sisään?"
+  },
+  "minutesNumber": {
+    "auto": "Automaattinen: {number}",
+    "hint": "Numero tulee automaattisesti. Kirjoita numero vain, jos haluat muuttaa sitä."
+  },
   "language": {
     "label": "Asiakirjan kieli",
     "bilingual": "Kaksikielinen (FI/EN)",

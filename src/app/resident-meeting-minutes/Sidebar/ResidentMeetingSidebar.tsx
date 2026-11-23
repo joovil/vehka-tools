@@ -10,6 +10,10 @@ import SidebarInputComponent from "@/app/components/inputs/SidebarInputComponent
 import SidebarListInput from "@/app/components/inputs/SidebarListInput";
 import useConfirmModal from "@/app/components/useConfirmModal";
 import { handlePdfDownload } from "@/app/utils/handlePdfDownload";
+import {
+  resolveMinutesNumber,
+  useSuggestedMinutesNumber,
+} from "@/app/components/useSuggestedMinutesNumber";
 import { Examiners, Signatures } from "@/types";
 import { useTranslations } from "next-intl";
 import { buildResidentMeetingDocument } from "../buildDocument";
@@ -28,15 +32,32 @@ const ResidentMeetingSidebar = ({ data, setData }: ResidentMeetingProps) => {
   const t = useTranslations();
   const { ConfirmModal, confirmModalControls } = useConfirmModal();
 
+  const year = (data.date ?? new Date()).getFullYear();
+  useSuggestedMinutesNumber(
+    "resident-meeting-minutes",
+    year,
+    data.saved !== undefined,
+    setData,
+  );
+  const number = resolveMinutesNumber(data.minutesNumber, data.suggestedNumber);
+
   const handlePdfDownloadClick = async () => {
     const filename = `${t("residentMeeting.pdfFilename")}-${new Date().toLocaleDateString("fi-FI")}`;
-    const document = buildResidentMeetingDocument(data, t);
-    await handlePdfDownload({
+    const document = buildResidentMeetingDocument(
+      { ...data, minutesNumber: number },
+      t,
+    );
+    const saved = await handlePdfDownload({
       filename,
       documentType: "resident-meeting-minutes",
+      number: number ? `${number}/${year}` : undefined,
       pdfElement: <SimplePdf document={document} />,
       confirmModalControls,
     });
+
+    if (saved) {
+      setData((prev) => ({ ...prev, minutesNumber: number, saved }));
+    }
   };
 
   return (
@@ -54,9 +75,18 @@ const ResidentMeetingSidebar = ({ data, setData }: ResidentMeetingProps) => {
           data={data}
           setData={setData}
           label={t("residentMeeting.labels.minutesNumber")}
-          placeholder={t("residentMeeting.placeholders.minutesNumber")}
+          placeholder={
+            number
+              ? t("minutesNumber.auto", { number })
+              : t("residentMeeting.placeholders.minutesNumber")
+          }
           type="number"
         />
+        {data.suggestedNumber !== undefined && (
+          <p className="text-sm text-gray-400 italic">
+            {t("minutesNumber.hint")}
+          </p>
+        )}
         <DatetimeInput
           label={t("residentMeeting.labels.date")}
           placeholder={t("residentMeeting.placeholders.date")}

@@ -1,5 +1,6 @@
 "use client";
 
+import { SavedDocument } from "@/types";
 import { SplitPage } from "../SplitView/SplitComponent";
 import AccountingContent from "./MainContent/AccountingMainContent";
 import AccountingSidebar from "./Sidebar/AccountingSidebar";
@@ -27,6 +28,7 @@ export interface AccountingData {
   expenses: AccountingExpense[];
   date?: string;
   signatures: { recipient: string; committeeMember: string };
+  saved?: SavedDocument;
 }
 
 const AccountingPage = () => (

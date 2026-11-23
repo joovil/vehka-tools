@@ -17,7 +17,8 @@ export interface MinutesTable {
   committeeId: number;
   filename: string;
   blobUrl: string;
-  number: string;
+  documentType: string | null;
+  number: string | null;
   created: Date;
 }
 

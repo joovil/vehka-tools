@@ -45,7 +45,7 @@ const ContactFormSidebar = ({ data, setData }: ContactFormProps) => {
   const handlePdfDownloadClick = async () => {
     const filename = `${t("contactForm.pdfFilename")}-${new Date().toLocaleDateString("fi-FI")}`;
     const document = buildContactFormDocument(data, t);
-    await handlePdfDownload({
+    const saved = await handlePdfDownload({
       filename,
       documentType: "resident-meeting-contact",
       pdfElement: (
@@ -56,6 +56,8 @@ const ContactFormSidebar = ({ data, setData }: ContactFormProps) => {
       ),
       confirmModalControls,
     });
+
+    if (saved) setData((prev) => ({ ...prev, saved }));
   };
 
   return (

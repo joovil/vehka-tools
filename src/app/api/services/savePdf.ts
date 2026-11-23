@@ -1,11 +1,18 @@
 import { apiFetch } from "@/app/utils/apiFetch";
 import { DocumentType } from "@/types";
 
+interface SavePdfResponse {
+  message: string;
+  blobUrl: string;
+  pathname: string;
+}
+
 export const savePdf = async (
   filename: string,
   blob: Blob,
   documentType: DocumentType,
-) => {
+  number?: string,
+): Promise<SavePdfResponse | undefined> => {
   try {
     if (process.env.NEXT_PUBLIC_SAVE_PDF === "false") return;
 
@@ -14,6 +21,7 @@ export const savePdf = async (
     formData.append("filename", filename);
     formData.append("blob", blob);
     formData.append("documentType", documentType);
+    if (number) formData.append("number", number);
 
     const res = await apiFetch("/minutes", {
       method: "POST",

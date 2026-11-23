@@ -8,6 +8,10 @@ import SidebarInput from "@/app/components/inputs/SidebarInput";
 import SidebarListInput from "@/app/components/inputs/SidebarListInput";
 import useConfirmModal from "@/app/components/useConfirmModal";
 import { handlePdfDownload } from "@/app/utils/handlePdfDownload";
+import {
+  resolveMinutesNumber,
+  useSuggestedMinutesNumber,
+} from "@/app/components/useSuggestedMinutesNumber";
 import { useTranslations } from "next-intl";
 import DatetimeInput from "../../components/inputs/DatetimeInput";
 import { buildMinutesDocument } from "../buildDocument";
@@ -29,18 +33,38 @@ const MinutesSidebar = ({
     // This validates the input data and scrolls to errors
     useFormValidation(minutesData);
 
+  const year = (minutesData.timeOfMeeting ?? new Date()).getFullYear();
+  useSuggestedMinutesNumber(
+    "minutes",
+    year,
+    minutesData.saved !== undefined,
+    setMinutesData,
+  );
+  const number = resolveMinutesNumber(
+    minutesData.minutesNumber,
+    minutesData.suggestedNumber,
+  );
+
   const handlePdfDownloadClick = async () => {
     if (!formDataValid) return;
 
     const filename = `${t("minutes.pdfFilename")}-${new Date().toLocaleDateString("fi-FI")}`;
-    const document = buildMinutesDocument(minutesData, t);
+    const document = buildMinutesDocument(
+      { ...minutesData, minutesNumber: number },
+      t,
+    );
 
-    await handlePdfDownload({
+    const saved = await handlePdfDownload({
       filename,
       documentType: "minutes",
+      number: number ? `${number}/${year}` : undefined,
       pdfElement: <MinutesPdf document={document} />,
       confirmModalControls,
     });
+
+    if (saved) {
+      setMinutesData((prev) => ({ ...prev, minutesNumber: number, saved }));
+    }
   };
 
   return (
@@ -60,9 +84,18 @@ const MinutesSidebar = ({
             data={minutesData}
             setData={setMinutesData}
             label={t("minutes.labels.minutesNumber")}
-            placeholder={t("minutes.placeholders.minutesNumber")}
+            placeholder={
+              number
+                ? t("minutesNumber.auto", { number })
+                : t("minutes.placeholders.minutesNumber")
+            }
             type="number"
           />
+          {minutesData.suggestedNumber !== undefined && (
+            <p className="text-sm text-gray-400 italic">
+              {t("minutesNumber.hint")}
+            </p>
+          )}
 
           <MultiLanguageInput
             placeholder={t("minutes.placeholders.location")}

@@ -4,19 +4,7 @@ import {
 } from "@/server/db/repos/minutesRepo";
 import { uploadFile } from "@/server/utils/uploadFile";
 import { isDocumentType } from "@/types";
-import { getSession } from "../auth/auth";
-
-// getSession throws when the token cookie is missing or invalid
-const getSessionOrNull = async () => {
-  try {
-    return (await getSession()) ?? null;
-  } catch {
-    return null;
-  }
-};
-
-const unauthorized = () =>
-  Response.json({ error: "Not authenticated" }, { status: 401 });
+import { getSessionOrNull, unauthorized } from "../auth/auth";
 
 export const GET = async () => {
   try {
@@ -44,6 +32,7 @@ export const POST = async (req: Request) => {
     const blob = formData.get("blob");
     const filename = formData.get("filename");
     const documentType = formData.get("documentType");
+    const number = formData.get("number");
 
     if (!(blob instanceof File)) {
       return Response.json(
@@ -77,6 +66,13 @@ export const POST = async (req: Request) => {
       return Response.json({ error: "Invalid document type" }, { status: 400 });
     }
 
+    if (
+      number !== null &&
+      !(typeof number === "string" && /^\d+\/\d{4}$/.test(number))
+    ) {
+      return Response.json({ error: "Invalid number" }, { status: 400 });
+    }
+
     const filenameWithPath = `${session.committeeName}/${documentType}/${filename}`;
     const uploaded = await uploadFile(filenameWithPath, blob);
 
@@ -84,6 +80,8 @@ export const POST = async (req: Request) => {
       filename,
       blobUrl: uploaded.url,
       committeeId: Number(session.id),
+      documentType,
+      number: number ?? undefined,
     });
 
     return Response.json({

@@ -1,6 +1,7 @@
 "use client";
 
 import { HtmlDocumentRenderer } from "@/app/components/document/HtmlRenderer";
+import { resolveMinutesNumber } from "@/app/components/useSuggestedMinutesNumber";
 import { useTranslations } from "next-intl";
 import { buildMinutesDocument } from "../buildDocument";
 import { MinutesData, MinutesProps } from "../page";
@@ -10,7 +11,14 @@ const MinutesContent = ({
   setData: setMinutesData,
 }: MinutesProps) => {
   const t = useTranslations();
-  const document = buildMinutesDocument(minutesData, t);
+  const number = resolveMinutesNumber(
+    minutesData.minutesNumber,
+    minutesData.suggestedNumber,
+  );
+  const document = buildMinutesDocument(
+    { ...minutesData, minutesNumber: number },
+    t,
+  );
 
   return (
     <HtmlDocumentRenderer<MinutesData>

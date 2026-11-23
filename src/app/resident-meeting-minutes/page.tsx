@@ -1,6 +1,6 @@
 "use client";
 
-import { Examiners, FinEng, Signatures } from "@/types";
+import { Examiners, FinEng, SavedDocument, Signatures } from "@/types";
 import { DocumentLanguage } from "../components/document/types";
 import { SplitPage } from "../SplitView/SplitComponent";
 import ResidentMeetingContent from "./MainContent/ResidentMeetingMainContent";
@@ -14,6 +14,7 @@ export interface ResidentMeetingProps {
 // Follows HOAS's start-of-year resident meeting minutes template.
 export interface ResidentMeetingData {
   minutesNumber?: number;
+  suggestedNumber?: number;
   date?: Date;
   location?: FinEng;
   attendants: string[];
@@ -32,6 +33,7 @@ export interface ResidentMeetingData {
   endTime?: Date;
   signatures: Signatures;
   language?: DocumentLanguage;
+  saved?: SavedDocument;
 }
 
 const ResidentMeetingPage = () => (

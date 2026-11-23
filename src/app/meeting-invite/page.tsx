@@ -1,6 +1,6 @@
 "use client";
 
-import { FinEng } from "@/types";
+import { FinEng, SavedDocument } from "@/types";
 import { SplitPage } from "../SplitView/SplitComponent";
 import { DocumentLanguage } from "../components/document/types";
 import MeetingInviteContent from "./MainContent/MeetingInviteMainContent";
@@ -17,6 +17,7 @@ export interface MeetingInviteData {
   agendaItems: FinEng[];
   moreInfo?: FinEng;
   language?: DocumentLanguage;
+  saved?: SavedDocument;
 }
 
 const MeetingInvitePage = () => {

@@ -40,12 +40,14 @@ const KeyFormSidebar = ({ data, setData }: KeyFormProps) => {
   const handlePdfDownloadClick = async () => {
     const filename = `${t("keyForm.pdfFilename")}-${new Date().toLocaleDateString("fi-FI")}`;
     const document = buildKeyFormDocument(data, t);
-    await handlePdfDownload({
+    const saved = await handlePdfDownload({
       filename,
       documentType: "key-form",
       pdfElement: <SimplePdf document={document} />,
       confirmModalControls,
     });
+
+    if (saved) setData((prev) => ({ ...prev, saved }));
   };
 
   return (

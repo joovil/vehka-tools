@@ -17,3 +17,10 @@ export type DocumentType = (typeof DOCUMENT_TYPES)[number]["type"];
 
 export const isDocumentType = (value: unknown): value is DocumentType =>
   DOCUMENT_TYPES.some((d) => d.type === value);
+
+// Set on a form's first save; the form is then locked to the stored copy
+export interface SavedDocument {
+  pathname: string;
+  filename: string;
+  savedAt: Date;
+}

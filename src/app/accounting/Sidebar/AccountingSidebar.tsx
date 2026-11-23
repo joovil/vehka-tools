@@ -35,12 +35,14 @@ const AccountingSidebar = ({ data, setData }: AccountingProps) => {
   const handlePdfDownloadClick = async () => {
     const filename = `${t("accounting.pdfFilename")}-${new Date().toLocaleDateString("fi-FI")}`;
     const document = buildAccountingDocument(data, t);
-    await handlePdfDownload({
+    const saved = await handlePdfDownload({
       filename,
       documentType: "accounting",
       pdfElement: <SimplePdf document={document} />,
       confirmModalControls,
     });
+
+    if (saved) setData((prev) => ({ ...prev, saved }));
   };
 
   return (
