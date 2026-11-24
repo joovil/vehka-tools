@@ -27,3 +27,11 @@ curl -X POST https://vehkatools.joovil.dev/api/committees \
 
 `Dockerfile.prod` and `output: "standalone"` are still there for self-hosting; the
 standalone output is disabled automatically when building on Vercel.
+
+## AI usage
+
+- `sql/migrations/001_minutes_document_type.sql` was created with Claude Code
+- Dependency updates for Dependabot alerts were done with Claude Code
+- Styling was improved with AI
+- Some of the document pages were created with the help of AI
+- Models used: Claude Opus 5.5 and Claude Sonnet 5.5
