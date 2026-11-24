@@ -13,16 +13,16 @@
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
-    "@next/eslint-plugin-next": "16.1.6",
+    "@next/eslint-plugin-next": "16.4.6",
     "@react-pdf/renderer": "^4.3.2",
-    "@vercel/blob": "^2.8.0",
+    "@vercel/blob": "^2.9.0",
     "bcryptjs": "^3.0.3",
     "jsonwebtoken": "^9.0.3",
-    "kysely": "^0.28.11",
+    "kysely": "^0.28.20",
     "lucide-react": "^1.51.0",
     "motion": "^12.35.0",
-    "next": "16.1.6",
-    "next-intl": "^4.8.3",
+    "next": "16.4.6",
+    "next-intl": "^4.16.0",
     "pg": "^8.20.0",
     "react": "19.2.4",
     "react-datepicker": "^8.10.0",
@@ -31,7 +31,7 @@
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
-    "@next/env": "16.1.6",
+    "@next/env": "16.4.6",
     "@tailwindcss/postcss": "^4.2.1",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^20.19.37",
@@ -39,16 +39,21 @@
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "eslint": "^9.39.4",
-    "eslint-config-next": "16.1.6",
+    "eslint-config-next": "16.4.6",
     "prettier": "^3.8.1",
     "prettier-plugin-tailwindcss": "^0.6.14",
     "tailwindcss": "^4.2.1",
-    "tsx": "^4.21.0",
+    "tsx": "^4.23.15",
     "typescript": "^5.9.3"
   },
   "packageManager": "pnpm@9.15.0+sha512.76e2379760a4328ec4415815bcd6628dee727af3779aaa4c914e3944156c4299921a89f976381ee107d41f12cfa4b66681ca9c718f0668fa0831ed4c6d8ba56c",
   "overrides": {
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3"
+  },
+  "pnpm": {
+    "overrides": {
+      "@vercel/cli-config>zod": "^4.6.6"
+    }
   }
 }
